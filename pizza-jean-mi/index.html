@@ -79,11 +79,71 @@ section#services,section#prestations,section#maison,section#faq{background:var(-
 </head>
 <body>
 <header class="site"><div class="wrap"><div class="brand-mark">Pizza Jean-mi</div><nav><button class="menu-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button><a class="link" href="#carte">La carte</a><a class="link" href="#maison">La maison</a><a class="link" href="#infos">Nous trouver</a><a class="btn btn-primary" href="#infos">Nous appeler</a></nav></div></header>
-<section class="hero-plein"><div class="bg"></div><div class="wrap"><span class="eyebrow">Pizzeria (boutiques + Camions Itinérants)</span><h1>Des pizzas au feu de bois, près de chez vous depuis près de 20 ans.</h1><p class="lede">Pizza Jean-mi prépare des pizzas au feu de bois avec des ingrédients naturels depuis près de 20 ans, entre boutiques fixes et camions itinérants desservant une quinzaine de communes autour de Dieppe.</p><div class="actions"><a class="btn btn-primary" href="#carte">Voir la carte</a><a class="btn btn-ghost" href="tel:06 09 57 77 06" style="color:#fff;border-color:rgba(255,255,255,.4)">06 09 57 77 06</a></div><div class="hours"><span><b>Horaires</b> Jours de tournée variables selon le secteur — à afficher clairement sur le nouveau site</span></div></div></section>
+<section class="hero-plein"><div class="bg"></div><div class="wrap"><span class="eyebrow">Pizzeria (boutiques + Camions Itinérants)</span><h1>Des pizzas au feu de bois, près de chez vous depuis près de 20 ans.</h1><p class="lede">Pizza Jean-mi prépare des pizzas au feu de bois avec des ingrédients naturels depuis près de 20 ans, entre boutiques fixes et camions itinérants desservant une quinzaine de communes autour de Dieppe.</p><div class="actions"><a class="btn btn-primary" href="#carte">Voir la carte</a><a class="btn btn-ghost" href="#commander" style="margin-left:.5rem">Commander</a><a class="btn btn-ghost" href="tel:06 09 57 77 06" style="color:#fff;border-color:rgba(255,255,255,.4)">06 09 57 77 06</a></div><div class="hours"><span><b>Horaires</b> Jours de tournée variables selon le secteur — à afficher clairement sur le nouveau site</span></div></div></section>
 <section class="block" id="carte"><div class="wrap"><div class="section-head centre reveal"><span class="eyebrow">La carte</span><h2>Ce qu'on sert</h2><p>Ce que propose la maison.</p></div><div class="mcats reveal"><div class="mcat"><h3>La carte</h3><div class="dish"><span class="dn">Une trentaine de pizzas au feu de bois</span><span class="dl"></span><span class="dp"></span><span class="dd">Dont la Reine, la Savoyarde et la 4 Fromages, préparées avec des ingrédients naturels.</span></div><div class="dish"><span class="dn">3 boutiques fixes</span><span class="dl"></span><span class="dp"></span><span class="dd">La Boutique à Saint-Nicolas-d'Aliermont, La Relève à Saint-Martin-en-Campagne, La Varenne à Arques-la-Bataille.</span></div><div class="dish"><span class="dn">2 camions itinérants</span><span class="dl"></span><span class="dp"></span><span class="dd">Pizza Jean Mi 1 (secteur Envermeu) et Pizza Two (secteur Douvrend), une quinzaine de communes desservies au total.</span></div></div></div></div></section>
 <section class="block" id="maison"><div class="wrap maison reveal"><div class="mframe"></div><div><span class="eyebrow">La maison</span><h2>Notre histoire</h2><p>Une affaire familiale installée depuis près de 20 ans autour de Dieppe, entre boutiques et tournées en camion.</p><p>Cuisson au feu de bois, ingrédients naturels, un maillage local rare avec 5 points de vente/tournées.</p></div></div></section>
 <section class="block infos" id="infos"><div class="wrap"><div class="section-head centre reveal"><span class="eyebrow">Nous trouver</span><h2>225 Rue Edouard Cannevel, 76510 Saint-Nicolas-d'Aliermont (boutique principale)</h2></div><div class="infos-grid reveal"><div><h3>Contact</h3><p><a href="tel:06 09 57 77 06" style="color:var(--brand-ink)">06 09 57 77 06</a></p></div><div><h3>Horaires</h3><p>Jours de tournée variables selon le secteur — à afficher clairement sur le nouveau site</p></div><div class="infos-map">Plan d'accès</div></div></div></section>
-<section class="ctab"><div class="wrap"><div class="reveal"><h2>On vous garde une table ?</h2><p>Pour connaître les horaires de passage du camion le plus proche de chez vous.</p></div><a class="btn btn-primary reveal" href="#infos">Nous appeler</a></div></section>
+
+<section class="block" id="commander" style="background:var(--surface-2, var(--ground))">
+  <div class="wrap">
+    <div class="section-head centre reveal">
+      <span class="eyebrow">Commander en ligne — aperçu</span>
+      <h2>Choisissez votre point de vente</h2>
+      <p>Démonstration : maquette de ce que pourrait être la commande en ligne, avec sélection
+      du point de vente le plus proche avant de composer sa commande.</p>
+    </div>
+    <div class="reveal" style="max-width:560px;margin:0 auto 2rem">
+      <label for="pjm-pdv" style="display:block;font-weight:600;margin-bottom:.4rem">Point de vente</label>
+      <select id="pjm-pdv" style="width:100%;padding:.7rem .9rem;border:1px solid var(--line);border-radius:var(--radius);font-size:1rem;background:var(--surface);color:var(--ink)">
+        <option value="0">La Boutique — Saint-Nicolas-d'Aliermont</option><option value="1">La Relève — Saint-Martin-en-Campagne</option><option value="2">La Varenne — Arques-la-Bataille</option><option value="3">Pizza Jean Mi 1 (camion) — secteur Envermeu</option><option value="4">Pizza Two (camion) — secteur Douvrend</option>
+      </select>
+      <p id="pjm-pdv-detail" style="color:var(--ink-soft);font-size:.9rem;margin-top:.5rem">225 Rue Edouard Cannevel</p>
+    </div>
+    <div class="reveal" style="max-width:560px;margin:0 auto">
+      
+      <div class="dish" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:.75rem;background:var(--surface)">
+        <div>
+          <span class="dn" style="font-weight:600">Reine</span><br>
+          <span class="dd" style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+        </div>
+        <button type="button" class="btn btn-primary pjm-add" style="white-space:nowrap">Ajouter</button>
+      </div>
+      <div class="dish" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:.75rem;background:var(--surface)">
+        <div>
+          <span class="dn" style="font-weight:600">Savoyarde</span><br>
+          <span class="dd" style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+        </div>
+        <button type="button" class="btn btn-primary pjm-add" style="white-space:nowrap">Ajouter</button>
+      </div>
+      <div class="dish" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:.75rem;background:var(--surface)">
+        <div>
+          <span class="dn" style="font-weight:600">4 Fromages</span><br>
+          <span class="dd" style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+        </div>
+        <button type="button" class="btn btn-primary pjm-add" style="white-space:nowrap">Ajouter</button>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:1.5rem;color:var(--ink-soft);font-size:.85rem">
+      Maquette de démonstration — commande non fonctionnelle, tarifs à titre indicatif.
+    </p>
+  </div>
+</section>
+<script>
+(function(){
+  var pdv = [{"nom":"La Boutique — Saint-Nicolas-d'Aliermont","detail":"225 Rue Edouard Cannevel"},{"nom":"La Relève — Saint-Martin-en-Campagne","detail":"Rue des Ligueurs"},{"nom":"La Varenne — Arques-la-Bataille","detail":"5 rue de la Chaussée"},{"nom":"Pizza Jean Mi 1 (camion) — secteur Envermeu","detail":"Envermeu, Berneval, Grèges…"},{"nom":"Pizza Two (camion) — secteur Douvrend","detail":"Douvrend, Mesnières-en-Bray…"}];
+  var sel = document.getElementById('pjm-pdv');
+  var detail = document.getElementById('pjm-pdv-detail');
+  if (sel) sel.addEventListener('change', function(){ detail.textContent = pdv[sel.value].detail; });
+  document.querySelectorAll('.pjm-add').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var original = btn.textContent;
+      btn.textContent = 'Ajouté ✓';
+      setTimeout(function(){ btn.textContent = original; }, 1400);
+    });
+  });
+})();
+</script>
+<section class="ctab"><div class="wrap"><div class="reveal"><h2>Envie d'une pizza ce soir ?</h2><p>Commandez en ligne et retirez au point de vente le plus proche de chez vous.</p></div><a class="btn btn-primary reveal" href="#infos">Nous appeler</a></div></section>
 <footer class="site"><div class="wrap"><div><h4>Pizza Jean-mi</h4><p>Des pizzas au feu de bois, près de chez vous depuis près de 20 ans.</p><p>225 Rue Edouard Cannevel, 76510 Saint-Nicolas-d'Aliermont (boutique principale)</p></div><div><h4>Contact</h4><p><a href="tel:06 09 57 77 06">06 09 57 77 06</a></p></div><div><h4>Horaires</h4><p>Jours de tournée variables selon le secteur — à afficher clairement sur le nouveau site</p></div><div class="legal"><span>&copy; 2026 Pizza Jean-mi</span><span>Site réalisé avec Le Binôme Numérique</span></div></div></footer>
 
 <script>(function(){var h=document.querySelector("header.site");if(h){var s=function(){h.classList.toggle("scrolled",window.scrollY>8)};s();window.addEventListener("scroll",s,{passive:true})}var t=document.querySelector(".menu-toggle"),n=document.querySelector("header nav");if(t&&n){t.addEventListener("click",function(){var o=n.classList.toggle("open");t.setAttribute("aria-expanded",o?"true":"false")});n.addEventListener("click",function(e){if(e.target.tagName==="A")n.classList.remove("open")})}var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(el){io.observe(el)});document.addEventListener("click",function(e){var x=e.target;if(x.classList&&x.classList.contains("shop-tab")){x.parentElement.querySelectorAll(".shop-tab").forEach(function(b){b.setAttribute("aria-pressed","false")});x.setAttribute("aria-pressed","true");var cat=x.dataset.cat;document.querySelectorAll(".prod").forEach(function(p){p.style.display=(!cat||cat==="*"||p.dataset.cat===cat)?"":"none"})}});})();</script>
