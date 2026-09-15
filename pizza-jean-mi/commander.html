@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizza Jean-mi — Pizzas au feu de bois à emporter</title>
-<meta name="description" content="Des pizzas au feu de bois, près de chez vous depuis près de 20 ans.">
+<title>Commander en ligne — Pizza Jean-mi</title>
+<meta name="description" content="Choisissez votre point de vente et composez votre commande de pizzas au feu de bois.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
 <style>.page-header{--hero:url('https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkfv3U9-_DOntacfwTy6rm7XW4cR4NTOcWaF2SAbSenEIA7mYgMS1QQzn-iQuBKgxlGCugkrd9z4PixLPbevSPFSi2cCE5YqsP87xGZmhIG-vUhZ7jbnxYNgGQjaJ0lDGYphDWovx2F3wMy=w1200-h900-k-no')}:root{--img-apropos:url('https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkfv3U9-_DOntacfwTy6rm7XW4cR4NTOcWaF2SAbSenEIA7mYgMS1QQzn-iQuBKgxlGCugkrd9z4PixLPbevSPFSi2cCE5YqsP87xGZmhIG-vUhZ7jbnxYNgGQjaJ0lDGYphDWovx2F3wMy=w1200-h900-k-no');--img-services:url('https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkfv3U9-_DOntacfwTy6rm7XW4cR4NTOcWaF2SAbSenEIA7mYgMS1QQzn-iQuBKgxlGCugkrd9z4PixLPbevSPFSi2cCE5YqsP87xGZmhIG-vUhZ7jbnxYNgGQjaJ0lDGYphDWovx2F3wMy=w1200-h900-k-no')}</style>
@@ -92,38 +92,80 @@ section#services,section#prestations,section#maison,section#faq{background:var(-
   <div class="wrap">
     <a class="brand-mark" href="index.html"><img src="assets/logo-pizza-jean-mi.webp" alt="Pizza Jean-mi" class="logo-img">Pizza Jean-mi</a>
     <nav>
-      <a class="link actif" href="index.html">Accueil</a>
-<a class="link" href="commander.html">Commander en ligne</a>
+      <a class="link" href="index.html">Accueil</a>
+<a class="link actif" href="commander.html">Commander en ligne</a>
 <a class="link" href="apropos.html">La maison</a>
 <a class="link" href="contact.html">Points de vente & contact</a>
       <a class="btn btn-primary" href="tel:0609577706">06 09 57 77 06</a>
     </nav>
   </div>
 </header>
-<section class="hero-plein">
-  <div class="bg"></div>
+
+<div class="page-header">
   <div class="wrap">
-    <span class="eyebrow">Pizzeria (boutiques + camions itinérants)</span>
-    <h1>Des pizzas au feu de bois, près de chez vous depuis près de 20 ans.</h1>
-    <p class="lede">Pizza Jean-mi prépare des pizzas au feu de bois avec des ingrédients naturels depuis près de 20 ans, entre boutiques fixes et camions itinérants desservant une quinzaine de communes autour de Dieppe.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="commander.html">Commander en ligne</a>
-      <a class="btn btn-ghost" href="tel:0609577706" style="color:#fff;border-color:rgba(255,255,255,.4)">06 09 57 77 06</a>
-    </div>
-    <div class="hours"><span><b>Horaires</b> Jours de tournée variables selon le secteur — à afficher clairement sur le nouveau site</span></div>
+    <span class="eyebrow" style="color:rgba(255,255,255,.85)">Commande en ligne</span>
+    <h1>Choisissez votre point de vente</h1>
+    <p>Sélectionnez la boutique ou le camion le plus proche, puis composez votre commande.</p>
   </div>
-</section>
+</div>
 <section class="block">
-  <div class="wrap grid-3 reveal">
-    <div class="card"><h3 style="font-size:1.2rem;margin-bottom:.4rem">Note 4,1/5</h3><p style="color:var(--ink-soft)">Sur 116 avis Google.</p></div>
-    <div class="card"><h3 style="font-size:1.2rem;margin-bottom:.4rem">Près de 20 ans d'expérience</h3><p style="color:var(--ink-soft)">Cuisson au feu de bois, ingrédients naturels.</p></div>
-    <div class="card"><h3 style="font-size:1.2rem;margin-bottom:.4rem">5 points de vente</h3><p style="color:var(--ink-soft)">3 boutiques et 2 camions itinérants dans le secteur de Dieppe.</p></div>
+  <div class="wrap narrow reveal">
+    <label for="pjm-pdv" style="display:block;font-weight:600;margin-bottom:.5rem">Point de vente</label>
+    <select id="pjm-pdv" style="width:100%;padding:.8rem .9rem;border:1px solid var(--line);border-radius:var(--radius-lg);font-size:1rem;background:var(--surface);color:var(--ink)">
+      <option value="0">La Boutique — Saint-Nicolas-d'Aliermont</option><option value="1">La Relève — Saint-Martin-en-Campagne</option><option value="2">La Varenne — Arques-la-Bataille</option><option value="3">Pizza Jean Mi 1 (camion) — secteur Envermeu</option><option value="4">Pizza Two (camion) — secteur Douvrend</option>
+    </select>
+    <p id="pjm-pdv-detail" style="color:var(--ink-soft);font-size:.9rem;margin-top:.6rem">225 Rue Edouard Cannevel</p>
   </div>
 </section>
-<section class="ctab">
-  <div class="wrap">
-    <div class="reveal"><h2>Envie d'une pizza ce soir ?</h2><p>Commandez en ligne et retirez au point de vente le plus proche de chez vous.</p></div>
-    <a class="btn btn-primary reveal" href="commander.html">Commander en ligne</a>
+<section class="block" style="padding-top:0">
+  <div class="wrap narrow reveal">
+    <h2 style="font-size:1.5rem;margin-bottom:1.2rem">Vos pizzas</h2>
+    
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem">
+      <div>
+        <span style="font-weight:600;font-family:var(--font-display);font-size:1.15rem">Reine</span><br>
+        <span style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+      </div>
+      <button type="button" class="btn btn-primary pjm-add">Ajouter</button>
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem">
+      <div>
+        <span style="font-weight:600;font-family:var(--font-display);font-size:1.15rem">Savoyarde</span><br>
+        <span style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+      </div>
+      <button type="button" class="btn btn-primary pjm-add">Ajouter</button>
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem">
+      <div>
+        <span style="font-weight:600;font-family:var(--font-display);font-size:1.15rem">4 Fromages</span><br>
+        <span style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+      </div>
+      <button type="button" class="btn btn-primary pjm-add">Ajouter</button>
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem">
+      <div>
+        <span style="font-weight:600;font-family:var(--font-display);font-size:1.15rem">Napolitaine</span><br>
+        <span style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+      </div>
+      <button type="button" class="btn btn-primary pjm-add">Ajouter</button>
+    </div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem">
+      <div>
+        <span style="font-weight:600;font-family:var(--font-display);font-size:1.15rem">Végétarienne</span><br>
+        <span style="color:var(--ink-soft);font-size:.9rem">À partir de 11 € — tarif à confirmer avec l'établissement</span>
+      </div>
+      <button type="button" class="btn btn-primary pjm-add">Ajouter</button>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--line)">
+      <span style="font-weight:600">Panier (<span id="pjm-cart-count">0</span> article(s))</span>
+      <button type="button" class="btn btn-primary" id="pjm-checkout">Valider la commande</button>
+    </div>
+  </div>
+</section>
+<section class="block" style="padding-top:0">
+  <div class="wrap narrow reveal" style="text-align:center">
+    <p style="color:var(--ink-soft);font-size:.85rem">Maquette de démonstration — commande non fonctionnelle, tarifs à titre indicatif.</p>
+    <p style="margin-top:.5rem"><a href="chatbot/" style="color:var(--brand-ink);font-weight:600">Voir aussi : un chatbot qui oriente vers le bon camion selon le secteur →</a></p>
   </div>
 </section>
 
@@ -149,4 +191,26 @@ section#services,section#prestations,section#maison,section#faq{background:var(-
     </div>
   </div>
 </footer>
+<script>
+(function(){
+  var pdv = [{"nom":"La Boutique — Saint-Nicolas-d'Aliermont","detail":"225 Rue Edouard Cannevel"},{"nom":"La Relève — Saint-Martin-en-Campagne","detail":"Rue des Ligueurs"},{"nom":"La Varenne — Arques-la-Bataille","detail":"5 rue de la Chaussée"},{"nom":"Pizza Jean Mi 1 (camion) — secteur Envermeu","detail":"Envermeu, Berneval, Grèges…"},{"nom":"Pizza Two (camion) — secteur Douvrend","detail":"Douvrend, Mesnières-en-Bray…"}];
+  var sel = document.getElementById('pjm-pdv');
+  var detail = document.getElementById('pjm-pdv-detail');
+  if (sel) sel.addEventListener('change', function(){ detail.textContent = pdv[sel.value].detail; });
+  var count = 0;
+  var countEl = document.getElementById('pjm-cart-count');
+  document.querySelectorAll('.pjm-add').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      count++; if (countEl) countEl.textContent = count;
+      var original = btn.textContent;
+      btn.textContent = 'Ajouté ✓';
+      setTimeout(function(){ btn.textContent = original; }, 1200);
+    });
+  });
+  var checkout = document.getElementById('pjm-checkout');
+  if (checkout) checkout.addEventListener('click', function(){
+    alert('Démonstration : dans la vraie version, la commande serait envoyée au point de vente sélectionné (' + pdv[sel.value].nom + ').');
+  });
+})();
+</script>
 </body></html>
