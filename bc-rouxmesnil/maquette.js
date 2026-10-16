@@ -21,8 +21,9 @@
     ['inscription.html','inscription','Inscriptions'],
     ['boutique.html','boutique','Boutique'],
     ['videos.html','videos','Vidéos'],
+    ['reseaux.html','reseaux','Réseaux'],
     ['u18f.html','u18f','U18F élite'],
-    ['licencies.html','licencies','Espace licenciés'],
+    ['licencies.html','licencies','Licenciés'],
     ['dirigeants.html','dirigeants','Dirigeants']
   ];
   var menu = liens.map(function(l){
