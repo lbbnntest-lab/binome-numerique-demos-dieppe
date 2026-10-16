@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+<title>Équipes et résultats | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
+<style>
+.cats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.cats button,.eqs button{font:inherit;cursor:pointer;border:2px solid var(--club);background:#fff;color:var(--club);padding:8px 14px;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.cats button[aria-pressed=true]{background:var(--club);color:#fff}
+.eqs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.eqs button{border-color:var(--ballon);color:var(--ballon-ink);font-size:.95rem}
+.eqs button[aria-pressed=true]{background:var(--ballon);color:#fff}
+.fiche-eq{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.fiche-eq .bandeau-eq{grid-column:1/-1;background:var(--club);color:#fff;padding:26px 28px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;position:relative;overflow:hidden}
+.bandeau-eq h2{margin:0;font-size:clamp(2rem,5vw,3.4rem);color:#fff}
+.bandeau-eq .niv{font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:var(--vif);font-weight:700}
+.bandeau-eq .gros{position:absolute;right:-10px;bottom:-30px;font-family:var(--titre);font-style:italic;font-weight:700;font-size:9rem;color:rgba(70,196,111,.14);line-height:1;pointer-events:none}
+.bloc-eq{background:#fff;border:1px solid var(--line);padding:22px}
+.bloc-eq h3{margin:0 0 12px;font-size:1.5rem}
+.ligne-m{display:grid;grid-template-columns:96px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.ligne-m:first-of-type{border-top:0}
+.ligne-m .d{font-family:var(--titre);font-weight:700;text-transform:uppercase;font-size:.95rem;line-height:1.15}
+.ligne-m .d small{display:block;font-weight:600;color:var(--ink-soft)}
+.ligne-m .m{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ligne-m .r{font-family:var(--titre);font-style:italic;font-weight:700;font-size:1.5rem;white-space:nowrap}
+.ligne-m .r.v{color:var(--ok)} .ligne-m .r.d{color:var(--manque)}
+.ligne-m .lieu{font-size:.88rem;color:var(--ink-soft)}
+.vide{color:var(--ink-soft);margin:0}
+.classement{width:100%;border-collapse:collapse}
+.classement td,.classement th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;font-size:.95rem}
+.classement tr.nous td{font-weight:700;background:#e3efe6}
+.suivre{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.etiquette-ex{display:inline-block;font-size:.8rem;font-weight:700;color:var(--attente);border:1px solid var(--attente);padding:1px 6px;margin-left:6px;vertical-align:middle}
+@media (max-width:820px){.fiche-eq{grid-template-columns:1fr}.ligne-m{grid-template-columns:78px 1fr}.ligne-m .r{grid-column:2}}
+</style>
+</head>
+<body data-page="equipes">
+
+<main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Équipes</span>
+    <div class="wrap">
+      <p class="s-surtitre">Toutes les équipes du BCR</p>
+      <h1 id="titre-page" class="s-titre">Équipes et <span class="vert">résultats</span></h1>
+      <p class="s-chapo">Choisissez une catégorie puis une équipe : ses prochains matchs, ses résultats et son classement. Ajoutez ses matchs à l'agenda de votre téléphone ou suivez-la pour recevoir ses résultats.</p>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <div class="wrap">
+      <div class="cats" role="group" aria-label="Catégorie" id="cats"></div>
+      <div class="eqs" role="group" aria-label="Équipe" id="eqs"></div>
+      <div id="fiche" aria-live="polite"></div>
+      <div class="note"><b>Pour le club</b>Chaque équipe a sa fiche, dans chaque catégorie. Sur le vrai site, les matchs, les scores et les classements sont repris du calendrier et des résultats officiels de la fédération, sans ressaisie par les bénévoles. Ici, les matchs et scores marqués d'un astérisque viennent de vos affiches Facebook ; les autres lignes et les classements sont des exemples d'affichage. Le bouton « Ajouter à mon agenda » fonctionne déjà : il crée le fichier qu'un téléphone sait ouvrir.</div>
+      <div class="note"><b>Pour le club</b>« Suivre cette équipe » permettra aux parents et aux supporters de recevoir le résultat et la prochaine convocation de l'équipe de leur choix, par email, avec leur accord. C'est ce que proposent les applications des grands clubs.</div>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
+<script>
+(function(){
+  /* Données : « reel: true » = repris des affiches Facebook du club ; le reste illustre l'affichage. */
+  var EQUIPES = [
+    {id:'sm1', cat:'Seniors masculins', nom:'Seniors masculins 1', niv:'Régionale 3', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-25T15:30', adv:'Équipe visiteuse', sig:'VIS', dom:true, ex:true}],
+      res:[{d:'2026-10-11', adv:'Équipe adverse', sig:'ADV', s:'68 - 61', v:true, ex:true}]},
+    {id:'sm2', cat:'Seniors masculins', nom:'Seniors masculins 2', niv:'Pré-régionale', coach:'à compléter', ent:'à compléter',
+      avenir:[], res:[{dl:'Octobre', adv:'US Lillebonne', sig:'USL', s:'', reel:true, txt:'Match diffusé en direct sur la page Facebook du club'}]},
+    {id:'sf1', cat:'Seniors féminines', nom:'Seniors féminines 1', niv:'Régionale 2', coach:'à compléter', ent:'à compléter',
+      avenir:[], res:[{dl:'Début de saison', adv:'Trois matchs, trois victoires en Régionale 2', sig:'R2', s:'3 sur 3', v:true, reel:true}]},
+    {id:'sf2', cat:'Seniors féminines', nom:'Seniors féminines 2', niv:'Départemental 2', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-18T08:45', adv:'Rouen Métropole Basket', sig:'RMB', dom:true, reel:true}], res:[]},
+    {id:'sf3', cat:'Seniors féminines', nom:'Seniors féminines 3', niv:'Départemental 3', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-18T10:30', adv:'Belbeuf', sig:'BEL', dom:true, reel:true}], res:[]},
+    {id:'u21', cat:'U21', nom:'U21 masculins', niv:'Région', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-17T16:00', adv:'SPN Vernon', sig:'SPN', dom:false, reel:true}],
+      res:[{d:'2026-10-04', adv:'Oissel Basket Seine', sig:'OBS', s:'71 - 70', v:true, reel:true}]},
+    {id:'u18f1', cat:'U18', nom:'U18 féminines 1', niv:'Élite régionale', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-24T15:30', adv:'Adversaire de l\'élite', sig:'ÉLI', dom:true, ex:true}],
+      res:[{d:'2026-10-03', adv:'Cléon Basketball Academy', sig:'CBA', s:'38 - 22', v:true, reel:true},{d:'2026-10-03', adv:'Aplemont Le Havre Basket', sig:'ALHB', s:'30 - 32', v:false, reel:true}],
+      lien:'u18f.html'},
+    {id:'u18f2', cat:'U18', nom:'U18 féminines 2', niv:'Départemental', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:false, reel:true}],
+      res:[{d:'2026-10-04', adv:'Union sportive de Forges-les-Eaux', sig:'USF', s:'52 - 22', v:true, reel:true}]},
+    {id:'u15f', cat:'U15', nom:'U15 féminines', niv:'Départemental', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-17T16:00', adv:'BC Offranville', sig:'BCO', dom:true, reel:true}], res:[]},
+    {id:'u13f', cat:'U13', nom:'U13 féminines', niv:'Départemental', coach:'à compléter', ent:'à compléter',
+      avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:true, reel:true}],
+      res:[{d:'2026-10-04', adv:'Seventy Six Belleville', sig:'SSBB', s:'47 - 19', v:true, reel:true}]},
+    {id:'ecole', cat:'École de basket', nom:'École de basket', niv:'Plateaux', coach:'à compléter', ent:'à compléter',
+      avenir:[], res:[]}
+  ];
+  var CATS = []; EQUIPES.forEach(function(e){ if (CATS.indexOf(e.cat) < 0) CATS.push(e.cat); });
+  var catCourante = 'U18', eqCourante = 'u18f1';
+  var LOGO = '<img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR">';
+  function adv(e){ return '<span class="logo-adv" aria-hidden="true">'+e.sig+'</span>'; }
+  var JOURS = ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'], MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  function dateFr(s){ var d = new Date(s); return JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()]; }
+  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h '+s.slice(14,16) : ''; }
+  function marque(m){ return m.reel ? ' *' : (m.ex ? '<span class="etiquette-ex">exemple</span>' : ''); }
+
+  function afficherCats(){
+    document.getElementById('cats').innerHTML = CATS.map(function(c){ return '<button type="button" aria-pressed="'+(c===catCourante)+'" data-cat="'+c+'">'+c+'</button>'; }).join('');
+    document.querySelectorAll('[data-cat]').forEach(function(b){ b.addEventListener('click', function(){
+      catCourante = b.getAttribute('data-cat');
+      eqCourante = EQUIPES.filter(function(e){ return e.cat===catCourante; })[0].id; tout();
+    }); });
+  }
+  function afficherEqs(){
+    document.getElementById('eqs').innerHTML = EQUIPES.filter(function(e){ return e.cat===catCourante; }).map(function(e){
+      return '<button type="button" aria-pressed="'+(e.id===eqCourante)+'" data-eq="'+e.id+'">'+e.nom+'</button>'; }).join('');
+    document.querySelectorAll('[data-eq]').forEach(function(b){ b.addEventListener('click', function(){ eqCourante = b.getAttribute('data-eq'); tout(); }); });
+  }
+  function afficherFiche(){
+    var e = EQUIPES.filter(function(x){ return x.id===eqCourante; })[0];
+    var avenir = e.avenir.length ? e.avenir.map(function(m){
+      return '<div class="ligne-m"><span class="d">'+dateFr(m.d)+'<small>'+heure(m.d)+'</small></span><span class="m"><span class="duel">'+(m.dom?LOGO+'<i>vs</i>'+adv(m):adv(m)+'<i>vs</i>'+LOGO)+'</span><span>'+m.adv+marque(m)+'<br><span class="lieu">'+(m.dom?'À domicile, salle Alexandre-Cheruel':'À l\'extérieur')+'</span></span></span></div>';
+    }).join('') : '<p class="vide">Le prochain match sera repris du calendrier officiel dès sa publication.</p>';
+    var res = e.res.length ? e.res.map(function(m){
+      return '<div class="ligne-m"><span class="d">'+(m.dl||dateFr(m.d))+'</span><span class="m"><span class="duel">'+LOGO+'<i>vs</i>'+adv(m)+'</span><span>'+m.adv+marque(m)+(m.txt?'<br><span class="lieu">'+m.txt+'</span>':'')+'</span></span><span class="r'+(m.v===true?' v':(m.v===false?' d':''))+'">'+m.s+'</span></div>';
+    }).join('') : '<p class="vide">Les résultats seront repris de la fédération après chaque match.</p>';
+    document.getElementById('fiche').innerHTML =
+      '<div class="fiche-eq">'
+      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+' · '+e.niv+'</div><h2>'+e.nom+'</h2><div style="color:#c9cdca">Entraînements et coach : à compléter avec le club</div></div>'
+      + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'</div>'
+      + '<span class="gros" aria-hidden="true">'+e.niv.split(' ')[0]+'</span></div>'
+      + '<div class="bloc-eq"><h3>Prochains matchs</h3>'+avenir+'<h3 style="margin-top:22px">Derniers résultats</h3>'+res+'<p class="lieu" style="margin:12px 0 0;font-size:.85rem;color:var(--ink-soft)">* repris des affiches du club</p></div>'
+      + '<div class="bloc-eq"><h3>Classement <span class="etiquette-ex">exemple</span></h3><table class="classement"><tr><th>#</th><th>Équipe</th><th>Pts</th></tr>'
+      + '<tr><td>1</td><td>Équipe A</td><td>8</td></tr><tr class="nous"><td>2</td><td>Rouxmesnil</td><td>7</td></tr><tr><td>3</td><td>Équipe B</td><td>6</td></tr><tr><td>4</td><td>Équipe C</td><td>5</td></tr></table>'
+      + '<p class="vide" style="margin-top:12px;font-size:.92rem">Repris de la fédération après chaque journée.</p><p id="msg-suivre" class="resultat" hidden></p></div>'
+      + '</div>';
+    var ag = document.getElementById('agenda');
+    if (ag) ag.addEventListener('click', function(){ telechargerAgenda(e); });
+    document.getElementById('suivre').addEventListener('click', function(){
+      var p = document.getElementById('msg-suivre'); p.hidden = false;
+      p.textContent = 'Sur le vrai site, vous indiquez votre adresse email et vous recevez le résultat de « '+e.nom+' » après chaque match, ainsi que la convocation du match suivant.';
+    });
+  }
+  function telechargerAgenda(e){
+    var l = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//BCR//Maquette//FR'];
+    e.avenir.forEach(function(m, i){
+      var deb = m.d.replace(/[-:]/g,'') + '00';
+      var h = parseInt(m.d.slice(11,13),10) + 2, fin = m.d.slice(0,10).replace(/-/g,'') + 'T' + (h<10?'0':'') + h + m.d.slice(14,16) + '00';
+      l.push('BEGIN:VEVENT','UID:bcr-'+e.id+'-'+i+'@maquette','DTSTAMP:20261016T120000Z','DTSTART;TZID=Europe/Paris:'+deb,'DTEND;TZID=Europe/Paris:'+fin,
+        'SUMMARY:'+e.nom+' contre '+m.adv,'LOCATION:'+(m.dom?'Salle Alexandre-Cheruel\\, Rouxmesnil-Bouteilles':'À l\'extérieur'),'END:VEVENT');
+    });
+    l.push('END:VCALENDAR');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([l.join('\r\n')], {type:'text/calendar'}));
+    a.download = 'bcr-' + e.id + '.ics'; document.body.appendChild(a); a.click(); a.remove();
+  }
+  function tout(){ afficherCats(); afficherEqs(); afficherFiche(); }
+  var q = location.hash.replace('#','');
+  if (q) { EQUIPES.forEach(function(e){ if (e.id===q) { eqCourante = q; catCourante = e.cat; } }); }
+  tout();
+})();
+</script>
+</body>
+</html>

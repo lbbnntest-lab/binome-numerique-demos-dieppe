@@ -18,6 +18,7 @@
 
   var liens = [
     ['index.html','accueil','Le club'],
+    ['equipes.html','equipes','Équipes et résultats'],
     ['inscription.html','inscription','Inscriptions et stages'],
     ['boutique.html','boutique','Boutique'],
     ['videos.html','videos','Vidéos'],
@@ -52,7 +53,7 @@
 
   var pied = '<footer class="pied"><div class="wrap">'
     + '<div><h3>Basket Club de Rouxmesnil</h3><p>Association loi 1901, affiliée à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles.</p></div>'
-    + '<div><h3>Le club</h3><p><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
+    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
     + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span><a href="#">Mentions légales</a> &nbsp; <a href="#">Confidentialité</a></span>'
     + '<span>Site réalisé par <a href="https://lebinomenumerique.fr">Le Binôme Numérique</a>, partenaire du club</span></div>'
