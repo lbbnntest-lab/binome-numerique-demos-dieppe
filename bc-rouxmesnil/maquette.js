@@ -30,9 +30,14 @@
     return '<li style="--i:'+i+'"><a href="'+l[0]+'"'+(l[1]===page?' aria-current="page"':'')+'><span class="num">'+n+'</span><span class="lib">'+l[2]+'</span></a></li>';
   }).join('');
 
+  // Mode présentation : arrivé depuis la présentation (?explications), les encadrés d'explication s'affichent
+  // et le restent pendant la visite ; sinon le site s'affiche tel que le verraient les familles.
+  var expl = /[?&]explications/.test(location.search);
+  try { if (expl) sessionStorage.setItem('bcr-expl', '1'); else expl = sessionStorage.getItem('bcr-expl') === '1'; } catch (e) {}
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
-    + '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Les noms de licenciés, les prix et les chiffres sont des exemples ; aucun paiement ni message n\'est envoyé.</span>'
-    + '<span><a href="presentation/index.html">Voir la présentation</a></span>'
+    + (expl
+      ? '<span><strong>Présentation</strong> : les encadrés jaunes expliquent ce que chaque page apporte au club.</span><span><button type="button" id="basculer-notes"></button> &nbsp;<a href="presentation/explications.html">Retour à la présentation</a></span>'
+      : '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Les noms de licenciés, les prix et les chiffres sont des exemples ; aucun paiement ni message n\'est envoyé.</span><span><a href="presentation/index.html">Voir la présentation</a></span>')
     + '</div></div>';
 
   var entete = '<header class="entete sig"><div class="wrap">'
@@ -76,6 +81,13 @@
       else if (!e.shiftKey && i===c.length-1) { e.preventDefault(); c[0].focus(); }
     }
   });
+
+  if (expl) {
+    var bt = document.getElementById('basculer-notes'), vis = true;
+    var maj = function(){ document.body.classList.toggle('explications', vis); bt.textContent = vis ? 'Masquer les explications' : 'Afficher les explications'; bt.setAttribute('aria-pressed', String(vis)); };
+    bt.addEventListener('click', function(){ vis = !vis; maj(); });
+    maj();
+  }
 
   // Apparition douce des blocs au défilement (désactivée si l'appareil demande moins d'animations).
   var blocs = document.querySelectorAll('.revele');

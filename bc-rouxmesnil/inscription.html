@@ -51,10 +51,12 @@
           <div class="resultat" id="st-prix" aria-live="polite"></div>
           <button type="button" class="bouton" id="st-payer">Payer et réserver (simulation)</button>
           <p class="resultat" id="st-ok" hidden></p>
+          <div class="note"><b>Pour le club</b>Les tarifs sont ceux de votre affiche. Aujourd'hui, les familles appellent le responsable des stages et précisent catégorie, nom et prénom. Ici, la place est réservée et payée en ligne, et le responsable reçoit la liste prête, jour par jour.</div>
         </form>
       </div>
 
       <div id="vue-saison">
+      <div class="note"><b>Pour le club</b>Toute l'inscription tient sur une page, du téléphone comme de l'ordinateur. Les parents ne ramènent plus de dossier papier, et chaque inscription arrive complète dans l'espace dirigeants. Essayez le parcours : rien n'est enregistré dans cette maquette.</div>
 
       <ol class="etapes" id="frise">
         <li class="active">Joueur</li>
@@ -76,6 +78,7 @@
           <input type="date" id="naissance" value="2009-05-12">
           <div class="resultat" id="categorie" aria-live="polite"></div>
           <label class="choix"><input type="checkbox" id="frere"> Un frère ou une sœur est déjà inscrit cette saison</label>
+          <div class="note"><b>Pour le club</b>La catégorie se calcule à partir de la date de naissance, avec le tarif qui va avec. Les parents n'ont plus à demander « mon fils est en U13 ou en U15 ? ». Les tarifs affichés ici sont des exemples : ce seront les vôtres.</div>
         </div>
 
         <div class="etape" data-etape="1">
@@ -87,6 +90,7 @@
           <input type="email" id="email" value="parent@exemple.fr">
           <label for="tel">Téléphone</label>
           <input type="tel" id="tel" value="06 00 00 00 00">
+          <div class="note"><b>Pour le club</b>Les coordonnées des parents sont rangées au même endroit pour toute la saison : plus besoin de les recopier dans un tableur.</div>
         </div>
 
         <div class="etape" data-etape="2">
@@ -97,6 +101,7 @@
           <label class="choix"><input type="checkbox" checked> J'ai lu le règlement intérieur du club.</label>
           <label for="taille">Taille du short et du maillot d'entraînement</label>
           <select id="taille"><option>XS</option><option selected>S</option><option>M</option><option>L</option><option>XL</option></select>
+          <div class="note"><b>Pour le club</b>Le droit à l'image est recueilli par écrit dès l'inscription. C'est indispensable pour publier des photos de joueurs mineurs, par exemple pour la saison des U18F. Le tableau de bord indique qui a accepté et qui a refusé.</div>
         </div>
 
         <div class="etape" data-etape="3">
@@ -106,12 +111,14 @@
           <label for="fois">Paiement</label>
           <select id="fois"><option value="1">En une fois</option><option value="3">En trois fois sans frais</option></select>
           <p id="echeances" style="margin-top:10px"></p>
+          <div class="note"><b>Pour le club</b>Le paiement par carte arrive directement sur le compte bancaire du club. Le trésorier voit qui a payé sans rien rapprocher à la main. Les chèques et espèces restent possibles : un dirigeant les coche comme reçus.</div>
         </div>
 
         <div class="etape" data-etape="4">
           <h2 data-mv="mots">Merci, l'inscription est enregistrée</h2>
           <p><strong>Dernière étape : la licence fédérale.</strong> Le club vous envoie par email le lien de la Fédération française de basket-ball. Vous y complétez la licence en ligne : photo d'identité et questionnaire de santé.</p>
           <p>Vous pouvez venir aux entraînements dès maintenant.</p>
+          <div class="note"><b>Pour le club</b>La licence reste sur le site de la fédération, comme aujourd'hui. Les informations de santé ne passent jamais par le site du club. Dans l'espace dirigeants, chaque inscrit indique « licence faite » ou « licence en attente », pour savoir à qui envoyer un rappel.</div>
         </div>
 
         <div class="navform">
@@ -212,7 +219,7 @@
   document.getElementById('st-payer').addEventListener('click', function(){
     var ok = document.getElementById('st-ok'); ok.hidden = false;
     var j = document.getElementById('st-jour'); 
-    ok.textContent = 'Place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '. ';
+    ok.textContent = 'Place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '.';
   });
   prixStage();
   if(location.hash==='#stage') montrer('stage');
