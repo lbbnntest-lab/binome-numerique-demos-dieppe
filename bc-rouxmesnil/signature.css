@@ -1,0 +1,140 @@
+/* Accueil niveau Signature : scènes propres au basket (terrain tracé, tir à 3 points, montée des U18F). */
+.s-nuit{background:#080a09;color:#fff}
+.s-accueil{position:relative;overflow:hidden;min-height:calc(100vh - 120px);display:flex;align-items:stretch}
+.s-accueil .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding-top:40px;padding-bottom:56px;width:100%}
+.s-surtitre{font-family:var(--titre);text-transform:uppercase;letter-spacing:.14em;color:var(--vif);font-weight:600;margin:0 0 14px}
+.s-titre{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;line-height:.9;font-size:clamp(3rem,6.9vw,6.6rem);margin:0;letter-spacing:-.01em}
+.s-titre .ligne{display:block}
+.s-titre .vert{color:var(--vif)}
+.s-chapo{font-size:1.2rem;color:#d7dbd8;max-width:30em;margin:22px 0 0}
+.s-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.s-bouton{display:inline-flex;align-items:center;gap:10px;background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.1rem;padding:14px 22px;text-decoration:none;clip-path:polygon(0 0,100% 0,94% 100%,0 100%)}
+.s-bouton:hover{background:#fff}
+.s-bouton.creux{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #fff;clip-path:none}
+.s-bouton.creux:hover{background:#fff;color:#080a09}
+
+/* Scène du tir */
+.s-scene{position:relative}
+.s-scene svg{width:100%;height:auto;overflow:visible}
+.s-scene .terrain-l{fill:none;stroke:rgba(255,255,255,.55);stroke-width:2}
+.s-scene .raquette{fill:rgba(31,122,63,.35);stroke:rgba(255,255,255,.55);stroke-width:2}
+.s-scene .panneau{fill:none;stroke:#fff;stroke-width:3}
+.s-scene .cercle{fill:none;stroke:#ff8a3d;stroke-width:4}
+.s-scene .filet{fill:none;stroke:rgba(255,255,255,.75);stroke-width:1.5}
+.s-scene .ballon{fill:#e06a1b}
+.s-scene .ballon-l{fill:none;stroke:#3a1a05;stroke-width:1.6}
+.s-scene .trajet{fill:none;stroke:rgba(70,196,111,.55);stroke-width:2;stroke-dasharray:6 8}
+.tableau{display:flex;align-items:stretch;margin-top:18px;font-family:var(--titre);font-weight:700;box-shadow:0 18px 40px rgba(0,0,0,.45);max-width:520px}
+.tableau .eq{background:#14181c;color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px;flex:1}
+.tableau .eq img{width:30px;height:30px}
+.tableau .eq b{font-size:1.7rem;margin-left:auto;font-variant-numeric:tabular-nums;min-width:2ch;text-align:right}
+.tableau .eq span{font-size:1.15rem;letter-spacing:.06em}
+.tableau .temps{background:#fff;color:#14181c;text-align:center;padding:6px 14px;line-height:1.05}
+.tableau .temps small{display:block;font-size:.8rem}
+.tableau .temps strong{font-size:1.35rem}
+.plus3{position:absolute;right:6%;top:4%;font-family:var(--titre);font-style:italic;font-weight:700;font-size:3.4rem;color:var(--vif);opacity:0;pointer-events:none}
+
+/* Bande défilante des valeurs */
+.s-bande{background:var(--vif);color:#080a09;overflow:hidden;white-space:nowrap;border-top:2px solid #080a09;border-bottom:2px solid #080a09}
+.s-bande .piste{display:inline-flex;gap:48px;padding:12px 0;animation:defile 26s linear infinite}
+.s-bande span{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:1.6rem;letter-spacing:.04em}
+.s-bande span::after{content:"";display:inline-block;width:14px;height:14px;background:#080a09;margin-left:48px;transform:rotate(45deg) translateY(-3px)}
+@keyframes defile{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.s-bande .piste{animation:none}}
+
+/* Photo de la salle */
+.s-salle{position:relative;height:min(72vh,640px);overflow:hidden;background:#080a09}
+.s-salle img{width:100%;height:118%;object-fit:cover;position:absolute;top:-9%;left:0;opacity:.85}
+.s-salle figcaption{position:absolute;left:0;bottom:0;right:0;padding:28px 0;background:linear-gradient(transparent,rgba(8,10,9,.92))}
+.s-salle figcaption .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.s-salle figcaption strong{font-family:var(--titre);font-style:italic;font-size:clamp(2rem,5vw,3.6rem);text-transform:uppercase;line-height:1;color:#fff}
+.s-salle figcaption span{color:#c9cdca}
+
+/* Manifeste */
+.s-manifeste{padding:110px 0}
+.s-manifeste p{font-family:var(--titre);font-weight:600;font-size:clamp(1.8rem,4.2vw,3.3rem);line-height:1.12;margin:0;max-width:22em}
+.s-manifeste p em{font-style:italic;color:var(--ballon)}
+
+/* Tableau d'affichage du week-end */
+.s-affichage{padding:96px 0}
+.s-entete-bloc{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.s-entete-bloc h2{font-size:clamp(2.4rem,6vw,4.6rem);line-height:.9;margin:0}
+.s-entete-bloc p{margin:0;color:#c9cdca;max-width:26em}
+.matchs{list-style:none;margin:0;padding:0;border-top:2px solid var(--vif)}
+.matchs li{display:grid;grid-template-columns:150px 120px 1fr auto;gap:18px;align-items:center;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.matchs .jour{font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:#c9cdca}
+.matchs .heure{font-family:var(--titre);font-style:italic;font-weight:700;font-size:2rem;color:var(--vif)}
+.matchs .aff{font-size:1.15rem}
+.matchs .aff b{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em}
+.matchs .lieu{font-size:.9rem;color:#c9cdca;text-align:right}
+
+/* Résultats qui comptent */
+.s-resultats{padding:96px 0}
+.compteurs-sc{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--club)}
+.compteurs-sc div{padding:26px 22px 26px 0;border-bottom:1px solid var(--line)}
+.compteurs-sc div + div{padding-left:22px;border-left:1px solid var(--line)}
+.compteurs-sc .cat{font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:var(--ballon-ink);font-weight:700}
+.compteurs-sc .sc{font-family:var(--titre);font-style:italic;font-weight:700;font-size:clamp(3rem,6vw,4.6rem);line-height:1;margin:6px 0;font-variant-numeric:tabular-nums}
+.compteurs-sc .sc i{font-style:italic;color:var(--ink-soft);margin:0 .12em}
+.compteurs-sc .adv{color:var(--ink-soft)}
+
+/* Scène de la montée */
+.s-montee{position:relative;padding:96px 0;overflow:hidden}
+.s-montee .grille{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.etages{list-style:none;margin:0;padding:0}
+.etages li{padding:22px 0 22px 28px;border-left:3px solid rgba(255,255,255,.18);position:relative}
+.etages li::before{content:"";position:absolute;left:-9px;top:30px;width:15px;height:15px;border-radius:50%;background:#080a09;border:3px solid rgba(255,255,255,.35)}
+.etages li.allume{border-left-color:var(--vif)}
+.etages li.allume::before{background:var(--vif);border-color:var(--vif)}
+.etages .et{font-family:var(--titre);text-transform:uppercase;letter-spacing:.1em;color:var(--vif);font-weight:700}
+.etages h3{font-size:clamp(1.6rem,3.4vw,2.4rem);margin:4px 0 6px}
+.etages p{margin:0;color:#c9cdca}
+.echelle svg{width:100%;max-width:420px;height:auto;margin:0 auto;display:block}
+.echelle .barre{stroke:rgba(255,255,255,.2);stroke-width:4}
+.echelle .barre-v{stroke:var(--vif);stroke-width:6}
+.echelle .palier{fill:#080a09;stroke:rgba(255,255,255,.35);stroke-width:3}
+.echelle text{fill:#fff;font-family:"Barlow Condensed",sans-serif;font-style:italic;font-weight:700;font-size:26px;text-transform:uppercase}
+.echelle .petit{font-size:17px;fill:#c9cdca;font-style:normal;font-weight:600}
+
+/* Vie du club */
+.s-vie{padding:96px 0}
+.vie-grille{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+.vie-carte{position:relative;background:var(--club);color:#fff;padding:30px;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:flex-end}
+.vie-carte.clair{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.vie-carte .gros-num{position:absolute;right:-6px;top:-24px;font-family:var(--titre);font-style:italic;font-weight:700;font-size:11rem;line-height:1;color:rgba(70,196,111,.18)}
+.vie-carte.clair .gros-num{color:rgba(31,122,63,.1)}
+.vie-carte h3{font-size:2rem;margin:0 0 8px;position:relative}
+.vie-carte p{position:relative;margin:0 0 16px;max-width:34em}
+.vie-carte .s-bouton{align-self:flex-start;position:relative}
+.vie-carte.clair .s-bouton.creux{color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+
+/* Partenaires */
+.s-partenaires{padding:80px 0;border-top:1px solid var(--line)}
+.logos{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);margin-top:24px}
+.logos div{min-height:110px;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--ink-soft);border-right:1px solid var(--line);font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em}
+.logos div:last-child{border-right:0}
+.logos .nous{color:var(--ink);font-weight:700}
+
+@media (max-width:900px){
+  .s-accueil{min-height:0}
+  .s-accueil .wrap,.s-montee .grille,.vie-grille{grid-template-columns:1fr}
+  .s-scene{order:-1;max-width:460px}
+  .matchs li{grid-template-columns:1fr auto;gap:4px 14px}
+  .matchs .jour{grid-column:1/-1}
+  .matchs .aff{grid-column:1/-1}
+  .matchs .lieu{text-align:left;grid-column:1/-1}
+  .matchs .heure{grid-row:2}
+  .compteurs-sc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .compteurs-sc .sc{font-size:2.3rem}
+  .compteurs-sc div{padding-right:12px}
+  .compteurs-sc div + div{padding-left:12px}
+  .tableau .eq{padding:8px 10px;gap:8px}
+  .tableau .eq b{font-size:1.4rem}
+  .compteurs-sc div:nth-child(3){padding-left:0;border-left:0}
+  .logos{grid-template-columns:1fr 1fr}
+  .logos div:nth-child(2){border-right:0}
+  .logos div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .s-manifeste,.s-affichage,.s-resultats,.s-montee,.s-vie{padding:64px 0}
+  .echelle{order:-1}
+  .echelle svg{max-width:300px}
+}

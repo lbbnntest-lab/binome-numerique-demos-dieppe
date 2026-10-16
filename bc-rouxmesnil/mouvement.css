@@ -1,0 +1,19 @@
+/* Styles techniques de la boîte à outils Mouvement (voir mouvement.js). Aucun effet visuel sans script. */
+.mv-m, .mv-l { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+.mv-l { padding-right: .02em; }
+.mv-mi, .mv-li { display: inline-block; }
+.mv-rideau { display: none; }
+.mv-actif .mv-rideau { display: block; position: absolute; inset: 0; background: var(--rideau, currentColor); z-index: 2; pointer-events: none; }
+[data-mv="devoile"] { position: relative; overflow: hidden; }
+
+.demo-bandeau { font-size: .8125rem; line-height: 1.4; padding: .55rem 1rem; text-align: center; }
+.demo-bandeau a { color: inherit; text-underline-offset: .2em; }
+
+.evitement { position: absolute; left: 1rem; top: -4rem; z-index: 100; padding: .6rem 1rem; background: #111; color: #fff; }
+.evitement:focus { top: 1rem; }
+
+.visuellement-cache { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}

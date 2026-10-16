@@ -18,16 +18,18 @@
 
   var liens = [
     ['index.html','accueil','Le club'],
-    ['inscription.html','inscription','Inscriptions'],
+    ['inscription.html','inscription','Inscriptions et stages'],
     ['boutique.html','boutique','Boutique'],
     ['videos.html','videos','Vidéos'],
-    ['reseaux.html','reseaux','Réseaux'],
+    ['reseaux.html','reseaux','Réseaux sociaux'],
     ['u18f.html','u18f','U18F élite'],
-    ['licencies.html','licencies','Licenciés'],
-    ['dirigeants.html','dirigeants','Dirigeants']
+    ['licencies.html','licencies','Espace licenciés'],
+    ['dirigeants.html','dirigeants','Espace dirigeants'],
+    ['proposition.html','proposition','La proposition']
   ];
-  var menu = liens.map(function(l){
-    return '<li><a href="'+l[0]+'"'+(l[1]===page?' aria-current="page"':'')+'>'+l[2]+'</a></li>';
+  var menu = liens.map(function(l, i){
+    var n = (i < 9 ? '0' : '') + (i + 1);
+    return '<li style="--i:'+i+'"><a href="'+l[0]+'"'+(l[1]===page?' aria-current="page"':'')+'><span class="num">'+n+'</span><span class="lib">'+l[2]+'</span></a></li>';
   }).join('');
 
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
@@ -35,10 +37,15 @@
     + '<span><button type="button" id="basculer-notes"></button> &nbsp;<a href="proposition.html">Lire la proposition</a></span>'
     + '</div></div>';
 
-  var entete = '<header class="entete"><div class="wrap">'
+  var entete = '<header class="entete sig"><div class="wrap">'
     + '<a class="logo" href="index.html">'+BLASON+'<span>Basket Club<br>de Rouxmesnil<small>Passion, esprit d\'équipe, respect</small></span></a>'
-    + '<nav aria-label="Menu principal"><ul class="menu">'+menu+'</ul></nav>'
-    + '</div></header>';
+    + '<div class="entete-actions"><a class="entete-insc" href="inscription.html">S\'inscrire</a>'
+    + '<button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-plein"><span class="menu-libelle">Menu</span><span class="menu-traits" aria-hidden="true"><span></span><span></span></span></button></div>'
+    + '</div>'
+    + '<nav id="menu-plein" class="menu-plein" aria-label="Menu principal" hidden><div class="wrap menu-grille">'
+    + '<ul class="menu-liens">'+menu+'</ul>'
+    + '<div class="menu-infos"><img src="img/logo-bcr.jpg" alt="" width="120" height="120"><p>Salle Alexandre-Cheruel<br>Rouxmesnil-Bouteilles</p><p>Passion, esprit d\'équipe, respect</p></div>'
+    + '</div></nav></header>';
 
   var pied = '<footer class="pied"><div class="wrap">'
     + '<div><h3>Basket Club de Rouxmesnil</h3><p>Association loi 1901, affiliée à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles.</p></div>'
@@ -50,6 +57,27 @@
 
   document.body.insertAdjacentHTML('afterbegin', bandeau + entete);
   document.body.insertAdjacentHTML('beforeend', pied);
+
+  // Menu plein écran : ouverture, fermeture par Échap, focus gardé dans le menu.
+  var mb = document.querySelector('.menu-btn'), mp = document.getElementById('menu-plein');
+  function ouvrirMenu(o){
+    mb.setAttribute('aria-expanded', String(o));
+    mb.querySelector('.menu-libelle').textContent = o ? 'Fermer' : 'Menu';
+    document.documentElement.classList.toggle('menu-ouvert', o);
+    if (o) { mp.hidden = false; requestAnimationFrame(function(){ mp.classList.add('ouvert'); }); var p = mp.querySelector('a'); if (p) p.focus({preventScroll:true}); }
+    else { mp.classList.remove('ouvert'); setTimeout(function(){ if (mb.getAttribute('aria-expanded')==='false') mp.hidden = true; }, 450); }
+  }
+  mb.addEventListener('click', function(){ ouvrirMenu(mb.getAttribute('aria-expanded')!=='true'); });
+  document.addEventListener('keydown', function(e){
+    if (mb.getAttribute('aria-expanded')!=='true') return;
+    if (e.key==='Escape') { ouvrirMenu(false); mb.focus(); }
+    if (e.key==='Tab') {
+      var c = [mb].concat(Array.prototype.slice.call(mp.querySelectorAll('a')));
+      var i = c.indexOf(document.activeElement);
+      if (e.shiftKey && i<=0) { e.preventDefault(); c[c.length-1].focus(); }
+      else if (!e.shiftKey && i===c.length-1) { e.preventDefault(); c[0].focus(); }
+    }
+  });
 
   // Notes d'explication : affichées par défaut, le choix est retenu sur l'appareil.
   var actives = true;
