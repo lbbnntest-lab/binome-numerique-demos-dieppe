@@ -209,3 +209,18 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .pm-corps strong{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.25rem}
 .pm-corps p{margin:2px 0 0;color:var(--ink-soft)}
 @media (max-width:600px){.pm-corps{flex-direction:column;align-items:flex-start}}
+
+.phase{margin:0 0 40px}
+.phase-tete{display:flex;gap:18px;align-items:center;margin-bottom:16px}
+.phase-num{font-family:var(--titre);font-style:italic;font-weight:700;font-size:3.4rem;line-height:1;color:var(--ballon)}
+.phase-tete h3{margin:0;font-size:clamp(1.5rem,3vw,2.1rem);text-transform:uppercase}
+.phase-tete p{margin:2px 0 0;color:var(--ink-soft)}
+.phase-corps{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start}
+.phase-corps .parcours{margin:0}
+.pm-cl{background:#fff;border:1px solid var(--line)}
+.cl-eq{display:inline-flex;align-items:center;gap:10px}
+.cl-eq .logo-eq{width:30px;height:30px}
+.logo-eq.clair{background:#fff;border:1px solid var(--line)}
+@media (max-width:900px){.phase-corps{grid-template-columns:1fr}}
+.pm-cl{position:sticky;top:110px}
+@media (max-width:900px){.pm-cl{position:static}}

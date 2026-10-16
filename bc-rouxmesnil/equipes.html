@@ -90,8 +90,9 @@
       avenir:[{d:'2026-10-17T16:00', adv:'SPN Vernon', sig:'SPN', dom:false, reel:true}],
       res:[{d:'2026-10-04', adv:'Oissel Basket Seine', sig:'OBS', s:'71 - 70', v:true, reel:true}]},
     {id:'u18f1', cat:'U18', nom:'U18 féminines 1', niv:'Élite régionale', coach:'à compléter', ent:'à compléter',
-      avenir:[{d:'2026-10-24T15:30', adv:'Adversaire de l\'élite', sig:'ÉLI', dom:true, ex:true}],
-      res:[{d:'2026-10-03', adv:'Cléon Basketball Academy', sig:'CBA', s:'38 - 22', v:true, reel:true},{d:'2026-10-03', adv:'Aplemont Le Havre Basket', sig:'ALHB', s:'30 - 32', v:false, reel:true}],
+      ffbb:'https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080/equipes/200000005398767',
+      avenir:[{d:'2026-11-07', adv:'Cherbourg Basket Ball', sig:'CBB', dom:true, reel:true},{d:'2026-11-14', adv:'Aplemont Le Havre Basket 2', sig:'ALHB', dom:false, reel:true},{d:'2026-11-21', adv:'USO Mondeville Basket 2', sig:'USO', dom:true, reel:true},{d:'2026-11-28', adv:'Élan sportif Carpiquet Basket', sig:'ESC', dom:false, reel:true},{d:'2026-12-05', adv:'Club Basket d\'Ifs 1', sig:'CBI', dom:false, reel:true}],
+      res:[{d:'2026-10-10', adv:'Alençon-Damigny Basket 61 (play-off)', sig:'ADB', s:'78 - 57', v:true, reel:true},{d:'2026-10-03', adv:'Cléon Basketball Academy', sig:'CBA', s:'38 - 22', v:true, reel:true},{d:'2026-10-03', adv:'Aplemont Le Havre Basket', sig:'ALHB', s:'30 - 32', v:false, reel:true},{d:'2026-09-26', adv:'US Sainte-Marie Le Havre', sig:'USSM', s:'27 - 24', v:true, reel:true},{d:'2026-09-26', adv:'A Louviers HBCI', sig:'ALH', s:'34 - 22', v:true, reel:true}],
       lien:'u18f.html'},
     {id:'u18f2', cat:'U18', nom:'U18 féminines 2', niv:'Départemental', coach:'à compléter', ent:'à compléter',
       avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:false, reel:true}],
@@ -111,7 +112,7 @@
   function adv(e){ return '<span class="logo-adv" aria-hidden="true">'+e.sig+'</span>'; }
   var JOURS = ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'], MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
   function dateFr(s){ var d = new Date(s); return JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()]; }
-  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h '+s.slice(14,16) : ''; }
+  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h '+s.slice(14,16) : 'horaire à venir'; }
   function marque(m){ return m.reel ? ' *' : (m.ex ? '<span class="etiquette-ex">exemple</span>' : ''); }
 
   function afficherCats(){
@@ -154,6 +155,13 @@
   function telechargerAgenda(e){
     var l = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//BCR//Maquette//FR'];
     e.avenir.forEach(function(m, i){
+      if (m.d.length === 10) {
+        var j0 = m.d.replace(/-/g,''), dj = new Date(m.d); dj.setDate(dj.getDate()+1);
+        var j1 = dj.getFullYear()+String(dj.getMonth()+1).padStart(2,'0')+String(dj.getDate()).padStart(2,'0');
+        l.push('BEGIN:VEVENT','UID:bcr-'+e.id+'-'+i+'@maquette','DTSTAMP:20261016T120000Z','DTSTART;VALUE=DATE:'+j0,'DTEND;VALUE=DATE:'+j1,
+          'SUMMARY:'+e.nom+' contre '+m.adv+' (horaire à venir)','LOCATION:'+(m.dom?'Salle Alexandre-Cheruel\\, Rouxmesnil-Bouteilles':'À l\'extérieur'),'END:VEVENT');
+        return;
+      }
       var deb = m.d.replace(/[-:]/g,'') + '00';
       var h = parseInt(m.d.slice(11,13),10) + 2, fin = m.d.slice(0,10).replace(/-/g,'') + 'T' + (h<10?'0':'') + h + m.d.slice(14,16) + '00';
       l.push('BEGIN:VEVENT','UID:bcr-'+e.id+'-'+i+'@maquette','DTSTAMP:20261016T120000Z','DTSTART;TZID=Europe/Paris:'+deb,'DTEND;TZID=Europe/Paris:'+fin,
