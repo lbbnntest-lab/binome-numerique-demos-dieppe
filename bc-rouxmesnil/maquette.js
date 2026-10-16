@@ -21,11 +21,9 @@
     ['inscription.html','inscription','Inscriptions et stages'],
     ['boutique.html','boutique','Boutique'],
     ['videos.html','videos','Vidéos'],
-    ['reseaux.html','reseaux','Réseaux sociaux'],
     ['u18f.html','u18f','U18F élite'],
     ['licencies.html','licencies','Espace licenciés'],
-    ['dirigeants.html','dirigeants','Espace dirigeants'],
-    ['proposition.html','proposition','La proposition']
+    ['dirigeants.html','dirigeants','Espace dirigeants']
   ];
   var menu = liens.map(function(l, i){
     var n = (i < 9 ? '0' : '') + (i + 1);
@@ -33,8 +31,8 @@
   }).join('');
 
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
-    + '<span><strong>Maquette</strong> proposée au Basket Club de Rouxmesnil par Le Binôme Numérique. Logo, photos et matchs viennent de la page Facebook du club ; les noms de licenciés, les prix et les chiffres sont des exemples.</span>'
-    + '<span><button type="button" id="basculer-notes"></button> &nbsp;<a href="proposition.html">Lire la proposition</a></span>'
+    + '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Les noms de licenciés, les prix et les chiffres sont des exemples ; aucun paiement ni message n\'est envoyé.</span>'
+    + '<span><a href="presentation/index.html">Voir la présentation</a></span>'
     + '</div></div>';
 
   var entete = '<header class="entete sig"><div class="wrap">'
@@ -78,22 +76,6 @@
       else if (!e.shiftKey && i===c.length-1) { e.preventDefault(); c[0].focus(); }
     }
   });
-
-  // Notes d'explication : affichées par défaut, le choix est retenu sur l'appareil.
-  var actives = true;
-  try { actives = localStorage.getItem('bcr-notes') !== 'non'; } catch(e) {}
-  var bouton = document.getElementById('basculer-notes');
-  function appliquer(){
-    document.body.classList.toggle('explications', actives);
-    bouton.textContent = actives ? 'Masquer les explications' : 'Afficher les explications';
-    bouton.setAttribute('aria-pressed', actives ? 'true' : 'false');
-  }
-  bouton.addEventListener('click', function(){
-    actives = !actives;
-    try { localStorage.setItem('bcr-notes', actives ? 'oui' : 'non'); } catch(e) {}
-    appliquer();
-  });
-  appliquer();
 
   // Apparition douce des blocs au défilement (désactivée si l'appareil demande moins d'animations).
   var blocs = document.querySelectorAll('.revele');

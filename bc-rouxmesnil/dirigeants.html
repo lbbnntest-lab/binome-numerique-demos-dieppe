@@ -28,7 +28,6 @@
   <section class="bloc">
     <div class="wrap">
 
-      <div class="note"><b>Pour le club</b>C'est la partie qui fait gagner le plus de temps. Chaque dirigeant a son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
 
       <div class="compteurs" data-mv="suite">
         <div><b>142</b><span>inscrits cette saison</span></div>
@@ -55,7 +54,6 @@
       </div>
       <p id="rappel-texte" class="resultat" hidden></p>
 
-      <div class="note"><b>Pour le club</b>Fini le cahier et le tableur à tenir à jour. En un clic, le trésorier voit qui n'a pas payé, le secrétaire voit qui n'a pas fait sa licence, et le rappel part aux familles concernées après validation par un dirigeant. La colonne « photos autorisées » indique qui l'on peut montrer sur les réseaux.</div>
     </div>
   </section>
 
@@ -74,7 +72,6 @@
           <tbody id="retraits"></tbody>
         </table>
       </div>
-      <div class="note"><b>Pour le club</b>Plus besoin de prévenir chaque famille une par une ni de tenir une liste papier à la table. Les familles qui n'ont pas retiré leur commande reçoivent un rappel la semaine suivante, après accord d'un dirigeant. Dans cette maquette, aucun email n'est envoyé.</div>
     </div>
   </section>
 
@@ -107,7 +104,6 @@
           </ul>
         </div>
       </div>
-      <div class="note"><b>Pour le club</b>Les parents s'inscrivent eux-mêmes sur les créneaux libres depuis leur téléphone. Les dirigeants voient d'un coup d'œil ce qui reste à pourvoir, au lieu de relancer chaque semaine sur WhatsApp.</div>
     </div>
   </section>
 
@@ -137,7 +133,6 @@
         </table>
       </div>
     </div>
-    <div class="wrap"><div class="note"><b>Pour le club</b>Deux corvées de moins : la liste du stage tenue à la main, et les chiffres des dossiers de subvention recopiés chaque année.</div></div>
   </section>
 </main>
 
@@ -189,7 +184,7 @@
     var n = JOUEURS.filter(incomplet).length;
     var p = document.getElementById('rappel-texte');
     p.hidden = false;
-    p.textContent = 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant. Dans cette maquette, aucun message n\'est envoyé.';
+    p.textContent = 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant. ';
   });
   afficher('tous');
 })();
@@ -210,7 +205,7 @@
   document.getElementById('prevenir').addEventListener('click', function(){
     var p = document.getElementById('prevenir-texte'); p.hidden = false;
     var c = document.getElementById('creneau').value;
-    p.textContent = R.length + ' acheteurs seraient prévenus par email : « Votre commande est arrivée. Retrait ' + c.charAt(0).toLowerCase() + c.slice(1) + '. » Dans cette maquette, aucun email n\'est envoyé.';
+    p.textContent = R.length + ' acheteurs seraient prévenus par email : « Votre commande est arrivée. Retrait ' + c.charAt(0).toLowerCase() + c.slice(1) + '. » ';
   });
   aff();
 })();

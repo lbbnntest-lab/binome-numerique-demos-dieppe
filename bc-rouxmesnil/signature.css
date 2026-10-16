@@ -168,3 +168,19 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .echange.sig h3{font-size:1.7rem}
 .echange.sig li{margin:10px 0}
 @media (max-width:820px){.echange.sig{grid-template-columns:1fr}.p-tete .wrap{padding-top:48px;padding-bottom:84px}}
+
+/* Présentation (distincte du site du club) */
+.pres-tete{position:sticky;top:0;z-index:50;background:#f3f4f1;border-bottom:3px solid var(--ballon)}
+.pres-tete .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
+.pres-marque strong{display:block;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:1.3rem;color:var(--ink)}
+.pres-marque span{color:var(--ink-soft);font-size:.9rem}
+.pres-tete nav{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center}
+.pres-tete nav a{color:var(--ink);text-decoration:none;font-weight:600;border-bottom:2px solid transparent}
+.pres-tete nav a[aria-current]{border-bottom-color:var(--ballon)}
+.pres-tete nav a.pres-site{background:var(--ballon);color:#fff;padding:8px 14px;border:0}
+.note.pres{display:block}
+.expl{background:var(--surface);border:1px solid var(--line);padding:26px 28px;margin-bottom:22px}
+.expl-tete{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.expl-tete h2{margin:0}
+.expl ul{margin:0;padding-left:20px}
+.expl li{margin:10px 0;max-width:62em}
