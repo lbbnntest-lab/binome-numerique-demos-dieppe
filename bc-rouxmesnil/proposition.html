@@ -4,34 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+
 <title>Proposition de partenariat | Basket Club de Rouxmesnil | Maquette</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
 </head>
 <body data-page="proposition">
 
 <main>
-  <section class="bloc">
-    <div class="wrap" style="max-width:860px">
-      <p class="surtitre">Proposition de partenariat</p>
-      <h1>Un site qui allège le travail des bénévoles</h1>
-      <p style="font-size:1.15rem">Je m'appelle Kyllian Lepaul, j'habite Arques-la-Bataille et j'ai créé Le Binôme Numérique : je conçois des sites et des outils qui font gagner du temps aux entreprises de la région. Je souhaite devenir partenaire du Basket Club de Rouxmesnil, et plutôt qu'un chèque, je vous propose ce que je sais faire : un site sur mesure pour le BCR, du niveau de notre formule Signature, avec un espace pour les familles et un espace pour les dirigeants.</p>
-      <p>Les pages de cette maquette se parcourent comme un vrai site. Le logo, les photos, les matchs et les résultats viennent de votre page Facebook ; les noms de licenciés, les prix et les chiffres sont des exemples, et rien n'est encore relié aux comptes du club. Ce qui marche déjà chez vous, vos directs, vos affiches et votre boutique JAKO, est gardé et mis en valeur.</p>
-      <div class="actions">
-        <a class="bouton" href="index.html">Voir la maquette</a>
-        <a class="bouton ligne" href="dirigeants.html">Voir l'espace dirigeants</a>
-        <a class="bouton ligne" href="boutique.html">Boutique : avec ou sans JAKO</a>
-        <a class="bouton ligne" href="reseaux.html">Réseaux sociaux</a>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Partenaire</span>
+    <div class="wrap">
+      <p class="s-surtitre">Proposition de partenariat · Basket Club de Rouxmesnil</p>
+      <h1 id="titre-page" class="s-titre">Un site qui allège le travail <span class="vert">des bénévoles</span></h1>
+      <div class="s-actions">
+        <a class="s-bouton" href="index.html">Voir la maquette</a>
+        <a class="s-bouton creux" href="dirigeants.html">L'espace dirigeants</a>
       </div>
     </div>
   </section>
 
+  <section class="s-manifeste" aria-label="Présentation">
+    <svg class="arches" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path class="arc" d="M-40 520 C 120 120, 1080 120, 1240 520"/><path class="arc" d="M40 520 C 190 190, 1010 190, 1160 520"/><path class="arc" d="M120 520 C 260 250, 940 250, 1080 520"/><path class="arc" d="M200 520 C 330 300, 870 300, 1000 520"/>
+    </svg>
+    <div class="wrap">
+      <p data-mv="eclaire">Je m'appelle Kyllian Lepaul, j'habite Arques-la-Bataille et j'ai créé Le Binôme Numérique. Je souhaite devenir partenaire du BCR, et plutôt qu'un chèque, je vous propose ce que je sais faire : <em>un site sur mesure</em>, avec un espace pour les familles et un espace pour les dirigeants.</p>
+      <p style="font-family:var(--texte);font-weight:400;font-size:1.05rem;line-height:1.6;margin-top:28px;max-width:44em;color:var(--ink-soft)">Les pages de cette maquette se parcourent comme un vrai site. Le logo, les photos, les matchs et les résultats viennent de votre page Facebook ; les noms de licenciés, les prix et les chiffres sont des exemples, et rien n'est encore relié aux comptes du club. Ce qui marche déjà chez vous, vos directs, vos affiches et votre boutique JAKO, est gardé et mis en valeur.</p>
+    </div>
+  </section>
+
   <section class="bloc clair">
-    <div class="wrap" style="max-width:860px">
-      <p class="surtitre">Ce que le club y gagne</p>
-      <h2>Huit tâches simplifiées</h2>
-      <div class="gains">
+    <div class="wrap">
+      <div class="p-chiffre"><b data-compte="8">8</b><span>tâches simplifiées pour le bureau</span></div>
+      <div class="gains" data-mv="suite">
         <div><h3>Les inscriptions</h3><p>Un parcours en ligne de cinq minutes : catégorie et tarif calculés, autorisations signées, paiement. Plus de dossiers papier à collecter et à vérifier.</p></div>
         <div><h3>Les paiements</h3><p>Paiement par carte, en une ou trois fois, directement sur le compte du club. Le trésorier voit qui a payé, sans rapprochement à la main.</p></div>
         <div><h3>Le suivi des dossiers</h3><p>Pour chaque licencié : cotisation, licence fédérale, droit à l'image. Les rappels partent aux seules familles concernées, après validation d'un dirigeant.</p></div>
@@ -45,10 +56,10 @@
   </section>
 
   <section class="bloc">
-    <div class="wrap" style="max-width:860px">
+    <div class="wrap">
       <p class="surtitre">L'échange proposé</p>
-      <h2>Ce que chacun apporte</h2>
-      <div class="echange">
+      <h2 data-mv="mots">Ce que chacun apporte</h2>
+      <div class="echange sig" data-mv="suite">
         <div>
           <h3>Le Binôme Numérique apporte</h3>
           <ul>
@@ -68,24 +79,40 @@
           </ul>
         </div>
       </div>
-      <p style="margin-top:16px">Le partenariat serait conclu pour deux saisons, puis nous ferions le point ensemble. Le détail chiffré, ce qui est compris dans l'entretien et ce qui ne l'est pas, figurera dans une proposition écrite.</p>
+      <p style="margin-top:20px;max-width:46em">Le partenariat serait conclu pour deux saisons, puis nous ferions le point ensemble. Le détail chiffré, ce qui est compris dans l'entretien et ce qui ne l'est pas, figurera dans une proposition écrite.</p>
     </div>
   </section>
 
   <section class="bloc clair">
-    <div class="wrap" style="max-width:860px">
-      <p class="surtitre">La suite</p>
-      <h2>Les prochaines étapes</h2>
-      <ol class="suite">
-        <li><strong>Un échange avec le bureau</strong> pour comprendre comment le club fonctionne aujourd'hui et quelles tâches pèsent le plus.</li>
-        <li><strong>Une proposition écrite et chiffrée</strong>, remise dans les quinze jours qui suivent.</li>
-        <li><strong>Une mise en ligne en deux temps</strong>, si le club le souhaite : d'abord le site, les stages et les vidéos, puis les inscriptions et les espaces familles et dirigeants, prêts avant l'ouverture de la saison prochaine.</li>
+    <div class="wrap deux" style="align-items:start">
+      <div>
+        <p class="surtitre">La suite</p>
+        <h2 data-mv="mots">Les prochaines étapes</h2>
+        <p>Une mise en place progressive, sans rien casser de ce qui fonctionne aujourd'hui.</p>
+      </div>
+      <ol class="chemin">
+        <li><strong>Un échange avec le bureau</strong>Pour comprendre comment le club fonctionne aujourd'hui et quelles tâches pèsent le plus.</li>
+        <li><strong>Une proposition écrite et chiffrée</strong>Remise dans les quinze jours qui suivent.</li>
+        <li><strong>Une mise en ligne en deux temps</strong>Si le club le souhaite : d'abord le site, les stages et les vidéos, puis les inscriptions et les espaces familles et dirigeants, prêts avant l'ouverture de la saison prochaine.</li>
       </ol>
-      <p style="margin-top:24px">Kyllian Lepaul<br>Le Binôme Numérique · <a href="https://lebinomenumerique.fr">lebinomenumerique.fr</a></p>
+    </div>
+  </section>
+
+  <section class="s-affichage s-nuit" aria-label="Contact">
+    <div class="wrap">
+      <div class="s-entete-bloc">
+        <h2 data-mv="mots">On en parle ?</h2>
+        <p>Kyllian Lepaul · Le Binôme Numérique · <a href="https://lebinomenumerique.fr" style="color:var(--vif)">lebinomenumerique.fr</a></p>
+      </div>
+      <div class="s-actions"><a class="s-bouton" href="index.html">Revoir la maquette</a><a class="s-bouton creux" href="boutique.html">Boutique : avec ou sans JAKO</a><a class="s-bouton creux" href="reseaux.html">Réseaux sociaux</a></div>
     </div>
   </section>
 </main>
 
 <script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
 </body>
 </html>

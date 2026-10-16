@@ -142,3 +142,29 @@
   .echelle{order:-1}
   .echelle svg{max-width:300px}
 }
+
+/* En-tête des pages intérieures */
+.p-tete{position:relative;overflow:hidden;background:linear-gradient(100deg,rgba(8,10,9,.95) 0%,rgba(8,10,9,.86) 55%,rgba(8,10,9,.7) 100%),url(img/salle-cheruel-vert.jpg) center 35%/cover no-repeat #080a09;clip-path:polygon(0 0,100% 0,100% calc(100% - 40px),0 100%)}
+.p-tete .wrap{position:relative;padding-top:72px;padding-bottom:104px}
+.p-tete .s-titre{font-size:clamp(2.8rem,7vw,6.2rem);max-width:12em}
+.p-tete .s-chapo{max-width:38em}
+.p-filigrane{position:absolute;right:-2%;bottom:-6%;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:clamp(8rem,26vw,22rem);line-height:.8;color:transparent;-webkit-text-stroke:2px rgba(70,196,111,.28);white-space:nowrap;pointer-events:none;user-select:none}
+.p-tete + section.bloc{padding-top:48px}
+section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
+
+/* Proposition : chiffre géant, échange, chemin */
+.p-chiffre{display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap;margin:8px 0 28px}
+.p-chiffre b{font-family:var(--titre);font-style:italic;font-weight:700;font-size:clamp(6rem,16vw,11rem);line-height:.8;color:var(--ballon)}
+.p-chiffre span{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1;max-width:10em}
+.chemin{--avance:1;position:relative;list-style:none;margin:0;padding:0 0 0 34px}
+.chemin::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:3px;background:var(--line)}
+.chemin::after{content:"";position:absolute;left:9px;top:8px;width:3px;height:calc((100% - 16px) * var(--avance));background:var(--ballon)}
+.chemin li{position:relative;margin:0 0 26px}
+.chemin li::before{content:"";position:absolute;left:-32px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--ballon);box-shadow:0 0 0 5px var(--ground)}
+.chemin li strong{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.4rem;display:block}
+.echange.sig{border:0;gap:22px;display:grid;grid-template-columns:1fr 1fr}
+.echange.sig > div{background:var(--club);color:#fff;border:0;padding:30px;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.echange.sig > div + div{background:#fff;color:var(--ink);border:2px solid var(--club)}
+.echange.sig h3{font-size:1.7rem}
+.echange.sig li{margin:10px 0}
+@media (max-width:820px){.echange.sig{grid-template-columns:1fr}.p-tete .wrap{padding-top:48px;padding-bottom:84px}}

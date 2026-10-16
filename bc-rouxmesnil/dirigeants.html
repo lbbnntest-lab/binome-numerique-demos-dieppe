@@ -4,30 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+
 <title>Espace dirigeants | Basket Club de Rouxmesnil | Maquette</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
 </head>
 <body data-page="dirigeants">
 
 <main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Bureau</span>
+    <div class="wrap">
+      <p class="s-surtitre">Accès réservé au bureau du club</p>
+      <h1 id="titre-page" class="s-titre">Espace dirigeants</h1>
+      <p class="s-chapo">Toute la saison sur un seul écran : inscriptions, paiements, licences, bénévoles, stages et événements.</p>
+    </div>
+  </section>
   <section class="bloc">
     <div class="wrap">
-      <p class="surtitre">Accès réservé au bureau du club</p>
-      <h1>Espace dirigeants</h1>
-      <p style="max-width:44em">Toute la saison sur un seul écran : inscriptions, paiements, licences, bénévoles, stages et événements.</p>
 
       <div class="note"><b>Pour le club</b>C'est la partie qui fait gagner le plus de temps. Chaque dirigeant a son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
 
-      <div class="compteurs">
+      <div class="compteurs" data-mv="suite">
         <div><b>142</b><span>inscrits cette saison</span></div>
         <div><b>118</b><span>cotisations payées</span></div>
         <div><b>103</b><span>licences fédérales faites</span></div>
         <div><b>17</b><span>dossiers incomplets</span></div>
       </div>
 
-      <h2>Suivi des inscriptions</h2>
+      <h2 data-mv="mots">Suivi des inscriptions</h2>
       <div class="filtres" role="group" aria-label="Filtrer la liste">
         <button type="button" aria-pressed="true" data-filtre="tous">Tous</button>
         <button type="button" aria-pressed="false" data-filtre="incomplet">Dossiers incomplets</button>
@@ -52,7 +62,7 @@
   <section class="bloc">
     <div class="wrap">
       <p class="surtitre">Commande groupée</p>
-      <h2>Tee-shirts U18F : colis reçus</h2>
+      <h2 data-mv="mots">Tee-shirts U18F : colis reçus</h2>
       <p style="max-width:44em">Quand les colis arrivent, un dirigeant choisit le créneau de retrait et appuie sur un bouton : chaque acheteur reçoit un email avec sa commande, sa taille et le créneau. À la remise, on coche « retiré ».</p>
       <label for="creneau">Créneau de retrait</label>
       <select id="creneau" style="max-width:420px"><option>Samedi 5 décembre, 13 h 30 à 16 h, salle Alexandre-Cheruel</option><option>Mercredi 9 décembre, 17 h à 19 h, pendant les entraînements</option></select>
@@ -71,8 +81,8 @@
   <section class="bloc clair">
     <div class="wrap">
       <p class="surtitre">Bénévoles</p>
-      <h2>Table de marque et buvette du week-end</h2>
-      <div class="planning">
+      <h2 data-mv="mots">Table de marque et buvette du week-end</h2>
+      <div class="planning" data-mv="suite">
         <div class="creneau">
           <h3>Samedi 17 octobre · 14 h<br>U13 F contre Saint-Nicolas</h3>
           <ul>
@@ -105,7 +115,7 @@
     <div class="wrap deux">
       <div>
         <p class="surtitre">Stage des vacances</p>
-        <h2>La liste des inscrits, prête</h2>
+        <h2 data-mv="mots">La liste des inscrits, prête</h2>
         <p>Les réservations du stage d'octobre, jour par jour, avec les paiements. Le responsable des stages n'a plus à noter les appels.</p>
         <table class="recap">
           <tr><td>U11 · lundi 19 octobre</td><td>14 enfants</td></tr>
@@ -117,7 +127,7 @@
       </div>
       <div>
         <p class="surtitre">Subventions</p>
-        <h2>Les chiffres pour les dossiers</h2>
+        <h2 data-mv="mots">Les chiffres pour les dossiers</h2>
         <p>Les dossiers de subvention (commune, Département, Agence nationale du sport) demandent toujours les mêmes chiffres : nombre de licenciés, filles et garçons, moins de 18 ans, communes d'origine. Ils sont calculés à partir des inscriptions.</p>
         <table class="recap">
           <tr><td>Licenciés</td><td>142</td></tr>
@@ -132,6 +142,10 @@
 </main>
 
 <script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
 <script>
 (function(){
   var JOUEURS = [

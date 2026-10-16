@@ -4,27 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+
 <title>Boutique | Basket Club de Rouxmesnil | Maquette</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
 </head>
 <body data-page="boutique">
 
 <main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">BCR</span>
+    <div class="wrap">
+      <p class="s-surtitre">Boutique du club</p>
+      <h1 id="titre-page" class="s-titre">Aux couleurs du BCR</h1>
+      <p class="s-chapo">Deux façons de faire, à comparer avec le bureau. Le reste de la boutique (stages, événements, articles du club) est le même dans les deux cas.</p>
+    </div>
+  </section>
   <section class="bloc">
     <div class="wrap">
-      <p class="surtitre">Boutique du club</p>
-      <h1>Aux couleurs du BCR</h1>
-      <p style="max-width:46em">Deux façons de faire, à comparer avec le bureau. Le reste de la boutique (stages, événements, articles du club) est le même dans les deux cas.</p>
       <div class="choix-insc" role="group" aria-label="Formule de boutique">
         <button type="button" aria-pressed="true" data-formule="avec">Avec la boutique JAKO</button>
         <button type="button" aria-pressed="false" data-formule="sans">Sans JAKO, boutique du club</button>
       </div>
 
       <div id="formule-avec">
-        <div class="produits">
-          <article class="produit revele">
+        <div class="produits" data-mv="suite">
+          <article class="produit">
             <div class="visuel" style="background:#fff"><img src="img/jako-gilet.jpg" alt="Gilet matelassé JAKO noir, logo du BCR" style="height:170px;width:auto"></div>
             <div class="infos">
               <h3>Gilet matelassé JAKO</h3>
@@ -33,7 +43,7 @@
               <div class="actions"><a class="bouton" href="https://team.jako.com" rel="noopener">Commander chez JAKO</a></div>
             </div>
           </article>
-          <article class="produit revele">
+          <article class="produit">
             <div class="visuel" style="background:#fff"><img src="img/jako-veste.jpg" alt="Veste hybride JAKO noire, logo du BCR" style="height:170px;width:auto"></div>
             <div class="infos">
               <h3>Veste hybride JAKO</h3>
@@ -64,7 +74,7 @@
         <div class="note"><b>Pour le club</b>Le club choisit un fournisseur (atelier de marquage de la région ou marque de tenues pour clubs) et vend lui-même, en commandes groupées deux fois par saison. Le club fixe ses prix et garde la marge. Quand les colis arrivent, chaque acheteur est prévenu par email avec le créneau de retrait à la salle. Les prix affichés sont des exemples, à fixer après devis.</div>
       </div>
 
-      <h2 style="margin-top:36px">Comparer les deux formules</h2>
+      <h2 style="margin-top:36px" data-mv="mots">Comparer les deux formules</h2>
       <div class="table-defile">
         <table class="suivi">
           <thead><tr><th></th><th>Avec JAKO</th><th>Sans JAKO, boutique du club</th></tr></thead>
@@ -85,9 +95,9 @@
   <section class="bloc clair">
     <div class="wrap">
       <p class="surtitre">Stages, événements et articles du club</p>
-      <h2>Réserver et payer en ligne</h2>
-      <div class="produits" style="margin-top:20px">
-        <article class="produit revele">
+      <h2 data-mv="mots">Réserver et payer en ligne</h2>
+      <div class="produits" data-mv="suite" style="margin-top:20px">
+        <article class="produit">
           <div class="visuel"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#1f7a3f"/><g fill="none" stroke="#101412" stroke-width="4"><path d="M8 60h104M60 8v104"/><path d="M24 22c18 16 18 60 0 76M96 22c-18 16-18 60 0 76"/></g></svg></div>
           <div class="infos">
             <h3>Stage des vacances d'octobre</h3>
@@ -96,7 +106,7 @@
             <div class="actions"><a class="bouton" href="inscription.html#stage">Réserver une place</a></div>
           </div>
         </article>
-        <article class="produit revele">
+        <article class="produit">
           <div class="visuel"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="22" width="100" height="76" fill="#101412"/><g fill="#46c46f"><circle cx="34" cy="46" r="9"/><circle cx="60" cy="46" r="9"/><circle cx="86" cy="46" r="9"/><circle cx="34" cy="74" r="9"/><circle cx="60" cy="74" r="9"/><circle cx="86" cy="74" r="9"/></g></svg></div>
           <div class="infos">
             <h3>Loto du club</h3>
@@ -105,7 +115,7 @@
             <div class="actions"><button class="bouton" type="button" data-ajout="5">Réserver</button></div>
           </div>
         </article>
-        <article class="produit revele">
+        <article class="produit">
           <div class="visuel"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="64" r="40" fill="#fff" stroke="#101412" stroke-width="5"/><circle cx="60" cy="64" r="24" fill="#e6e9e4"/><path d="M14 20v34M22 20v34M18 54v50M104 20c-10 8-10 30 0 34v50" stroke="#101412" stroke-width="5" fill="none"/></svg></div>
           <div class="infos">
             <h3>Repas de fin de saison</h3>
@@ -114,7 +124,7 @@
             <div class="actions"><button class="bouton" type="button" data-ajout="15">Réserver</button></div>
           </div>
         </article>
-        <article class="produit revele">
+        <article class="produit">
           <div class="visuel"><svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 6h44l30 18-12 24-14-7v83H34V41l-14 7L8 24z" fill="#101412"/><path d="M38 6c4 14 40 14 44 0" fill="none" stroke="#46c46f" stroke-width="5"/><text x="60" y="70" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-style="italic" font-weight="700" font-size="22" fill="#46c46f">U18F</text><text x="60" y="92" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-style="italic" font-weight="700" font-size="12" fill="#fff">ÉLITE 2026</text></svg></div>
           <div class="infos">
             <h3>Tee-shirt « U18F élite »</h3>
@@ -132,6 +142,10 @@
 <div class="panier" id="panier" aria-live="polite"><div class="wrap"><span id="panier-texte"></span><button class="bouton" type="button" onclick="alert('Maquette : le paiement en ligne sera relié au compte bancaire du club.')">Valider</button></div></div>
 
 <script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
 <script>
 (function(){
   var nb = 0, total = 0;
@@ -149,6 +163,7 @@
       f.forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); });
       document.getElementById('formule-avec').hidden = v!=='avec';
       document.getElementById('formule-sans').hidden = v!=='sans';
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
     });
   });
 })();

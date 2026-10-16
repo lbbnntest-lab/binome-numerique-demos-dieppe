@@ -4,19 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+
 <title>Inscriptions | Basket Club de Rouxmesnil | Maquette</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
 </head>
 <body data-page="inscription">
 
 <main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Saison</span>
+    <div class="wrap">
+      <p class="s-surtitre">Saison 2026-2027</p>
+      <h1 id="titre-page" class="s-titre">S'inscrire au club</h1>
+      <p class="s-chapo">Comptez cinq minutes. À la fin, vous recevez le lien de la licence fédérale à compléter en ligne.</p>
+    </div>
+  </section>
   <section class="bloc">
     <div class="wrap">
-      <p class="surtitre">Saison 2026-2027</p>
-      <h1>S'inscrire au club</h1>
-      <p style="max-width:40em">Comptez cinq minutes. À la fin, vous recevez le lien de la licence fédérale à compléter en ligne.</p>
 
       <div class="choix-insc" role="group" aria-label="Type d'inscription">
         <button type="button" aria-pressed="true" data-vue="saison">Inscription à la saison</button>
@@ -25,7 +35,7 @@
 
       <div id="vue-stage" hidden>
         <form class="carte-form" id="stage" onsubmit="return false">
-          <h2>Stage basket des vacances</h2>
+          <h2 data-mv="mots">Stage basket des vacances</h2>
           <p>Ouvert à tous, filles et garçons, de 10 h à 16 h 30. Pique-nique à apporter pour le déjeuner, goûter offert jusqu'à 17 h.</p>
           <label for="st-prenom">Prénom de l'enfant</label>
           <input type="text" id="st-prenom" value="Hugo">
@@ -59,7 +69,7 @@
       <form class="carte-form" id="form" novalidate onsubmit="return false">
 
         <div class="etape visible" data-etape="0">
-          <h2>Le joueur ou la joueuse</h2>
+          <h2 data-mv="mots">Le joueur ou la joueuse</h2>
           <label for="prenom">Prénom</label>
           <input type="text" id="prenom" autocomplete="off" value="Léa">
           <label for="nom">Nom</label>
@@ -72,7 +82,7 @@
         </div>
 
         <div class="etape" data-etape="1">
-          <h2>Le responsable légal</h2>
+          <h2 data-mv="mots">Le responsable légal</h2>
           <p>Pour un joueur mineur, c'est le parent qui reçoit les informations du club.</p>
           <label for="parent">Nom et prénom</label>
           <input type="text" id="parent" value="Parent Exemple">
@@ -84,7 +94,7 @@
         </div>
 
         <div class="etape" data-etape="2">
-          <h2>Autorisations et équipement</h2>
+          <h2 data-mv="mots">Autorisations et équipement</h2>
           <label class="choix"><input type="checkbox" checked> J'autorise le club à publier des photos de mon enfant prises lors des matchs et entraînements (prénom seulement, jamais le nom).</label>
           <label class="choix"><input type="checkbox" checked> J'autorise les responsables du club à prendre les mesures nécessaires en cas d'urgence médicale.</label>
           <label class="choix"><input type="checkbox" checked> J'autorise le transport de mon enfant par les bénévoles du club pour les matchs à l'extérieur.</label>
@@ -95,7 +105,7 @@
         </div>
 
         <div class="etape" data-etape="3">
-          <h2>Paiement de la cotisation</h2>
+          <h2 data-mv="mots">Paiement de la cotisation</h2>
           <table class="recap" id="recap"></table>
           <label class="choix"><input type="checkbox" id="aide"> Je bénéficie d'une aide (Pass'Sport, coupon sport, aide de la commune). Le club la déduit à réception du justificatif.</label>
           <label for="fois">Paiement</label>
@@ -105,7 +115,7 @@
         </div>
 
         <div class="etape" data-etape="4">
-          <h2>Merci, l'inscription est enregistrée</h2>
+          <h2 data-mv="mots">Merci, l'inscription est enregistrée</h2>
           <p><strong>Dernière étape : la licence fédérale.</strong> Le club vous envoie par email le lien de la Fédération française de basket-ball. Vous y complétez la licence en ligne : photo d'identité et questionnaire de santé.</p>
           <p>Vous pouvez venir aux entraînements dès maintenant.</p>
           <div class="note"><b>Pour le club</b>La licence reste sur le site de la fédération, comme aujourd'hui. Les informations de santé ne passent jamais par le site du club. Dans l'espace dirigeants, chaque inscrit indique « licence faite » ou « licence en attente », pour savoir à qui envoyer un rappel.</div>
@@ -122,6 +132,10 @@
 </main>
 
 <script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
 <script>
 (function(){
   var SAISON = 2026;
