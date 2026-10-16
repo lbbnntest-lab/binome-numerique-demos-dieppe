@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace dirigeants | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dirigeants">
+
+<main>
+  <section class="bloc">
+    <div class="wrap">
+      <p class="surtitre">Accès réservé au bureau du club</p>
+      <h1>Espace dirigeants</h1>
+      <p style="max-width:44em">Toute la saison sur un seul écran : inscriptions, paiements, licences, bénévoles et commandes de la boutique.</p>
+
+      <div class="note"><b>Pour le club</b>C'est la partie qui fait gagner le plus de temps. Chaque dirigeant a son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
+
+      <div class="compteurs">
+        <div><b>142</b><span>inscrits cette saison</span></div>
+        <div><b>118</b><span>cotisations payées</span></div>
+        <div><b>103</b><span>licences fédérales faites</span></div>
+        <div><b>17</b><span>dossiers incomplets</span></div>
+      </div>
+
+      <h2>Suivi des inscriptions</h2>
+      <div class="filtres" role="group" aria-label="Filtrer la liste">
+        <button type="button" aria-pressed="true" data-filtre="tous">Tous</button>
+        <button type="button" aria-pressed="false" data-filtre="incomplet">Dossiers incomplets</button>
+        <button type="button" aria-pressed="false" data-filtre="U18">U18 féminines</button>
+      </div>
+      <div class="table-defile">
+        <table class="suivi">
+          <thead><tr><th>Joueur</th><th>Catégorie</th><th>Cotisation</th><th>Licence fédérale</th><th>Photos autorisées</th><th>Taille</th></tr></thead>
+          <tbody id="liste"></tbody>
+        </table>
+      </div>
+      <div class="actions">
+        <button class="bouton" type="button" id="rappel">Préparer un rappel aux dossiers incomplets</button>
+        <button class="bouton ligne" type="button" onclick="alert('Maquette : export du tableau pour le tableur du club.')">Exporter la liste</button>
+      </div>
+      <p id="rappel-texte" class="resultat" hidden></p>
+
+      <div class="note"><b>Pour le club</b>Fini le cahier et le tableur à tenir à jour. En un clic, le trésorier voit qui n'a pas payé, le secrétaire voit qui n'a pas fait sa licence, et le rappel part aux familles concernées après validation par un dirigeant. La colonne « photos autorisées » indique qui l'on peut montrer sur les réseaux.</div>
+    </div>
+  </section>
+
+  <section class="bloc clair">
+    <div class="wrap">
+      <p class="surtitre">Bénévoles</p>
+      <h2>Table de marque et buvette du week-end</h2>
+      <div class="planning">
+        <div class="creneau">
+          <h3>Samedi 24 octobre · 15 h 30<br>U18F à domicile</h3>
+          <ul>
+            <li><span>Marqueur</span><span>Sophie D.</span></li>
+            <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
+            <li><span>Buvette</span><span>Famille L.</span></li>
+          </ul>
+        </div>
+        <div class="creneau">
+          <h3>Samedi 24 octobre · 20 h 30<br>Seniors masculins 1</h3>
+          <ul>
+            <li><span>Marqueur</span><span>Thomas R.</span></li>
+            <li><span>Chronométreur</span><span>Julie M.</span></li>
+            <li><span>Buvette</span><span class="libre">À pourvoir</span></li>
+          </ul>
+        </div>
+        <div class="creneau">
+          <h3>Dimanche 25 octobre · 10 h<br>Plateau école de basket</h3>
+          <ul>
+            <li><span>Accueil des familles</span><span>Nadia B.</span></li>
+            <li><span>Goûter</span><span class="libre">À pourvoir</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="note"><b>Pour le club</b>Les parents s'inscrivent eux-mêmes sur les créneaux libres depuis leur téléphone. Les dirigeants voient d'un coup d'œil ce qui reste à pourvoir, au lieu de relancer chaque semaine sur WhatsApp.</div>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <div class="wrap deux">
+      <div>
+        <p class="surtitre">Boutique</p>
+        <h2>Commande fournisseur prête</h2>
+        <p>À la clôture de la commande d'automne, le tableau récapitulatif est prêt à transmettre au fournisseur.</p>
+        <table class="recap">
+          <tr><td>Maillot floqué, taille S</td><td>9</td></tr>
+          <tr><td>Maillot floqué, taille M</td><td>7</td></tr>
+          <tr><td>Sweat à capuche, 12 ans</td><td>11</td></tr>
+          <tr><td>Gourde du club</td><td>11</td></tr>
+          <tr class="total"><td>Total encaissé</td><td>1 154 €</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="surtitre">Subventions</p>
+        <h2>Les chiffres pour les dossiers</h2>
+        <p>Les dossiers de subvention (commune, Département, Agence nationale du sport) demandent toujours les mêmes chiffres : nombre de licenciés, filles et garçons, moins de 18 ans, communes d'origine. Ils sont calculés à partir des inscriptions.</p>
+        <table class="recap">
+          <tr><td>Licenciés</td><td>142</td></tr>
+          <tr><td>Dont filles et femmes</td><td>61</td></tr>
+          <tr><td>Dont moins de 18 ans</td><td>97</td></tr>
+          <tr><td>Communes représentées</td><td>14</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="wrap"><div class="note"><b>Pour le club</b>Deux corvées de moins : la commande groupée et les chiffres des dossiers de subvention, recopiés à la main chaque année.</div></div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script>
+(function(){
+  var JOUEURS = [
+    ['Léa B.','U18 F','Payée','Faite','Oui','S'],
+    ['Inès M.','U18 F','Payée','En attente','Oui','M'],
+    ['Chloé R.','U18 F','En attente','En attente','Non renseigné','S'],
+    ['Manon L.','U18 F','Payée','Faite','Non','M'],
+    ['Hugo D.','U13 M','Payée','Faite','Oui','12 ans'],
+    ['Nathan P.','U13 M','2 sur 3 payées','Faite','Oui','12 ans'],
+    ['Lucas T.','U11 M','En attente','En attente','Oui','10 ans'],
+    ['Emma G.','U9 F','Payée','Faite','Oui','8 ans'],
+    ['Karim S.','Seniors M','Payée','En attente','Oui','L'],
+    ['Julie V.','Seniors F','Payée','Faite','Oui','M']
+  ];
+  function classe(v){
+    if(v==='Payée'||v==='Faite'||v==='Oui') return 'ok';
+    if(v==='Non'||v==='Non renseigné') return 'manque';
+    return 'attente';
+  }
+  function incomplet(j){ return j[2]!=='Payée' || j[3]!=='Faite' || j[4]==='Non renseigné'; }
+  function afficher(f){
+    var lignes = JOUEURS.filter(function(j){
+      if(f==='incomplet') return incomplet(j);
+      if(f==='U18') return j[1]==='U18 F';
+      return true;
+    }).map(function(j){
+      return '<tr><td>'+j[0]+'</td><td>'+j[1]+'</td>'
+        + [2,3,4].map(function(i){ return '<td><span class="etat '+classe(j[i])+'">'+j[i]+'</span></td>'; }).join('')
+        + '<td>'+j[5]+'</td></tr>';
+    }).join('');
+    document.getElementById('liste').innerHTML = lignes;
+  }
+  document.querySelectorAll('[data-filtre]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-filtre]').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      afficher(b.getAttribute('data-filtre'));
+    });
+  });
+  document.getElementById('rappel').addEventListener('click', function(){
+    var n = JOUEURS.filter(incomplet).length;
+    var p = document.getElementById('rappel-texte');
+    p.hidden = false;
+    p.textContent = 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant. Dans cette maquette, aucun message n\'est envoyé.';
+  });
+  afficher('tous');
+})();
+</script>
+</body>
+</html>

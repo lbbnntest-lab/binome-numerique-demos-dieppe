@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Inscriptions | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="inscription">
+
+<main>
+  <section class="bloc">
+    <div class="wrap">
+      <p class="surtitre">Saison 2026-2027</p>
+      <h1>S'inscrire au club</h1>
+      <p style="max-width:40em">Comptez cinq minutes. À la fin, vous recevez le lien de la licence fédérale à compléter en ligne.</p>
+
+      <div class="note"><b>Pour le club</b>Toute l'inscription tient sur une page, du téléphone comme de l'ordinateur. Les parents ne ramènent plus de dossier papier, et chaque inscription arrive complète dans l'espace dirigeants. Essayez le parcours : rien n'est enregistré dans cette maquette.</div>
+
+      <ol class="etapes" id="frise">
+        <li class="active">Joueur</li>
+        <li>Responsable</li>
+        <li>Autorisations</li>
+        <li>Paiement</li>
+        <li>Licence</li>
+      </ol>
+
+      <form class="carte-form" id="form" novalidate onsubmit="return false">
+
+        <div class="etape visible" data-etape="0">
+          <h2>Le joueur ou la joueuse</h2>
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" autocomplete="off" value="Léa">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" autocomplete="off" value="Exemple">
+          <label for="naissance">Date de naissance</label>
+          <input type="date" id="naissance" value="2009-05-12">
+          <div class="resultat" id="categorie" aria-live="polite"></div>
+          <label class="choix"><input type="checkbox" id="frere"> Un frère ou une sœur est déjà inscrit cette saison</label>
+          <div class="note"><b>Pour le club</b>La catégorie se calcule à partir de la date de naissance, avec le tarif qui va avec. Les parents n'ont plus à demander « mon fils est en U13 ou en U15 ? ». Les tarifs affichés ici sont des exemples : ce seront les vôtres.</div>
+        </div>
+
+        <div class="etape" data-etape="1">
+          <h2>Le responsable légal</h2>
+          <p>Pour un joueur mineur, c'est le parent qui reçoit les informations du club.</p>
+          <label for="parent">Nom et prénom</label>
+          <input type="text" id="parent" value="Parent Exemple">
+          <label for="email">Adresse email</label>
+          <input type="email" id="email" value="parent@exemple.fr">
+          <label for="tel">Téléphone</label>
+          <input type="tel" id="tel" value="06 00 00 00 00">
+          <div class="note"><b>Pour le club</b>Les coordonnées des parents sont rangées au même endroit pour toute la saison : plus besoin de les recopier dans un tableur.</div>
+        </div>
+
+        <div class="etape" data-etape="2">
+          <h2>Autorisations et équipement</h2>
+          <label class="choix"><input type="checkbox" checked> J'autorise le club à publier des photos de mon enfant prises lors des matchs et entraînements (prénom seulement, jamais le nom).</label>
+          <label class="choix"><input type="checkbox" checked> J'autorise les responsables du club à prendre les mesures nécessaires en cas d'urgence médicale.</label>
+          <label class="choix"><input type="checkbox" checked> J'autorise le transport de mon enfant par les bénévoles du club pour les matchs à l'extérieur.</label>
+          <label class="choix"><input type="checkbox" checked> J'ai lu le règlement intérieur du club.</label>
+          <label for="taille">Taille du short et du maillot d'entraînement</label>
+          <select id="taille"><option>XS</option><option selected>S</option><option>M</option><option>L</option><option>XL</option></select>
+          <div class="note"><b>Pour le club</b>Le droit à l'image est recueilli par écrit dès l'inscription. C'est indispensable pour publier des photos de joueurs mineurs, par exemple pour la saison des U18F. Le tableau de bord indique qui a accepté et qui a refusé.</div>
+        </div>
+
+        <div class="etape" data-etape="3">
+          <h2>Paiement de la cotisation</h2>
+          <table class="recap" id="recap"></table>
+          <label class="choix"><input type="checkbox" id="aide"> Je bénéficie d'une aide (Pass'Sport, coupon sport, aide de la commune). Le club la déduit à réception du justificatif.</label>
+          <label for="fois">Paiement</label>
+          <select id="fois"><option value="1">En une fois</option><option value="3">En trois fois sans frais</option></select>
+          <p id="echeances" style="margin-top:10px"></p>
+          <div class="note"><b>Pour le club</b>Le paiement par carte arrive directement sur le compte bancaire du club. Le trésorier voit qui a payé sans rien rapprocher à la main. Les chèques et espèces restent possibles : un dirigeant les coche comme reçus.</div>
+        </div>
+
+        <div class="etape" data-etape="4">
+          <h2>Merci, l'inscription est enregistrée</h2>
+          <p><strong>Dernière étape : la licence fédérale.</strong> Le club vous envoie par email le lien de la Fédération française de basket-ball. Vous y complétez la licence en ligne : photo d'identité et questionnaire de santé.</p>
+          <p>Vous pouvez venir aux entraînements dès maintenant.</p>
+          <div class="note"><b>Pour le club</b>La licence reste sur le site de la fédération, comme aujourd'hui. Les informations de santé ne passent jamais par le site du club. Dans l'espace dirigeants, chaque inscrit indique « licence faite » ou « licence en attente », pour savoir à qui envoyer un rappel.</div>
+        </div>
+
+        <div class="navform">
+          <button type="button" class="bouton ligne" id="retour">Retour</button>
+          <button type="button" class="bouton" id="suivant">Continuer</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script>
+(function(){
+  var SAISON = 2026;
+  var CATEGORIES = [
+    {max:6,  nom:'École de basket (U7)', prix:110},
+    {max:8,  nom:'École de basket (U9)', prix:110},
+    {max:10, nom:'U11', prix:130},
+    {max:12, nom:'U13', prix:130},
+    {max:14, nom:'U15', prix:150},
+    {max:17, nom:'U18', prix:150},
+    {max:20, nom:'U21', prix:160},
+    {max:200,nom:'Seniors', prix:170}
+  ];
+  var REMISE_FRATRIE = 20;
+  var etape = 0;
+  var etapes = document.querySelectorAll('.etape');
+  var frise = document.querySelectorAll('#frise li');
+  var retour = document.getElementById('retour');
+  var suivant = document.getElementById('suivant');
+
+  function categorie(){
+    var v = document.getElementById('naissance').value;
+    if(!v) return null;
+    var age = SAISON - parseInt(v.slice(0,4),10);
+    for(var i=0;i<CATEGORIES.length;i++){ if(age <= CATEGORIES[i].max) return CATEGORIES[i]; }
+    return null;
+  }
+  function euros(n){ return n.toFixed(2).replace('.',',').replace(',00','') + ' €'; }
+  function majCategorie(){
+    var c = categorie();
+    document.getElementById('categorie').innerHTML = c
+      ? 'Catégorie pour la saison : <strong>'+c.nom+'</strong><br>Cotisation : '+euros(c.prix)+' (licence fédérale comprise)'
+      : 'Indiquez la date de naissance pour voir la catégorie.';
+  }
+  function majRecap(){
+    var c = categorie() || CATEGORIES[5];
+    var frere = document.getElementById('frere').checked;
+    var total = c.prix - (frere ? REMISE_FRATRIE : 0);
+    var lignes = '<tr><td>Cotisation '+c.nom+'</td><td>'+euros(c.prix)+'</td></tr>';
+    if(frere) lignes += '<tr><td>Réduction frère ou sœur</td><td>- '+euros(REMISE_FRATRIE)+'</td></tr>';
+    lignes += '<tr class="total"><td>Total</td><td>'+euros(total)+'</td></tr>';
+    document.getElementById('recap').innerHTML = lignes;
+    var fois = parseInt(document.getElementById('fois').value,10);
+    document.getElementById('echeances').textContent = fois === 3
+      ? 'Trois prélèvements de '+euros(total/3)+', en septembre, octobre et novembre.'
+      : 'Un seul paiement de '+euros(total)+'.';
+  }
+  function afficher(){
+    etapes.forEach(function(e,i){ e.classList.toggle('visible', i===etape); });
+    frise.forEach(function(li,i){ li.className = i===etape ? 'active' : (i<etape ? 'faite' : ''); });
+    retour.style.visibility = (etape===0 || etape===4) ? 'hidden' : 'visible';
+    suivant.textContent = etape===3 ? 'Payer (simulation)' : (etape===4 ? 'Recommencer' : 'Continuer');
+    if(etape===3) majRecap();
+  }
+  suivant.addEventListener('click', function(){
+    etape = etape===4 ? 0 : etape+1;
+    afficher();
+    document.getElementById('frise').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  retour.addEventListener('click', function(){ if(etape>0){ etape--; afficher(); } });
+  document.getElementById('naissance').addEventListener('input', majCategorie);
+  document.getElementById('fois').addEventListener('change', majRecap);
+  majCategorie(); afficher();
+})();
+</script>
+</body>
+</html>
