@@ -1,5 +1,6 @@
 // Éléments communs de la maquette : bandeau, en-tête, pied de page, tracés du terrain.
 (function(){
+  document.documentElement.classList.add('js');
   var page = document.body.getAttribute('data-page') || '';
 
   var TERRAIN = '<svg class="terrain" viewBox="0 0 280 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#fff" stroke-width="1.2">'
@@ -13,35 +14,35 @@
     + '</svg>';
   document.querySelectorAll('[data-terrain]').forEach(function(el){ el.insertAdjacentHTML('afterbegin', TERRAIN); });
 
-  var BLASON = '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#cf5a17"/>'
-    + '<g fill="none" stroke="#122648" stroke-width="2"><path d="M2 24h44"/><path d="M24 2v44"/>'
-    + '<path d="M9 8c7 6 7 26 0 32"/><path d="M39 8c-7 6-7 26 0 32"/></g></svg>';
+  var BLASON = '<img src="img/logo-bcr.jpg" alt="" width="54" height="54">';
 
   var liens = [
     ['index.html','accueil','Le club'],
     ['inscription.html','inscription','Inscriptions'],
     ['boutique.html','boutique','Boutique'],
-    ['u18f.html','u18f','Saison des U18F'],
-    ['dirigeants.html','dirigeants','Espace dirigeants']
+    ['videos.html','videos','Vidéos'],
+    ['u18f.html','u18f','U18F élite'],
+    ['licencies.html','licencies','Espace licenciés'],
+    ['dirigeants.html','dirigeants','Dirigeants']
   ];
   var menu = liens.map(function(l){
     return '<li><a href="'+l[0]+'"'+(l[1]===page?' aria-current="page"':'')+'>'+l[2]+'</a></li>';
   }).join('');
 
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
-    + '<span><strong>Maquette</strong> proposée au Basket Club de Rouxmesnil par Le Binôme Numérique. Noms, dates et prix sont des exemples.</span>'
+    + '<span><strong>Maquette</strong> proposée au Basket Club de Rouxmesnil par Le Binôme Numérique. Logo, photos et matchs viennent de la page Facebook du club ; les noms de licenciés, les prix et les chiffres sont des exemples.</span>'
     + '<span><button type="button" id="basculer-notes"></button> &nbsp;<a href="proposition.html">Lire la proposition</a></span>'
     + '</div></div>';
 
   var entete = '<header class="entete"><div class="wrap">'
-    + '<a class="logo" href="index.html">'+BLASON+'<span>Basket Club<br>de Rouxmesnil<small>Rouxmesnil-Bouteilles, Seine-Maritime</small></span></a>'
+    + '<a class="logo" href="index.html">'+BLASON+'<span>Basket Club<br>de Rouxmesnil<small>Passion, esprit d\'équipe, respect</small></span></a>'
     + '<nav aria-label="Menu principal"><ul class="menu">'+menu+'</ul></nav>'
     + '</div></header>';
 
   var pied = '<footer class="pied"><div class="wrap">'
-    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Association loi 1901, affiliée à la Fédération française de basket-ball.<br>Gymnase de Rouxmesnil-Bouteilles (adresse à compléter).</p></div>'
-    + '<div><h3>Le club</h3><p><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="u18f.html">Saison des U18F</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
-    + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook du club (à compléter)</p></div>'
+    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Association loi 1901, affiliée à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles.</p></div>'
+    + '<div><h3>Le club</h3><p><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
+    + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span><a href="#">Mentions légales</a> &nbsp; <a href="#">Confidentialité</a></span>'
     + '<span>Site réalisé par <a href="https://lebinomenumerique.fr">Le Binôme Numérique</a>, partenaire du club</span></div>'
     + '</div></footer>';
@@ -64,4 +65,13 @@
     appliquer();
   });
   appliquer();
+
+  // Apparition douce des blocs au défilement (désactivée si l'appareil demande moins d'animations).
+  var blocs = document.querySelectorAll('.revele');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vu'); obs.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -8% 0px'});
+    blocs.forEach(function(b){ obs.observe(b); });
+  } else { blocs.forEach(function(b){ b.classList.add('vu'); }); }
 })();

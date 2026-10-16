@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Inscriptions | Basket Club de Rouxmesnil | Maquette</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="inscription">
@@ -18,6 +18,34 @@
       <h1>S'inscrire au club</h1>
       <p style="max-width:40em">Comptez cinq minutes. À la fin, vous recevez le lien de la licence fédérale à compléter en ligne.</p>
 
+      <div class="choix-insc" role="group" aria-label="Type d'inscription">
+        <button type="button" aria-pressed="true" data-vue="saison">Inscription à la saison</button>
+        <button type="button" aria-pressed="false" data-vue="stage">Stage des vacances d'octobre</button>
+      </div>
+
+      <div id="vue-stage" hidden>
+        <form class="carte-form" id="stage" onsubmit="return false">
+          <h2>Stage basket des vacances</h2>
+          <p>Ouvert à tous, filles et garçons, de 10 h à 16 h 30. Pique-nique à apporter pour le déjeuner, goûter offert jusqu'à 17 h.</p>
+          <label for="st-prenom">Prénom de l'enfant</label>
+          <input type="text" id="st-prenom" value="Hugo">
+          <label for="st-jour">Catégorie et jour</label>
+          <select id="st-jour">
+            <option value="U11">U11, lundi 19 octobre</option>
+            <option value="U13" selected>U13, mardi 20 octobre</option>
+            <option value="U15">U15, jeudi 22 octobre</option>
+          </select>
+          <label for="st-duree">Durée</label>
+          <select id="st-duree"><option value="j">La journée</option><option value="d">La demi-journée</option></select>
+          <label class="choix"><input type="checkbox" id="st-licencie" checked> Mon enfant est licencié au BCR</label>
+          <div class="resultat" id="st-prix" aria-live="polite"></div>
+          <button type="button" class="bouton" id="st-payer">Payer et réserver (simulation)</button>
+          <p class="resultat" id="st-ok" hidden></p>
+          <div class="note"><b>Pour le club</b>Les tarifs sont ceux de votre affiche. Aujourd'hui, les familles appellent le responsable des stages et précisent catégorie, nom et prénom. Ici, la place est réservée et payée en ligne, et le responsable reçoit la liste prête, jour par jour.</div>
+        </form>
+      </div>
+
+      <div id="vue-saison">
       <div class="note"><b>Pour le club</b>Toute l'inscription tient sur une page, du téléphone comme de l'ordinateur. Les parents ne ramènent plus de dossier papier, et chaque inscription arrive complète dans l'espace dirigeants. Essayez le parcours : rien n'est enregistré dans cette maquette.</div>
 
       <ol class="etapes" id="frise">
@@ -88,6 +116,7 @@
           <button type="button" class="bouton" id="suivant">Continuer</button>
         </div>
       </form>
+      </div>
     </div>
   </section>
 </main>
@@ -156,6 +185,30 @@
   document.getElementById('naissance').addEventListener('input', majCategorie);
   document.getElementById('fois').addEventListener('change', majRecap);
   majCategorie(); afficher();
+
+  // Choix saison ou stage, et prix du stage d'après l'affiche du club.
+  var vues = document.querySelectorAll('[data-vue]');
+  function montrer(v){
+    vues.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-vue')===v ? 'true' : 'false'); });
+    document.getElementById('vue-stage').hidden = v!=='stage';
+    document.getElementById('vue-saison').hidden = v!=='saison';
+  }
+  vues.forEach(function(b){ b.addEventListener('click', function(){ montrer(b.getAttribute('data-vue')); }); });
+  function prixStage(){
+    var lic = document.getElementById('st-licencie').checked;
+    var jour = document.getElementById('st-duree').value==='j';
+    var p = lic ? (jour?6:3) : (jour?10:5);
+    document.getElementById('st-prix').innerHTML = 'Tarif : <strong>'+p+' €</strong> '+(jour?'la journée':'la demi-journée')+(lic?' (licencié BCR)':' (non licencié)');
+    return p;
+  }
+  ['st-licencie','st-duree','st-jour'].forEach(function(id){ document.getElementById(id).addEventListener('change', prixStage); });
+  document.getElementById('st-payer').addEventListener('click', function(){
+    var ok = document.getElementById('st-ok'); ok.hidden = false;
+    var j = document.getElementById('st-jour'); 
+    ok.textContent = 'Place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '. Dans cette maquette, aucun paiement n\'est fait.';
+  });
+  prixStage();
+  if(location.hash==='#stage') montrer('stage');
 })();
 </script>
 </body>

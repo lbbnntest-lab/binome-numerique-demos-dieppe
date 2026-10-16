@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace licenciés | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="licencies">
+
+<main>
+  <section class="bloc">
+    <div class="wrap">
+      <p class="surtitre">Espace licenciés · famille Exemple</p>
+      <h1>Bonjour, voici la semaine de Léa</h1>
+      <p>Léa · U15 féminines · saison 2026-2027</p>
+      <div class="note"><b>Pour le club</b>Chaque famille a son accès personnel. Elle y trouve tout ce qui la concerne, sans demander aux dirigeants ni chercher dans les groupes WhatsApp. Les informations ci-dessous sont des exemples.</div>
+
+      <div class="grille-licencie">
+        <div>
+          <div class="fiche revele">
+            <h3>Prochain match</h3>
+            <p><strong>Samedi 17 octobre, 16 h 00</strong> · U15 féminines contre BC Offranville<br>Salle Alexandre-Cheruel · rendez-vous à 15 h 15</p>
+            <div class="actions" style="margin-top:8px">
+              <button class="bouton" type="button" data-rep="present">Léa sera présente</button>
+              <button class="bouton ligne" type="button" data-rep="absent">Léa est absente</button>
+            </div>
+            <p class="resultat" id="reponse" hidden></p>
+          </div>
+
+          <div class="fiche revele" style="margin-top:20px">
+            <h3>Les vidéos de son équipe</h3>
+            <div class="videos">
+              <div>
+                <div class="vignette-video" data-terrain><span class="lecture" aria-hidden="true"></span><span class="legende">Match complet</span></div>
+                <p style="margin-top:6px">U15 F · samedi 10 octobre</p>
+              </div>
+              <div>
+                <div class="vignette-video" data-terrain><span class="lecture" aria-hidden="true"></span><span class="legende">Résumé</span></div>
+                <p style="margin-top:6px">U15 F · samedi 3 octobre</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="fiche revele">
+            <h3>Son dossier</h3>
+            <ul class="liste-docs">
+              <li><span>Cotisation</span><span class="etat ok">Payée</span></li>
+              <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
+              <li><span>Autorisation photos et vidéos</span><span class="etat ok">Donnée</span></li>
+              <li><span>Stage des vacances</span><span class="etat attente">Non inscrite</span></li>
+            </ul>
+            <div class="actions"><a class="bouton ligne" href="inscription.html#stage">Inscrire au stage</a></div>
+          </div>
+          <div class="fiche revele" style="margin-top:20px">
+            <h3>Documents</h3>
+            <ul class="liste-docs">
+              <li><span>Attestation de paiement (comité d'entreprise, mutuelle)</span><a href="#">Télécharger</a></li>
+              <li><span>Règlement intérieur du club</span><a href="#">Lire</a></li>
+              <li><span>Calendrier de l'équipe</span><a href="#">Voir</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="note"><b>Pour le club</b>Le coach voit qui sera présent avant chaque match, sans relancer chaque famille. Les attestations de paiement, très demandées pour les comités d'entreprise et certaines aides, sont prêtes à télécharger : le trésorier n'a plus à les préparer une par une.</div>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script>
+document.querySelectorAll('[data-rep]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var p = document.getElementById('reponse'); p.hidden = false;
+    p.textContent = b.getAttribute('data-rep')==='present'
+      ? 'C\'est noté : le coach voit que Léa sera présente.'
+      : 'C\'est noté : le coach est prévenu de l\'absence de Léa.';
+  });
+});
+</script>
+</body>
+</html>
