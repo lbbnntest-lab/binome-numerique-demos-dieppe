@@ -184,3 +184,16 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .expl-tete h2{margin:0}
 .expl ul{margin:0;padding-left:20px}
 .expl li{margin:10px 0;max-width:62em}
+
+/* Logos des équipes : le BCR toujours, l'adversaire par ses initiales tant que son logo n'est pas fourni */
+.duel{display:inline-flex;align-items:center;gap:10px;margin:8px 0 4px}
+.duel i{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.85rem;opacity:.7}
+.logo-eq{width:40px;height:40px;object-fit:contain;background:#000;border-radius:50%;padding:3px}
+.logo-adv{width:40px;height:40px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e6e9e4;color:#14181c;font-family:var(--titre);font-weight:700;font-size:.78rem;letter-spacing:.02em;border:2px solid #c9cdca}
+.s-nuit .logo-adv{background:#1c2320;color:#fff;border-color:#3a443f}
+.matchs li{grid-template-columns:150px 110px 1fr 120px auto}
+.matchs .duel{margin:0}
+@media (max-width:900px){.matchs li{grid-template-columns:1fr auto}.matchs .duel{grid-column:1/-1}}
+.s-annonce{display:inline-flex;align-items:center;gap:12px;margin-top:22px;color:#fff;text-decoration:none;border:1px solid rgba(70,196,111,.6);padding:8px 14px 8px 8px;font-weight:600}
+.s-annonce span{background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;padding:2px 8px;letter-spacing:.05em}
+.s-annonce:hover{background:rgba(70,196,111,.12)}
