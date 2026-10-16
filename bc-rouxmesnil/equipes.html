@@ -105,6 +105,7 @@
       avenir:[], res:[]}
   ];
   var CATS = []; EQUIPES.forEach(function(e){ if (CATS.indexOf(e.cat) < 0) CATS.push(e.cat); });
+  var FFBB_CLUB = 'https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080';
   var catCourante = 'U18', eqCourante = 'u18f1';
   var LOGO = '<img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR">';
   function adv(e){ return '<span class="logo-adv" aria-hidden="true">'+e.sig+'</span>'; }
@@ -136,12 +137,12 @@
     document.getElementById('fiche').innerHTML =
       '<div class="fiche-eq">'
       + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+' · '+e.niv+'</div><h2>'+e.nom+'</h2><div style="color:#c9cdca">Entraînements et coach : à compléter avec le club</div></div>'
-      + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'</div>'
+      + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'<a class="s-bouton creux" href="'+(e.ffbb||FFBB_CLUB)+'" target="_blank" rel="noopener">Calendrier et classement FFBB</a>'+'</div>'
       + '<span class="gros" aria-hidden="true">'+e.niv.split(' ')[0]+'</span></div>'
       + '<div class="bloc-eq"><h3>Prochains matchs</h3>'+avenir+'<h3 style="margin-top:22px">Derniers résultats</h3>'+res+'<p class="lieu" style="margin:12px 0 0;font-size:.85rem;color:var(--ink-soft)">* repris des affiches du club</p></div>'
       + '<div class="bloc-eq"><h3>Classement <span class="etiquette-ex">exemple</span></h3><table class="classement"><tr><th>#</th><th>Équipe</th><th>Pts</th></tr>'
       + '<tr><td>1</td><td>Équipe A</td><td>8</td></tr><tr class="nous"><td>2</td><td>Rouxmesnil</td><td>7</td></tr><tr><td>3</td><td>Équipe B</td><td>6</td></tr><tr><td>4</td><td>Équipe C</td><td>5</td></tr></table>'
-      + '<p class="vide" style="margin-top:12px;font-size:.92rem">Repris de la fédération après chaque journée.</p><p id="msg-suivre" class="resultat" hidden></p></div>'
+      + '<p class="vide" style="margin-top:12px;font-size:.92rem">Repris de la fédération après chaque journée. <a href="'+(e.ffbb||FFBB_CLUB)+'" target="_blank" rel="noopener">Voir le classement officiel</a></p><p id="msg-suivre" class="resultat" hidden></p></div>'
       + '</div>';
     var ag = document.getElementById('agenda');
     if (ag) ag.addEventListener('click', function(){ telechargerAgenda(e); });
