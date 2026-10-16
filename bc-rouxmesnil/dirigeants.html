@@ -49,6 +49,25 @@
     </div>
   </section>
 
+  <section class="bloc">
+    <div class="wrap">
+      <p class="surtitre">Commande groupée</p>
+      <h2>Tee-shirts U18F : colis reçus</h2>
+      <p style="max-width:44em">Quand les colis arrivent, un dirigeant choisit le créneau de retrait et appuie sur un bouton : chaque acheteur reçoit un email avec sa commande, sa taille et le créneau. À la remise, on coche « retiré ».</p>
+      <label for="creneau">Créneau de retrait</label>
+      <select id="creneau" style="max-width:420px"><option>Samedi 5 décembre, 13 h 30 à 16 h, salle Alexandre-Cheruel</option><option>Mercredi 9 décembre, 17 h à 19 h, pendant les entraînements</option></select>
+      <div class="actions"><button class="bouton" type="button" id="prevenir">Colis reçus : prévenir les acheteurs</button></div>
+      <p class="resultat" id="prevenir-texte" hidden></p>
+      <div class="table-defile" style="margin-top:16px">
+        <table class="suivi" style="min-width:0">
+          <thead><tr><th>Acheteur</th><th>Taille</th><th>Retrait</th></tr></thead>
+          <tbody id="retraits"></tbody>
+        </table>
+      </div>
+      <div class="note"><b>Pour le club</b>Plus besoin de prévenir chaque famille une par une ni de tenir une liste papier à la table. Les familles qui n'ont pas retiré leur commande reçoivent un rappel la semaine suivante, après accord d'un dirigeant. Dans cette maquette, aucun email n'est envoyé.</div>
+    </div>
+  </section>
+
   <section class="bloc clair">
     <div class="wrap">
       <p class="surtitre">Bénévoles</p>
@@ -159,6 +178,27 @@
     p.textContent = 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant. Dans cette maquette, aucun message n\'est envoyé.';
   });
   afficher('tous');
+})();
+</script>
+
+<script>
+(function(){
+  var R = [['Famille B.','Tee-shirt U18F','S'],['Famille M.','Tee-shirt U18F','M'],['Famille R.','Tee-shirt U18F','12 ans'],['Famille D.','Tee-shirt U18F','L'],['Famille T.','Tee-shirt U18F','S']];
+  var faits = {};
+  function aff(){
+    document.getElementById('retraits').innerHTML = R.map(function(r,i){
+      return '<tr><td>'+r[0]+'</td><td>'+r[2]+'</td><td>'+(faits[i]
+        ? '<span class="etat ok">Retiré</span>'
+        : '<button type="button" class="bouton ligne" style="padding:4px 10px;font-size:.9rem" data-i="'+i+'">Marquer retiré</button>')+'</td></tr>';
+    }).join('');
+    document.querySelectorAll('#retraits [data-i]').forEach(function(b){ b.addEventListener('click', function(){ faits[b.getAttribute('data-i')] = true; aff(); }); });
+  }
+  document.getElementById('prevenir').addEventListener('click', function(){
+    var p = document.getElementById('prevenir-texte'); p.hidden = false;
+    var c = document.getElementById('creneau').value;
+    p.textContent = R.length + ' acheteurs seraient prévenus par email : « Votre commande est arrivée. Retrait ' + c.charAt(0).toLowerCase() + c.slice(1) + '. » Dans cette maquette, aucun email n\'est envoyé.';
+  });
+  aff();
 })();
 </script>
 </body>
