@@ -197,3 +197,15 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .s-annonce{display:inline-flex;align-items:center;gap:12px;margin-top:22px;color:#fff;text-decoration:none;border:1px solid rgba(70,196,111,.6);padding:8px 14px 8px 8px;font-weight:600}
 .s-annonce span{background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;padding:2px 8px;letter-spacing:.05em}
 .s-annonce:hover{background:rgba(70,196,111,.12)}
+
+/* Parcours match par match */
+.parcours .pm{background:#fff;border:1px solid var(--line);padding:18px 22px;margin:0 0 18px}
+.parcours .pm::before{top:22px}
+.pm-tete{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pm-phase{font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:var(--ballon-ink);font-weight:700}
+.pm-sc{font-family:var(--titre);font-style:italic;font-weight:700;font-size:1.9rem}
+.pm-sc.v{color:var(--ok)} .pm-sc.d{color:var(--manque)}
+.pm-corps{display:flex;gap:16px;align-items:center;margin-top:6px}
+.pm-corps strong{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.25rem}
+.pm-corps p{margin:2px 0 0;color:var(--ink-soft)}
+@media (max-width:600px){.pm-corps{flex-direction:column;align-items:flex-start}}

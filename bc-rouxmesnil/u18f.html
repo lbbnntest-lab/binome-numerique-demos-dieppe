@@ -50,6 +50,14 @@
     </div>
   </section>
 
+  <section class="bloc" aria-labelledby="titre-parcours">
+    <div class="wrap">
+      <div class="s-entete-bloc"><h2 id="titre-parcours" data-mv="mots">Le parcours, match par match</h2><p style="color:var(--ink-soft)">Chaque match de la saison, du premier tour à l'élite.</p></div>
+      <ol class="parcours chemin" id="parcours"></ol>
+      <div class="note"><b>Pour le club</b>Chaque match a sa ligne : la phase, l'adversaire, le score, une phrase sur le match, et quand il existe, le résumé vidéo et l'album photo. Sur le vrai site, les scores sont repris de la fédération et la phrase est écrite par un dirigeant ou préparée puis relue. Ici, seuls les matchs connus par vos affiches sont affichés ; le parcours complet sera repris des résultats officiels.</div>
+    </div>
+  </section>
+
   <section class="s-resultats" aria-labelledby="titre-sc">
     <div class="wrap">
       <div class="s-entete-bloc"><h2 id="titre-sc" data-mv="mots">Des matchs de la qualification</h2><p style="color:var(--ink-soft)">Scores officiels publiés par le club.</p></div>
@@ -101,5 +109,20 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script>
+(function(){
+  /* Parcours des U18F : à compléter avec le déroulé officiel (FFBB). Ne mettre que des matchs vérifiés. */
+  var MATCHS = [
+    { phase:'Qualification en régions', date:'3-4 oct.', adv:'Aplemont Le Havre Basket', sig:'ALHB', score:'30 - 32', issue:'d', texte:'Défaite de deux points.' },
+    { phase:'Qualification en régions', date:'3-4 oct.', adv:'Cléon Basketball Academy', sig:'CBA', score:'38 - 22', issue:'v', texte:'Victoire de seize points.' },
+    { phase:'Play-off U18 élite', date:'octobre', adv:'Alençon-Damigny Basket 61', sig:'ADB', score:'Qualifiées', issue:'v', texte:'Qualification pour l\'élite régionale.' }
+  ];
+  var LOGO = '<img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR">';
+  document.getElementById('parcours').innerHTML = MATCHS.map(function(m){
+    return '<li class="pm"><div class="pm-tete"><span class="pm-phase">'+m.phase+' · '+m.date+'</span><span class="pm-sc '+m.issue+'">'+m.score+'</span></div>'
+      + '<div class="pm-corps"><span class="duel">'+LOGO+'<i>vs</i><span class="logo-adv" aria-hidden="true">'+m.sig+'</span></span><div><strong>'+m.adv+'</strong><p>'+m.texte+'</p></div></div></li>';
+  }).join('');
+})();
+</script>
 </body>
 </html>
