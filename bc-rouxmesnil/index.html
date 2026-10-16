@@ -64,11 +64,19 @@
   <div class="wrap"><div class="note"><b>Pour le club</b>L'ouverture raconte le basket : le terrain se trace, un tir à 3 points part, le tableau de score passe en tête. Chaque réalisation Signature a sa scène propre au métier ; celle-ci est pour le BCR. Les animations s'arrêtent d'elles-mêmes si le téléphone du visiteur demande moins de mouvement.</div></div>
 
   <figure class="s-salle" data-mv="devoile" style="--rideau:#080a09;margin:0">
-    <img src="img/salle.jpg" alt="La salle Alexandre-Cheruel, sa charpente et son panneau de basket" data-mv="parallaxe" data-amplitude="7">
+    <img src="img/salle-cheruel.jpg" alt="La salle Alexandre-Cheruel vide : charpente en arcs de bois, parquet et paniers" data-mv="parallaxe" data-amplitude="7">
     <figcaption><div class="wrap"><strong>Salle Alexandre-Cheruel</strong><span>Rouxmesnil-Bouteilles · entrée libre les jours de match</span></div></figcaption>
   </figure>
 
   <section class="s-manifeste" aria-label="L'esprit du club">
+    <svg class="arches" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path class="arc" pathLength="1" d="M-40 520 C 120 120, 1080 120, 1240 520"/>
+      <path class="arc" pathLength="1" d="M40 520 C 190 190, 1010 190, 1160 520"/>
+      <path class="arc" pathLength="1" d="M120 520 C 260 250, 940 250, 1080 520"/>
+      <path class="arc" pathLength="1" d="M200 520 C 330 300, 870 300, 1000 520"/>
+      <path class="arc" pathLength="1" d="M280 520 C 400 345, 800 345, 920 520"/>
+      <line class="sol" x1="0" y1="518" x2="1200" y2="518"/>
+    </svg>
     <div class="wrap">
       <p data-mv="eclaire">Au BCR, on vient pour <em>jouer</em>, on reste pour l'équipe. De l'école de basket du samedi matin aux seniors du dimanche, on apprend à progresser ensemble et à respecter l'adversaire, l'arbitre et le public.</p>
     </div>
@@ -220,6 +228,10 @@
       ? { trigger: '.s-montee', start: 'top top', end: '+=1100', scrub: 0.6, pin: true }
       : { trigger: '.s-montee .echelle', start: 'top 80%', end: 'bottom 30%', scrub: 0.6 } });
     maj();
+    /* 4. Les arches en bois de la salle se dessinent pendant la lecture du texte. */
+    gsap.fromTo('.arches .arc', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', stagger: 0.12,
+      scrollTrigger: { trigger: '.s-manifeste', start: 'top 85%', end: 'bottom 40%', scrub: 0.5 } });
+
     return function(){ sc.textContent = '71'; tps.textContent = '00:00'; ballon.setAttribute('transform', 'translate(546 216)'); };
   });
 })();

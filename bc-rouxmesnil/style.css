@@ -216,7 +216,7 @@ ol.suite li{margin:8px 0}
 
 /* Habillage Signature : photo de la salle, coupe en biais, logo du club */
 .entete{border-bottom:3px solid var(--ballon)}
-.heros.photo-salle{background:linear-gradient(100deg,rgba(8,10,9,.94) 0%,rgba(8,10,9,.8) 48%,rgba(8,10,9,.5) 100%),url(img/salle.jpg) center/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}
+.heros.photo-salle{background:linear-gradient(100deg,rgba(8,10,9,.94) 0%,rgba(8,10,9,.8) 48%,rgba(8,10,9,.5) 100%),url(img/salle-cheruel-vert.jpg) center 35%/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}
 .heros.photo-salle .wrap{padding-bottom:84px}
 .heros .surtitre{color:var(--vif)}
 .heros h1 .vert{color:var(--vif)}
