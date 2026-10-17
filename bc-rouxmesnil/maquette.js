@@ -37,8 +37,8 @@
   try { if (expl) sessionStorage.setItem('bcr-expl', '1'); else expl = sessionStorage.getItem('bcr-expl') === '1'; } catch (e) {}
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
     + (expl
-      ? '<span><strong>Présentation</strong> : les encadrés jaunes expliquent ce que chaque page apporte au club.</span><span><button type="button" id="basculer-notes"></button> &nbsp;<a href="presentation/explications.html">Retour à la présentation</a></span>'
-      : '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Matchs, résultats, événements : informations publiées par le club et la FFBB. Les espaces licenciés et dirigeants montrent des données d\'exemple ; aucun paiement ni message n\'est envoyé.</span><span><a href="presentation/index.html">Voir la présentation</a></span>')
+      ? '<span><strong>Présentation</strong> : les encadrés jaunes expliquent ce que chaque page apporterait au club. Matchs et résultats sont réels ; ce qui est marqué « exemple » sert à montrer une fonction.</span><span><button type="button" id="basculer-notes"></button> &nbsp;<a href="presentation/explications.html">Retour à la présentation</a></span>'
+      : '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Matchs, résultats, stage et arbitrage : publiés par le club et la FFBB. Noms, chiffres, vidéos et articles marqués « exemple » servent à montrer les fonctions ; aucun paiement ni message n\'est envoyé.</span><span><a href="presentation/index.html">Voir la présentation</a></span>')
     + '</div></div>';
 
   var entete = '<header class="entete sig"><div class="wrap">'
@@ -52,11 +52,11 @@
     + '</div></nav></header>';
 
   var pied = '<footer class="pied"><div class="wrap">'
-    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Association loi 1901, affiliée à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles.</p></div>'
+    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles.</p></div>'
     + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
     + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span><a href="#">Mentions légales</a> &nbsp; <a href="#">Confidentialité</a></span>'
-    + '<span class="signe-lbn">Site réalisé par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a>, partenaire du club</span></div>'
+    + '<span class="signe-lbn">Maquette réalisée par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a></span></div>'
     + '</div></footer>';
 
   document.body.insertAdjacentHTML('afterbegin', bandeau + entete);

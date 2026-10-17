@@ -29,13 +29,14 @@
   <section class="bloc">
     <div class="wrap">
 
-      <div class="note"><b>Pour le club</b>C'est la partie qui fait gagner le plus de temps. Chaque dirigeant a son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
+      <div class="note"><b>Pour le club</b>C'est la partie qui pourrait faire gagner le plus de temps. Chaque dirigeant aurait son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
 
+      <p style="margin:0 0 10px"><span class="etiquette-ex" style="margin-left:0">Chiffres d'exemple</span></p>
       <div class="compteurs" data-mv="suite">
         <div><b>142</b><span>inscrits cette saison</span></div>
         <div><b>118</b><span>cotisations payées</span></div>
         <div><b>103</b><span>licences fédérales faites</span></div>
-        <div><b>17</b><span>dossiers incomplets</span></div>
+        <div><b>39</b><span>licences en attente</span></div>
       </div>
 
       <h2 data-mv="mots">Suivi des inscriptions</h2>
@@ -46,7 +47,7 @@
       </div>
       <div class="table-defile">
         <table class="suivi">
-          <thead><tr><th>Joueur</th><th>Catégorie</th><th>Cotisation</th><th>Licence fédérale</th><th>Photos autorisées</th><th>Taille</th></tr></thead>
+          <thead><tr><th>Joueur</th><th>Catégorie</th><th>Cotisation</th><th>Licence fédérale</th><th>Photos autorisées</th></tr></thead>
           <tbody id="liste"></tbody>
         </table>
       </div>
@@ -56,17 +57,17 @@
       </div>
       <p id="rappel-texte" class="resultat" hidden></p>
 
-      <div class="note"><b>Pour le club</b>Fini le cahier et le tableur à tenir à jour. En un clic, le trésorier voit qui n'a pas payé, le secrétaire voit qui n'a pas fait sa licence, et le rappel part aux familles concernées après validation par un dirigeant. La colonne « photos autorisées » indique qui l'on peut montrer sur les réseaux.</div>
+      <div class="note"><b>Pour le club</b>En un clic, le trésorier verrait qui n'a pas payé, le secrétaire qui n'a pas fait sa licence, et le rappel partirait aux familles concernées après validation par un dirigeant. La colonne « photos autorisées » indiquerait qui l'on peut montrer sur les réseaux.</div>
     </div>
   </section>
 
   <section class="bloc">
     <div class="wrap">
-      <p class="surtitre">Commande groupée</p>
-      <h2 data-mv="mots">Tee-shirts U18F : colis reçus</h2>
-      <p style="max-width:44em">Quand les colis arrivent, un dirigeant choisit le créneau de retrait et appuie sur un bouton : chaque acheteur reçoit un email avec sa commande, sa taille et le créneau. À la remise, on coche « retiré ».</p>
+      <p class="surtitre">Commande groupée · exemple</p>
+      <h2 data-mv="mots">Tee-shirts U18F : les colis arrivent</h2>
+      <p style="max-width:44em">Quand les colis arriveraient, un dirigeant choisirait le créneau de retrait et appuierait sur un bouton : chaque acheteur recevrait un email avec sa commande, sa taille et le créneau. À la remise, on cocherait « retiré ».</p>
       <label for="creneau">Créneau de retrait</label>
-      <select id="creneau" style="max-width:420px"><option>Samedi 5 décembre, 13 h 30 à 16 h, salle Alexandre-Cheruel</option><option>Mercredi 9 décembre, 17 h à 19 h, pendant les entraînements</option></select>
+      <select id="creneau" style="max-width:420px"><option>Un samedi après-midi, à la salle (exemple)</option><option>Un soir de semaine, à la salle (exemple)</option></select>
       <div class="actions"><button class="bouton" type="button" id="prevenir">Colis reçus : prévenir les acheteurs</button></div>
       <p class="resultat" id="prevenir-texte" hidden></p>
       <div class="table-defile" style="margin-top:16px">
@@ -75,21 +76,20 @@
           <tbody id="retraits"></tbody>
         </table>
       </div>
-      <div class="note"><b>Pour le club</b>Plus besoin de prévenir chaque famille une par une ni de tenir une liste papier à la table. Les familles qui n'ont pas retiré leur commande reçoivent un rappel la semaine suivante, après accord d'un dirigeant. Dans cette maquette, aucun email n'est envoyé.</div>
+      <div class="note"><b>Pour le club</b>Personne n'aurait à prévenir chaque famille une par une. Les familles qui n'ont pas retiré leur commande recevraient un rappel la semaine suivante, après accord d'un dirigeant. Dans cette maquette, aucun email n'est envoyé.</div>
     </div>
   </section>
 
   <section class="bloc clair">
     <div class="wrap">
-      <p class="surtitre">Bénévoles</p>
-      <h2 data-mv="mots">Table de marque et buvette du week-end</h2>
+      <p class="surtitre">Bénévoles · noms d'exemple</p>
+      <h2 data-mv="mots">Table de marque du week-end</h2>
       <div class="planning" data-mv="suite">
         <div class="creneau">
           <h3>Samedi 17 octobre · 14 h<br>U13 F contre Saint-Nicolas</h3>
           <ul>
             <li><span>Marqueur</span><span>Sophie D.</span></li>
             <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
-            <li><span>Buvette</span><span>Famille L.</span></li>
           </ul>
         </div>
         <div class="creneau">
@@ -97,27 +97,26 @@
           <ul>
             <li><span>Marqueur</span><span>Thomas R.</span></li>
             <li><span>Chronométreur</span><span>Julie M.</span></li>
-            <li><span>Buvette</span><span class="libre">À pourvoir</span></li>
           </ul>
         </div>
         <div class="creneau">
-          <h3>Dimanche 18 octobre · 8 h 45<br>Seniors F 2 contre Rouen</h3>
+          <h3>Dimanche 18 octobre · 8 h 45<br>Seniors F · DF2 contre Rouen Métropole Basket</h3>
           <ul>
             <li><span>Marqueur</span><span>Nadia B.</span></li>
-            <li><span>Direct Facebook</span><span class="libre">À pourvoir</span></li>
+            <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
           </ul>
         </div>
       </div>
-      <div class="note"><b>Pour le club</b>Les parents s'inscrivent eux-mêmes sur les créneaux libres depuis leur téléphone. Les dirigeants voient d'un coup d'œil ce qui reste à pourvoir, au lieu de relancer chaque semaine sur WhatsApp.</div>
+      <div class="note"><b>Pour le club</b>Les parents s'inscriraient eux-mêmes sur les créneaux libres depuis leur téléphone. Les dirigeants verraient d'un coup d'œil ce qui reste à pourvoir.</div>
     </div>
   </section>
 
   <section class="bloc">
     <div class="wrap deux">
       <div>
-        <p class="surtitre">Stage des vacances</p>
+        <p class="surtitre">Stage des vacances · exemple de liste</p>
         <h2 data-mv="mots">La liste des inscrits, prête</h2>
-        <p>Les réservations du stage d'octobre, jour par jour, avec les paiements. Le responsable des stages n'a plus à noter les appels.</p>
+        <p>Les réservations du stage d'octobre, jour par jour, avec les paiements. Le responsable des stages n'aurait plus à noter les appels.</p>
         <table class="recap">
           <tr><td>U11 · lundi 19 octobre</td><td>14 enfants</td></tr>
           <tr><td>U13 · mardi 20 octobre</td><td>18 enfants</td></tr>
@@ -127,18 +126,18 @@
         </table>
       </div>
       <div>
-        <p class="surtitre">Subventions</p>
+        <p class="surtitre">Subventions · chiffres d'exemple</p>
         <h2 data-mv="mots">Les chiffres pour les dossiers</h2>
-        <p>Les dossiers de subvention (commune, Département, Agence nationale du sport) demandent toujours les mêmes chiffres : nombre de licenciés, filles et garçons, moins de 18 ans, communes d'origine. Ils sont calculés à partir des inscriptions.</p>
+        <p>Les dossiers de subvention (commune, Département, Agence nationale du sport) demandent souvent les mêmes chiffres : nombre de licenciés, filles et garçons, moins de 18 ans, communes d'origine. Ils seraient calculés à partir des inscriptions.</p>
         <table class="recap">
           <tr><td>Licenciés</td><td>142</td></tr>
           <tr><td>Dont filles et femmes</td><td>61</td></tr>
           <tr><td>Dont moins de 18 ans</td><td>97</td></tr>
-          <tr><td>Communes représentées</td><td>14</td></tr>
+          <tr><td>Communes représentées</td><td>11</td></tr>
         </table>
       </div>
     </div>
-    <div class="wrap"><div class="note"><b>Pour le club</b>Deux corvées de moins : la liste du stage tenue à la main, et les chiffres des dossiers de subvention recopiés chaque année.</div></div>
+    <div class="wrap"><div class="note"><b>Pour le club</b>Deux tâches allégées : la liste du stage, et les chiffres des dossiers de subvention à refaire chaque année.</div></div>
   </section>
 </main>
 
@@ -154,10 +153,10 @@
     ['Inès M.','U18 F','Payée','En attente','Oui','M'],
     ['Chloé R.','U18 F','En attente','En attente','Non renseigné','S'],
     ['Manon L.','U18 F','Payée','Faite','Non','M'],
-    ['Hugo D.','U13 M','Payée','Faite','Oui','12 ans'],
-    ['Nathan P.','U13 M','2 sur 3 payées','Faite','Oui','12 ans'],
-    ['Lucas T.','U11 M','En attente','En attente','Oui','10 ans'],
-    ['Emma G.','U9 F','Payée','Faite','Oui','8 ans'],
+    ['Zoé D.','U13 F','Payée','Faite','Oui','12 ans'],
+    ['Lina P.','U15 F','En attente','Faite','Oui','14 ans'],
+    ['Lucas T.','U21 M','En attente','En attente','Oui','L'],
+    ['Emma G.','U13 F','Payée','Faite','Oui','12 ans'],
     ['Karim S.','Seniors M','Payée','En attente','Oui','L'],
     ['Julie V.','Seniors F','Payée','Faite','Oui','M']
   ];
@@ -175,7 +174,7 @@
     }).map(function(j){
       return '<tr><td>'+j[0]+'</td><td>'+j[1]+'</td>'
         + [2,3,4].map(function(i){ return '<td><span class="etat '+classe(j[i])+'">'+j[i]+'</span></td>'; }).join('')
-        + '<td>'+j[5]+'</td></tr>';
+        + '</tr>';
     }).join('');
     document.getElementById('liste').innerHTML = lignes;
   }

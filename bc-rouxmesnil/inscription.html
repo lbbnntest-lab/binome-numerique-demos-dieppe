@@ -22,7 +22,7 @@
     <div class="wrap">
       <p class="s-surtitre">Saison 2026-2027</p>
       <h1 id="titre-page" class="s-titre">S'inscrire au club</h1>
-      <p class="s-chapo">Comptez cinq minutes. À la fin, vous recevez le lien de la licence fédérale à compléter en ligne.</p>
+      <p class="s-chapo">Comptez quelques minutes. À la fin, le club vous envoie le lien de la licence fédérale à compléter en ligne.</p>
     </div>
   </section>
   <section class="bloc">
@@ -36,7 +36,7 @@
       <div id="vue-stage" hidden>
         <form class="carte-form" id="stage" onsubmit="return false">
           <h2 data-mv="mots">Stage basket des vacances</h2>
-          <p>Ouvert à tous, filles et garçons, de 10 h à 16 h 30. Pique-nique à apporter pour le déjeuner, goûter offert jusqu'à 17 h.</p>
+          <p>Ouvert aux licenciés et aux non-licenciés, de 10 h à 16 h 30. Pique-nique à apporter pour le déjeuner, goûter offert jusqu'à 17 h.</p>
           <label for="st-prenom">Prénom de l'enfant</label>
           <input type="text" id="st-prenom" value="Hugo">
           <label for="st-jour">Catégorie et jour</label>
@@ -51,12 +51,12 @@
           <div class="resultat" id="st-prix" aria-live="polite"></div>
           <button type="button" class="bouton" id="st-payer">Payer et réserver (simulation)</button>
           <p class="resultat" id="st-ok" hidden></p>
-          <div class="note"><b>Pour le club</b>Les tarifs sont ceux de votre affiche. Aujourd'hui, les familles appellent le responsable des stages et précisent catégorie, nom et prénom. Ici, la place est réservée et payée en ligne, et le responsable reçoit la liste prête, jour par jour.</div>
+          <div class="note"><b>Pour le club</b>Les tarifs sont ceux de votre affiche. Aujourd'hui, les familles appellent le responsable des stages. Sur le futur site, la place serait réservée et payée en ligne, et le responsable recevrait la liste prête, jour par jour.</div>
         </form>
       </div>
 
       <div id="vue-saison">
-      <div class="note"><b>Pour le club</b>Toute l'inscription tient sur une page, du téléphone comme de l'ordinateur. Les parents ne ramènent plus de dossier papier, et chaque inscription arrive complète dans l'espace dirigeants. Essayez le parcours : rien n'est enregistré dans cette maquette.</div>
+      <div class="note"><b>Pour le club</b>Toute l'inscription tient sur une page, du téléphone comme de l'ordinateur. Les parents n'auraient plus de dossier à rapporter, et chaque inscription arriverait complète dans l'espace dirigeants. Essayez le parcours : rien n'est enregistré dans cette maquette.</div>
 
       <ol class="etapes" id="frise">
         <li class="active">Joueur</li>
@@ -75,10 +75,10 @@
           <label for="nom">Nom</label>
           <input type="text" id="nom" autocomplete="off" value="Exemple">
           <label for="naissance">Date de naissance</label>
-          <input type="date" id="naissance" value="2009-05-12">
+          <input type="date" id="naissance" value="2012-05-12">
           <label for="equipe">Équipe souhaitée</label>
           <select id="equipe">
-            <option>U13 féminines</option><option>U15 féminines</option><option selected>U18 féminines</option><option>U21 masculins</option>
+            <option>U13 féminines</option><option selected>U15 féminines</option><option>U18 féminines</option><option>U21 masculins</option>
             <option>Seniors féminines</option><option>Seniors masculins</option><option>Je ne sais pas, le club me conseillera</option>
           </select>
           <p style="font-size:.92rem;color:var(--ink-soft);margin-top:8px">Le club confirme la catégorie et l'équipe à réception de l'inscription.</p>
@@ -94,35 +94,33 @@
           <input type="email" id="email" value="parent@exemple.fr">
           <label for="tel">Téléphone</label>
           <input type="tel" id="tel" value="06 00 00 00 00">
-          <div class="note"><b>Pour le club</b>Les coordonnées des parents sont rangées au même endroit pour toute la saison : plus besoin de les recopier dans un tableur.</div>
+          <div class="note"><b>Pour le club</b>Les coordonnées des parents sont rangées au même endroit pour toute la saison : personne n'aurait à les recopier.</div>
         </div>
 
         <div class="etape" data-etape="2">
-          <h2 data-mv="mots">Autorisations et équipement</h2>
-          <label class="choix"><input type="checkbox" checked> J'autorise le club à publier des photos de mon enfant prises lors des matchs et entraînements (prénom seulement, jamais le nom).</label>
+          <h2 data-mv="mots">Autorisations</h2>
+          <label class="choix"><input type="checkbox" checked> J'autorise le club à publier des photos de mon enfant prises lors des matchs et entraînements.</label>
           <label class="choix"><input type="checkbox" checked> J'autorise les responsables du club à prendre les mesures nécessaires en cas d'urgence médicale.</label>
-          <label class="choix"><input type="checkbox" checked> J'autorise le transport de mon enfant par les bénévoles du club pour les matchs à l'extérieur.</label>
-          <label class="choix"><input type="checkbox" checked> J'ai lu le règlement intérieur du club.</label>
-          <label for="taille">Taille du short et du maillot d'entraînement</label>
-          <select id="taille"><option>XS</option><option selected>S</option><option>M</option><option>L</option><option>XL</option></select>
-          <div class="note"><b>Pour le club</b>Le droit à l'image est recueilli par écrit dès l'inscription. C'est indispensable pour publier des photos de joueurs mineurs, par exemple pour la saison des U18F. Le tableau de bord indique qui a accepté et qui a refusé.</div>
+          <label class="choix"><input type="checkbox" checked> J'autorise le transport de mon enfant par les bénévoles du club pour les matchs à l'extérieur. <span class="etiquette-ex">exemple</span></label>
+          <p style="font-size:.92rem;color:var(--ink-soft);margin-top:8px">La liste des autorisations se fixe avec le club.</p>
+          <div class="note"><b>Pour le club</b>Le droit à l'image serait recueilli dès l'inscription. C'est indispensable pour publier des photos de joueurs mineurs, par exemple pour la saison des U18F. Le tableau de bord indiquerait qui a accepté et qui a refusé.</div>
         </div>
 
         <div class="etape" data-etape="3">
           <h2 data-mv="mots">Paiement de la cotisation</h2>
           <table class="recap" id="recap"></table>
           <p style="font-size:.92rem;color:var(--ink-soft)">Le montant affiché sur le vrai site sera le tarif de cotisation fixé par le club pour chaque catégorie.</p>
-          <label class="choix"><input type="checkbox" id="aide"> Je bénéficie d'une aide (Pass'Sport, coupon sport, aide de la commune). Le club la déduit à réception du justificatif.</label>
+          <label class="choix"><input type="checkbox" id="aide"> Je bénéficie d'une aide (par exemple le Pass'Sport ; liste à confirmer avec le club).</label>
           <label for="fois">Paiement</label>
           <select id="fois"><option value="1">En une fois</option><option value="3">En trois fois (si le club le propose)</option></select>
           <p id="echeances" style="margin-top:10px"></p>
-          <div class="note"><b>Pour le club</b>Le paiement par carte arrive directement sur le compte bancaire du club. Le trésorier voit qui a payé sans rien rapprocher à la main. Les chèques et espèces restent possibles : un dirigeant les coche comme reçus.</div>
+          <div class="note"><b>Pour le club</b>Le paiement par carte arriverait sur le compte bancaire du club, déduction faite des frais du service de paiement. Le trésorier verrait qui a payé sans rien rapprocher à la main. Les chèques et les espèces resteraient possibles : un dirigeant les cocherait comme reçus.</div>
         </div>
 
         <div class="etape" data-etape="4">
-          <h2 data-mv="mots">Merci, l'inscription est enregistrée</h2>
+          <h2 data-mv="mots">Merci, l'inscription est enregistrée (simulation)</h2>
           <p><strong>Dernière étape : la licence fédérale.</strong> Le club vous envoie par email le lien de la Fédération française de basket-ball. Vous y complétez la licence en ligne : photo d'identité et questionnaire de santé.</p>
-          <div class="note"><b>Pour le club</b>La licence reste sur le site de la fédération, comme aujourd'hui. Les informations de santé ne passent jamais par le site du club. Dans l'espace dirigeants, chaque inscrit indique « licence faite » ou « licence en attente », pour savoir à qui envoyer un rappel.</div>
+          <div class="note"><b>Pour le club</b>La licence reste sur le site de la fédération, comme aujourd'hui. Les informations de santé ne passent jamais par le site du club. Dans l'espace dirigeants, chaque inscrit indiquerait « licence faite » ou « licence en attente », pour savoir à qui envoyer un rappel.</div>
         </div>
 
         <div class="navform">
@@ -189,7 +187,7 @@
   document.getElementById('st-payer').addEventListener('click', function(){
     var ok = document.getElementById('st-ok'); ok.hidden = false;
     var j = document.getElementById('st-jour'); 
-    ok.textContent = 'Place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '.';
+    ok.textContent = 'Simulation : place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '.';
   });
   prixStage();
   if(location.hash==='#stage') montrer('stage');
