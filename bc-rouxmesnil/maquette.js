@@ -56,7 +56,7 @@
     + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
     + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span><a href="#">Mentions légales</a> &nbsp; <a href="#">Confidentialité</a></span>'
-    + '<span>Site réalisé par <a href="https://lebinomenumerique.fr">Le Binôme Numérique</a>, partenaire du club</span></div>'
+    + '<span class="signe-lbn">Site réalisé par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a>, partenaire du club</span></div>'
     + '</div></footer>';
 
   document.body.insertAdjacentHTML('afterbegin', bandeau + entete);

@@ -10,10 +10,10 @@
   var liens = [['index.html','p-proposition','La proposition'],['explications.html','p-explications','Page par page'],['boutique.html','p-boutique','Boutique et JAKO'],['reseaux.html','p-reseaux','Réseaux sociaux']];
   var nav = liens.map(function(l){ return '<a href="'+l[0]+'"'+(l[1]===page?' aria-current="page"':'')+'>'+l[2]+'</a>'; }).join('');
   var tete = '<header class="pres-tete"><div class="wrap">'
-    + '<div class="pres-marque"><strong>Le Binôme Numérique</strong><span>Proposition au Basket Club de Rouxmesnil</span></div>'
+    + '<div class="pres-marque"><img src="../img/lbn.png" alt="" width="68" height="36"><div><strong>Le Binôme Numérique</strong><span>Proposition au Basket Club de Rouxmesnil</span></div></div>'
     + '<nav aria-label="Présentation">'+nav+'<a class="pres-site" href="../index.html?explications">Voir le site du club</a></nav>'
     + '</div></header>';
-  var pied = '<footer class="pied"><div class="wrap"><div><h3>Le Binôme Numérique</h3><p>SASU · SIREN 130 286 610 · RCS Paris<br>Kyllian Lepaul · <a href="https://lebinomenumerique.fr">lebinomenumerique.fr</a></p></div>'
+  var pied = '<footer class="pied"><div class="wrap"><div><img src="../img/lbn-clair.png" alt="" width="76" height="40" style="display:block;margin-bottom:10px"><h3>Le Binôme Numérique</h3><p>SASU · SIREN 130 286 610 · RCS Paris<br>Kyllian Lepaul · <a href="https://lebinomenumerique.fr">lebinomenumerique.fr</a></p></div>'
     + '<div><h3>Cette présentation</h3><p>Document de travail remis au bureau du BCR. Les montants définitifs figureront dans la proposition écrite.</p></div>'
     + '<div><h3>Le site du club</h3><p><a href="../index.html?explications">Ouvrir la maquette du site</a></p></div></div></footer>';
   document.body.insertAdjacentHTML('afterbegin', tete);
