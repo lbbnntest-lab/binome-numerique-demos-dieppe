@@ -195,7 +195,7 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .matchs .duel{margin:0}
 @media (max-width:900px){.matchs li{grid-template-columns:1fr auto}.matchs .duel{grid-column:1/-1}}
 .s-annonce{display:inline-flex;align-items:center;gap:12px;margin-top:22px;color:#fff;text-decoration:none;border:1px solid rgba(70,196,111,.6);padding:8px 14px 8px 8px;font-weight:600}
-.s-annonce span{background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;padding:2px 8px;letter-spacing:.05em}
+.s-annonce span{white-space:nowrap;background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;padding:2px 8px;letter-spacing:.05em}
 .s-annonce:hover{background:rgba(70,196,111,.12)}
 
 /* Parcours match par match */
@@ -224,3 +224,6 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 @media (max-width:900px){.phase-corps{grid-template-columns:1fr}}
 .pm-cl{position:sticky;top:110px}
 @media (max-width:900px){.pm-cl{position:static}}
+.tableau-legende{margin:10px 0 0;font-size:.85rem;color:#c9cdca}
+.etiquette-ex{display:inline-block;font-family:var(--texte);font-style:normal;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:700;color:#a8460f;border:1px solid #a8460f;padding:1px 6px;margin-left:6px;vertical-align:middle;background:#fff}
+.demo-ex{display:inline-block;margin:14px 0 0;background:#fff4d6;color:#3b3220;border-left:4px solid #d9a520;padding:8px 12px;font-size:.92rem;max-width:44em}

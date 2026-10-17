@@ -38,7 +38,7 @@
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
     + (expl
       ? '<span><strong>Présentation</strong> : les encadrés jaunes expliquent ce que chaque page apporte au club.</span><span><button type="button" id="basculer-notes"></button> &nbsp;<a href="presentation/explications.html">Retour à la présentation</a></span>'
-      : '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Les noms de licenciés, les prix et les chiffres sont des exemples ; aucun paiement ni message n\'est envoyé.</span><span><a href="presentation/index.html">Voir la présentation</a></span>')
+      : '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Matchs, résultats, événements : informations publiées par le club et la FFBB. Les espaces licenciés et dirigeants montrent des données d\'exemple ; aucun paiement ni message n\'est envoyé.</span><span><a href="presentation/index.html">Voir la présentation</a></span>')
     + '</div></div>';
 
   var entete = '<header class="entete sig"><div class="wrap">'

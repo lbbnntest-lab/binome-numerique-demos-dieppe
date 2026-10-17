@@ -76,9 +76,13 @@
           <input type="text" id="nom" autocomplete="off" value="Exemple">
           <label for="naissance">Date de naissance</label>
           <input type="date" id="naissance" value="2009-05-12">
-          <div class="resultat" id="categorie" aria-live="polite"></div>
-          <label class="choix"><input type="checkbox" id="frere"> Un frère ou une sœur est déjà inscrit cette saison</label>
-          <div class="note"><b>Pour le club</b>La catégorie se calcule à partir de la date de naissance, avec le tarif qui va avec. Les parents n'ont plus à demander « mon fils est en U13 ou en U15 ? ». Les tarifs affichés ici sont des exemples : ce seront les vôtres.</div>
+          <label for="equipe">Équipe souhaitée</label>
+          <select id="equipe">
+            <option>U13 féminines</option><option>U15 féminines</option><option selected>U18 féminines</option><option>U21 masculins</option>
+            <option>Seniors féminines</option><option>Seniors masculins</option><option>Je ne sais pas, le club me conseillera</option>
+          </select>
+          <p style="font-size:.92rem;color:var(--ink-soft);margin-top:8px">Le club confirme la catégorie et l'équipe à réception de l'inscription.</p>
+          <div class="note"><b>Pour le club</b>Les équipes proposées sont celles de vos affiches et de la FFBB ; la liste se complète avec vous (autres catégories, équipes masculines jeunes). Sur le vrai site, la catégorie peut se calculer à partir de la date de naissance, selon les règles FFBB de la saison, avec vos tarifs.</div>
         </div>
 
         <div class="etape" data-etape="1">
@@ -107,9 +111,10 @@
         <div class="etape" data-etape="3">
           <h2 data-mv="mots">Paiement de la cotisation</h2>
           <table class="recap" id="recap"></table>
+          <p style="font-size:.92rem;color:var(--ink-soft)">Le montant affiché sur le vrai site sera le tarif de cotisation fixé par le club pour chaque catégorie.</p>
           <label class="choix"><input type="checkbox" id="aide"> Je bénéficie d'une aide (Pass'Sport, coupon sport, aide de la commune). Le club la déduit à réception du justificatif.</label>
           <label for="fois">Paiement</label>
-          <select id="fois"><option value="1">En une fois</option><option value="3">En trois fois sans frais</option></select>
+          <select id="fois"><option value="1">En une fois</option><option value="3">En trois fois (si le club le propose)</option></select>
           <p id="echeances" style="margin-top:10px"></p>
           <div class="note"><b>Pour le club</b>Le paiement par carte arrive directement sur le compte bancaire du club. Le trésorier voit qui a payé sans rien rapprocher à la main. Les chèques et espèces restent possibles : un dirigeant les coche comme reçus.</div>
         </div>
@@ -117,7 +122,6 @@
         <div class="etape" data-etape="4">
           <h2 data-mv="mots">Merci, l'inscription est enregistrée</h2>
           <p><strong>Dernière étape : la licence fédérale.</strong> Le club vous envoie par email le lien de la Fédération française de basket-ball. Vous y complétez la licence en ligne : photo d'identité et questionnaire de santé.</p>
-          <p>Vous pouvez venir aux entraînements dès maintenant.</p>
           <div class="note"><b>Pour le club</b>La licence reste sur le site de la fédération, comme aujourd'hui. Les informations de santé ne passent jamais par le site du club. Dans l'espace dirigeants, chaque inscrit indique « licence faite » ou « licence en attente », pour savoir à qui envoyer un rappel.</div>
         </div>
 
@@ -138,50 +142,17 @@
 <script src="js/pages.js"></script>
 <script>
 (function(){
-  var SAISON = 2026;
-  var CATEGORIES = [
-    {max:6,  nom:'École de basket (U7)', prix:110},
-    {max:8,  nom:'École de basket (U9)', prix:110},
-    {max:10, nom:'U11', prix:130},
-    {max:12, nom:'U13', prix:130},
-    {max:14, nom:'U15', prix:150},
-    {max:17, nom:'U18', prix:150},
-    {max:20, nom:'U21', prix:160},
-    {max:200,nom:'Seniors', prix:170}
-  ];
-  var REMISE_FRATRIE = 20;
   var etape = 0;
   var etapes = document.querySelectorAll('.etape');
   var frise = document.querySelectorAll('#frise li');
   var retour = document.getElementById('retour');
   var suivant = document.getElementById('suivant');
 
-  function categorie(){
-    var v = document.getElementById('naissance').value;
-    if(!v) return null;
-    var age = SAISON - parseInt(v.slice(0,4),10);
-    for(var i=0;i<CATEGORIES.length;i++){ if(age <= CATEGORIES[i].max) return CATEGORIES[i]; }
-    return null;
-  }
-  function euros(n){ return n.toFixed(2).replace('.',',').replace(',00','') + ' €'; }
-  function majCategorie(){
-    var c = categorie();
-    document.getElementById('categorie').innerHTML = c
-      ? 'Catégorie pour la saison : <strong>'+c.nom+'</strong><br>Cotisation : '+euros(c.prix)+' (licence fédérale comprise)'
-      : 'Indiquez la date de naissance pour voir la catégorie.';
-  }
   function majRecap(){
-    var c = categorie() || CATEGORIES[5];
-    var frere = document.getElementById('frere').checked;
-    var total = c.prix - (frere ? REMISE_FRATRIE : 0);
-    var lignes = '<tr><td>Cotisation '+c.nom+'</td><td>'+euros(c.prix)+'</td></tr>';
-    if(frere) lignes += '<tr><td>Réduction frère ou sœur</td><td>- '+euros(REMISE_FRATRIE)+'</td></tr>';
-    lignes += '<tr class="total"><td>Total</td><td>'+euros(total)+'</td></tr>';
-    document.getElementById('recap').innerHTML = lignes;
+    var eq = document.getElementById('equipe').value;
+    document.getElementById('recap').innerHTML = '<tr><td>Cotisation · '+eq+'</td><td>tarif du club</td></tr><tr class="total"><td>Total</td><td>tarif du club</td></tr>';
     var fois = parseInt(document.getElementById('fois').value,10);
-    document.getElementById('echeances').textContent = fois === 3
-      ? 'Trois prélèvements de '+euros(total/3)+', en septembre, octobre et novembre.'
-      : 'Un seul paiement de '+euros(total)+'.';
+    document.getElementById('echeances').textContent = fois === 3 ? 'Le montant est réparti en trois prélèvements.' : 'Un seul paiement.';
   }
   function afficher(){
     etapes.forEach(function(e,i){ e.classList.toggle('visible', i===etape); });
@@ -196,9 +167,8 @@
     document.getElementById('frise').scrollIntoView({behavior:'smooth', block:'start'});
   });
   retour.addEventListener('click', function(){ if(etape>0){ etape--; afficher(); } });
-  document.getElementById('naissance').addEventListener('input', majCategorie);
   document.getElementById('fois').addEventListener('change', majRecap);
-  majCategorie(); afficher();
+  afficher();
 
   // Choix saison ou stage, et prix du stage d'après l'affiche du club.
   var vues = document.querySelectorAll('[data-vue]');

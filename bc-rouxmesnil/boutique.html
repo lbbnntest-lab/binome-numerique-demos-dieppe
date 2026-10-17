@@ -70,34 +70,16 @@
           </div>
         </article>
         <article class="produit">
-          <div class="visuel"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="22" width="100" height="76" fill="#101412"/><g fill="#46c46f"><circle cx="34" cy="46" r="9"/><circle cx="60" cy="46" r="9"/><circle cx="86" cy="46" r="9"/><circle cx="34" cy="74" r="9"/><circle cx="60" cy="74" r="9"/><circle cx="86" cy="74" r="9"/></g></svg></div>
-          <div class="infos">
-            <h3>Loto du club</h3>
-            <p>Réservation des cartons à l'avance, retrait à l'entrée de la salle.</p>
-            <div class="prix">Exemple : 5 €</div>
-            <div class="actions"><button class="bouton" type="button" data-ajout="5">Réserver</button></div>
-          </div>
-        </article>
-        <article class="produit">
-          <div class="visuel"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="64" r="40" fill="#fff" stroke="#101412" stroke-width="5"/><circle cx="60" cy="64" r="24" fill="#e6e9e4"/><path d="M14 20v34M22 20v34M18 54v50M104 20c-10 8-10 30 0 34v50" stroke="#101412" stroke-width="5" fill="none"/></svg></div>
-          <div class="infos">
-            <h3>Repas de fin de saison</h3>
-            <p>Réservation par famille, nombre d'adultes et d'enfants.</p>
-            <div class="prix">Exemple : 15 €</div>
-            <div class="actions"><button class="bouton" type="button" data-ajout="15">Réserver</button></div>
-          </div>
-        </article>
-        <article class="produit">
           <div class="visuel"><svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 6h44l30 18-12 24-14-7v83H34V41l-14 7L8 24z" fill="#101412"/><path d="M38 6c4 14 40 14 44 0" fill="none" stroke="#46c46f" stroke-width="5"/><text x="60" y="70" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-style="italic" font-weight="700" font-size="22" fill="#46c46f">U18F</text><text x="60" y="92" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-style="italic" font-weight="700" font-size="12" fill="#fff">ÉLITE 2026</text></svg></div>
           <div class="infos">
-            <h3>Tee-shirt « U18F élite »</h3>
+            <h3>Tee-shirt « U18F élite » <span class="etiquette-ex">idée d'article</span></h3>
             <p>Article du club, en plus de JAKO. Commande groupée jusqu'au 15 novembre, retrait à la salle.</p>
-            <div class="prix">Exemple : 15 €</div>
+            <div class="prix" style="font-size:1.1rem">Prix fixé par le club</div>
             <div class="actions"><button class="bouton" type="button" data-ajout="15">Commander</button></div>
           </div>
         </article>
       </div>
-      <div class="note"><b>Pour le club</b>Les événements et leurs prix sont des exemples, à remplacer par les vôtres. Les bénévoles voient les réservations dans l'espace dirigeants, et l'argent arrive directement sur le compte du club.</div>
+      <div class="note"><b>Pour le club</b>Le stage reprend votre affiche (dates, horaires, tarifs). Le tee-shirt est une idée d'article à vendre par le club, à valider avec vous. Les bénévoles voient les réservations dans l'espace dirigeants, et l'argent arrive directement sur le compte du club.</div>
     </div>
   </section>
 </main>
@@ -116,7 +98,7 @@
     b.addEventListener('click', function(){
       nb++; total += parseInt(b.getAttribute('data-ajout'),10);
       document.getElementById('panier').classList.add('visible');
-      document.getElementById('panier-texte').textContent = nb + (nb>1?' articles':' article') + ' · ' + total + ' €';
+      document.getElementById('panier-texte').textContent = nb + (nb>1?' articles réservés':' article réservé');
     });
   });
 })();
