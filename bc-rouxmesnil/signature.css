@@ -97,9 +97,9 @@
 
 /* Résultats qui comptent */
 .s-resultats{padding:96px 0}
-.compteurs-sc{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--club)}
-.compteurs-sc div{padding:26px 22px 26px 0;border-bottom:1px solid var(--line)}
-.compteurs-sc div + div{padding-left:22px;border-left:1px solid var(--line)}
+.compteurs-sc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:2px solid var(--club)}
+.compteurs-sc > div{padding:26px 22px 26px 0;border-bottom:1px solid var(--line)}
+.compteurs-sc > div + div{padding-left:22px;border-left:1px solid var(--line)}
 .compteurs-sc .cat{font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:var(--ballon-ink);font-weight:700}
 .compteurs-sc .sc{font-family:var(--titre);font-style:italic;font-weight:700;font-size:clamp(3rem,6vw,4.6rem);line-height:1;margin:6px 0;font-variant-numeric:tabular-nums}
 .compteurs-sc .sc i{font-style:italic;color:var(--ink-soft);margin:0 .12em}
@@ -153,8 +153,8 @@
   .matchs .heure{grid-row:2}
   .compteurs-sc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .compteurs-sc .sc{font-size:2.3rem}
-  .compteurs-sc div{padding-right:12px}
-  .compteurs-sc div + div{padding-left:12px}
+  .compteurs-sc > div{padding-right:12px}
+  .compteurs-sc > div + div{padding-left:12px}
   .tableau .eq{padding:8px 10px;gap:8px}
   .tableau .eq b{font-size:1.4rem}
   .compteurs-sc div:nth-child(3){padding-left:0;border-left:0}

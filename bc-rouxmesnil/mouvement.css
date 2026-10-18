@@ -1,5 +1,5 @@
 /* Styles techniques de la boîte à outils Mouvement (voir mouvement.js). Aucun effet visuel sans script. */
-.mv-m, .mv-l { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+.mv-m, .mv-l { display: inline-block; overflow: hidden; vertical-align: top; padding-top: .2em; margin-top: -.2em; padding-bottom: .12em; margin-bottom: -.12em; }
 .mv-l { padding-right: .02em; }
 .mv-mi, .mv-li { display: inline-block; }
 .mv-rideau { display: none; }

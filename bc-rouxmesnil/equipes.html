@@ -61,7 +61,7 @@
       <div class="eqs" role="group" aria-label="Équipe" id="eqs"></div>
       <div id="fiche" aria-live="polite"></div>
       <div class="note"><b>Pour le club</b>Chaque équipe a sa fiche, dans chaque catégorie. La liste des équipes est celle de l'application FFBB (relevée le 18/10) : des U11 en équipe mixte aux seniors, filles et garçons, en département ou en région selon la catégorie. Le club joue aussi la Coupe territoriale (trophée Coupe de France) chez les filles et chez les garçons. Sur le futur site, les matchs, les scores et les classements seraient repris du calendrier et des résultats officiels de la fédération, sous réserve de l'accord de la ligue et de la fédération : les bénévoles n'auraient rien à ressaisir. Ici, tout vient de vos affiches Facebook et de la FFBB (U18 féminines : parcours et classement officiels). Les équipes sans match publié renvoient à la page FFBB du club. Le bouton « Ajouter à mon agenda » fonctionne déjà : il crée le fichier qu'un téléphone sait ouvrir.</div>
-      <div class="note"><b>Pour le club</b>« Suivre cette équipe » est une fonction à construire : elle permettra aux parents et aux supporters de recevoir le résultat et la prochaine convocation de l'équipe de leur choix, par email, avec leur accord.</div>
+      <div class="note"><b>Pour le club</b>« Suivre cette équipe » est une fonction à construire : elle permettra aux parents et aux supporters de recevoir le résultat et l'annonce du prochain match de l'équipe de leur choix, par notification ou par email, avec leur accord.</div>
     </div>
   </section>
 </main>
@@ -167,7 +167,7 @@
     if (ag) ag.addEventListener('click', function(){ telechargerAgenda(e); });
     document.getElementById('suivre').addEventListener('click', function(){
       var p = document.getElementById('msg-suivre'); p.hidden = false;
-      p.textContent = 'Fonction prévue sur le vrai site : vous indiquez votre adresse email et vous recevez le résultat de cette équipe après chaque match, ainsi que la convocation du match suivant.';
+      p.textContent = 'Fonction prévue sur le vrai site : vous choisissez de recevoir, par notification ou par email, le résultat de cette équipe après chaque match et l\'annonce du match suivant.';
     });
   }
   function telechargerAgenda(e){
