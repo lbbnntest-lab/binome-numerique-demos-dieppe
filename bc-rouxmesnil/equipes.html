@@ -60,7 +60,7 @@
       <div class="cats" role="group" aria-label="Catégorie" id="cats"></div>
       <div class="eqs" role="group" aria-label="Équipe" id="eqs"></div>
       <div id="fiche" aria-live="polite"></div>
-      <div class="note"><b>Pour le club</b>Chaque équipe a sa fiche, dans chaque catégorie. Le club commence aux U11 (équipe mixte), puis les équipes sont féminines et masculines, en département ou en région selon la catégorie : les équipes jeunes masculines et les fiches manquantes se complètent avec vous. Sur le futur site, les matchs, les scores et les classements seraient repris du calendrier et des résultats officiels de la fédération, sous réserve de l'accord de la ligue et de la fédération : les bénévoles n'auraient rien à ressaisir. Ici, tout vient de vos affiches Facebook et de la FFBB (U18 féminines : parcours et classement officiels). Les équipes sans match publié renvoient à la page FFBB du club. Le bouton « Ajouter à mon agenda » fonctionne déjà : il crée le fichier qu'un téléphone sait ouvrir.</div>
+      <div class="note"><b>Pour le club</b>Chaque équipe a sa fiche, dans chaque catégorie. La liste des équipes est celle de l'application FFBB (relevée le 18/10) : des U11 en équipe mixte aux seniors, filles et garçons, en département ou en région selon la catégorie. Le club joue aussi la Coupe territoriale (trophée Coupe de France) chez les filles et chez les garçons. Sur le futur site, les matchs, les scores et les classements seraient repris du calendrier et des résultats officiels de la fédération, sous réserve de l'accord de la ligue et de la fédération : les bénévoles n'auraient rien à ressaisir. Ici, tout vient de vos affiches Facebook et de la FFBB (U18 féminines : parcours et classement officiels). Les équipes sans match publié renvoient à la page FFBB du club. Le bouton « Ajouter à mon agenda » fonctionne déjà : il crée le fichier qu'un téléphone sait ouvrir.</div>
       <div class="note"><b>Pour le club</b>« Suivre cette équipe » est une fonction à construire : elle permettra aux parents et aux supporters de recevoir le résultat et la prochaine convocation de l'équipe de leur choix, par email, avec leur accord.</div>
     </div>
   </section>
@@ -77,36 +77,39 @@
      et d'actu.fr ; voir docs/strategie/partenariat_bc_rouxmesnil/faits_verifies_bcr.md. Rien n'est inventé :
      ce qui n'est pas connu s'affiche comme « à compléter » ou renvoie à la FFBB. */
   var EQUIPES = [
-    {id:'rm3', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Régionale 3', code:'RM3', avenir:[], res:[]},
-    {id:'prm', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Pré-régionale', code:'PRM', avenir:[],
+    {id:'rm3', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Régionale 3', code:'RM3', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]},
+    {id:'prm', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Pré-régionale', code:'PRM', engage:'Poule A · Basket Club de Rouxmesnil - 2', avenir:[],
       res:[{dl:'Direct Facebook', adv:'US Lillebonne', sig:'USL', s:'', txt:'Match diffusé en direct sur la page Facebook du club'}]},
-    {id:'dm3', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Départementale 3', code:'DM3', avenir:[], res:[]},
-    {id:'dm4', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Départementale 4', code:'DM4', avenir:[], res:[]},
-    {id:'dm6', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Départementale 6', code:'DM6', avenir:[], res:[]},
-    {id:'rf2', cat:'Seniors féminines', nom:'Seniors féminines', niv:'Régionale 2', code:'RF2', avenir:[],
+    {id:'dm3', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Départementale 3', code:'DM3', engage:'Poule C · DRBB - Basket Club de Rouxmesnil - 3', avenir:[], res:[]},
+    {id:'dm6', cat:'Seniors masculins', nom:'Seniors masculins', niv:'Départementale 6', code:'DM6', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]},
+    {id:'rf2', cat:'Seniors féminines', nom:'Seniors féminines', niv:'Régionale 2', code:'RF2', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[],
       res:[{dl:'Début de saison', sans:true, adv:'Invaincues après trois matchs', txt:'Les Informations Dieppoises (actu.fr). Match suivant contre Montville : date sur la FFBB', s:'3 V', v:true}]},
-    {id:'df2', cat:'Seniors féminines', nom:'Seniors féminines', niv:'Départementale 2', code:'DF2',
+    {id:'df2', cat:'Seniors féminines', nom:'Seniors féminines', niv:'Départementale 2', code:'DF2', engage:'Poule B · DRBB - Basket Club de Rouxmesnil - 2',
       avenir:[{d:'2026-10-18T08:45', adv:'Rouen Métropole Basket', sig:'RMB', dom:true}], res:[]},
-    {id:'df3', cat:'Seniors féminines', nom:'Seniors féminines', niv:'Départementale 3', code:'DF3',
+    {id:'df3', cat:'Seniors féminines', nom:'Seniors féminines', niv:'Départementale 3', code:'DF3', engage:'Poule A · Basket Club de Rouxmesnil - 3',
       avenir:[{d:'2026-10-18T10:30', adv:'Belbeuf', sig:'BEL', dom:true}], res:[]},
-    {id:'u21', cat:'U21', nom:'U21 masculins', niv:'Région', code:'RMU21',
+    {id:'u21', cat:'U21', nom:'U21 masculins', niv:'Régionale', code:'RMU21', engage:'Poule A · Basket Club de Rouxmesnil',
       avenir:[{d:'2026-10-17T16:00', adv:'SPN Vernon', sig:'SPN', dom:false}],
       res:[{dl:'3-4 oct.', adv:'Oissel Basket Seine', sig:'OBS', s:'71 - 70', v:true}]},
-    {id:'u18f1', cat:'U18', nom:'U18 féminines', niv:'Élite régionale', code:'RFU18',
+    {id:'u18f1', cat:'U18', nom:'U18 féminines', niv:'Élite régionale', btn:'Filles · élite régionale', code:'RFU18', engage:'Poule élite · Basket Club de Rouxmesnil',
       ffbb:'https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080/equipes/200000005398767', lien:'u18f.html',
       avenir:[{d:'2026-11-07', adv:'Cherbourg Basket Ball', logo:'cherbourg.png', dom:true},{d:'2026-11-14', adv:'Aplemont Le Havre Basket 2', logo:'aplemont.png', dom:false},{d:'2026-11-21', adv:'USO Mondeville Basket 2', logo:'mondeville.png', dom:true},{d:'2026-11-28', adv:'Élan sportif Carpiquet Basket', logo:'carpiquet.png', dom:false},{d:'2026-12-05', adv:'Club Basket d\'Ifs 1', logo:'ifs.png', dom:false}],
       res:[{d:'2026-10-10', adv:'Alençon-Damigny Basket (play-off élite)', logo:'alencon.png', s:'78 - 57', v:true},{d:'2026-10-03', adv:'Cléon Basketball Academy', logo:'cleon.png', s:'38 - 22', v:true},{d:'2026-10-03', adv:'Aplemont Le Havre Basket', logo:'aplemont.png', s:'30 - 32', v:false},{d:'2026-09-26', adv:'US Sainte-Marie Le Havre', logo:'saintemarie.png', s:'27 - 24', v:true},{d:'2026-09-26', adv:'A Louviers HBCI', logo:'louviers.png', s:'34 - 22', v:true}],
       classement:{titre:'2e tour qualificatif, poule C', lignes:[['Aplemont Le Havre Basket','aplemont.png',4,0,8],['Basket Club de Rouxmesnil','',3,1,7],['US Sainte-Marie Le Havre','saintemarie.png',2,2,6],['A Louviers HBCI','louviers.png',1,3,5],['Cléon Basketball Academy','cleon.png',0,4,4]]}},
-    {id:'dfu18', cat:'U18', nom:'U18 féminines', niv:'Départementale', code:'DFU18',
+    {id:'dfu18', cat:'U18', nom:'U18 féminines', niv:'Départementale', btn:'Filles · départementale', code:'DFU18', engage:'Poule A · Basket Club de Rouxmesnil - 2',
       avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:false}], res:[]},
-    {id:'u18d2', cat:'U18', nom:'U18 · BCR 2', niv:'Département', code:'U18 D',
-      avenir:[], res:[{dl:'3-4 oct.', adv:'US Forges-les-Eaux (à l\'extérieur)', sig:'USF', s:'52 - 22', v:true}]},
-    {id:'u15f', cat:'U15', nom:'U15 féminines', niv:'Départementale', code:'DFU15',
+    {id:'dmu18a', cat:'U18', nom:'U18 masculins · équipe 1', niv:'Départementale 4', btn:'Garçons 1 · départementale 4', code:'U18 M', engage:'Poule A · Basket Club de Rouxmesnil - 1', avenir:[], res:[]},
+    {id:'dmu18b', cat:'U18', nom:'U18 masculins · équipe 2', niv:'Départementale 4', btn:'Garçons 2 · départementale 4', code:'U18 M', engage:'Poule B · Basket Club de Rouxmesnil - 2', avenir:[], res:[]},
+    {id:'dmu18c', cat:'U18', nom:'U18 masculins · équipe 3', niv:'Départementale 4', btn:'Garçons 3 · départementale 4', code:'U18 M', engage:'Poule A · Basket Club de Rouxmesnil - 3', avenir:[], res:[]},
+    {id:'u15f', cat:'U15', nom:'U15 féminines', niv:'Départementale', btn:'Filles · départementale', code:'DFU15', engage:'Poule A · Basket Club de Rouxmesnil',
       avenir:[{d:'2026-10-17T16:00', adv:'BC Offranville', sig:'BCO', dom:true}], res:[]},
-    {id:'u13f', cat:'U13', nom:'U13 féminines', niv:'Départementale', code:'DFU13',
+    {id:'dmu15a', cat:'U15', nom:'U15 masculins · équipe 1', niv:'Départementale 4', btn:'Garçons 1 · départementale 4', code:'U15 M', engage:'Poule A · Basket Club de Rouxmesnil - 1', avenir:[], res:[]},
+    {id:'dmu15b', cat:'U15', nom:'U15 masculins · équipe 2', niv:'Départementale 4', btn:'Garçons 2 · départementale 4', code:'U15 M', engage:'Poule A · Basket Club de Rouxmesnil - 2', avenir:[], res:[]},
+    {id:'u13f', cat:'U13', nom:'U13 féminines', niv:'Départementale', btn:'Filles · départementale', code:'DFU13', engage:'Poule A · Basket Club de Rouxmesnil',
       avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:true}],
       res:[{dl:'3-4 oct.', adv:'Seventy Six Belleville', sig:'SSBB', s:'47 - 19', v:true}]},
-    {id:'u11', cat:'U11', nom:'U11', niv:'Mixte', code:'à compléter', avenir:[], res:[]}
+    {id:'dmu13', cat:'U13', nom:'U13 masculins', niv:'Départementale 4', btn:'Garçons · départementale 4', code:'U13 M', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]},
+    {id:'u11', cat:'U11', nom:'U11 mixte', niv:'Départementale', code:'U11', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]}
   ];
   /* Un match passé quitte « Prochains matchs » et rejoint les résultats, avec renvoi au score officiel. */
   var now = Date.now();
@@ -137,7 +140,7 @@
   }
   function afficherEqs(){
     document.getElementById('eqs').innerHTML = EQUIPES.filter(function(e){ return e.cat===catCourante; }).map(function(e){
-      return '<button type="button" aria-pressed="'+(e.id===eqCourante)+'" data-eq="'+e.id+'">'+e.niv+'</button>'; }).join('');
+      return '<button type="button" aria-pressed="'+(e.id===eqCourante)+'" data-eq="'+e.id+'">'+(e.btn||e.niv)+'</button>'; }).join('');
     document.querySelectorAll('[data-eq]').forEach(function(b){ b.addEventListener('click', function(){ eqCourante = b.getAttribute('data-eq'); tout(); }); });
   }
   function afficherFiche(){
@@ -154,7 +157,7 @@
       : '<h3>Classement</h3><p class="vide">Le classement officiel de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la FFBB</a>. Sur le futur site, il serait affiché ici et mis à jour après chaque journée.</p>';
     document.getElementById('fiche').innerHTML =
       '<div class="fiche-eq">'
-      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+' · code FFBB '+e.code+'</div><h2>'+libelle(e)+'</h2><div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
+      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+' · '+e.code+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'<div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
       + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'<a class="s-bouton creux" href="'+lien+'" target="_blank" rel="noopener">Page FFBB</a></div>'
       + '<span class="gros" aria-hidden="true">'+e.code+'</span></div>'
       + '<div class="bloc-eq"><h3>Prochains matchs</h3>'+avenir+'<h3 style="margin-top:22px">Résultats</h3>'+res+'</div>'
