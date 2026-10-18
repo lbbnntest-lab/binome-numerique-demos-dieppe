@@ -17,7 +17,7 @@
 </head>
 <body data-page="dirigeants">
 
-<main>
+<main data-alterner>
   <section class="p-tete s-nuit" aria-labelledby="titre-page">
     <span class="p-filigrane" aria-hidden="true">Bureau</span>
     <div class="wrap">
@@ -25,20 +25,77 @@
       <h1 id="titre-page" class="s-titre">Espace dirigeants</h1>
       <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et le stage viennent des publications du club.</p>
       <p class="s-chapo">Toute la saison sur un seul écran : inscriptions, paiements, licences, bénévoles, stages et événements.</p>
-      <div class="s-actions"><a class="s-bouton" href="medias.html">Photos et vidéos du club</a><a class="s-bouton creux" href="#demandes-familles">Demandes des familles</a></div>
+      <div class="s-actions"><a class="s-bouton" href="medias.html" data-lien-role data-roles="communication coach">Photos et vidéos du club</a><a class="s-bouton creux" href="#demandes-familles" data-roles="tresorier secretaire coach">Demandes des familles</a></div>
     </div>
   </section>
-  <section class="bloc">
+
+  <section class="roles" aria-labelledby="titre-roles">
+    <div class="wrap">
+      <h2 id="titre-roles" class="visuellement-cache">Choix du rôle</h2>
+      <div data-choix-role></div>
+      <p class="roles-regle">Chaque dirigeant ne voit que ce qui concerne son rôle ; le président voit tout.</p>
+      <div class="note"><b>Pour le club</b>Chaque dirigeant aurait un accès à son nom, limité à son rôle : le trésorier verrait les paiements sans les autorisations photo, un coach verrait son équipe sans les paiements ni les subventions. Moins d'informations à l'écran, c'est moins d'erreurs, et des données personnelles limitées à ce dont chacun a besoin, l'un des principes du RGPD. Les rôles se régleraient avec le bureau. Dans cette maquette, le choix du rôle sert seulement à la démonstration : sur le vrai site, ce qu'un rôle ne doit pas voir ne serait pas envoyé à son écran.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="a-decider" data-roles="" aria-labelledby="titre-decider">
+    <div class="wrap">
+      <p class="surtitre">Président · décisions d'exemple</p>
+      <h2 id="titre-decider" data-mv="mots">À décider</h2>
+      <ul class="decisions" id="decisions">
+        <li><div><strong>Résumé du play-off U18F</strong><span>Prêt à publier sur le site et les réseaux, après votre accord. <span class="etiquette-ex">exemple</span></span></div>
+          <div class="geste"><a class="bouton ligne petit" href="medias.html#role=president">Voir</a><button type="button" class="bouton petit" data-accord="Résumé du play-off U18F">Donner mon accord</button></div></li>
+        <li><div><strong>Photo du tableau de score U18F</strong><span>Proposée pour la page Facebook par la communication. <span class="etiquette-ex">exemple</span></span></div>
+          <div class="geste"><a class="bouton ligne petit" href="medias.html#role=president">Voir</a><button type="button" class="bouton petit" data-accord="Photo du tableau de score U18F">Donner mon accord</button></div></li>
+        <li><div><strong>Rappel aux dossiers incomplets</strong><span>Préparé par le secrétaire, il attend votre accord avant de partir aux familles. <span class="etiquette-ex">exemple</span></span></div>
+          <div class="geste"><a class="bouton ligne petit" href="#suivi">Voir</a><button type="button" class="bouton petit" data-accord="Rappel aux dossiers incomplets">Donner mon accord</button></div></li>
+      </ul>
+      <p class="resultat" id="decider-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le club</b>Le président retrouverait au même endroit ce qui attend sa décision. Rien ne partirait aux familles ni sur les réseaux sans cet accord, quand le bureau le décide ainsi.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="coach" data-roles="coach" aria-labelledby="titre-coach">
+    <div class="wrap">
+      <p class="surtitre" id="coach-sur">Coach · votre équipe</p>
+      <h2 id="titre-coach">Mon équipe</h2>
+      <p class="aide" style="margin:-4px 0 18px" data-roles="">Vue du président : changez d'équipe en choisissant le rôle Coach ci-dessus.</p>
+      <div class="colonnes">
+        <div>
+          <div class="fiche">
+            <h3>Prochains matchs</h3>
+            <ul class="liste-docs" id="coach-matchs"></ul>
+            <p class="aide" id="coach-source"></p>
+          </div>
+          <div class="fiche" style="margin-top:20px">
+            <h3>Convocation</h3>
+            <p id="coach-conv-texte"></p>
+            <div class="actions" style="margin-top:8px"><button type="button" class="bouton" id="coach-conv">Préparer la convocation</button></div>
+            <p class="resultat" id="coach-conv-etat" role="status" aria-live="polite" hidden></p>
+          </div>
+        </div>
+        <div class="fiche">
+          <h3>Effectif et présences <span class="etiquette-ex">exemple</span></h3>
+          <p class="aide" id="coach-presences" style="margin:0 0 8px"></p>
+          <ul class="liste-docs" id="coach-effectif"></ul>
+          <div class="actions"><a class="bouton ligne" id="coach-medias" href="medias.html">Photos et vidéos de l'équipe</a></div>
+        </div>
+      </div>
+      <div class="note"><b>Pour le coach</b>Le coach verrait les réponses des familles avant chaque match et préparerait la convocation en un clic ; elle partirait aux familles après sa relecture. Les demandes d'absence de ses joueuses arriveraient directement chez lui. Il ne verrait ni les paiements ni les subventions. Les matchs viennent des affiches du club et de la FFBB ; les prénoms et les réponses sont des exemples.</div>
+    </div>
+  </section>
+  <section class="bloc" id="suivi" data-roles="tresorier secretaire">
     <div class="wrap">
 
       <div class="note"><b>Pour le club</b>C'est la partie qui pourrait faire gagner le plus de temps. Chaque dirigeant aurait son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
 
       <p style="margin:0 0 10px"><span class="etiquette-ex" style="margin-left:0">Chiffres d'exemple</span></p>
       <div class="compteurs" data-mv="suite">
-        <div><b>142</b><span>inscrits cette saison</span></div>
-        <div><b>118</b><span>cotisations payées</span></div>
-        <div><b>103</b><span>licences fédérales faites</span></div>
-        <div><b>39</b><span>licences en attente</span></div>
+        <div data-roles="tresorier secretaire"><b>142</b><span>inscrits cette saison</span></div>
+        <div data-roles="tresorier"><b>118</b><span>cotisations payées</span></div>
+        <div data-roles="tresorier"><b>24</b><span>cotisations en attente</span></div>
+        <div data-roles="secretaire"><b>103</b><span>licences fédérales faites</span></div>
+        <div data-roles="secretaire"><b>39</b><span>licences en attente</span></div>
       </div>
 
       <h2 data-mv="mots">Suivi des inscriptions</h2>
@@ -63,27 +120,63 @@
     </div>
   </section>
 
-  <section class="bloc clair" id="demandes-familles" aria-labelledby="titre-demandes">
+  <section class="bloc clair" id="demandes-familles" data-roles="tresorier secretaire coach communication" aria-labelledby="titre-demandes">
     <div class="wrap">
-      <div class="acces-medias">
+      <div class="acces-medias" data-roles="communication coach">
         <div>
           <p class="surtitre" style="color:var(--vif)">Envoyés par les familles</p>
           <h2>Photos et vidéos du club</h2>
           <p>Les photos et vidéos des matchs, rangées par match, à valider avant publication. On y trouve aussi l'aperçu d'un résumé du play-off U18F. <span class="etiquette-ex">médias d'exemple</span></p>
         </div>
-        <a class="s-bouton" href="medias.html">Ouvrir la page</a>
+        <a class="s-bouton" href="medias.html" data-lien-role>Ouvrir la page</a>
       </div>
 
+      <div data-roles="tresorier secretaire coach">
       <p class="surtitre">Boîte de réception · demandes d'exemple</p>
       <h2 id="titre-demandes" data-mv="mots">Demandes des familles</h2>
-      <p class="compteur-boite"><span id="nb-attente">0 demande en attente</span></p>
+      <p class="compteur-boite"><span id="nb-attente">0 demande en attente</span><span id="filtre-role" class="aide" style="margin:0"></span></p>
       <ul class="boite" id="boite"></ul>
       <p class="resultat" id="boite-etat" role="status" aria-live="polite" hidden></p>
       <div class="note"><b>Pour le club</b>Les demandes envoyées depuis l'espace licenciés arriveraient ici, classées par type : attestation, licence, absence. Le dirigeant concerné répondrait depuis cet écran, la famille verrait la réponse dans son espace, et le bureau saurait ce qui reste à traiter. Dans cette maquette, aucune réponse n'est envoyée.</div>
+      </div>
     </div>
   </section>
 
-  <section class="bloc">
+  <section class="bloc" id="comptabilite" data-roles="tresorier" aria-labelledby="titre-compta">
+    <div class="wrap deux" style="align-items:start">
+      <div>
+        <p class="surtitre">Trésorier · chiffres d'exemple</p>
+        <h2 id="titre-compta" data-mv="mots">Pour la comptabilité</h2>
+        <p>Les encaissements de la saison, prêts pour le tableur du club ou l'expert-comptable. Les montants des cotisations dépendraient de vos tarifs, à compléter avec vous.</p>
+        <div class="actions"><button type="button" class="bouton" id="export-compta">Exporter pour la comptabilité</button></div>
+        <p class="resultat" id="export-etat" role="status" aria-live="polite" hidden></p>
+      </div>
+      <table class="recap">
+        <tr><td>Cotisations payées</td><td>118 dossiers</td></tr>
+        <tr><td>Cotisations en attente</td><td>24 dossiers</td></tr>
+        <tr><td>Stage d'octobre, encaissé</td><td>294 €</td></tr>
+        <tr><td>Commande tee-shirts U18F</td><td>5 commandes</td></tr>
+        <tr class="total"><td>Attestations de paiement à fournir</td><td id="nb-attestations">1</td></tr>
+      </table>
+    </div>
+    <div class="wrap"><div class="note"><b>Pour le trésorier</b>Les paiements par carte, les chèques et les espèces cochés par un dirigeant seraient regroupés dans un seul fichier, au format du tableur du club. Les demandes d'attestation de paiement arriveraient dans sa boîte, ci-dessus.</div></div>
+  </section>
+
+  <section class="bloc" id="documents" data-roles="secretaire" aria-labelledby="titre-documents">
+    <div class="wrap">
+      <p class="surtitre">Secrétaire · documents d'exemple</p>
+      <h2 id="titre-documents" data-mv="mots">Documents à préparer</h2>
+      <ul class="liste-docs fiche" style="max-width:760px">
+        <li><span>Liste des licences à faire sur le site de la fédération <span class="etiquette-ex">exemple</span></span><button type="button" class="bouton ligne petit" data-doc="Liste des licences à faire préparée : 39 dossiers, avec le nom, la catégorie et l'adresse email de la famille.">Préparer</button></li>
+        <li><span>Autorisations photo manquantes <span class="etiquette-ex">exemple</span></span><button type="button" class="bouton ligne petit" data-doc="Liste des autorisations photo manquantes préparée : elle irait aux familles concernées après accord d'un dirigeant.">Préparer</button></li>
+        <li><span>Fiche d'inscription de la saison 2026-2027</span><button type="button" class="bouton ligne petit" data-doc="Fiche d'inscription prête à imprimer pour les familles qui préfèrent le papier.">Préparer</button></li>
+      </ul>
+      <p class="resultat" id="doc-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le secrétaire</b>Les listes seraient tirées des inscriptions, sans recopie : licences à faire, autorisations manquantes, fiches papier. Dans cette maquette, rien n'est téléchargé.</div>
+    </div>
+  </section>
+
+  <section class="bloc" data-roles="tresorier">
     <div class="wrap">
       <p class="surtitre">Commande groupée · exemple</p>
       <h2 data-mv="mots">Tee-shirts U18F : les colis arrivent</h2>
@@ -102,7 +195,7 @@
     </div>
   </section>
 
-  <section class="bloc clair">
+  <section class="bloc clair" data-roles="communication">
     <div class="wrap">
       <p class="surtitre">Bénévoles · noms d'exemple</p>
       <h2 data-mv="mots">Table de marque du week-end</h2>
@@ -133,9 +226,23 @@
     </div>
   </section>
 
-  <section class="bloc">
+  <section class="bloc" id="publications" data-roles="communication" aria-labelledby="titre-publications">
+    <div class="wrap">
+      <p class="surtitre">Communication · publications d'exemple</p>
+      <h2 id="titre-publications" data-mv="mots">Publications pour les réseaux</h2>
+      <ul class="decisions">
+        <li><div><strong>Résumé du play-off U18F, format vertical</strong><span>Attend l'accord du président. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille attente">En attente</span></div></li>
+        <li><div><strong>Photo du tableau de score U18F, 78-57</strong><span>Validée, autorisation vérifiée. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille ok">Prête</span></div></li>
+        <li><div><strong>Rappel : journée d'initiation à l'arbitrage, mercredi 21 octobre</strong><span>Brouillon à relire avant publication. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille attente">Brouillon</span></div></li>
+      </ul>
+      <div class="actions"><a class="bouton" href="medias.html" data-lien-role>Photos et vidéos à valider</a></div>
+      <div class="note"><b>Pour la communication</b>Les photos et vidéos validées formeraient une réserve où piocher pour la page Facebook et le compte Instagram. La publication resterait un geste de la personne chargée de la communication : rien ne partirait seul.</div>
+    </div>
+  </section>
+
+  <section class="bloc" data-roles="tresorier secretaire stages">
     <div class="wrap deux">
-      <div>
+      <div data-roles="tresorier stages">
         <p class="surtitre">Stage des vacances · exemple de liste</p>
         <h2 data-mv="mots">La liste des inscrits, prête</h2>
         <p>Les réservations du stage d'octobre, jour par jour, avec les paiements. Le responsable des stages n'aurait plus à noter les appels.</p>
@@ -147,7 +254,7 @@
           <tr class="total"><td>Total encaissé</td><td>294 €</td></tr>
         </table>
       </div>
-      <div>
+      <div data-roles="secretaire">
         <p class="surtitre">Subventions · chiffres d'exemple</p>
         <h2 data-mv="mots">Les chiffres pour les dossiers</h2>
         <p>Les dossiers de subvention (commune, Département, Agence nationale du sport) demandent souvent les mêmes chiffres : nombre de licenciés, filles et garçons, moins de 18 ans, communes d'origine. Ils seraient calculés à partir des inscriptions.</p>
@@ -161,6 +268,28 @@
     </div>
     <div class="wrap"><div class="note"><b>Pour le club</b>Deux tâches allégées : la liste du stage, et les chiffres des dossiers de subvention à refaire chaque année.</div></div>
   </section>
+
+  <section class="bloc" id="inscriptions-stage" data-roles="stages" aria-labelledby="titre-insc-stage">
+    <div class="wrap">
+      <p class="surtitre">Stage d'octobre · inscriptions d'exemple</p>
+      <h2 id="titre-insc-stage" data-mv="mots">Les inscriptions, au fil de l'eau</h2>
+      <p style="max-width:44em">Stage de 10 h à 16 h 30, pique-nique à prévoir, goûter offert jusqu'à 17 h. Tarifs de l'affiche : licencié BCR 6 € la journée, 3 € la demi-journée ; non licencié 10 €, 5 €.</p>
+      <div class="table-defile">
+        <table class="suivi" style="min-width:560px">
+          <thead><tr><th>Enfant</th><th>Journée</th><th>Formule</th><th>Montant</th><th>Paiement</th></tr></thead>
+          <tbody>
+            <tr><td>Emma G. <span class="etiquette-ex">exemple</span></td><td>U13 · mardi 20</td><td>Licenciée BCR, journée</td><td>6 €</td><td><span class="etat ok">Payé</span></td></tr>
+            <tr><td>Nina K. <span class="etiquette-ex">exemple</span></td><td>U13 · mardi 20</td><td>Non licenciée, demi-journée</td><td>5 €</td><td><span class="etat ok">Payé</span></td></tr>
+            <tr><td>Hugo L. <span class="etiquette-ex">exemple</span></td><td>U11 · lundi 19</td><td>Non licencié, journée</td><td>10 €</td><td><span class="etat attente">À payer</span></td></tr>
+            <tr><td>Lina P. <span class="etiquette-ex">exemple</span></td><td>U15 · jeudi 22</td><td>Licenciée BCR, journée</td><td>6 €</td><td><span class="etat ok">Payé</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions"><button type="button" class="bouton" id="stage-rappel">Préparer le rappel aux familles inscrites</button></div>
+      <p class="resultat" id="stage-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le responsable des stages</b>Chaque réservation arriverait ici avec son paiement, au lieu d'être notée au téléphone. La veille, un rappel (horaires, pique-nique, goûter) partirait aux familles après sa relecture. Dans cette maquette, rien n'est envoyé.</div>
+    </div>
+  </section>
 </main>
 
 <script src="maquette.js"></script>
@@ -168,10 +297,11 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/roles.js"></script>
 <script>
 (function(){
   var JOUEURS = [
-    ['Léa B.','U18 F','Payée','Faite','Oui','S'],
+    ['Léa B.','U15 F','Payée','Faite','Oui','S'],
     ['Inès M.','U18 F','Payée','En attente','Oui','M'],
     ['Chloé R.','U18 F','En attente','En attente','Non renseigné','S'],
     ['Manon L.','U18 F','Payée','Faite','Non','M'],
@@ -187,15 +317,27 @@
     if(v==='Non'||v==='Non renseigné') return 'manque';
     return 'attente';
   }
-  function incomplet(j){ return j[2]!=='Payée' || j[3]!=='Faite' || j[4]==='Non renseigné'; }
+  var ROLE = window.BCRRole ? BCRRole.role() : 'president', filtreCourant = 'tous';
+  /* Colonnes selon le rôle : le trésorier ne voit que la cotisation, ni licence ni autorisation photo. */
+  function colonnes(){ return ROLE === 'tresorier' ? [2] : [2,3,4]; }
+  var ENTETES = {2:'Cotisation',3:'Licence fédérale',4:'Photos autorisées'};
+  function incomplet(j){ return ROLE === 'tresorier' ? j[2]!=='Payée' : (j[2]!=='Payée' || j[3]!=='Faite' || j[4]==='Non renseigné'); }
+  function entete(){
+    document.querySelector('#suivi table.suivi thead tr').innerHTML = '<th>Joueur</th><th>Catégorie</th>' + colonnes().map(function(i){ return '<th>'+ENTETES[i]+'</th>'; }).join('');
+    document.querySelector('#suivi table.suivi').style.minWidth = ROLE === 'tresorier' ? '0' : '';
+    document.querySelector('[data-filtre="incomplet"]').textContent = ROLE === 'tresorier' ? 'Cotisations en attente' : 'Dossiers incomplets';
+    document.getElementById('rappel').textContent = ROLE === 'tresorier' ? 'Préparer un rappel de cotisation' : 'Préparer un rappel aux dossiers incomplets';
+    document.getElementById('rappel-texte').hidden = true;
+  }
   function afficher(f){
+    filtreCourant = f;
     var lignes = JOUEURS.filter(function(j){
       if(f==='incomplet') return incomplet(j);
       if(f==='U18') return j[1]==='U18 F';
       return true;
     }).map(function(j){
       return '<tr><td>'+j[0]+'</td><td>'+j[1]+'</td>'
-        + [2,3,4].map(function(i){ return '<td><span class="etat '+classe(j[i])+'">'+j[i]+'</span></td>'; }).join('')
+        + colonnes().map(function(i){ return '<td><span class="etat '+classe(j[i])+'">'+j[i]+'</span></td>'; }).join('')
         + '</tr>';
     }).join('');
     document.getElementById('liste').innerHTML = lignes;
@@ -211,8 +353,12 @@
     var n = JOUEURS.filter(incomplet).length;
     var p = document.getElementById('rappel-texte');
     p.hidden = false;
-    p.textContent = 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant.';
+    p.textContent = ROLE === 'tresorier'
+      ? 'Rappel de cotisation préparé pour ' + n + ' familles de cette liste. Il part après validation par un dirigeant.'
+      : 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant.';
   });
+  document.addEventListener('bcr:role', function(e){ ROLE = e.detail.role; entete(); afficher(filtreCourant); });
+  entete();
   afficher('tous');
 })();
 </script>
@@ -257,9 +403,21 @@
   } catch (e) {}
   D.forEach(function(d){ d.etat = 'attente'; });
   var boite = document.getElementById('boite'), etat = document.getElementById('boite-etat');
+  var R = window.BCRRole, ROLE = R ? R.role() : 'president', EQ = R ? R.equipe() : 'u18';
+  function equipeDe(d){ return /U18/.test(d.enfant) ? 'u18' : /U15/.test(d.enfant) ? 'u15' : /U13/.test(d.enfant) ? 'u13' : /Seniors F/.test(d.enfant) ? 'rf2' : ''; }
+  /* Le trésorier reçoit les attestations de paiement, le coach les absences de ses joueuses ; président et secrétaire voient tout. */
+  function concerne(d){
+    if (ROLE === 'tresorier') return d.type === 'Attestation de paiement';
+    if (ROLE === 'coach') return d.type === 'Absence prolongée' && equipeDe(d) === EQ;
+    return true;
+  }
   function compter(){
-    var n = D.filter(function(d){ return d.etat === 'attente'; }).length;
-    document.getElementById('nb-attente').innerHTML = '<strong>' + n + '</strong> ' + (n > 1 ? 'demandes en attente' : 'demande en attente') + ' sur ' + D.length;
+    var vis = D.filter(concerne), n = vis.filter(function(d){ return d.etat === 'attente'; }).length;
+    document.getElementById('nb-attente').innerHTML = '<strong>' + n + '</strong> ' + (n > 1 ? 'demandes en attente' : 'demande en attente') + ' sur ' + vis.length;
+    document.getElementById('filtre-role').textContent = ROLE === 'tresorier' ? 'Pour vous : les demandes d\'attestation de paiement.'
+      : ROLE === 'coach' ? 'Pour vous : les absences signalées dans votre équipe (' + R.nomEquipe() + ').' : '';
+    var na = document.getElementById('nb-attestations');
+    if (na) na.textContent = D.filter(function(d){ return d.type === 'Attestation de paiement' && d.etat === 'attente'; }).length;
   }
   function ligne(d, i){
     return '<li id="dm-' + i + '"><div class="qui"><strong>' + esc(d.famille) + '</strong><span>' + esc(d.enfant) + '</span>'
@@ -276,7 +434,12 @@
       + '<div class="actions" style="margin-top:10px"><button type="submit" class="bouton petit">Envoyer la réponse</button><button type="button" class="bouton ligne petit" data-annuler="' + i + '">Annuler</button></div>'
       + '</form></li>';
   }
-  function afficher(){ boite.innerHTML = D.map(ligne).join(''); compter(); }
+  function afficher(){
+    var html = D.map(function(d, i){ return concerne(d) ? ligne(d, i) : ''; }).join('');
+    boite.innerHTML = html || '<li><p class="dm-texte" style="grid-column:1/-1">Aucune demande pour vous en ce moment.</p></li>';
+    compter();
+  }
+  document.addEventListener('bcr:role', function(e){ ROLE = e.detail.role; EQ = e.detail.equipe; etat.hidden = true; afficher(); });
   boite.addEventListener('click', function(e){
     var b = e.target.closest('[data-repondre]'), a = e.target.closest('[data-annuler]');
     if (b) {
@@ -302,6 +465,95 @@
     li.setAttribute('tabindex', '-1'); li.focus({ preventScroll: true });
   });
   afficher();
+})();
+</script>
+<script>
+/* Blocs par rôle : décisions du président, équipe du coach, export du trésorier, documents du secrétaire,
+   rappel du stage. Tout est simulé : rien n'est envoyé. Matchs : affiches du club et FFBB (voir equipes.html). */
+(function(){
+  var R = window.BCRRole;
+  function montrer(id, texte){ var p = document.getElementById(id); p.hidden = false; p.textContent = texte; }
+  function majLiens(){ document.querySelectorAll('[data-lien-role]').forEach(function(a){ a.setAttribute('href', R ? R.lien('medias.html') : 'medias.html'); }); }
+
+  /* Président : accord simulé. */
+  document.getElementById('decisions').addEventListener('click', function(e){
+    var b = e.target.closest('[data-accord]'); if (!b) return;
+    var nom = b.getAttribute('data-accord'), s = document.createElement('span');
+    s.className = 'etat pastille ok'; s.textContent = 'Accord donné'; s.setAttribute('tabindex', '-1');
+    b.replaceWith(s); s.focus();
+    montrer('decider-etat', 'Simulation : accord donné pour « ' + nom + ' ». Rien n\'est publié ni envoyé dans cette maquette.');
+  });
+
+  /* Coach : son équipe seulement. */
+  var EQUIPES = {
+    u13: { titre:'U13 féminines', niv:'Départementale · DFU13', media:'u13',
+      avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', dom:true}],
+      dernier:'3-4 octobre : victoire 47-19 contre Seventy Six Belleville',
+      effectif:['Zoé D.','Emma G.','Louise F.','Nina K.','Romane T.','Jeanne P.'] },
+    u15: { titre:'U15 féminines', niv:'Départementale · DFU15', media:'u15',
+      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', dom:true}],
+      effectif:['Lina P.','Camille T.','Jade R.','Sarah M.','Clara V.','Léa B.'] },
+    u18: { titre:'U18 féminines', niv:'Élite régionale · RFU18', media:'u18',
+      avenir:[{d:'2026-11-07', txt:'contre Cherbourg Basket Ball', dom:true},{d:'2026-11-14', txt:'contre Aplemont Le Havre Basket 2', dom:false},{d:'2026-11-21', txt:'contre USO Mondeville Basket 2', dom:true}],
+      dernier:'10 octobre : victoire 78-57 contre Alençon-Damigny Basket (play-off élite)',
+      effectif:['Alice B.','Inès M.','Chloé R.','Manon L.','Anaïs G.','Pauline D.'] },
+    rf2: { titre:'Seniors féminines', niv:'Régionale 2 · RF2', media:'',
+      avenir:[], suivant:'contre Montville : date et heure sur la FFBB',
+      dernier:'Début de saison : invaincues après trois matchs (Les Informations Dieppoises)',
+      effectif:['Julie V.','Claire P.','Marion S.','Aurélie D.','Sonia L.','Élodie R.'] }
+  };
+  var REPONSES = ['ok','ok','attente','manque','ok','attente'];
+  function dateFr(iso){
+    var d = new Date(iso.length > 10 ? iso : iso + 'T12:00');
+    var t = d.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
+    return t.charAt(0).toUpperCase() + t.slice(1) + (iso.length > 10 ? ', ' + iso.slice(11,13).replace(/^0/, '') + ' h' + (iso.slice(14,16) !== '00' ? ' ' + iso.slice(14,16) : '') : '');
+  }
+  function coach(){
+    var id = R ? R.equipe() : 'u18', e = EQUIPES[id] || EQUIPES.u18, now = Date.now();
+    var aVenir = e.avenir.filter(function(m){ return new Date(m.d.length > 10 ? m.d : m.d + 'T23:59').getTime() + 2*3600e3 > now; });
+    var passes = e.avenir.filter(function(m){ return aVenir.indexOf(m) < 0; });
+    document.getElementById('coach-sur').textContent = 'Coach · ' + e.niv;
+    document.getElementById('titre-coach').textContent = e.titre;
+    var lignes = aVenir.map(function(m){ return '<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + '</span><span class="etat ' + (m.dom ? 'ok">À domicile' : 'attente">À l\'extérieur') + '</span></li>'; });
+    if (!aVenir.length) lignes.push('<li><span><strong>Prochain match</strong><br>' + (e.suivant || 'à compléter : calendrier sur la FFBB') + '</span><span class="etat attente">À compléter</span></li>');
+    passes.forEach(function(m){ lignes.push('<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + '</span><span class="etat">Score sur la FFBB</span></li>'); });
+    if (e.dernier) lignes.push('<li><span><strong>Dernier résultat publié</strong><br>' + e.dernier + '</span><span></span></li>');
+    document.getElementById('coach-matchs').innerHTML = lignes.join('');
+    document.getElementById('coach-source').textContent = 'Source : affiches du club et FFBB.' + (id === 'u18' ? ' Horaires de l\'élite non encore fixés.' : '');
+    var prochain = aVenir[0];
+    document.getElementById('coach-conv-texte').textContent = prochain
+      ? 'Prochaine convocation : ' + dateFr(prochain.d).toLowerCase() + ', ' + prochain.txt + (prochain.dom ? ', à domicile.' : ', à l\'extérieur.')
+      : 'Aucun match à venir publié pour l\'instant : la convocation se préparera dès que la date sera connue.';
+    document.getElementById('coach-conv').hidden = !prochain;
+    document.getElementById('coach-conv-etat').hidden = true;
+    var lib = {ok:'Présente', attente:'Pas de réponse', manque:'Absente'}, n = {ok:0, attente:0, manque:0};
+    document.getElementById('coach-effectif').innerHTML = e.effectif.map(function(p, i){
+      var r = prochain ? REPONSES[i] : null; if (r) n[r]++;
+      return '<li><span>' + p + '</span>' + (r ? '<span class="etat ' + r + '">' + lib[r] + '</span>' : '<span class="etat">Pas de match à venir</span>') + '</li>';
+    }).join('');
+    document.getElementById('coach-presences').textContent = prochain
+      ? 'Réponses des familles pour le prochain match : ' + n.ok + (n.ok > 1 ? ' présentes, ' : ' présente, ') + n.manque + (n.manque > 1 ? ' absentes, ' : ' absente, ') + n.attente + ' sans réponse.'
+      : 'Les réponses des familles s\'afficheront dès le prochain match publié.';
+    var lm = document.getElementById('coach-medias');
+    lm.setAttribute('href', !R ? 'medias.html' : R.role() === 'coach' ? R.lien('medias.html', 'coach', id) : R.lien('medias.html'));
+    lm.hidden = false;
+  }
+  document.getElementById('coach-conv').addEventListener('click', function(){
+    var e = EQUIPES[R ? R.equipe() : 'u18'];
+    montrer('coach-conv-etat', 'Simulation : convocation préparée pour les ' + e.effectif.length + ' joueuses, avec la date et l\'adversaire. Elle partirait aux familles après votre relecture ; rien n\'est envoyé.');
+  });
+
+  /* Trésorier, secrétaire, responsable des stages. */
+  document.getElementById('export-compta').addEventListener('click', function(){
+    montrer('export-etat', 'Simulation : fichier préparé pour la comptabilité (cotisations, stage, commande groupée), au format du tableur du club. Rien n\'est téléchargé dans cette maquette.');
+  });
+  document.querySelectorAll('[data-doc]').forEach(function(b){ b.addEventListener('click', function(){ montrer('doc-etat', 'Simulation : ' + b.getAttribute('data-doc')); }); });
+  document.getElementById('stage-rappel').addEventListener('click', function(){
+    montrer('stage-etat', 'Simulation : rappel préparé pour les familles inscrites (10 h-16 h 30, pique-nique à prévoir, goûter offert jusqu\'à 17 h). Il partirait après votre relecture ; rien n\'est envoyé.');
+  });
+
+  document.addEventListener('bcr:role', function(){ coach(); majLiens(); });
+  coach(); majLiens();
 })();
 </script>
 </body>

@@ -218,3 +218,38 @@ label.choisir{display:inline-block;margin:0;cursor:pointer}
 .boite .qui .etiquette-ex{display:inline-block}
 .pour-doigt{display:none}
 @media (hover:none) and (pointer:coarse){.zone-depot .pour-souris{display:none}.zone-depot .pour-doigt{display:inline}}
+
+/* Rôles de l'espace dirigeants (js/roles.js) */
+.roles{background:var(--surface);border-bottom:1px solid var(--line);padding:22px 0 20px}
+.roles-ligne{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:0 0 10px}
+.roles-lib{margin:0;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;color:var(--ink)}
+.roles-lib .etiquette-ex{margin-left:6px}
+.roles-boutons{display:flex;flex-wrap:wrap;gap:8px}
+.roles-boutons button{font:inherit;font-weight:600;font-size:.95rem;padding:8px 14px;border:2px solid var(--club);background:#fff;color:var(--club);cursor:pointer;border-radius:2px}
+.roles-boutons button:hover{background:#e6e9e4}
+.roles-boutons button[aria-pressed=true]{background:var(--club);color:#fff}
+.roles-equipe .roles-boutons button{border-color:var(--ballon);color:var(--ballon-ink)}
+.roles-equipe .roles-boutons button[aria-pressed=true]{background:var(--ballon);color:#fff}
+.roles-vue{margin:4px 0 0;color:var(--ink-soft);max-width:60em}
+.roles-regle{margin:12px 0 0;display:inline-block;background:#e3efe6;border-left:4px solid var(--ballon);padding:8px 12px;font-weight:600}
+.p-tete + .roles{margin-top:0}
+.roles + section.bloc{padding-top:48px}
+.refus-espace{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--attente);padding:22px 24px;max-width:760px}
+.refus-espace h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:0 0 8px}
+.decisions{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line)}
+.decisions > li{display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:16px 20px;border-top:1px solid var(--line)}
+.decisions > li:first-child{border-top:0}
+.decisions strong{display:block;font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.2rem;line-height:1.15}
+.decisions span{color:var(--ink-soft)}
+.decisions .geste{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.decisions .etat.pastille{color:inherit}
+.decisions .etat.pastille.ok{color:var(--ok)}
+.decisions .etat.pastille.attente{color:var(--attente)}
+.compteurs{display:flex;flex-wrap:wrap}
+.compteurs > div{flex:1 1 150px}
+.deux:has(> [hidden]){grid-template-columns:1fr}
+.deux:has(> [hidden]) > div{max-width:720px}
+.liste-docs .bouton.petit{white-space:nowrap;align-self:center}
+.fiche.liste-docs{padding-top:6px;padding-bottom:6px}
+.fiche.liste-docs li:first-child{border-top:0}
+[hidden]{display:none!important}

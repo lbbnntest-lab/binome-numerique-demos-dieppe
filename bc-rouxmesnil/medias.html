@@ -25,11 +25,30 @@
       <h1 id="titre-page" class="s-titre">Photos et vidéos du club</h1>
       <p class="demo-ex"><strong>Démonstration</strong> : les médias, les noms et les envois de cette page sont des exemples dessinés pour montrer la fonction. Les matchs et le score du play-off U18F viennent des publications du club et de la FFBB.</p>
       <p class="s-chapo">Tout ce que les familles envoient depuis l'espace licenciés, rangé par match : à valider, à garder pour le site, à proposer pour les réseaux.</p>
-      <div class="s-actions"><a class="s-bouton" href="#resume">Voir le résumé du play-off</a><a class="s-bouton creux" href="dirigeants.html">Retour à l'espace dirigeants</a></div>
+      <div class="s-actions"><a class="s-bouton" href="#resume" id="lien-resume" data-roles="communication coach">Voir le résumé du play-off</a><a class="s-bouton creux" href="dirigeants.html" id="lien-retour">Retour à l'espace dirigeants</a></div>
     </div>
   </section>
 
-  <section class="bloc" aria-labelledby="titre-recus">
+  <section class="roles" aria-labelledby="titre-roles">
+    <div class="wrap">
+      <h2 id="titre-roles" class="visuellement-cache">Choix du rôle</h2>
+      <div data-choix-role></div>
+      <p class="roles-regle">Accès à cette page : président, communication et bénévoles, et chaque coach pour son équipe.</p>
+      <div class="note"><b>Pour le club</b>Les photos de joueurs mineurs ne seraient visibles que par les dirigeants qui en ont besoin : le président, la personne chargée de la communication, et le coach pour sa propre équipe. Le trésorier, le secrétaire et le responsable des stages n'y auraient pas accès.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="hors-espace" data-roles-sauf="president communication coach" hidden aria-labelledby="titre-hors">
+    <div class="wrap">
+      <div class="refus-espace">
+        <h2 id="titre-hors">Cette page n'est pas dans votre espace</h2>
+        <p id="hors-texte">Les photos et vidéos des familles sont réservées au président, à la communication et aux coachs, pour leur équipe.</p>
+        <a class="bouton" href="dirigeants.html" id="lien-mon-espace">Revenir à mon espace</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="recus" data-roles="communication coach" aria-labelledby="titre-recus">
     <div class="wrap">
       <p class="surtitre">Médias reçus · exemples</p>
       <h2 id="titre-recus" data-mv="mots">Rangés par match</h2>
@@ -49,7 +68,7 @@
     </div>
   </section>
 
-  <section class="bloc s-nuit" id="resume" aria-labelledby="titre-resume">
+  <section class="bloc s-nuit" id="resume" data-roles="communication coach" aria-labelledby="titre-resume">
     <div class="wrap">
       <p class="s-surtitre">Play-off élite U18 féminines · samedi 10 octobre</p>
       <h2 id="titre-resume" data-mv="mots">Résumé du match, monté à partir de vos médias</h2>
@@ -143,6 +162,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/roles.js"></script>
 <script>
 /* Médias reçus : exemples dessinés, regroupés par match. Valider / Refuser / Pour les réseaux sont simulés. */
 (function(){
@@ -219,7 +239,9 @@
       + '<button type="button" class="b-reseaux" aria-pressed="' + (x.reseaux ? 'true' : 'false') + '" data-action="reseaux" data-id="' + x.id + '">Pour les réseaux</button>'
       + '</div><p class="message" id="msg-' + x.id + '">' + (x.msg ? esc(x.msg) : '') + '</p></div></li>';
   }
-  var filtre = 'tous';
+  var filtre = 'tous', RR = window.BCRRole;
+  /* Un coach ne voit que les médias de son équipe (u13, u15, u18 ; aucun reçu pour les seniors RF2). */
+  function equipeOk(k){ return !RR || RR.role() !== 'coach' || RR.equipe() === k; }
   function garde(x){
     if (filtre === 'valider') return x.etat === 'valider';
     if (filtre === 'valide') return x.etat === 'valide';
@@ -230,6 +252,7 @@
   function afficher(){
     var html = '';
     Object.keys(MATCHS).forEach(function(k){
+      if (!equipeOk(k)) return;
       var liste = M.filter(function(x){ return x.m === k && garde(x); });
       if (!liste.length) return;
       var mt = MATCHS[k];
@@ -238,11 +261,13 @@
         + '<div class="bilan">' + (mt.sc ? '<div class="sc">' + mt.sc + '</div>' : '') + esc(mt.bilan) + '<br>' + liste.length + (liste.length > 1 ? ' médias' : ' média') + ' <span class="etiquette-ex">exemples</span></div></div>'
         + '<ul class="medias">' + liste.map(carte).join('') + '</ul></div>';
     });
-    document.getElementById('groupes').innerHTML = html || '<p class="vide-filtre">Aucun média dans ce filtre.</p>';
-    var aV = M.filter(function(x){ return x.etat === 'valider'; }).length,
-        v = M.filter(function(x){ return x.etat === 'valide'; }).length,
-        r = M.filter(function(x){ return x.reseaux; }).length;
-    document.getElementById('compte').textContent = M.length + ' médias reçus · ' + aV + ' à valider · ' + v + ' validés · ' + r + ' pour les réseaux';
+    var coachVide = RR && RR.role() === 'coach' && !M.some(function(x){ return equipeOk(x.m); });
+    document.getElementById('groupes').innerHTML = html || '<p class="vide-filtre">' + (coachVide ? 'Aucun média reçu pour votre équipe (' + RR.nomEquipe() + ') pour le moment.' : 'Aucun média dans ce filtre.') + '</p>';
+    var V = M.filter(function(x){ return equipeOk(x.m); });
+    var aV = V.filter(function(x){ return x.etat === 'valider'; }).length,
+        v = V.filter(function(x){ return x.etat === 'valide'; }).length,
+        r = V.filter(function(x){ return x.reseaux; }).length;
+    document.getElementById('compte').textContent = (RR && RR.role() === 'coach' ? RR.nomEquipe() + ' · ' : '') + V.length + (V.length > 1 ? ' médias reçus · ' : ' média reçu · ') + aV + ' à valider · ' + v + (v > 1 ? ' validés · ' : ' validé · ') + r + ' pour les réseaux';
   }
   function trouver(id){ for (var i = 0; i < M.length; i++) if (M[i].id === id) return M[i]; }
   var live = document.getElementById('medias-etat');
@@ -272,7 +297,19 @@
       live.textContent = document.getElementById('compte').textContent;
     });
   });
-  afficher();
+  /* Rôle : liens de retour, résumé U18F réservé au coach U18 (en plus du président et de la communication). */
+  function selonRole(){
+    var role = RR ? RR.role() : 'president';
+    var lien = RR ? RR.lien('dirigeants.html') : 'dirigeants.html';
+    document.getElementById('lien-retour').setAttribute('href', lien);
+    document.getElementById('lien-mon-espace').setAttribute('href', lien);
+    if (RR) document.getElementById('hors-texte').textContent = 'Vous êtes connecté en tant que ' + RR.nomRole() + '. Les photos et vidéos des familles sont réservées au président, à la communication et aux coachs, pour leur équipe.';
+    var resumeOk = role !== 'coach' || RR.equipe() === 'u18';
+    if (document.getElementById('recus').hidden === false) { document.getElementById('resume').hidden = !resumeOk; document.getElementById('lien-resume').hidden = !resumeOk; }
+    afficher();
+  }
+  document.addEventListener('bcr:role', selonRole);
+  selonRole();
 })();
 </script>
 <script>
