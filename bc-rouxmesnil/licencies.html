@@ -51,6 +51,7 @@
         <p class="surtitre">Convocation du coach</p>
         <h2 id="convoc-titre" tabindex="-1"></h2>
         <p id="convoc-detail"></p>
+        <p class="convoc-chg" id="convoc-chg" hidden></p>
         <div class="actions" id="convoc-boutons" style="margin-top:10px">
           <button class="bouton" type="button" data-convoc="confirme">Confirmer sa présence</button>
           <button class="bouton ligne" type="button" data-convoc="absente">Prévenir d'une absence</button>
@@ -420,8 +421,9 @@
     var r = S.reponses();
     var l = S.convocations().filter(function(c){ return c.joueuses.indexOf('Léa B.') >= 0; });
     document.getElementById('convoc-liste').innerHTML = l.length ? l.slice().reverse().map(function(c){
-      var rep = r[c.id];
-      return '<li><div class="dm-tete"><span class="dm-type">' + esc(intitule(c)) + '</span><span class="etat pastille ' + (rep === 'confirme' ? 'ok">' : rep === 'absente' ? 'manque">' : 'attente">') + (LIB[rep] || 'Réponse attendue') + '</span></div>'
+      var rep = r[c.id], ch = S.changement(c.id), fin = ch && (ch.statut === 'annule' || ch.statut === 'forfait');
+      return '<li><div class="dm-tete"><span class="dm-type">' + esc(intitule(c)) + '</span><span class="etat pastille ' + (fin ? 'manque">' + (ch.statut === 'annule' ? 'Match annulé' : 'Forfait') : (rep === 'confirme' ? 'ok">' : rep === 'absente' ? 'manque">' : 'attente">') + (LIB[rep] || 'Réponse attendue')) + '</span></div>'
+        + (ch ? '<p class="dm-date chg-detail">' + esc(S.avisChangement(ch)) + '</p>' : '')
         + (c.rdv ? '<p class="dm-date">Rendez-vous : ' + esc(c.rdv) + '</p>' : '') + '</li>';
     }).join('') : '<li><p class="dm-texte">Aucune convocation pour le moment. Quand le coach sélectionnera Léa pour un match, la convocation apparaîtra ici et en haut de cet espace.</p></li>';
     var alerte = document.getElementById('convoc-alerte'), der = l[l.length - 1];
@@ -430,8 +432,12 @@
     alerte.setAttribute('data-id', der.id);
     document.getElementById('convoc-titre').textContent = 'Léa est sélectionnée pour le match du ' + S.dateFr(der.date).toLowerCase() + ' contre ' + (der.adv || 'un adversaire à compléter') + ' ; confirmez sa présence';
     document.getElementById('convoc-detail').textContent = der.equipeNom + (der.lieu ? ' · ' + der.lieu : '') + (der.rdv ? ' · rendez-vous : ' + der.rdv : ' · heure de rendez-vous précisée par le coach');
-    var rep = r[der.id];
-    document.getElementById('convoc-boutons').hidden = !!rep;
+    var rep = r[der.id], ch = S.changement(der.id), fin = ch && (ch.statut === 'annule' || ch.statut === 'forfait');
+    var pc = document.getElementById('convoc-chg');
+    pc.hidden = !ch; pc.textContent = ch ? 'Changement signalé par le coach : ' + S.avisChangement(ch) : '';
+    if (fin) document.getElementById('convoc-titre').textContent = 'Changement pour le match du ' + S.dateFr(ch.date).toLowerCase() + ' : ' + (ch.statut === 'annule' ? 'match annulé' : 'forfait');
+    if (fin) document.getElementById('convoc-detail').textContent = der.equipeNom + ' · plus de rendez-vous pour ce match';
+    document.getElementById('convoc-boutons').hidden = !!rep || !!fin;
     if (rep) { var et = document.getElementById('convoc-etat'); et.hidden = false; if (!et.textContent) et.textContent = LIB[rep] + '. Le coach le voit dans son espace.'; }
   }
   document.getElementById('convoc-boutons').addEventListener('click', function(e){
@@ -465,7 +471,12 @@
     var conv = S.convocations().filter(function(c){ return c.joueuses.indexOf('Léa B.') >= 0; }).reverse().map(function(c){
       return { id:'convoc-' + c.id, quand:'Aujourd\'hui', texte:'Convocation : Léa est sélectionnée pour le match du ' + S.dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'un adversaire à compléter') + '.' + (r[c.id] ? '' : ' Confirmez sa présence.'), lien:'#convoc-alerte' };
     });
-    return conv.concat(EXEMPLES);
+    /* Avis de changement (report, annulation, horaire, salle, forfait, autre) pour les matchs où Léa est convoquée. */
+    var chg = S.convocations().filter(function(c){ return c.joueuses.indexOf('Léa B.') >= 0 && S.changement(c.id); }).reverse().map(function(c){
+      var ch = S.changement(c.id);
+      return { id:'chg-' + c.id + '-' + ch.statut + '-' + (ch.nouvelleDate || '') + (ch.nouvelleHeure || '') + (ch.salle || '') + (ch.autre || ''), quand:'Aujourd\'hui', texte:'Changement : ' + S.avisChangement(ch), lien:'#convoc-alerte' };
+    });
+    return chg.concat(conv, EXEMPLES);
   }
   function afficher(){
     var lues = S.lire('bcr-notifs-lues', {}), l = toutes(), n = 0;

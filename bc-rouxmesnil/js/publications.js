@@ -89,11 +89,18 @@
   }
 
   /* ---------- Textes proposés : uniquement des faits ---------- */
+  /* Première ligne : nom de l'équipe et sigle seulement (« U18 féminines (RFU18) ») ; « match amical » pour un amical. */
+  function premiereLigne(eq, niv) {
+    if (niv === 'Match amical') return eq + ', match amical';
+    var s = /\(([A-Z][A-Z0-9]+)\)/.exec(niv || '');
+    if (s) return eq + ' (' + s[1] + ')';
+    return eq + ', ' + (/^[A-Z]{2}/.test(niv) ? niv : niv.charAt(0).toLowerCase() + niv.slice(1));
+  }
   function texteMatch(m) {
     var r = issue(m.bcr, m.ad, m.courte).toLowerCase();
     var phrase = (m.quand + (m.lieu ? ', ' + m.lieu : '') + ' : ' + r + ' ' + m.bcr + '-' + m.ad + ' contre ' + m.adv + '.');
     var fin = m.bcr > m.ad ? 'Bravo à l\'équipe !' : m.bcr === m.ad ? 'Bravo à l\'équipe pour ce match.' : 'On reste derrière l\'équipe pour la suite.';
-    return m.equipe + ', ' + (/^[A-Z]{2}/.test(m.niv) ? m.niv : m.niv.charAt(0).toLowerCase() + m.niv.slice(1)) + '\n' + phrase + '\n' + fin + '\n\nBasket Club de Rouxmesnil';
+    return premiereLigne(m.equipe, m.niv) + '\n' + phrase + '\n' + fin + '\n\nBasket Club de Rouxmesnil';
   }
   function texteGeneral(w) {
     var v = w.matchs.filter(function (m) { return m.bcr > m.ad; }).length, d = w.matchs.length - v;
@@ -168,7 +175,7 @@
       : c.statut === 'salle' ? match + ' se jouera à : ' + c.salle + '.'
       : c.statut === 'forfait' ? match + ' n\'aura pas lieu (forfait).'
       : match + ' : ' + c.autre + '.';
-    return c.equipe + ', ' + (/^[A-Z]{2}/.test(c.niv) ? c.niv : c.niv.charAt(0).toLowerCase() + c.niv.slice(1)) + '\n' + phrase + (c.motif ? '\nMotif : ' + c.motif + '.' : '') + '\n\nBasket Club de Rouxmesnil';
+    return premiereLigne(c.equipe, c.niv) + '\n' + phrase + (c.motif ? '\nMotif : ' + c.motif + '.' : '') + '\n\nBasket Club de Rouxmesnil';
   }
   function visuelChangement(c) {
     return '<div class="pub-cadre"><div class="pub-visuel" role="img" aria-label="Visuel : ' + esc(c.equipe) + ', ' + esc(libelle(c)) + '">'

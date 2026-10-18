@@ -371,3 +371,4 @@ input[type=time]{width:100%;font:inherit;padding:10px 12px;border:1px solid #b9b
   .pub-cadre{max-width:340px}
   .bouton.gros{font-size:1.1rem;padding:14px 16px}
 }
+.convoc-chg{margin:8px 0 0 !important;padding:8px 12px;background:#fdf0e6;border-left:4px solid var(--attente);color:#5a2a08;font-weight:600}

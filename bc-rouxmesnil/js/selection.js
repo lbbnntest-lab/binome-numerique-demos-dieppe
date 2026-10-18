@@ -32,6 +32,20 @@
       for (var i = 0; i < liste.length; i++) { var x = liste[i]; if (date >= x.du && date <= (x.au || x.du)) return x; }
       return null;
     },
+    /* Changement signalé par le coach pour un match (même identifiant que la convocation), ou null. */
+    changement: function (id) { return lire('bcr-changements', []).filter(function (c) { return c.id === id; })[0] || null; },
+    /* Avis aux familles, construit uniquement à partir de ce que le coach a saisi. */
+    avisChangement: function (c) {
+      var h = function (x) { return x ? x.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ') : ''; };
+      var m = 'Le match' + (c.amical ? ' amical' : '') + ' du ' + dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'l\'adversaire');
+      var p = c.statut === 'reporte' ? m + (c.nouvelleDate ? ' est reporté au ' + dateFr(c.nouvelleDate).toLowerCase() + (c.nouvelleHeure ? ', ' + h(c.nouvelleHeure) : '') + '.' : ' est reporté ; la nouvelle date reste à fixer.')
+        : c.statut === 'annule' ? m + ' est annulé.'
+        : c.statut === 'forfait' ? m + ' n\'aura pas lieu (forfait).'
+        : c.statut === 'horaire' ? m + ' change d\'horaire : début à ' + h(c.nouvelleHeure) + '.'
+        : c.statut === 'salle' ? m + ' se jouera à : ' + c.salle + '.'
+        : m + ' : ' + c.autre + '.';
+      return p + (c.motif ? ' Motif : ' + c.motif + '.' : '');
+    },
     convocations: function () { return lire('bcr-convocations', []); },
     ajouterConvocation: function (c) { var l = lire('bcr-convocations', []).filter(function (x) { return x.id !== c.id; }); l.push(c); ecrire('bcr-convocations', l); },
     reponses: function () { return lire('bcr-reponses', {}); },
