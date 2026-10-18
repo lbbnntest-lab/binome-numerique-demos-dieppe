@@ -98,18 +98,18 @@
       classement:{titre:'Qualification pour la poule élite, 2e tour, poule C', lignes:[['Aplemont Le Havre Basket','aplemont.png',4,0,8],['Basket Club de Rouxmesnil','',3,1,7],['US Sainte-Marie Le Havre','saintemarie.png',2,2,6],['A Louviers HBCI','louviers.png',1,3,5],['Cléon Basketball Academy','cleon.png',0,4,4]]}},
     {id:'dfu18', cat:'U18', nom:'U18 féminines', niv:'Départementale', btn:'Filles · départementale', code:'DFU18', engage:'Poule A · Basket Club de Rouxmesnil - 2',
       avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:false}], res:[]},
-    {id:'dmu18a', cat:'U18', nom:'U18 masculins · équipe 1', niv:'Départementale 4', btn:'Garçons 1 · départementale 4', code:'U18 M', engage:'Poule A · Basket Club de Rouxmesnil - 1', avenir:[], res:[]},
-    {id:'dmu18b', cat:'U18', nom:'U18 masculins · équipe 2', niv:'Départementale 4', btn:'Garçons 2 · départementale 4', code:'U18 M', engage:'Poule B · Basket Club de Rouxmesnil - 2', avenir:[], res:[]},
-    {id:'dmu18c', cat:'U18', nom:'U18 masculins · équipe 3', niv:'Départementale 4', btn:'Garçons 3 · départementale 4', code:'U18 M', engage:'Poule A · Basket Club de Rouxmesnil - 3', avenir:[], res:[]},
+    {id:'dmu18a', cat:'U18', nom:'U18 masculins · équipe 1', niv:'Départementale 4', btn:'Garçons 1 · départementale 4', code:'', engage:'Poule A · Basket Club de Rouxmesnil - 1', avenir:[], res:[]},
+    {id:'dmu18b', cat:'U18', nom:'U18 masculins · équipe 2', niv:'Départementale 4', btn:'Garçons 2 · départementale 4', code:'', engage:'Poule B · Basket Club de Rouxmesnil - 2', avenir:[], res:[]},
+    {id:'dmu18c', cat:'U18', nom:'U18 masculins · équipe 3', niv:'Départementale 4', btn:'Garçons 3 · départementale 4', code:'', engage:'Poule A · Basket Club de Rouxmesnil - 3', avenir:[], res:[]},
     {id:'u15f', cat:'U15', nom:'U15 féminines', niv:'Départementale', btn:'Filles · départementale', code:'DFU15', engage:'Poule A · Basket Club de Rouxmesnil',
       avenir:[{d:'2026-10-17T16:00', adv:'BC Offranville', sig:'BCO', dom:true}], res:[]},
-    {id:'dmu15a', cat:'U15', nom:'U15 masculins · équipe 1', niv:'Départementale 4', btn:'Garçons 1 · départementale 4', code:'U15 M', engage:'Poule A · Basket Club de Rouxmesnil - 1', avenir:[], res:[]},
-    {id:'dmu15b', cat:'U15', nom:'U15 masculins · équipe 2', niv:'Départementale 4', btn:'Garçons 2 · départementale 4', code:'U15 M', engage:'Poule A · Basket Club de Rouxmesnil - 2', avenir:[], res:[]},
+    {id:'dmu15a', cat:'U15', nom:'U15 masculins · équipe 1', niv:'Départementale 4', btn:'Garçons 1 · départementale 4', code:'', engage:'Poule A · Basket Club de Rouxmesnil - 1', avenir:[], res:[]},
+    {id:'dmu15b', cat:'U15', nom:'U15 masculins · équipe 2', niv:'Départementale 4', btn:'Garçons 2 · départementale 4', code:'', engage:'Poule A · Basket Club de Rouxmesnil - 2', avenir:[], res:[]},
     {id:'u13f', cat:'U13', nom:'U13 féminines', niv:'Départementale', btn:'Filles · départementale', code:'DFU13', engage:'Poule A · Basket Club de Rouxmesnil',
       avenir:[{d:'2026-10-17T14:00', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:true}],
       res:[{dl:'3-4 oct.', adv:'Seventy Six Belleville', sig:'SSBB', s:'47 - 19', v:true}]},
-    {id:'dmu13', cat:'U13', nom:'U13 masculins', niv:'Départementale 4', btn:'Garçons · départementale 4', code:'U13 M', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]},
-    {id:'u11', cat:'U11', nom:'U11 mixte', niv:'Départementale', code:'U11', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]}
+    {id:'dmu13', cat:'U13', nom:'U13 masculins', niv:'Départementale 4', btn:'Garçons · départementale 4', code:'', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]},
+    {id:'u11', cat:'U11', nom:'U11 mixte', niv:'Départementale', code:'', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]}
   ];
   /* Un match passé quitte « Prochains matchs » et rejoint les résultats, avec renvoi au score officiel. */
   var now = Date.now();
@@ -140,7 +140,7 @@
   }
   function afficherEqs(){
     document.getElementById('eqs').innerHTML = EQUIPES.filter(function(e){ return e.cat===catCourante; }).map(function(e){
-      return '<button type="button" aria-pressed="'+(e.id===eqCourante)+'" data-eq="'+e.id+'">'+(e.btn||e.niv)+'</button>'; }).join('');
+      return '<button type="button" aria-pressed="'+(e.id===eqCourante)+'" data-eq="'+e.id+'">'+(e.btn||e.niv)+(e.code?' ('+e.code+')':'')+'</button>'; }).join('');
     document.querySelectorAll('[data-eq]').forEach(function(b){ b.addEventListener('click', function(){ eqCourante = b.getAttribute('data-eq'); tout(); }); });
   }
   function afficherFiche(){
@@ -157,9 +157,9 @@
       : '<h3>Classement</h3><p class="vide">Le classement officiel de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la FFBB</a>. Sur le futur site, il serait affiché ici et mis à jour après chaque journée.</p>';
     document.getElementById('fiche').innerHTML =
       '<div class="fiche-eq">'
-      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'<div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
+      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+(e.code?' · '+e.code:'')+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'<div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
       + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'<a class="s-bouton creux" href="'+lien+'" target="_blank" rel="noopener">Page FFBB</a></div>'
-      + '<span class="gros" aria-hidden="true">'+e.cat.split(' ')[0]+'</span></div>'
+      + '<span class="gros" aria-hidden="true">'+(e.code||e.cat.split(' ')[0])+'</span></div>'
       + '<div class="bloc-eq"><h3>Prochains matchs</h3>'+avenir+'<h3 style="margin-top:22px">Résultats</h3>'+res+'</div>'
       + '<div class="bloc-eq">'+cl+'<p id="msg-suivre" class="resultat" hidden></p></div>'
       + '</div>';
