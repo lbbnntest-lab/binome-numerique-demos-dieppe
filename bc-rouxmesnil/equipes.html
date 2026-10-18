@@ -157,9 +157,9 @@
       : '<h3>Classement</h3><p class="vide">Le classement officiel de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la FFBB</a>. Sur le futur site, il serait affiché ici et mis à jour après chaque journée.</p>';
     document.getElementById('fiche').innerHTML =
       '<div class="fiche-eq">'
-      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+' · '+e.code+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'<div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
+      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'<div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
       + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'<a class="s-bouton creux" href="'+lien+'" target="_blank" rel="noopener">Page FFBB</a></div>'
-      + '<span class="gros" aria-hidden="true">'+e.code+'</span></div>'
+      + '<span class="gros" aria-hidden="true">'+e.cat.split(' ')[0]+'</span></div>'
       + '<div class="bloc-eq"><h3>Prochains matchs</h3>'+avenir+'<h3 style="margin-top:22px">Résultats</h3>'+res+'</div>'
       + '<div class="bloc-eq">'+cl+'<p id="msg-suivre" class="resultat" hidden></p></div>'
       + '</div>';

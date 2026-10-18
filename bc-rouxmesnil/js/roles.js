@@ -10,7 +10,7 @@
     ['president', 'Président'], ['tresorier', 'Trésorier'], ['secretaire', 'Secrétaire'],
     ['coach', 'Coach'], ['stages', 'Responsable des stages'], ['communication', 'Communication et bénévoles']
   ];
-  var EQUIPES = [['u13', 'U13 F'], ['u15', 'U15 F'], ['u18', 'U18 F élite'], ['rf2', 'Seniors F · RF2']];
+  var EQUIPES = [['u13', 'U13 F'], ['u15', 'U15 F'], ['u18', 'U18 F élite'], ['rf2', 'Seniors F · régionale 2']];
   var VUE = {
     president: 'tout l\'espace, et les décisions qui attendent votre accord.',
     tresorier: 'cotisations, encaissements du stage, commande groupée, attestations de paiement et export pour la comptabilité.',
