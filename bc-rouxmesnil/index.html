@@ -31,22 +31,34 @@
       </div>
 
       <div class="s-scene" aria-hidden="true">
-        <svg viewBox="0 0 600 440">
+        <svg viewBox="96 -16 510 456">
           <g class="lignes">
-            <path class="terrain-l t" pathLength="1" d="M20 30 H580 V410 H20"/>
-            <path class="raquette t" pathLength="1" d="M580 150 H430 V290 H580"/>
-            <path class="terrain-l t" pathLength="1" d="M430 160 A60 60 0 0 0 430 280 A60 60 0 0 0 430 160"/>
-            <path class="terrain-l t" pathLength="1" d="M580 40 H520 A200 200 0 0 0 520 400 H580"/>
-            <path class="terrain-l t" pathLength="1" d="M20 160 A60 60 0 0 1 20 280"/>
+            <path class="sol-l t" pathLength="1" d="M96 374 H606"/>
+            <path class="raquette t" pathLength="1" d="M436 374 H590 L600 438 H424 Z"/>
+            <path class="sol-l t" pathLength="1" d="M520 374 A 238 32 0 0 0 520 438"/>
+            <path class="sol-l t" pathLength="1" d="M96 438 H606"/>
           </g>
-          <line class="panneau" x1="566" y1="185" x2="566" y2="255"/>
-          <circle class="cercle" cx="546" cy="220" r="15"/>
-          <path class="filet" d="M533 228 l6 12 l7 -12 l7 12 l6 -12"/>
-          <path class="trajet" id="trajet" pathLength="1" d="M150 330 Q330 -60 546 216"/>
-          <g class="ballon-g" transform="translate(546 216)">
-            <circle class="ballon" r="13"/>
-            <path class="ballon-l" d="M-13 0 H13 M0 -13 V13 M-9 -9 Q0 0 -9 9 M9 -9 Q0 0 9 9"/>
+          <g class="panier-g">
+            <rect class="poteau-pied" x="566" y="378" width="30" height="28" rx="3"/>
+            <path class="poteau" d="M581 380 V86 H556"/>
+            <path class="planche" d="M546 38 L556 30 L556 132 L546 140 Z"/>
+            <path class="planche-c" d="M546 86 L552 82 L552 112 L546 116 Z"/>
+            <path class="potence" d="M540 104 L547 106"/>
+            <path class="cercle-ar" d="M498 104 A 22 5.5 0 0 1 542 104"/>
           </g>
+          <ellipse id="j-ombre" class="ombre" cx="156" cy="406" rx="40" ry="6"/>
+          <ellipse id="b-ombre" class="ombre" cx="520" cy="406" rx="12" ry="3.5" opacity="0"/>
+          <path id="trajet" class="trajet" pathLength="1" d="M210 160 Q365 -80 520 100"/>
+          <g id="j-racine">
+            <g id="j-brasB"><g id="j-epauleB"><path class="peau-s" d="M-6.5 0 C-7.6 12 -6 24 -4.8 33 L4.8 33 C6 24 7.6 12 6.5 0 Z"/><circle class="peau-s" cx="0" cy="33" r="4.8"/><g id="j-coudeB"><path class="peau-s" d="M-4.8 0 C-5.2 10 -4.3 22 -3.7 30 L3.7 30 C4.3 22 5.2 10 4.8 0 Z"/><ellipse class="peau-s" cx="0.6" cy="34" rx="4.7" ry="6.6"/></g><path class="maillot-s" d="M-8 -6 C-8 2 -7 7 -6.5 9 L6.8 9 C7.5 4 8 0 7 -6 Z"/></g></g>
+            <g id="j-cuisseB"><path class="peau-s" d="M-9 0 C-10.5 18 -8.2 38 -6.6 50 L6.6 50 C8.4 38 10.5 18 9 0 Z"/><circle class="peau-s" cx="0" cy="50" r="6.6"/><g id="j-genouB"><path class="peau-s" d="M-6.6 0 C-9.4 12 -6.2 33 -4.3 48 L4.3 48 C5.2 33 6.8 14 6.6 0 Z"/><path class="chaussette-s" d="M-5.4 34 L-4.3 48 L4.3 48 L5.3 34 Z"/><g id="j-piedB"><path class="chaussure-s" d="M-7 -3 C-7.6 4 -6.4 9 -4 9 L17 9 C20.5 9 20.5 3.5 15 1.5 L6 -3 Z"/><path class="semelle" d="M-5.5 9 H18.5" /></g></g><path class="short-s" d="M-11.5 -6 L11.5 -6 L12.4 27 L-11.2 29.5 Z"/><path class="liseret" d="M10.6 -4 L11.5 26"/></g>
+            <g id="j-tronc"><path class="maillot" d="M-14 7 C-16.4 -14 -18.4 -40 -15.4 -62 C-14.4 -70 -11.4 -76 -8.4 -79 L-2 -79 C0 -73.6 6 -72 9 -78 L13.4 -79 C17.4 -70 19.4 -56 17.6 -44 C15.6 -30 16 -12 15.2 7 Z"/><path class="liseret" d="M-8.4 -79 C-3.6 -69.6 6.4 -69.6 9 -78"/><path class="liseret" d="M1.6 -58 C2.8 -38 2 -18 1 6"/><text class="num" x="-11" y="-36">18</text><g id="j-tete"><path class="peau" d="M-2.5 -9 L6.5 -9 L6 3 L-3 3 Z"/><g id="j-queue"><path class="cheveux" d="M0 0 C-7 3 -10.5 14 -8.5 27 C-6 21 -2.5 12 3.5 5 Z"/><path class="bandeau" d="M-1.5 -1.5 L3 2.5"/></g><ellipse class="peau" cx="3" cy="-18" rx="11.2" ry="13"/><path class="peau" d="M12.5 -22 L16.6 -15.6 L13 -13.6 Z"/><ellipse class="oeil" cx="9.4" cy="-20" rx="1.3" ry="1.7"/><path class="cheveux" d="M-9.6 -12 C-11.6 -25 -4.4 -32.5 4.6 -31.6 C10.8 -31.2 14.8 -27 15 -22.4 C9.6 -26 2.4 -25.6 -0.6 -20.6 C-2.6 -16.6 -4.6 -12.6 -8 -8.6 Z"/><path class="bandeau" d="M-9.8 -21.5 C-2 -27.6 8 -28.6 15 -23.6"/><ellipse class="peau-s" cx="-0.4" cy="-16.4" rx="2.4" ry="3.4"/></g></g>
+            <g id="j-cuisseA"><path class="peau" d="M-9 0 C-10.5 18 -8.2 38 -6.6 50 L6.6 50 C8.4 38 10.5 18 9 0 Z"/><circle class="peau" cx="0" cy="50" r="6.6"/><g id="j-genouA"><path class="peau" d="M-6.6 0 C-9.4 12 -6.2 33 -4.3 48 L4.3 48 C5.2 33 6.8 14 6.6 0 Z"/><path class="chaussette" d="M-5.4 34 L-4.3 48 L4.3 48 L5.3 34 Z"/><g id="j-piedA"><path class="chaussure" d="M-7 -3 C-7.6 4 -6.4 9 -4 9 L17 9 C20.5 9 20.5 3.5 15 1.5 L6 -3 Z"/><path class="semelle" d="M-5.5 9 H18.5" /></g></g><path class="short" d="M-11.5 -6 L11.5 -6 L12.4 27 L-11.2 29.5 Z"/><path class="liseret" d="M10.6 -4 L11.5 26"/></g>
+            <g id="j-brasA"><g id="j-epauleA"><path class="peau" d="M-6.5 0 C-7.6 12 -6 24 -4.8 33 L4.8 33 C6 24 7.6 12 6.5 0 Z"/><circle class="peau" cx="0" cy="33" r="4.8"/><g id="j-coudeA"><path class="peau" d="M-4.8 0 C-5.2 10 -4.3 22 -3.7 30 L3.7 30 C4.3 22 5.2 10 4.8 0 Z"/><path class="bande" d="M-4.4 21 L4.4 21 L4.2 26 L-4.2 26 Z"/><ellipse class="peau" cx="0.6" cy="34" rx="4.7" ry="6.6"/></g><path class="maillot" d="M-8 -6 C-8 2 -7 7 -6.5 9 L6.8 9 C7.5 4 8 0 7 -6 Z"/></g></g>
+          </g>
+          <g id="j-ballon" class="ballon-g" transform="translate(520 380)"><g id="j-ballon-r"><circle class="ballon" r="12"/><path class="ballon-l" d="M-12 0 H12 M0 -12 V12 M-8.4 -8.4 Q0 0 -8.4 8.4 M8.4 -8.4 Q0 0 8.4 8.4"/></g></g>
+          <path id="filet" class="filet" d="M498.0 104 L511.0 142 M503.5 104 L508.0 142 M503.5 104 L514.0 142 M509.0 104 L511.0 142 M509.0 104 L517.0 142 M514.5 104 L514.0 142 M514.5 104 L520.0 142 M520.0 104 L517.0 142 M520.0 104 L523.0 142 M525.5 104 L520.0 142 M525.5 104 L526.0 142 M531.0 104 L523.0 142 M531.0 104 L529.0 142 M536.5 104 L526.0 142 M536.5 104 L532.0 142 M542.0 104 L529.0 142 M501 116 Q520 121 539 116 M504 129 Q520 133 536 129 M508 142 H532"/>
+          <path class="cercle-av" d="M498 104 A 22 5.5 0 0 0 542 104"/>
         </svg>
         <div class="tableau" role="img" aria-label="Play-off élite U18 féminines, 10 octobre : BCR 78, Alençon-Damigny 57">
           <div class="eq"><img src="img/logo-bcr.jpg" alt=""><span>BCR</span><b id="sc-bcr">78</b></div>
@@ -62,7 +74,7 @@
     <span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span>Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span>Le BCR soutient Octobre rose</span>
   </div></div>
 
-  <div class="wrap"><div class="note"><b>Pour le club</b>L'ouverture raconte le basket : le terrain se trace, le tir part, et le tableau affiche le vrai score du match de la montée des U18F (78-57, FFBB). Chaque réalisation Signature a sa scène propre au métier ; celle-ci est pour le BCR. Les animations s'arrêtent d'elles-mêmes si le téléphone du visiteur demande moins de mouvement.</div></div>
+  <div class="wrap"><div class="note"><b>Pour le club</b>L'ouverture raconte le basket : le terrain se trace, une joueuse aux couleurs du BCR dribble, s'élève derrière la ligne et tire à 3 points ; le ballon traverse le filet et le tableau affiche le vrai score du match de la montée des U18F (78-57, FFBB). La joueuse est une illustration dessinée pour le club, pas une photo : aucune joueuse réelle n'est représentée. Chaque réalisation Signature a sa scène propre au métier ; celle-ci est pour le BCR. Les animations s'arrêtent d'elles-mêmes si le téléphone du visiteur demande moins de mouvement.</div></div>
 
   <section class="s-montee s-nuit" aria-labelledby="titre-montee">
     <div class="wrap grille">
@@ -199,6 +211,18 @@
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
+<script src="js/joueuse.js"></script>
+<script>
+window.BCRsceneFixe = function(){
+  var J = window.Joueuse; if (!J) return;
+  J.poser(J.P.lacher);
+  var m = J.main(J.P.lacher), d = [m[0] + 4, m[1] + 9], c = [(d[0] + 520) / 2 + 10, Math.min(d[1], 101) - 170], k = 0.72;
+  document.getElementById('trajet').setAttribute('d', 'M' + d[0].toFixed(1) + ' ' + d[1].toFixed(1) + ' Q' + c[0].toFixed(1) + ' ' + c[1].toFixed(1) + ' 520 101');
+  var x = (1-k)*(1-k)*d[0] + 2*(1-k)*k*c[0] + k*k*520, y = (1-k)*(1-k)*d[1] + 2*(1-k)*k*c[1] + k*k*101;
+  document.getElementById('j-ballon').setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')');
+};
+window.BCRsceneFixe();
+</script>
 <script>
 (function(){
   var M = window.Mouvement;
@@ -209,27 +233,77 @@
     if (!ctx.conditions.anime) return;
     var grand = ctx.conditions.grand;
 
-    /* 1. Le tir : le terrain se trace, le ballon part de derrière la ligne à 3 points, le tableau passe en tête. */
-    var trajet = document.getElementById('trajet');
-    var long = trajet.getTotalLength();
-    var ballon = document.querySelector('.ballon-g');
-    var sc = document.getElementById('sc-bcr');
-    var adv = document.getElementById('sc-adv'), etat = { p: 0, s: 0, a: 0 };
-    sc.textContent = '0'; adv.textContent = '0'; ballon.setAttribute('transform', 'translate(150 330)');
-    gsap.timeline({ delay: 0.2 })
-      .from('.s-titre .ligne', { yPercent: 105, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 })
+    /* 1. Le tir : le terrain se trace, une joueuse du BCR dribble, s'élève derrière la ligne à 3 points
+          et tire ; le ballon passe dans le filet et le tableau passe de 75 à 78 (score officiel du play-off). */
+    var J = window.Joueuse, P = J.P;
+    var ballon = document.getElementById('j-ballon'), rotB = document.getElementById('j-ballon-r');
+    var bOmbre = document.getElementById('b-ombre'), filet = document.getElementById('filet');
+    var sc = document.getElementById('sc-bcr'), adv = document.getElementById('sc-adv');
+    var pose = Object.assign({ saut: 0, pointeA: 0, pointeB: 0 }, P.garde), etat = { s: 0, a: 0, d: 0, v: 0, tour: 0 };
+    var CERCLE = [520, 101], SOL_B = J.SOL - 12, mode = 'main', depart = null, ctrl = null;
+    function placer(x, y){ ballon.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')'); }
+    function majScene(){
+      J.poser(pose);
+      if (mode === 'main') { var m = J.main(pose); placer(m[0] + 4, m[1] + 9); }
+      if (mode === 'dribble') { var h = J.main(pose); placer(h[0] + 4, h[1] + 9 + (SOL_B - h[1] - 9) * etat.d); }
+      if (mode === 'vol') {
+        var k = etat.v, x = (1-k)*(1-k)*depart[0] + 2*(1-k)*k*ctrl[0] + k*k*CERCLE[0], y = (1-k)*(1-k)*depart[1] + 2*(1-k)*k*ctrl[1] + k*k*CERCLE[1];
+        placer(x, y);
+      }
+      rotB.setAttribute('transform', 'rotate(' + (etat.tour % 360).toFixed(1) + ')');
+    }
+    function vers(nom, duree, ease){ return gsap.to(pose, Object.assign({}, P[nom], { duration: duree, ease: ease || 'power1.inOut', onUpdate: majScene })); }
+    function compte(){ sc.textContent = Math.round(etat.s); adv.textContent = Math.round(etat.a); }
+    sc.textContent = '0'; adv.textContent = '0'; majScene();
+
+    var tl = gsap.timeline({ delay: 0.2 });
+    tl.from('.s-titre .ligne', { yPercent: 105, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 })
       .from('.s-chapo, .s-actions, .s-accueil .s-surtitre, .s-annonce', { opacity: 0, y: 14, duration: 0.6, stagger: 0.1 }, 0.4)
-      .fromTo('.lignes .t', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut', stagger: 0.12 }, 0.2)
-      .from('.panneau, .cercle, .filet, .tableau, .tableau-legende', { opacity: 0, duration: 0.5 }, 1.0)
-      .from(trajet, { opacity: 0, duration: 0.4 }, 1.3)
-      .to(etat, { s: 75, a: 57, duration: 1.4, ease: 'power1.out', onUpdate: function(){ sc.textContent = Math.round(etat.s); adv.textContent = Math.round(etat.a); } }, 1.3)
-      .to(etat, { p: 1, duration: 1.1, ease: 'power1.in', onUpdate: function(){
-          var pt = trajet.getPointAtLength(long * etat.p);
-          ballon.setAttribute('transform', 'translate(' + pt.x + ' ' + pt.y + ') rotate(' + (etat.p * 540) + ')');
-        } }, 1.6)
-      .fromTo('.cercle', { scale: 1 }, { scale: 1.25, svgOrigin: '546 220', duration: 0.15, yoyo: true, repeat: 1 }, 2.7)
-      .to('.filet', { y: 6, duration: 0.15, yoyo: true, repeat: 1 }, 2.7)
-      .to(etat, { s: 78, duration: 0.4, ease: 'none', onUpdate: function(){ sc.textContent = Math.round(etat.s); } }, 2.75);
+      .fromTo('.lignes .t', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut', stagger: 0.1 }, 0.2)
+      .from('.panier-g, .filet, .cercle-av', { opacity: 0, y: -12, duration: 0.6, ease: 'power2.out' }, 0.7)
+      .from('.tableau, .tableau-legende', { opacity: 0, y: 10, duration: 0.5 }, 0.9)
+      .from('#j-racine, #j-ombre, #j-ballon', { opacity: 0, duration: 0.5 }, 0.8)
+      .to(etat, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
+    /* Deux dribbles en avançant : le ballon descend au sol pendant que la main pousse, puis remonte. */
+    tl.call(function(){ mode = 'dribble'; }, null, 1.0);
+    [1.0, 1.62].forEach(function(t0){
+      tl.add(vers('dribbleB', 0.31, 'power1.in'), t0)
+        .to(etat, { d: 1, duration: 0.31, ease: 'power2.in', onUpdate: majScene }, t0)
+        .add(vers('dribbleH', 0.31, 'power1.out'), t0 + 0.31)
+        .to(etat, { d: 0, duration: 0.31, ease: 'power2.out', onUpdate: majScene }, t0 + 0.31);
+    });
+    /* Prise de balle, appel, détente, lâcher. */
+    tl.call(function(){ mode = 'main'; }, null, 2.24)
+      .add(vers('prise', 0.32), 2.24)
+      .add(vers('appel', 0.24, 'power2.in'), 2.56)
+      .add(vers('detente', 0.3, 'power2.out'), 2.8)
+      .add(vers('lacher', 0.14, 'power1.out'), 3.1)
+      .call(function(){
+        var m = J.main(pose); depart = [m[0] + 4, m[1] + 9];
+        ctrl = [(depart[0] + CERCLE[0]) / 2 + 10, Math.min(depart[1], CERCLE[1]) - 170];
+        document.getElementById('trajet').setAttribute('d', 'M' + depart[0].toFixed(1) + ' ' + depart[1].toFixed(1) + ' Q' + ctrl[0].toFixed(1) + ' ' + ctrl[1].toFixed(1) + ' ' + CERCLE[0] + ' ' + CERCLE[1]);
+        mode = 'vol';
+      }, null, 3.24)
+      .to(etat, { v: 1, tour: 720, duration: 1.15, ease: 'none', onUpdate: majScene }, 3.24)
+      .fromTo('#trajet', { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.3)
+      .add(vers('reception', 0.34, 'power2.in'), 3.3)
+      .add(vers('fin', 0.6, 'power1.out'), 3.64);
+    /* Le ballon traverse le filet, le filet se soulève, le tableau passe à 78, puis le ballon rebondit au sol. */
+    tl.call(function(){ mode = 'libre'; }, null, 4.39)
+      .to(ballon, { attr: { transform: 'translate(520 150)' }, duration: 0.2, ease: 'none' }, 4.39)
+      .fromTo(filet, { scaleY: 1 }, { scaleY: 1.18, svgOrigin: '520 104', duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.out' }, 4.42)
+      .fromTo('.cercle-av', { stroke: '#ff6a1a' }, { stroke: '#ffd2a8', duration: 0.12, yoyo: true, repeat: 1 }, 4.4)
+      .to(etat, { s: 78, duration: 0.3, ease: 'none', onUpdate: compte }, 4.45)
+      .fromTo('.tableau', { boxShadow: '0 18px 40px rgba(0,0,0,.45)' }, { boxShadow: '0 0 0 3px #46c46f, 0 18px 40px rgba(0,0,0,.45)', duration: 0.25, yoyo: true, repeat: 1 }, 4.45)
+      .to(ballon, { attr: { transform: 'translate(522 ' + SOL_B + ')' }, duration: 0.42, ease: 'power2.in' }, 4.59)
+      .to(bOmbre, { opacity: 0.45, duration: 0.42 }, 4.59)
+      .to(ballon, { attr: { transform: 'translate(530 ' + (SOL_B - 62) + ')' }, duration: 0.3, ease: 'power2.out' }, 5.01)
+      .to(ballon, { attr: { transform: 'translate(538 ' + SOL_B + ')' }, duration: 0.3, ease: 'power2.in' }, 5.31)
+      .to(ballon, { attr: { transform: 'translate(542 ' + (SOL_B - 18) + ')' }, duration: 0.16, ease: 'power2.out' }, 5.61)
+      .to(ballon, { attr: { transform: 'translate(546 ' + SOL_B + ')' }, duration: 0.16, ease: 'power2.in' }, 5.77)
+      .to(bOmbre, { attr: { cx: 546 }, duration: 1.34, ease: 'none' }, 4.59)
+      .to(etat, { tour: 980, duration: 1.4, ease: 'power1.out', onUpdate: function(){ rotB.setAttribute('transform', 'rotate(' + (etat.tour % 360).toFixed(1) + ')'); } }, 4.59)
+      .to('#trajet', { opacity: 0.55, duration: 0.6 }, 5.0);
 
     /* 2. Les scores comptent jusqu'au résultat quand ils arrivent à l'écran. */
     gsap.utils.toArray('[data-compte]').forEach(function(el){
@@ -255,7 +329,7 @@
     gsap.fromTo('.arches .arc', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', stagger: 0.12,
       scrollTrigger: { trigger: '.s-manifeste', start: 'top 85%', end: 'bottom 40%', scrub: 0.5 } });
 
-    return function(){ sc.textContent = '78'; adv.textContent = '57'; ballon.setAttribute('transform', 'translate(546 216)'); };
+    return function(){ sc.textContent = '78'; adv.textContent = '57'; window.BCRsceneFixe(); };
   });
 })();
 </script>

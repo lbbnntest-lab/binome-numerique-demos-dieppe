@@ -16,14 +16,37 @@
 /* Scène du tir */
 .s-scene{position:relative}
 .s-scene svg{width:100%;height:auto;overflow:visible}
-.s-scene .terrain-l{fill:none;stroke:rgba(255,255,255,.55);stroke-width:2}
-.s-scene .raquette{fill:rgba(31,122,63,.35);stroke:rgba(255,255,255,.55);stroke-width:2}
-.s-scene .panneau{fill:none;stroke:#fff;stroke-width:3}
-.s-scene .cercle{fill:none;stroke:#ff8a3d;stroke-width:4}
-.s-scene .filet{fill:none;stroke:rgba(255,255,255,.75);stroke-width:1.5}
+.s-scene .sol-l{fill:none;stroke:rgba(255,255,255,.5);stroke-width:2}
+.s-scene .raquette{fill:rgba(31,122,63,.38);stroke:rgba(255,255,255,.5);stroke-width:2}
+.s-scene .poteau{fill:none;stroke:#7d878e;stroke-width:9;stroke-linejoin:round}
+.s-scene .poteau-pied{fill:#1f7a3f}
+.s-scene .planche{fill:rgba(255,255,255,.14);stroke:#fff;stroke-width:2.5;stroke-linejoin:round}
+.s-scene .planche-c{fill:none;stroke:#ff8a3d;stroke-width:2}
+.s-scene .potence{stroke:#ff8a3d;stroke-width:4}
+.s-scene .cercle-ar,.s-scene .cercle-av{fill:none;stroke:#ff6a1a;stroke-width:3.5;stroke-linecap:round}
+.s-scene .cercle-ar{stroke:#c44f12}
+.s-scene .filet{fill:none;stroke:rgba(255,255,255,.85);stroke-width:1.3;stroke-linecap:round}
+.s-scene .ombre{fill:#000}
+.s-scene .trajet{fill:none;stroke:rgba(70,196,111,.6);stroke-width:2;stroke-dasharray:5 8}
 .s-scene .ballon{fill:#e06a1b}
-.s-scene .ballon-l{fill:none;stroke:#3a1a05;stroke-width:1.6}
-.s-scene .trajet{fill:none;stroke:rgba(70,196,111,.55);stroke-width:2;stroke-dasharray:6 8}
+.s-scene .ballon-l{fill:none;stroke:#3a1a05;stroke-width:1.5}
+.s-scene .peau{fill:#b77a52}
+.s-scene .peau-s{fill:#8f5b3b}
+.s-scene .maillot{fill:#1f7a3f}
+.s-scene .maillot-s{fill:#155a2d}
+.s-scene .short{fill:#16191b}
+.s-scene .short-s{fill:#0b0d0e}
+.s-scene .liseret{fill:none;stroke:#f3f4f1;stroke-width:2.2;stroke-linecap:round}
+.s-scene .num{font-family:var(--titre);font-style:italic;font-weight:700;font-size:17px;fill:#f3f4f1}
+.s-scene .chaussette{fill:#f3f4f1}
+.s-scene .chaussette-s{fill:#c9cdca}
+.s-scene .chaussure{fill:#f3f4f1}
+.s-scene .chaussure-s{fill:#aab0ac}
+.s-scene .semelle{stroke:#1f7a3f;stroke-width:2.6;stroke-linecap:round}
+.s-scene .bande{fill:#46c46f}
+.s-scene .cheveux{fill:#2a1a12}
+.s-scene .bandeau{fill:none;stroke:#46c46f;stroke-width:3.4;stroke-linecap:round}
+.s-scene .oeil{fill:#1a0f09}
 .tableau{display:flex;align-items:stretch;margin-top:18px;font-family:var(--titre);font-weight:700;box-shadow:0 18px 40px rgba(0,0,0,.45);max-width:520px}
 .tableau .eq{background:#14181c;color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px;flex:1}
 .tableau .eq img{width:30px;height:30px}
