@@ -26,9 +26,42 @@
       <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et le stage viennent des publications du club.</p>
     </div>
   </section>
+  <section class="notifs-barre" aria-label="Notifications">
+    <div class="wrap">
+      <div class="notifs-ligne">
+        <button type="button" class="cloche" id="cloche" aria-expanded="false" aria-controls="notifs-panneau">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0-6 6v4.2L4 16.5V18h16v-1.5l-2-3.3V9a6 6 0 0 0-6-6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 20a2.5 2.5 0 0 0 5 0" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <span class="cloche-lib">Notifications</span><span class="badge" id="notifs-nb" aria-hidden="true">0</span>
+        </button>
+        <div class="push-bloc">
+          <button type="button" class="bouton ligne petit" id="activer-push">Activer les notifications sur ce téléphone</button>
+          <p class="aide" id="push-aide">Gratuit pour le club. Sur iPhone, il faut d'abord ajouter le site à l'écran d'accueil ; sur Android et sur ordinateur, l'accord suffit.</p>
+        </div>
+      </div>
+      <p class="resultat" id="push-etat" role="status" aria-live="polite" hidden></p>
+      <div class="notifs-panneau" id="notifs-panneau" hidden>
+        <div class="notifs-tete"><h2 id="notifs-titre" tabindex="-1">Notifications</h2><button type="button" class="retirer-ligne" id="tout-lu">Tout marquer comme lu</button></div>
+        <ul class="notifs-liste" id="notifs-liste" aria-labelledby="notifs-titre"></ul>
+      </div>
+    </div>
+  </section>
+  <section class="convoc-alerte" id="convoc-alerte" aria-labelledby="convoc-titre" hidden>
+    <div class="wrap">
+      <div class="convoc-carte">
+        <p class="surtitre">Convocation du coach</p>
+        <h2 id="convoc-titre" tabindex="-1"></h2>
+        <p id="convoc-detail"></p>
+        <div class="actions" id="convoc-boutons" style="margin-top:10px">
+          <button class="bouton" type="button" data-convoc="confirme">Confirmer sa présence</button>
+          <button class="bouton ligne" type="button" data-convoc="absente">Prévenir d'une absence</button>
+        </div>
+        <p class="resultat" id="convoc-etat" role="status" aria-live="polite" hidden></p>
+      </div>
+    </div>
+  </section>
   <section class="bloc">
     <div class="wrap">
-      <p>Léa · U15 féminines · saison 2026-2027</p>
+      <p>Léa · U15 féminines, départementale (DFU15) · saison 2026-2027</p>
       <div class="note"><b>Pour le club</b>Chaque famille aurait son accès personnel. Elle y trouverait tout ce qui la concerne, sans demander aux dirigeants ni chercher dans les messages. Les informations ci-dessous sont des exemples.</div>
 
       <div class="grille-licencie">
@@ -85,7 +118,42 @@
     </div>
   </section>
 
-  <section class="bloc clair" id="demandes" aria-labelledby="titre-demandes">
+  <section class="bloc clair" id="indisponibilites" aria-labelledby="titre-indispo">
+    <div class="wrap">
+      <p class="surtitre">Pour que le coach s'organise</p>
+      <h2 id="titre-indispo" data-mv="mots">Mes indisponibilités</h2>
+      <p class="chapo-bloc">Indiquez les jours où Léa ne pourra pas jouer. Le coach les voit quand il prépare la sélection de chaque match.</p>
+      <div class="colonnes">
+        <div>
+          <form id="form-indispo" class="fiche" novalidate>
+            <h3>Ajouter une indisponibilité</h3>
+            <div class="deux-champs">
+              <div><label for="ind-du">Date, ou début</label><input type="date" id="ind-du" aria-describedby="ind-erreur" required></div>
+              <div><label for="ind-au">Fin (facultatif)</label><input type="date" id="ind-au" aria-describedby="ind-aide ind-erreur"></div>
+            </div>
+            <p class="aide" id="ind-aide">Pour un seul jour, laissez la fin vide.</p>
+            <label for="ind-motif">Motif (facultatif)</label>
+            <select id="ind-motif"><option value="">Sans motif</option><option>Vacances</option><option>Blessure</option><option>Examen</option><option>Autre</option></select>
+            <p class="erreur" id="ind-erreur"></p>
+            <div class="actions"><button class="bouton" type="submit">Prévenir le coach</button></div>
+            <p class="resultat" id="ind-confirmation" role="status" aria-live="polite" hidden></p>
+          </form>
+          <div class="fiche" style="margin-top:20px">
+            <h3>Indisponibilités déclarées</h3>
+            <ul class="demandes" id="ind-liste"></ul>
+          </div>
+        </div>
+        <div class="fiche">
+          <h3>Convocations</h3>
+          <ul class="demandes" id="convoc-liste"></ul>
+          <p class="aide">Seuls le coach de l'équipe et le président verraient le motif d'une indisponibilité.</p>
+        </div>
+      </div>
+      <div class="note"><b>Pour le club</b>Quand le coach sélectionnerait Léa pour un match, la convocation apparaîtrait en haut de cet espace et sous la cloche des notifications. Elle arriverait aussi sur le téléphone, par une notification du navigateur, pour les familles qui l'ont activée ; un joueur majeur pourrait la recevoir lui-même. Pas d'envoi payant : la notification dans l'espace et sur le téléphone ne coûterait rien au club. L'email ne servirait qu'en secours, pour les familles qui n'ont pas activé les notifications. Sur iPhone, la notification sur le téléphone ne fonctionnerait que si le site a été ajouté à l'écran d'accueil ; sur Android et sur ordinateur, l'accord suffirait. Plus besoin de groupe de messages pour savoir qui joue. Dans cette maquette, rien n'est envoyé.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="demandes" aria-labelledby="titre-demandes">
     <div class="wrap">
       <p class="surtitre">Une question, un document, une absence</p>
       <h2 id="titre-demandes" data-mv="mots">Faire une demande au bureau</h2>
@@ -116,7 +184,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="partage" aria-labelledby="titre-partage">
+  <section class="bloc clair" id="partage" aria-labelledby="titre-partage">
     <div class="wrap">
       <p class="surtitre">Photos et vidéos des tribunes</p>
       <h2 id="titre-partage" data-mv="mots">Partager mes photos et vidéos du match</h2>
@@ -165,6 +233,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/selection.js"></script>
 <script>
 document.querySelectorAll('[data-rep]').forEach(function(b){
   b.addEventListener('click', function(){
@@ -310,6 +379,155 @@ document.querySelectorAll('[data-rep]').forEach(function(b){
     confMd.textContent = 'Simulation : ' + n + (n > 1 ? ' fichiers transmis au bureau. Ils restent' : ' fichier transmis au bureau. Il reste') + ' en attente de validation par un dirigeant : rien n\'est publié avant. Dans cette maquette, rien n\'est envoyé.';
   });
   accord.addEventListener('change', function(){ if (accord.checked) { accord.removeAttribute('aria-invalid'); if (/accord/.test(errMd.textContent)) errMd.textContent = ''; } });
+})();
+</script>
+<script>
+/* Indisponibilités et convocation de Léa (simulation : rien n'est envoyé). */
+(function(){
+  var S = window.BCRSel;
+  function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var liste = document.getElementById('ind-liste'), err = document.getElementById('ind-erreur'), conf = document.getElementById('ind-confirmation'),
+      du = document.getElementById('ind-du'), au = document.getElementById('ind-au');
+  function afficher(){
+    var l = S.indispos().slice().sort(function(a, b){ return a.du < b.du ? -1 : 1; });
+    liste.innerHTML = l.length ? l.map(function(x){
+      return '<li><div class="dm-tete"><span class="dm-type">' + esc(S.plage(x)) + (x.ex ? ' <span class="etiquette-ex">exemple</span>' : '') + '</span>'
+        + '<button type="button" class="retirer-ligne" data-suppr="' + x.id + '">Supprimer<span class="visuellement-cache"> l\'indisponibilité ' + esc(S.plage(x)) + '</span></button></div>'
+        + '<p class="dm-date">' + (x.motif ? 'Motif : ' + esc(x.motif.toLowerCase()) : 'Sans motif') + (x.ex ? '' : ' · déclarée pendant cette visite') + '</p></li>';
+    }).join('') : '<li><p class="dm-texte">Aucune indisponibilité déclarée.</p></li>';
+  }
+  document.getElementById('form-indispo').addEventListener('submit', function(e){
+    e.preventDefault();
+    du.removeAttribute('aria-invalid'); au.removeAttribute('aria-invalid');
+    if (!du.value) { du.setAttribute('aria-invalid', 'true'); err.textContent = 'Choisissez la date, ou le premier jour.'; conf.hidden = true; du.focus(); return; }
+    if (au.value && au.value < du.value) { au.setAttribute('aria-invalid', 'true'); err.textContent = 'La fin doit être après le début.'; conf.hidden = true; au.focus(); return; }
+    err.textContent = '';
+    var x = { id: 'v' + Date.now(), du: du.value, au: au.value || du.value, motif: document.getElementById('ind-motif').value };
+    var l = S.indispos(); l.push(x); S.enregistrerIndispos(l);
+    afficher();
+    conf.hidden = false;
+    conf.textContent = 'Simulation : le coach est prévenu. ' + S.plage(x) + (x.motif ? ' (' + x.motif.toLowerCase() + ')' : '') + ' apparaît dans sa préparation des matchs.';
+    du.value = ''; au.value = ''; document.getElementById('ind-motif').value = '';
+  });
+  liste.addEventListener('click', function(e){
+    var b = e.target.closest('[data-suppr]'); if (!b) return;
+    var id = b.getAttribute('data-suppr');
+    S.enregistrerIndispos(S.indispos().filter(function(x){ return x.id !== id; }));
+    afficher();
+    conf.hidden = false; conf.textContent = 'Simulation : indisponibilité supprimée, le coach le voit aussi.';
+    du.focus();
+  });
+  afficher();
+
+  /* Convocations : celles où le coach a sélectionné Léa B. pendant la visite. */
+  var LIB = { confirme:'Présence confirmée', absente:'Absence signalée' };
+  function intitule(c){ return S.dateFr(c.date) + ' · ' + c.equipeNom + ' contre ' + (c.adv || 'adversaire à compléter') + (c.lieu ? ', ' + c.lieu : ''); }
+  function convocations(){
+    var r = S.reponses();
+    var l = S.convocations().filter(function(c){ return c.joueuses.indexOf('Léa B.') >= 0; });
+    document.getElementById('convoc-liste').innerHTML = l.length ? l.slice().reverse().map(function(c){
+      var rep = r[c.id];
+      return '<li><div class="dm-tete"><span class="dm-type">' + esc(intitule(c)) + '</span><span class="etat pastille ' + (rep === 'confirme' ? 'ok">' : rep === 'absente' ? 'manque">' : 'attente">') + (LIB[rep] || 'Réponse attendue') + '</span></div>'
+        + (c.rdv ? '<p class="dm-date">Rendez-vous : ' + esc(c.rdv) + '</p>' : '') + '</li>';
+    }).join('') : '<li><p class="dm-texte">Aucune convocation pour le moment. Quand le coach sélectionnera Léa pour un match, la convocation apparaîtra ici et en haut de cet espace.</p></li>';
+    var alerte = document.getElementById('convoc-alerte'), der = l[l.length - 1];
+    alerte.hidden = !der;
+    if (!der) return;
+    alerte.setAttribute('data-id', der.id);
+    document.getElementById('convoc-titre').textContent = 'Léa est sélectionnée pour le match du ' + S.dateFr(der.date).toLowerCase() + ' contre ' + (der.adv || 'un adversaire à compléter') + ' ; confirmez sa présence';
+    document.getElementById('convoc-detail').textContent = der.equipeNom + (der.lieu ? ' · ' + der.lieu : '') + (der.rdv ? ' · rendez-vous : ' + der.rdv : ' · heure de rendez-vous précisée par le coach');
+    var rep = r[der.id];
+    document.getElementById('convoc-boutons').hidden = !!rep;
+    if (rep) { var et = document.getElementById('convoc-etat'); et.hidden = false; if (!et.textContent) et.textContent = LIB[rep] + '. Le coach le voit dans son espace.'; }
+  }
+  document.getElementById('convoc-boutons').addEventListener('click', function(e){
+    var b = e.target.closest('[data-convoc]'); if (!b) return;
+    var v = b.getAttribute('data-convoc'), id = document.getElementById('convoc-alerte').getAttribute('data-id');
+    S.repondre(id, v);
+    var lues = S.lire('bcr-notifs-lues', {}); lues['convoc-' + id] = true; S.ecrire('bcr-notifs-lues', lues);
+    if (window.BCRNotifs) BCRNotifs.afficher();
+    var et = document.getElementById('convoc-etat');
+    et.textContent = v === 'confirme' ? 'Simulation : présence confirmée, le coach le voit dans sa sélection.' : 'Simulation : absence signalée au coach, qui pourra convoquer une autre joueuse.';
+    convocations();
+    document.getElementById('convoc-titre').focus();
+  });
+  convocations();
+})();
+</script>
+<script>
+/* Cloche des notifications (lu / non lu) et notification de démonstration sur cet appareil.
+   La notification est locale (API Notification du navigateur) : aucun serveur, aucun envoi réseau. */
+(function(){
+  var S = window.BCRSel;
+  function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var EXEMPLES = [
+    { id:'n-commande', quand:'', texte:'Votre commande est arrivée : le tee-shirt U18F est prêt à retirer à la salle.', ex:true },
+    { id:'n-stage', quand:'', texte:'Stage des vacances : lundi 19 (U11), mardi 20 (U13), jeudi 22 octobre (U15), de 10 h à 16 h 30.', ex:true },
+    { id:'n-attestation', quand:'2 octobre', texte:'Le bureau a répondu : l\'attestation de paiement est dans vos documents.', ex:true, lu:true }
+  ];
+  var cloche = document.getElementById('cloche'), panneau = document.getElementById('notifs-panneau'), ul = document.getElementById('notifs-liste');
+  function toutes(){
+    var r = S.reponses();
+    var conv = S.convocations().filter(function(c){ return c.joueuses.indexOf('Léa B.') >= 0; }).reverse().map(function(c){
+      return { id:'convoc-' + c.id, quand:'Aujourd\'hui', texte:'Convocation : Léa est sélectionnée pour le match du ' + S.dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'un adversaire à compléter') + '.' + (r[c.id] ? '' : ' Confirmez sa présence.'), lien:'#convoc-alerte' };
+    });
+    return conv.concat(EXEMPLES);
+  }
+  function afficher(){
+    var lues = S.lire('bcr-notifs-lues', {}), l = toutes(), n = 0;
+    ul.innerHTML = l.map(function(x){
+      var lu = x.lu || lues[x.id]; if (!lu) n++;
+      return '<li class="' + (lu ? 'lu' : 'non-lu') + '"><div><p class="dm-date">' + esc(x.quand) + (x.ex ? ' <span class="etiquette-ex"' + (x.quand ? '' : ' style="margin-left:0"') + '>exemple</span>' : '') + (lu ? '' : ' · <strong>non lue</strong>') + '</p>'
+        + '<p class="dm-texte">' + (x.lien ? '<a href="' + x.lien + '" data-lire="' + x.id + '">' + esc(x.texte) + '</a>' : esc(x.texte)) + '</p></div>'
+        + (lu ? '<span class="etat ok">Lue</span>' : '<button type="button" class="retirer-ligne" data-lire="' + x.id + '">Marquer comme lue</button>') + '</li>';
+    }).join('');
+    var b = document.getElementById('notifs-nb'); b.textContent = n; b.hidden = !n;
+    cloche.setAttribute('aria-label', 'Notifications, ' + (n ? n + (n > 1 ? ' non lues' : ' non lue') : 'aucune non lue'));
+  }
+  function lire(id){ var lues = S.lire('bcr-notifs-lues', {}); lues[id] = true; S.ecrire('bcr-notifs-lues', lues); }
+  cloche.addEventListener('click', function(){
+    var o = panneau.hidden; panneau.hidden = !o; cloche.setAttribute('aria-expanded', String(o));
+    if (o) document.getElementById('notifs-titre').focus();
+  });
+  panneau.addEventListener('keydown', function(e){ if (e.key === 'Escape') { panneau.hidden = true; cloche.setAttribute('aria-expanded', 'false'); cloche.focus(); } });
+  ul.addEventListener('click', function(e){
+    var b = e.target.closest('[data-lire]'); if (!b) return;
+    lire(b.getAttribute('data-lire')); var lien = b.tagName === 'A'; afficher();
+    if (!lien) { var t = document.getElementById('notifs-titre'); t.focus(); }
+  });
+  document.getElementById('tout-lu').addEventListener('click', function(){ toutes().forEach(function(x){ lire(x.id); }); afficher(); });
+  window.BCRNotifs = { afficher: afficher };
+  afficher();
+
+  /* Notification sur ce téléphone : démonstration locale, avec message clair dans tous les autres cas. */
+  var etat = document.getElementById('push-etat');
+  function dire(t){ etat.hidden = false; etat.textContent = t; }
+  var REPLI = ' Les notifications restent visibles ici, sous la cloche.';
+  function montrer(){
+    try {
+      new Notification('Basket Club de Rouxmesnil', { body:'Démonstration : les convocations de Léa arriveraient ainsi sur ce téléphone.', icon:'img/logo-bcr.jpg', tag:'bcr-demo' });
+      dire('Notification de démonstration affichée sur cet appareil. Sur le vrai site, la convocation de Léa arriverait de la même façon, sans frais pour le club.');
+    } catch (e) {
+      dire('Ce téléphone n\'affiche les notifications que pour un site installé avec son service de notifications : ce serait le cas du vrai site.' + REPLI);
+    }
+  }
+  document.getElementById('activer-push').addEventListener('click', function(){
+    try {
+      if (!('Notification' in window)) { dire('Ce navigateur ne propose pas les notifications. Sur iPhone, ajoutez d\'abord le site à l\'écran d\'accueil (bouton Partager, puis « Sur l\'écran d\'accueil »).' + REPLI); return; }
+      if (Notification.permission === 'granted') { montrer(); return; }
+      if (Notification.permission === 'denied') { dire('Les notifications sont bloquées pour ce site dans les réglages du navigateur.' + REPLI); return; }
+      var suite = function(p){
+        if (p === 'granted') montrer();
+        else if (p === 'denied') dire('Notifications refusées : rien ne s\'affichera sur ce téléphone.' + REPLI);
+        else dire('Aucun choix n\'a été fait : vous pourrez activer les notifications plus tard.' + REPLI);
+      };
+      dire('Le navigateur vous demande votre accord : acceptez pour recevoir les notifications sur ce téléphone.');
+      var r = Notification.requestPermission(suite);
+      if (r && typeof r.then === 'function') r.then(suite, function(){ dire('La demande d\'autorisation n\'a pas abouti.' + REPLI); });
+    } catch (e) {
+      dire('Les notifications ne sont pas disponibles ici.' + REPLI);
+    }
+  });
 })();
 </script>
 </body>

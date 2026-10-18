@@ -61,27 +61,47 @@
       <h2 id="titre-coach">Mon équipe</h2>
       <p class="aide" style="margin:-4px 0 18px" data-roles="">Vue du président : changez d'équipe en choisissant le rôle Coach ci-dessus.</p>
       <div class="colonnes">
-        <div>
-          <div class="fiche">
-            <h3>Prochains matchs</h3>
-            <ul class="liste-docs" id="coach-matchs"></ul>
-            <p class="aide" id="coach-source"></p>
-          </div>
-          <div class="fiche" style="margin-top:20px">
-            <h3>Convocation</h3>
-            <p id="coach-conv-texte"></p>
-            <div class="actions" style="margin-top:8px"><button type="button" class="bouton" id="coach-conv">Préparer la convocation</button></div>
-            <p class="resultat" id="coach-conv-etat" role="status" aria-live="polite" hidden></p>
-          </div>
+        <div class="fiche">
+          <h3>Prochains matchs</h3>
+          <ul class="liste-docs" id="coach-matchs"></ul>
+          <p class="aide" id="coach-source"></p>
         </div>
         <div class="fiche">
-          <h3>Effectif et présences <span class="etiquette-ex">exemple</span></h3>
+          <h3>Effectif et disponibilités <span class="etiquette-ex">exemple</span></h3>
           <p class="aide" id="coach-presences" style="margin:0 0 8px"></p>
           <ul class="liste-docs" id="coach-effectif"></ul>
           <div class="actions"><a class="bouton ligne" id="coach-medias" href="medias.html">Photos et vidéos de l'équipe</a></div>
         </div>
       </div>
+
+      <div class="fiche selection" id="selection" style="margin-top:20px" aria-labelledby="sel-titre">
+        <p class="surtitre" style="margin:0">Sélection du match <span class="etiquette-ex">effectif d'exemple</span></p>
+        <h3 id="sel-titre" tabindex="-1"></h3>
+        <div class="sel-saisie" id="sel-saisie" hidden>
+          <p class="aide" style="margin:0 0 4px">Aucun match à venir publié pour cette équipe : reprenez la date du calendrier de la FFBB.</p>
+          <div class="trois-champs">
+            <div><label for="sel-date">Date du match</label><input type="date" id="sel-date"></div>
+            <div><label for="sel-adv">Adversaire</label><input type="text" id="sel-adv" autocomplete="off"></div>
+            <div><label for="sel-lieu">Lieu</label><select id="sel-lieu"><option value="">À compléter</option><option>à domicile</option><option>à l'extérieur</option></select></div>
+          </div>
+        </div>
+        <div class="sel-barre">
+          <div><label for="sel-max">Nombre maximum de joueuses (à fixer par le coach)</label><input type="number" id="sel-max" min="1" max="20" value="12" inputmode="numeric"></div>
+          <p class="sel-compteur" id="sel-compteur" aria-live="polite"></p>
+        </div>
+        <ul class="sel-liste" id="sel-liste"></ul>
+
+        <h3 style="margin-top:22px">Convocation</h3>
+        <p id="coach-conv-texte"></p>
+        <label for="sel-rdv">Heure et lieu du rendez-vous</label>
+        <input type="text" id="sel-rdv" aria-describedby="sel-rdv-aide" autocomplete="off">
+        <p class="aide" id="sel-rdv-aide">Champ libre, par exemple « 13 h 30 devant la salle ».</p>
+        <p class="erreur" id="sel-erreur"></p>
+        <div class="actions" style="margin-top:8px"><button type="button" class="bouton" id="coach-conv">Envoyer la convocation</button></div>
+        <p class="resultat" id="coach-conv-etat" role="status" aria-live="polite" hidden></p>
+      </div>
       <div class="note"><b>Pour le coach</b>Le coach verrait les réponses des familles avant chaque match et préparerait la convocation en un clic ; elle partirait aux familles après sa relecture. Les demandes d'absence de ses joueuses arriveraient directement chez lui. Il ne verrait ni les paiements ni les subventions. Les matchs viennent des affiches du club et de la FFBB ; les prénoms et les réponses sont des exemples.</div>
+      <div class="note"><b>Indisponibilités</b>Le coach préparerait chaque match en voyant d'avance qui n'est pas disponible, déclaré par les familles depuis leur espace. Les familles seraient prévenues de la sélection sans groupe de messages. Seuls le coach de l'équipe et le président verraient le motif d'une indisponibilité : les autres dirigeants n'en auraient pas besoin.</div>
     </div>
   </section>
   <section class="bloc" id="suivi" data-roles="tresorier secretaire">
@@ -180,7 +200,7 @@
     <div class="wrap">
       <p class="surtitre">Commande groupée · exemple</p>
       <h2 data-mv="mots">Tee-shirts U18F : les colis arrivent</h2>
-      <p style="max-width:44em">Quand les colis arriveraient, un dirigeant choisirait le créneau de retrait et appuierait sur un bouton : chaque acheteur recevrait un email avec sa commande, sa taille et le créneau. À la remise, on cocherait « retiré ».</p>
+      <p style="max-width:44em">Quand les colis arriveraient, un dirigeant choisirait le créneau de retrait et appuierait sur un bouton : chaque acheteur serait prévenu dans son espace et sur son téléphone, avec sa commande, sa taille et le créneau ; l'email ne servirait qu'en secours. À la remise, on cocherait « retiré ».</p>
       <label for="creneau">Créneau de retrait</label>
       <select id="creneau" style="max-width:420px"><option>Un samedi après-midi, à la salle (exemple)</option><option>Un soir de semaine, à la salle (exemple)</option></select>
       <div class="actions"><button class="bouton" type="button" id="prevenir">Colis reçus : prévenir les acheteurs</button></div>
@@ -191,7 +211,7 @@
           <tbody id="retraits"></tbody>
         </table>
       </div>
-      <div class="note"><b>Pour le club</b>Personne n'aurait à prévenir chaque famille une par une. Les familles qui n'ont pas retiré leur commande recevraient un rappel la semaine suivante, après accord d'un dirigeant. Dans cette maquette, aucun email n'est envoyé.</div>
+      <div class="note"><b>Pour le club</b>Personne n'aurait à prévenir chaque famille une par une. Les familles qui n'ont pas retiré leur commande recevraient un rappel la semaine suivante, après accord d'un dirigeant. Dans cette maquette, rien n'est envoyé.</div>
     </div>
   </section>
 
@@ -201,21 +221,21 @@
       <h2 data-mv="mots">Table de marque du week-end</h2>
       <div class="planning" data-mv="suite">
         <div class="creneau">
-          <h3>Samedi 17 octobre · 14 h<br>U13 F contre Saint-Nicolas</h3>
+          <h3>Samedi 17 octobre · 14 h<br>U13 F (DFU13) contre Saint-Nicolas</h3>
           <ul>
             <li><span>Marqueur</span><span>Sophie D.</span></li>
             <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
           </ul>
         </div>
         <div class="creneau">
-          <h3>Samedi 17 octobre · 16 h<br>U15 F contre Offranville</h3>
+          <h3>Samedi 17 octobre · 16 h<br>U15 F (DFU15) contre Offranville</h3>
           <ul>
             <li><span>Marqueur</span><span>Thomas R.</span></li>
             <li><span>Chronométreur</span><span>Julie M.</span></li>
           </ul>
         </div>
         <div class="creneau">
-          <h3>Dimanche 18 octobre · 8 h 45<br>Seniors féminines, départementale 2<br>contre Rouen Métropole Basket</h3>
+          <h3>Dimanche 18 octobre · 8 h 45<br>Seniors féminines, départementale 2 (DF2)<br>contre Rouen Métropole Basket</h3>
           <ul>
             <li><span>Marqueur</span><span>Nadia B.</span></li>
             <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
@@ -298,6 +318,7 @@
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
 <script src="js/roles.js"></script>
+<script src="js/selection.js"></script>
 <script>
 (function(){
   var JOUEURS = [
@@ -378,7 +399,7 @@
   document.getElementById('prevenir').addEventListener('click', function(){
     var p = document.getElementById('prevenir-texte'); p.hidden = false;
     var c = document.getElementById('creneau').value;
-    p.textContent = R.length + ' acheteurs seraient prévenus par email : « Votre commande est arrivée. Retrait ' + c.charAt(0).toLowerCase() + c.slice(1) + '. »';
+    p.textContent = R.length + ' acheteurs seraient prévenus dans leur espace et sur leur téléphone (email en secours) : « Votre commande est arrivée. Retrait ' + c.charAt(0).toLowerCase() + c.slice(1) + '. »';
   });
   aff();
 })();
@@ -484,63 +505,184 @@
     montrer('decider-etat', 'Simulation : accord donné pour « ' + nom + ' ». Rien n\'est publié ni envoyé dans cette maquette.');
   });
 
-  /* Coach : son équipe seulement. */
+  /* Coach : son équipe seulement. Matchs réels (affiches du club, FFBB) ; effectifs, disponibilités et réponses : exemples.
+     Les indisponibilités de Léa B. (U15 F) viennent de l'espace licenciés (js/selection.js). */
+  var S = window.BCRSel;
   var EQUIPES = {
-    u13: { titre:'U13 féminines', niv:'Départementale féminine U13', media:'u13',
-      avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', dom:true}],
+    u13: { titre:'U13 féminines', niv:'Départementale féminine U13 (DFU13)', media:'u13',
+      avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', adv:'CEP Saint-Nicolas-d\'Aliermont', dom:true}],
       dernier:'3-4 octobre : victoire 47-19 contre Seventy Six Belleville',
-      effectif:['Zoé D.','Emma G.','Louise F.','Nina K.','Romane T.','Jeanne P.'] },
-    u15: { titre:'U15 féminines', niv:'Départementale féminine U15', media:'u15',
-      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', dom:true}],
-      effectif:['Lina P.','Camille T.','Jade R.','Sarah M.','Clara V.','Léa B.'] },
-    u18: { titre:'U18 féminines', niv:'Régionale féminine U18 · poule élite', media:'u18',
-      avenir:[{d:'2026-11-07', txt:'contre Cherbourg Basket Ball', dom:true},{d:'2026-11-14', txt:'contre Aplemont Le Havre Basket 2', dom:false},{d:'2026-11-21', txt:'contre USO Mondeville Basket 2', dom:true}],
+      effectif:['Zoé D.','Emma G.','Louise F.','Nora K.','Romane T.','Jeanne P.','Lou A.','Agathe M.','Elsa B.','Mila C.','Rose V.','Iris N.'],
+      indispos:[{nom:'Louise F.', du:'2026-10-24', au:'2026-10-31', motif:'Vacances'}], sansRep:['Rose V.','Iris N.'] },
+    u15: { titre:'U15 féminines', niv:'Départementale féminine U15 (DFU15)', media:'u15',
+      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', adv:'BC Offranville', dom:true}],
+      effectif:['Léa B.','Lina P.','Camille T.','Jade R.','Sarah M.','Clara V.','Margaux D.','Lisa F.','Océane B.','Lucie H.','Eva S.','Juliette C.'],
+      indispos:[{nom:'Jade R.', du:'2026-10-24', au:'2026-11-01', motif:'Vacances'}], sansRep:['Eva S.','Juliette C.'] },
+    u18: { titre:'U18 féminines', niv:'Régionale féminine U18, poule élite (RFU18)', media:'u18',
+      avenir:[{d:'2026-11-07', txt:'contre Cherbourg Basket Ball', adv:'Cherbourg Basket Ball', dom:true},{d:'2026-11-14', txt:'contre Aplemont Le Havre Basket 2', adv:'Aplemont Le Havre Basket 2', dom:false},{d:'2026-11-21', txt:'contre USO Mondeville Basket 2', adv:'USO Mondeville Basket 2', dom:true},{d:'2026-11-28', txt:'contre Élan sportif Carpiquet Basket', adv:'Élan sportif Carpiquet Basket', dom:false},{d:'2026-12-05', txt:'contre Club Basket d\'Ifs 1', adv:'Club Basket d\'Ifs 1', dom:false}],
       dernier:'10 octobre : victoire 78-57 contre Alençon-Damigny Basket (play-off élite)',
-      effectif:['Alice B.','Inès M.','Chloé R.','Manon L.','Anaïs G.','Pauline D.'] },
-    rf2: { titre:'Seniors féminines', niv:'Régionale féminine seniors 2', media:'',
-      avenir:[], suivant:'contre Montville : date et heure sur la FFBB',
+      effectif:['Alice B.','Inès M.','Chloé R.','Manon L.','Anaïs G.','Pauline D.','Laura T.','Mathilde R.','Justine P.','Emma L.','Noémie V.','Charlotte B.'],
+      indispos:[{nom:'Inès M.', du:'2026-11-09', au:'2026-11-22', motif:'Autre'},{nom:'Manon L.', du:'2026-11-07', au:'2026-11-07', motif:'Blessure'}], sansRep:['Noémie V.','Charlotte B.'] },
+    rf2: { titre:'Seniors féminines', niv:'Régionale féminine seniors 2 (RF2)', media:'',
+      avenir:[], suivant:'contre Montville : date et heure sur la FFBB', advSuivant:'Montville',
       dernier:'Début de saison : invaincues après trois matchs (Les Informations Dieppoises)',
-      effectif:['Julie V.','Claire P.','Marion S.','Aurélie D.','Sonia L.','Élodie R.'] }
+      effectif:['Julie V.','Claire P.','Marion S.','Aurélie D.','Sonia L.','Élodie R.','Sandra M.','Céline T.','Audrey B.','Laetitia G.','Nathalie F.','Virginie C.'],
+      indispos:[{nom:'Sonia L.', du:'2026-10-24', au:'2026-10-25', motif:'Examen'}], sansRep:['Virginie C.'] }
   };
-  var REPONSES = ['ok','ok','attente','manque','ok','attente'];
+  function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function dateFr(iso){
     var d = new Date(iso.length > 10 ? iso : iso + 'T12:00');
     var t = d.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
     return t.charAt(0).toUpperCase() + t.slice(1) + (iso.length > 10 ? ', ' + iso.slice(11,13).replace(/^0/, '') + ' h' + (iso.slice(14,16) !== '00' ? ' ' + iso.slice(14,16) : '') : '');
   }
+  var choix = {}, etats = {}, attenteConf = null;
+  var saisies = S ? S.lire('bcr-saisie', {}) : {};
+  function equipeId(){ return R ? R.equipe() : 'u18'; }
+  function aVenirDe(e){ var now = Date.now(); return e.avenir.filter(function(m){ return new Date(m.d.length > 10 ? m.d : m.d + 'T23:59').getTime() + 2*3600e3 > now; }); }
+  /* Match en cours de préparation : un match publié, ou celui que le coach saisit quand rien n'est publié. */
+  function matchCourant(){
+    var id = equipeId(), e = EQUIPES[id], av = aVenirDe(e);
+    if (av.length) { var m = av[Math.min(choix[id] || 0, av.length - 1)]; return { date: m.d.slice(0,10), iso: m.d, adv: m.adv, lieu: m.dom ? 'à domicile' : 'à l\'extérieur', publie: true }; }
+    var sa = saisies[id] || {};
+    return { date: sa.date || '', iso: sa.date || '', adv: sa.adv !== undefined ? sa.adv : (e.advSuivant || ''), lieu: sa.lieu || '', publie: false };
+  }
+  function cle(){ var m = matchCourant(); return equipeId() + '|' + (m.date || 'a-saisir'); }
+  function etat(){
+    var k = cle();
+    if (!etats[k]) {
+      etats[k] = { sel:{}, envoye:false, rep:{} };
+      var c = S && S.convocations().filter(function(x){ return x.id === k; })[0];
+      if (c) { etats[k].envoye = true; c.joueuses.forEach(function(n){ etats[k].sel[n] = true; }); }
+    }
+    return etats[k];
+  }
+  /* Disponibilité d'une joueuse pour la date du match. */
+  function dispo(id, nom, date){
+    if (!date) return { t:'inconnu', lib:'Date du match à saisir' };
+    var e = EQUIPES[id], x = null;
+    if (id === 'u15' && nom === 'Léa B.' && S) { x = S.couvre(S.indispos(), date); if (x) return { t:'indispo', lib:'Indisponible' + (x.motif ? ' : ' + x.motif.toLowerCase() : ''), famille:true }; return { t:'dispo', lib:'Disponible' }; }
+    e.indispos.forEach(function(i){ if (!x && i.nom === nom && date >= i.du && date <= i.au) x = i; });
+    if (x) return { t:'indispo', lib:'Indisponible : ' + x.motif.toLowerCase(), famille:true };
+    if (e.sansRep.indexOf(nom) >= 0) return { t:'attente', lib:'Pas de réponse' };
+    return { t:'dispo', lib:'Disponible' };
+  }
+  function reponse(nom, st, k){
+    var r = S ? S.reponses()[k] : null;
+    if (nom === 'Léa B.' && r) return r === 'confirme' ? ['ok','Présence confirmée par la famille'] : ['manque','Absence signalée par la famille'];
+    if (st.rep[nom]) return st.rep[nom] === 'confirme' ? ['ok','Présence confirmée (réponse d\'exemple)'] : ['manque','Absente (réponse d\'exemple)'];
+    return ['attente','Convoquée, en attente de réponse'];
+  }
+  function maxi(){ var v = parseInt(document.getElementById('sel-max').value, 10); return v > 0 ? v : 12; }
+  function nbSel(st){ return Object.keys(st.sel).filter(function(n){ return st.sel[n]; }).length; }
+  function compteur(msg){
+    var st = etat(), n = nbSel(st);
+    document.getElementById('sel-compteur').textContent = (msg ? msg + ' ' : '') + n + (n > 1 ? ' sélectionnées' : ' sélectionnée') + ' sur ' + maxi() + ' au maximum (nombre fixé par le coach).';
+  }
+  function selection(){
+    var id = equipeId(), e = EQUIPES[id], m = matchCourant(), st = etat(), k = cle();
+    document.getElementById('sel-titre').textContent = (m.date ? dateFr(m.iso) : 'Prochain match, date à compléter') + ' · contre ' + (m.adv || 'adversaire à compléter') + (m.lieu ? ', ' + m.lieu : '');
+    var sa = document.getElementById('sel-saisie'); sa.hidden = m.publie;
+    if (!m.publie) {
+      document.getElementById('sel-date').value = m.date;
+      document.getElementById('sel-adv').value = m.adv;
+      document.getElementById('sel-lieu').value = m.lieu;
+    }
+    document.getElementById('sel-liste').innerHTML = e.effectif.map(function(nom, i){
+      var d = dispo(id, nom, m.date), coche = !!st.sel[nom];
+      var droite = st.envoye && coche ? (function(r){ return '<span class="etat ' + r[0] + '">' + r[1] + '</span>'; })(reponse(nom, st, k))
+        : '<span class="etat ' + (d.t === 'dispo' ? 'ok' : d.t === 'indispo' ? 'manque' : 'attente') + '">' + esc(d.lib) + (d.famille ? '<small> · déclaré par la famille</small>' : '') + '</span>';
+      return '<li data-nom="' + esc(nom) + '"><label class="sel-joueuse"><input type="checkbox" data-sel="' + i + '"' + (coche ? ' checked' : '') + (st.envoye ? ' disabled' : '') + '> <span>' + esc(nom) + '</span></label>' + droite
+        + (attenteConf === nom ? '<div class="sel-confirme" role="alertdialog" aria-labelledby="conf-' + i + '"><p id="conf-' + i + '">Elle a déclaré une indisponibilité ce jour-là : la sélectionner quand même ?</p>'
+          + '<button type="button" class="bouton petit" data-forcer="' + i + '">La sélectionner quand même</button> <button type="button" class="bouton ligne petit" data-annuler-sel="' + i + '">Annuler</button></div>' : '')
+        + '</li>';
+    }).join('');
+    compteur();
+    var n = nbSel(st);
+    document.getElementById('coach-conv-texte').textContent = st.envoye
+      ? 'Convocation envoyée (simulation) à ' + n + (n > 1 ? ' familles' : ' famille') + '. Les réponses apparaissent dans la liste.'
+      : 'Cochez les joueuses, indiquez le rendez-vous, puis envoyez : chaque famille concernée recevrait la convocation.';
+    document.getElementById('coach-conv').hidden = st.envoye;
+    document.getElementById('sel-rdv').disabled = st.envoye;
+    document.getElementById('sel-erreur').textContent = '';
+    /* Résumé à droite */
+    var c = {dispo:0, indispo:0, attente:0, inconnu:0};
+    e.effectif.forEach(function(nom){ c[dispo(id, nom, m.date).t]++; });
+    document.getElementById('coach-presences').textContent = m.date ? 'Pour le match du ' + dateFr(m.date).toLowerCase() + ', d\'après les réponses des familles :' : 'Les disponibilités s\'afficheront dès que la date du match sera saisie.';
+    document.getElementById('coach-effectif').innerHTML = m.date
+      ? '<li><span>Disponibles</span><span class="etat ok">' + c.dispo + '</span></li><li><span>Indisponibles (motif connu du coach)</span><span class="etat manque">' + c.indispo + '</span></li><li><span>Sans réponse</span><span class="etat attente">' + c.attente + '</span></li>'
+        + '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>'
+      : '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>';
+  }
   function coach(){
-    var id = R ? R.equipe() : 'u18', e = EQUIPES[id] || EQUIPES.u18, now = Date.now();
-    var aVenir = e.avenir.filter(function(m){ return new Date(m.d.length > 10 ? m.d : m.d + 'T23:59').getTime() + 2*3600e3 > now; });
-    var passes = e.avenir.filter(function(m){ return aVenir.indexOf(m) < 0; });
+    var id = equipeId(), e = EQUIPES[id] || EQUIPES.u18;
+    var av = aVenirDe(e), passes = e.avenir.filter(function(m){ return av.indexOf(m) < 0; }), ch = Math.min(choix[id] || 0, Math.max(av.length - 1, 0));
     document.getElementById('coach-sur').textContent = 'Coach · ' + e.niv;
     document.getElementById('titre-coach').textContent = e.titre;
-    var lignes = aVenir.map(function(m){ return '<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + '</span><span class="etat ' + (m.dom ? 'ok">À domicile' : 'attente">À l\'extérieur') + '</span></li>'; });
-    if (!aVenir.length) lignes.push('<li><span><strong>Prochain match</strong><br>' + (e.suivant || 'à compléter : calendrier sur la FFBB') + '</span><span class="etat attente">À compléter</span></li>');
+    var lignes = av.map(function(m, i){ return '<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + ' · <span class="etat ' + (m.dom ? 'ok">À domicile' : 'attente">À l\'extérieur') + '</span></span>'
+      + '<button type="button" class="bouton ligne petit" data-match="' + i + '" aria-pressed="' + (i === ch) + '" aria-controls="selection">Sélection<span class="visuellement-cache"> du match du ' + dateFr(m.d) + '</span></button></li>'; });
+    if (!av.length) lignes.push('<li><span><strong>Prochain match</strong><br>' + (e.suivant || 'à compléter : calendrier sur la FFBB') + '</span><span class="etat attente">À compléter</span></li>');
     passes.forEach(function(m){ lignes.push('<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + '</span><span class="etat">Score sur la FFBB</span></li>'); });
     if (e.dernier) lignes.push('<li><span><strong>Dernier résultat publié</strong><br>' + e.dernier + '</span><span></span></li>');
     document.getElementById('coach-matchs').innerHTML = lignes.join('');
     document.getElementById('coach-source').textContent = 'Source : affiches du club et FFBB.' + (id === 'u18' ? ' Horaires de l\'élite non encore fixés.' : '');
-    var prochain = aVenir[0];
-    document.getElementById('coach-conv-texte').textContent = prochain
-      ? 'Prochaine convocation : ' + dateFr(prochain.d).toLowerCase() + ', ' + prochain.txt + (prochain.dom ? ', à domicile.' : ', à l\'extérieur.')
-      : 'Aucun match à venir publié pour l\'instant : la convocation se préparera dès que la date sera connue.';
-    document.getElementById('coach-conv').hidden = !prochain;
     document.getElementById('coach-conv-etat').hidden = true;
-    var lib = {ok:'Présente', attente:'Pas de réponse', manque:'Absente'}, n = {ok:0, attente:0, manque:0};
-    document.getElementById('coach-effectif').innerHTML = e.effectif.map(function(p, i){
-      var r = prochain ? REPONSES[i] : null; if (r) n[r]++;
-      return '<li><span>' + p + '</span>' + (r ? '<span class="etat ' + r + '">' + lib[r] + '</span>' : '<span class="etat">Pas de match à venir</span>') + '</li>';
-    }).join('');
-    document.getElementById('coach-presences').textContent = prochain
-      ? 'Réponses des familles pour le prochain match : ' + n.ok + (n.ok > 1 ? ' présentes, ' : ' présente, ') + n.manque + (n.manque > 1 ? ' absentes, ' : ' absente, ') + n.attente + ' sans réponse.'
-      : 'Les réponses des familles s\'afficheront dès le prochain match publié.';
+    attenteConf = null;
+    selection();
     var lm = document.getElementById('coach-medias');
     lm.setAttribute('href', !R ? 'medias.html' : R.role() === 'coach' ? R.lien('medias.html', 'coach', id) : R.lien('medias.html'));
     lm.hidden = false;
   }
+  document.getElementById('coach-matchs').addEventListener('click', function(e){
+    var b = e.target.closest('[data-match]'); if (!b) return;
+    choix[equipeId()] = +b.getAttribute('data-match'); coach();
+    document.getElementById('sel-titre').focus();
+  });
+  ['sel-date','sel-adv','sel-lieu'].forEach(function(idc){
+    document.getElementById(idc).addEventListener('change', function(){
+      var id = equipeId(); saisies[id] = { date: document.getElementById('sel-date').value, adv: document.getElementById('sel-adv').value.trim(), lieu: document.getElementById('sel-lieu').value };
+      if (S) S.ecrire('bcr-saisie', saisies); attenteConf = null; selection();
+    });
+  });
+  document.getElementById('sel-max').addEventListener('input', function(){ compteur(); });
+  var liste = document.getElementById('sel-liste');
+  liste.addEventListener('change', function(e){
+    var cb = e.target.closest('[data-sel]'); if (!cb) return;
+    var id = equipeId(), nom = EQUIPES[id].effectif[+cb.getAttribute('data-sel')], st = etat(), m = matchCourant();
+    if (!cb.checked) { delete st.sel[nom]; attenteConf = null; selection(); liste.querySelector('[data-sel="' + cb.getAttribute('data-sel') + '"]').focus(); return; }
+    if (nbSel(st) >= maxi()) { cb.checked = false; compteur('Maximum atteint.'); return; }
+    if (dispo(id, nom, m.date).t === 'indispo') {
+      cb.checked = false; attenteConf = nom; selection();
+      liste.querySelector('[data-forcer]').focus(); return;
+    }
+    st.sel[nom] = true; attenteConf = null; selection();
+    liste.querySelector('[data-sel="' + cb.getAttribute('data-sel') + '"]').focus();
+  });
+  liste.addEventListener('click', function(e){
+    var f = e.target.closest('[data-forcer]'), a = e.target.closest('[data-annuler-sel]');
+    if (!f && !a) return;
+    var i = (f || a).getAttribute(f ? 'data-forcer' : 'data-annuler-sel'), nom = EQUIPES[equipeId()].effectif[+i], st = etat();
+    if (f && nbSel(st) < maxi()) st.sel[nom] = true;
+    attenteConf = null; selection();
+    compteur(f ? nom + ' sélectionnée malgré son indisponibilité.' : 'Sélection annulée.');
+    liste.querySelector('[data-sel="' + i + '"]').focus();
+  });
   document.getElementById('coach-conv').addEventListener('click', function(){
-    var e = EQUIPES[R ? R.equipe() : 'u18'];
-    montrer('coach-conv-etat', 'Simulation : convocation préparée pour les ' + e.effectif.length + ' joueuses, avec la date et l\'adversaire. Elle partirait aux familles après votre relecture ; rien n\'est envoyé.');
+    var id = equipeId(), e = EQUIPES[id], m = matchCourant(), st = etat(), k = cle(), n = nbSel(st), err = document.getElementById('sel-erreur');
+    if (!m.date) { err.textContent = 'Saisissez d\'abord la date du match.'; document.getElementById('sel-date').focus(); return; }
+    if (!n) { err.textContent = 'Sélectionnez au moins une joueuse.'; liste.querySelector('[data-sel]').focus(); return; }
+    var joueuses = e.effectif.filter(function(nom){ return st.sel[nom]; });
+    st.envoye = true;
+    if (S) S.ajouterConvocation({ id:k, equipe:id, equipeNom:e.titre, date:m.date, adv:m.adv, lieu:m.lieu, rdv:document.getElementById('sel-rdv').value.trim(), joueuses:joueuses });
+    selection();
+    montrer('coach-conv-etat', 'Simulation : convocation envoyée à ' + n + (n > 1 ? ' familles' : ' famille') + ' pour le match du ' + dateFr(m.date).toLowerCase() + '. Rien n\'est envoyé dans cette maquette ; les familles la verraient dans leur espace.');
+    /* Quelques réponses d'exemple reviennent ; celle de Léa B. vient de l'espace licenciés. */
+    setTimeout(function(){
+      var autres = joueuses.filter(function(nom){ return nom !== 'Léa B.'; });
+      if (autres[0]) st.rep[autres[0]] = 'confirme';
+      if (autres[1]) st.rep[autres[1]] = 'confirme';
+      if (autres[2]) st.rep[autres[2]] = 'absente';
+      if (cle() === k) { selection(); compteur(Math.min(autres.length, 3) + ' réponses d\'exemple reçues.'); }
+    }, 1500);
   });
 
   /* Trésorier, secrétaire, responsable des stages. */
