@@ -15,9 +15,9 @@
     president: 'tout l\'espace, et les décisions qui attendent votre accord.',
     tresorier: 'cotisations, encaissements du stage, commande groupée, attestations de paiement et export pour la comptabilité.',
     secretaire: 'licences fédérales, dossiers incomplets et rappels, demandes des familles, documents, chiffres des subventions.',
-    coach: 'votre équipe seulement : effectif, prochains matchs, présences, convocation, absences et médias.',
+    coach: 'votre équipe seulement : effectif, prochains matchs et matchs amicaux, présences, convocation, scores de fin de match, absences et médias.',
     stages: 'la liste du stage d\'octobre et les inscriptions.',
-    communication: 'table de marque, photos et vidéos à valider, publications pour les réseaux.'
+    communication: 'table de marque, photos et vidéos à valider, publications de fin de match et du week-end.'
   };
   function nom(liste, id) { for (var i = 0; i < liste.length; i++) if (liste[i][0] === id) return liste[i][1]; return ''; }
   function valide(liste, id) { return !!nom(liste, id); }
@@ -101,7 +101,26 @@
     var x = lireAdresse(); if (x.role) choisir(x.role, x.equipe, true);
   });
 
+  /* Pastille sur le bouton Communication : publications de fin de match et de changement de match pas encore validées (saisies pendant la visite). */
+  function majPastilles() {
+    var n = 0;
+    try {
+      var sc = JSON.parse(sessionStorage.getItem('bcr-scores') || '[]'), et = JSON.parse(sessionStorage.getItem('bcr-pub-etat') || '{}');
+      var ch = JSON.parse(sessionStorage.getItem('bcr-changements') || '[]');
+      n = sc.filter(function (x) { var e = et['fm-' + x.id]; return !(e && e.valide); }).length
+        + ch.filter(function (x) { var e = et['ch-' + x.id]; return !(e && e.valide); }).length;
+    } catch (x) { n = 0; }
+    Array.prototype.forEach.call(conteneurs, function (c) {
+      var b = c.querySelector('[data-role="communication"]'); if (!b) return;
+      var p = b.querySelector('.pastille-role');
+      if (!n) { if (p) p.parentNode.removeChild(p); return; }
+      if (!p) { p = document.createElement('span'); p.className = 'pastille-role'; b.appendChild(p); }
+      p.innerHTML = '<span class="visuellement-cache">, </span>' + n + (n > 1 ? ' publications à valider' : ' publication à valider');
+    });
+  }
+
   window.BCRRole = {
+    majPastilles: majPastilles,
     role: function () { return etat.role; },
     equipe: function () { return etat.equipe; },
     nomRole: function (r) { return nom(ROLES, r || etat.role); },
@@ -110,4 +129,5 @@
   };
   if (a.role) { ecrire('bcr-role', etat.role); ecrire('bcr-equipe', etat.equipe); }
   appliquer(false);
+  majPastilles();
 })();

@@ -74,6 +74,28 @@
         </div>
       </div>
 
+      <p class="resultat" id="coach-score-etat" role="status" aria-live="polite" tabindex="-1" hidden></p>
+      <div class="amical-zone">
+        <button type="button" class="bouton ligne" id="ajouter-amical" aria-expanded="false" aria-controls="form-amical">Ajouter un match amical</button>
+        <form class="fiche" id="form-amical" hidden novalidate aria-labelledby="amical-titre">
+          <h3 id="amical-titre" tabindex="-1">Ajouter un match amical</h3>
+          <div class="trois-champs">
+            <div><label for="am-date">Date</label><input type="date" id="am-date" aria-describedby="am-date-aide"><p class="aide" id="am-date-aide">Format jour, mois, année.</p></div>
+            <div><label for="am-heure">Heure (facultatif)</label><input type="time" id="am-heure" aria-describedby="am-heure-aide"><p class="aide" id="am-heure-aide">Format heures et minutes.</p></div>
+            <div><label for="am-adv">Adversaire</label><input type="text" id="am-adv" autocomplete="off" aria-describedby="am-adv-aide"><p class="aide" id="am-adv-aide">Nom du club, tel que les familles le liront.</p></div>
+          </div>
+          <div class="trois-champs">
+            <div><label for="am-dom">Domicile ou extérieur</label><select id="am-dom"><option value="dom">À domicile</option><option value="ext">À l'extérieur</option></select></div>
+            <div><label for="am-lieu">Lieu</label><input type="text" id="am-lieu" value="à domicile" autocomplete="off" aria-describedby="am-lieu-aide"><p class="aide" id="am-lieu-aide">Champ libre : salle ou adresse.</p></div>
+            <div><label for="am-com">Commentaire (facultatif)</label><input type="text" id="am-com" autocomplete="off"></div>
+          </div>
+          <p class="avertissement" id="amical-avert" role="status" aria-live="polite"></p>
+          <p class="erreur" id="amical-erreur"></p>
+          <div class="actions"><button type="submit" class="bouton" id="amical-ok">Ajouter le match amical</button><button type="button" class="bouton ligne" id="amical-annuler">Annuler</button></div>
+        </form>
+        <p class="resultat" id="amical-etat" role="status" aria-live="polite" hidden></p>
+      </div>
+
       <div class="fiche selection" id="selection" style="margin-top:20px" aria-labelledby="sel-titre">
         <p class="surtitre" style="margin:0">Sélection du match <span class="etiquette-ex">effectif d'exemple</span></p>
         <h3 id="sel-titre" tabindex="-1"></h3>
@@ -101,6 +123,7 @@
         <p class="resultat" id="coach-conv-etat" role="status" aria-live="polite" hidden></p>
       </div>
       <div class="note"><b>Pour le coach</b>Le coach verrait les réponses des familles avant chaque match et préparerait la convocation en un clic ; elle partirait aux familles après sa relecture. Les demandes d'absence de ses joueuses arriveraient directement chez lui. Il ne verrait ni les paiements ni les subventions. Les matchs viennent des affiches du club et de la FFBB ; les prénoms et les réponses sont des exemples.</div>
+      <div class="note"><b>Matchs amicaux</b>Les matchs amicaux n'existent pas dans le calendrier de la fédération : le coach les ajouterait lui-même. Ils suivraient le même circuit que les autres (sélection, convocation, score, publication) et pourraient apparaître dans le calendrier de l'équipe sur le site et dans l'agenda des familles, si le club le souhaite. Le président et le secrétaire les verraient aussi, pour la salle et la table de marque.</div>
       <div class="note"><b>Indisponibilités</b>Le coach préparerait chaque match en voyant d'avance qui n'est pas disponible, déclaré par les familles depuis leur espace. Les familles seraient prévenues de la sélection sans groupe de messages. Seuls le coach de l'équipe et le président verraient le motif d'une indisponibilité : les autres dirigeants n'en auraient pas besoin.</div>
     </div>
   </section>
@@ -182,6 +205,15 @@
     <div class="wrap"><div class="note"><b>Pour le trésorier</b>Les paiements par carte, les chèques et les espèces cochés par un dirigeant seraient regroupés dans un seul fichier, au format du tableur du club. Les demandes d'attestation de paiement arriveraient dans sa boîte, ci-dessus.</div></div>
   </section>
 
+  <section class="bloc" id="changements" data-roles="secretaire" aria-labelledby="titre-changements">
+    <div class="wrap">
+      <p class="surtitre">Salle et table de marque</p>
+      <h2 id="titre-changements" data-mv="mots">Changements de matchs de la semaine</h2>
+      <ul class="decisions" id="liste-changements"></ul>
+      <div class="note"><b>Reports et changements</b>Pour un match officiel, le report se déciderait avec la fédération ou le comité : le site ne le déclarerait pas à la FFBB, il préviendrait seulement les familles, les dirigeants et les réseaux. Si les résultats étaient repris de la FFBB, sous réserve de l'accord de la ligue, la nouvelle date pourrait y être relue. Le président et le secrétaire verraient ici les changements de la semaine, pour la salle et la table de marque. Aucun changement n'est enregistré d'avance sur les vrais matchs de cette maquette.</div>
+    </div>
+  </section>
+
   <section class="bloc" id="documents" data-roles="secretaire" aria-labelledby="titre-documents">
     <div class="wrap">
       <p class="surtitre">Secrétaire · documents d'exemple</p>
@@ -218,7 +250,7 @@
   <section class="bloc clair" data-roles="communication">
     <div class="wrap">
       <p class="surtitre">Bénévoles · noms d'exemple</p>
-      <h2 data-mv="mots">Table de marque du week-end</h2>
+      <h2 data-mv="mots">Table de marque · exemple du week-end des 17 et 18 octobre</h2>
       <div class="planning" data-mv="suite">
         <div class="creneau">
           <h3>Samedi 17 octobre · 14 h<br>U13 F (DFU13) contre Saint-Nicolas</h3>
@@ -257,6 +289,26 @@
       </ul>
       <div class="actions"><a class="bouton" href="medias.html" data-lien-role>Photos et vidéos à valider</a></div>
       <div class="note"><b>Pour la communication</b>Les photos et vidéos validées formeraient une réserve où piocher pour la page Facebook et le compte Instagram. La publication resterait un geste de la personne chargée de la communication : rien ne partirait seul.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="publications-matchs" data-roles="communication" aria-labelledby="titre-pub-matchs">
+    <div class="wrap">
+      <p class="surtitre">Communication · à partir des scores</p>
+      <h2 id="titre-pub-matchs" data-mv="mots">Publications des matchs</h2>
+      <p class="chapo-bloc">Chaque publication est proposée avec son visuel et son texte. Rien ne part sans votre validation.</p>
+
+      <h3>Fin de match</h3>
+      <div id="pub-fin-match"></div>
+      <div class="note"><b>À chaque fin de match</b>Dès que le score serait saisi par le coach, ou repris de la FFBB sous réserve de l'accord de la ligue, la publication du match serait prête en quelques secondes. La personne des réseaux la relirait et la validerait ; le bouton de fin de week-end ferait ensuite le récapitulatif.</div>
+
+      <h3 style="margin-top:32px">Publications du week-end</h3>
+      <div class="filtres" role="group" aria-label="Choisir le week-end" id="we-choix"></div>
+      <p id="we-etat" class="we-etat"></p>
+      <button type="button" class="bouton gros" id="we-preparer">Le week-end est terminé : préparer les publications</button>
+      <p class="visuellement-cache" id="we-annonce" role="status" aria-live="polite"></p>
+      <div id="we-pubs"></div>
+      <div class="note"><b>Pour la personne des réseaux</b>Le site saurait que tous les matchs du week-end sont terminés quand les scores seraient saisis, par le coach ou repris de la FFBB sous réserve de l'accord de la ligue. La personne des réseaux recevrait alors une notification « tous les scores du week-end sont là ». Les textes seraient préparés par l'outil à partir des scores officiels, puis relus et validés avant toute publication. Dans un second temps, la publication pourrait partir directement sur la page du club. Les textes restent sobres ; on pourrait y ajouter des émojis au goût du club.</div>
     </div>
   </section>
 
@@ -319,6 +371,7 @@
 <script src="js/pages.js"></script>
 <script src="js/roles.js"></script>
 <script src="js/selection.js"></script>
+<script src="js/publications.js"></script>
 <script>
 (function(){
   var JOUEURS = [
@@ -535,18 +588,59 @@
     var t = d.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
     return t.charAt(0).toUpperCase() + t.slice(1) + (iso.length > 10 ? ', ' + iso.slice(11,13).replace(/^0/, '') + ' h' + (iso.slice(14,16) !== '00' ? ' ' + iso.slice(14,16) : '') : '');
   }
-  var choix = {}, etats = {}, attenteConf = null;
+  var choix = {}, etats = {}, attenteConf = null, supprAttente = null, chgOuvert = null;
+  /* Changements signalés par le coach pendant la visite (aucun n'est préenregistré sur les vrais matchs). */
+  function changements(){ return S ? S.lire('bcr-changements', []) : []; }
+  function changementDe(k){ return changements().filter(function(c){ return c.id === k; })[0]; }
+  function libChg(c){ return window.BCRPub ? BCRPub.libelle(c) : c.statut; }
+  function etiquetteChg(c){ return window.BCRPub ? BCRPub.etiquette(c) : c.statut; }
+  var STATUTS = [['reporte','Reporté'],['annule','Annulé'],['horaire','Changement d\'horaire'],['salle','Changement de salle'],['forfait','Forfait'],['autre','Autre']];
+  function formChg(k, m, c){
+    c = c || {};
+    var sel = function(v){ return v === (c.statut || 'reporte') ? ' selected' : ''; };
+    return '<form class="chg-form" data-chg-form="' + esc(k) + '" novalidate><fieldset><legend>Signaler un changement : match du ' + dateFr(m.d).toLowerCase() + ' ' + esc(m.txt) + '</legend>'
+      + '<label for="chg-statut">Changement</label><select id="chg-statut">' + STATUTS.map(function(x){ return '<option value="' + x[0] + '"' + sel(x[0]) + '>' + x[1] + '</option>'; }).join('') + '</select>'
+      + '<div class="deux-champs" data-pour="reporte"><div><label for="chg-date">Nouvelle date (si connue)</label><input type="date" id="chg-date" value="' + esc(c.nouvelleDate || '') + '"></div>'
+      + '<div><label for="chg-heure">Nouvelle heure (si connue)</label><input type="time" id="chg-heure" value="' + esc(c.nouvelleHeure || '') + '"></div></div>'
+      + '<p class="aide" data-pour="reporte">Sans nouvelle date, le match sera affiché « date à fixer ».</p>'
+      + '<div data-pour="horaire"><label for="chg-h2">Nouvel horaire</label><input type="time" id="chg-h2" value="' + esc(c.statut === 'horaire' ? c.nouvelleHeure || '' : '') + '"></div>'
+      + '<div data-pour="salle"><label for="chg-salle">Nouvelle salle</label><input type="text" id="chg-salle" autocomplete="off" value="' + esc(c.salle || '') + '" aria-describedby="chg-salle-aide"><p class="aide" id="chg-salle-aide">Champ libre, par exemple l\'ancien gymnase Lefebvre.</p></div>'
+      + '<div data-pour="autre"><label for="chg-autre">Changement</label><input type="text" id="chg-autre" autocomplete="off" value="' + esc(c.autre || '') + '"></div>'
+      + '<label for="chg-motif">Motif (facultatif)</label><input type="text" id="chg-motif" autocomplete="off" value="' + esc(c.motif || '') + '">'
+      + '<p class="erreur" id="chg-erreur"></p>'
+      + '<div class="actions" style="margin-top:10px"><button type="submit" class="bouton petit">Enregistrer le changement</button><button type="button" class="bouton ligne petit" data-chg-fermer>Annuler</button></div></fieldset></form>';
+  }
+  function majChamps(f){
+    var v = f.querySelector('#chg-statut').value;
+    f.querySelectorAll('[data-pour]').forEach(function(x){ x.hidden = x.getAttribute('data-pour') !== v; });
+  }
+  function confSuppr(m){ return '<div class="sel-confirme" role="alertdialog" aria-labelledby="sup-' + m.aid + '"><p id="sup-' + m.aid + '">Supprimer le match amical du ' + dateFr(m.d).toLowerCase() + ' contre ' + esc(m.adv) + ' ?</p>'
+    + '<button type="button" class="bouton petit" data-suppr-oui="' + m.aid + '">Oui, supprimer</button> <button type="button" class="bouton ligne petit" data-suppr-non>Annuler</button></div>'; }
   var saisies = S ? S.lire('bcr-saisie', {}) : {};
   function equipeId(){ return R ? R.equipe() : 'u18'; }
-  function aVenirDe(e){ var now = Date.now(); return e.avenir.filter(function(m){ return new Date(m.d.length > 10 ? m.d : m.d + 'T23:59').getTime() + 2*3600e3 > now; }); }
-  /* Match en cours de préparation : un match publié, ou celui que le coach saisit quand rien n'est publié. */
+  /* Matchs amicaux ajoutés par le coach pendant la visite (ils n'existent pas dans le calendrier de la fédération). */
+  function amicaux(){ return S ? S.lire('bcr-amicaux', []) : []; }
+  function fini(m){ return new Date(m.d.length > 10 ? m.d : m.d + 'T23:59').getTime() + 2*3600e3 <= Date.now(); }
+  /* Matchs officiels et amicaux de l'équipe, triés par date : à venir et passés. */
+  function matchsDe(id){
+    var e = EQUIPES[id];
+    var tous = e.avenir.map(function(m){ return { d:m.d, txt:m.txt, adv:m.adv, dom:m.dom, amical:false }; })
+      .concat(amicaux().filter(function(a){ return a.equipe === id; }).map(function(a){
+        return { d: a.date + (a.heure ? 'T' + a.heure : ''), txt:'contre ' + a.adv, adv:a.adv, dom:a.dom, lieu:a.lieu, commentaire:a.commentaire, amical:true, aid:a.id };
+      }))
+      .sort(function(a, b){ return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; });
+    return { av: tous.filter(function(m){ return !fini(m); }), passes: tous.filter(fini) };
+  }
+  function lieuDe(m){ return m.amical && m.lieu ? m.lieu : (m.dom ? 'à domicile' : 'à l\'extérieur'); }
+  function cleDe(id, m){ return id + '|' + m.d.slice(0,10) + (m.amical ? '|' + m.aid : ''); }
+  /* Match en cours de préparation : un match publié ou amical, ou celui que le coach saisit quand rien n'est publié. */
   function matchCourant(){
-    var id = equipeId(), e = EQUIPES[id], av = aVenirDe(e);
-    if (av.length) { var m = av[Math.min(choix[id] || 0, av.length - 1)]; return { date: m.d.slice(0,10), iso: m.d, adv: m.adv, lieu: m.dom ? 'à domicile' : 'à l\'extérieur', publie: true }; }
+    var id = equipeId(), e = EQUIPES[id], av = matchsDe(id).av;
+    if (av.length) { var m = av[Math.min(choix[id] || 0, av.length - 1)]; return { date: m.d.slice(0,10), iso: m.d, adv: m.adv, lieu: lieuDe(m), publie: true, amical: m.amical, cle: cleDe(id, m) }; }
     var sa = saisies[id] || {};
     return { date: sa.date || '', iso: sa.date || '', adv: sa.adv !== undefined ? sa.adv : (e.advSuivant || ''), lieu: sa.lieu || '', publie: false };
   }
-  function cle(){ var m = matchCourant(); return equipeId() + '|' + (m.date || 'a-saisir'); }
+  function cle(){ var m = matchCourant(); return m.cle || (equipeId() + '|' + (m.date || 'a-saisir')); }
   function etat(){
     var k = cle();
     if (!etats[k]) {
@@ -580,7 +674,7 @@
   }
   function selection(){
     var id = equipeId(), e = EQUIPES[id], m = matchCourant(), st = etat(), k = cle();
-    document.getElementById('sel-titre').textContent = (m.date ? dateFr(m.iso) : 'Prochain match, date à compléter') + ' · contre ' + (m.adv || 'adversaire à compléter') + (m.lieu ? ', ' + m.lieu : '');
+    document.getElementById('sel-titre').textContent = (m.date ? dateFr(m.iso) : 'Prochain match, date à compléter') + ' · contre ' + (m.adv || 'adversaire à compléter') + (m.lieu ? ', ' + m.lieu : '') + (m.amical ? ' · match amical' : '') + (changementDe(k) ? ' · ' + etiquetteChg(changementDe(k)) : '');
     var sa = document.getElementById('sel-saisie'); sa.hidden = m.publie;
     if (!m.publie) {
       document.getElementById('sel-date').value = m.date;
@@ -598,7 +692,10 @@
     }).join('');
     compteur();
     var n = nbSel(st);
-    document.getElementById('coach-conv-texte').textContent = st.envoye
+    var chg = changementDe(k);
+    document.getElementById('coach-conv-texte').textContent = st.envoye && chg
+      ? 'Convocation à revoir : le match a changé (' + libChg(chg) + '). Les ' + n + ' familles convoquées sont prévenues dans leur espace (simulation).'
+      : st.envoye
       ? 'Convocation envoyée (simulation) à ' + n + (n > 1 ? ' familles' : ' famille') + '. Les réponses apparaissent dans la liste.'
       : 'Cochez les joueuses, indiquez le rendez-vous, puis envoyez : chaque famille concernée recevrait la convocation.';
     document.getElementById('coach-conv').hidden = st.envoye;
@@ -613,35 +710,132 @@
         + '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>'
       : '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>';
   }
+  function scores(){ return S ? S.lire('bcr-scores', []) : []; }
+  /* Formulaire « Fin de match » sous un match passé (ou à compléter) : aucun score prérempli. */
+  function formScore(k, libelle){
+    var deja = scores().filter(function(x){ return x.id === k; })[0], fid = k.replace(/[^a-z0-9]+/gi, '-');
+    if (deja) return '<p class="score-saisi"><span class="etat ok">Score enregistré : BCR ' + deja.bcr + '-' + deja.ad + '</span> · publication proposée à la communication</p>';
+    return '<form class="score-form" data-score="' + esc(k) + '" novalidate><fieldset><legend>Fin de match : saisir le score final<span class="visuellement-cache"> ' + esc(libelle) + '</span></legend>'
+      + '<div class="score-champs"><div><label for="sc-b-' + fid + '">BCR</label><input id="sc-b-' + fid + '" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="b" aria-describedby="sc-e-' + fid + '"></div>'
+      + '<span class="score-tiret" aria-hidden="true">-</span>'
+      + '<div><label for="sc-a-' + fid + '">Adversaire</label><input id="sc-a-' + fid + '" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="a" aria-describedby="sc-e-' + fid + '"></div>'
+      + '<button type="submit" class="bouton petit">Enregistrer le score</button></div>'
+      + '<p class="erreur" id="sc-e-' + fid + '"></p></fieldset></form>';
+  }
   function coach(){
     var id = equipeId(), e = EQUIPES[id] || EQUIPES.u18;
-    var av = aVenirDe(e), passes = e.avenir.filter(function(m){ return av.indexOf(m) < 0; }), ch = Math.min(choix[id] || 0, Math.max(av.length - 1, 0));
+    var mm = matchsDe(id), av = mm.av, passes = mm.passes, ch = Math.min(choix[id] || 0, Math.max(av.length - 1, 0));
     document.getElementById('coach-sur').textContent = 'Coach · ' + e.niv;
     document.getElementById('titre-coach').textContent = e.titre;
-    var lignes = av.map(function(m, i){ return '<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + ' · <span class="etat ' + (m.dom ? 'ok">À domicile' : 'attente">À l\'extérieur') + '</span></span>'
-      + '<button type="button" class="bouton ligne petit" data-match="' + i + '" aria-pressed="' + (i === ch) + '" aria-controls="selection">Sélection<span class="visuellement-cache"> du match du ' + dateFr(m.d) + '</span></button></li>'; });
-    if (!av.length) lignes.push('<li><span><strong>Prochain match</strong><br>' + (e.suivant || 'à compléter : calendrier sur la FFBB') + '</span><span class="etat attente">À compléter</span></li>');
-    passes.forEach(function(m){ lignes.push('<li><span><strong>' + dateFr(m.d) + '</strong><br>' + m.txt + '</span><span class="etat">Score sur la FFBB</span></li>'); });
+    var AMI = ' <span class="etiquette-amical">Amical</span>';
+    function gestes(m){ return m.amical ? ' <button type="button" class="retirer-ligne modifier" data-modifier="' + m.aid + '">Modifier<span class="visuellement-cache"> le match amical</span></button> <button type="button" class="retirer-ligne" data-supprimer="' + m.aid + '">Supprimer<span class="visuellement-cache"> le match amical</span></button>' : ''; }
+    var lignes = av.map(function(m, i){ var k = cleDe(id, m), c = changementDe(k); return '<li data-amical="' + (m.aid || '') + '" data-cle="' + esc(k) + '"><span><strong>' + dateFr(m.d) + '</strong>' + (m.amical ? AMI : '') + (c ? ' <span class="etiquette-chg">' + esc(etiquetteChg(c)) + '</span>' : '') + '<br>' + esc(m.txt) + ' · <span class="etat ' + (m.dom ? 'ok">' : 'attente">') + esc(lieuDe(m).charAt(0).toUpperCase() + lieuDe(m).slice(1)) + '</span>'
+      + (c ? '<br><small class="chg-detail">' + esc(libChg(c)) + '</small>' : '')
+      + (m.commentaire ? '<br><small>' + esc(m.commentaire) + '</small>' : '') + gestes(m)
+      + ' <button type="button" class="retirer-ligne modifier" data-chg="' + esc(k) + '" aria-expanded="' + (chgOuvert === k) + '">' + (c ? 'Modifier le changement' : 'Signaler un changement') + '<span class="visuellement-cache"> du match du ' + dateFr(m.d) + '</span></button>'
+      + (c ? ' <button type="button" class="retirer-ligne" data-chg-retirer="' + esc(k) + '">Retirer le changement</button>' : '') + '</span>'
+      + '<button type="button" class="bouton ligne petit" data-match="' + i + '" aria-pressed="' + (i === ch) + '" aria-controls="selection">Sélection<span class="visuellement-cache"> du match du ' + dateFr(m.d) + '</span></button>'
+      + (m.amical && supprAttente === m.aid ? confSuppr(m) : '') + (chgOuvert === k ? formChg(k, m, c) : '') + '</li>'; });
+    if (!av.length) {
+      var sa = saisies[id] || {};
+      lignes.push('<li><span><strong>Prochain match</strong><br>' + (e.suivant || 'à compléter : calendrier sur la FFBB') + '</span><span class="etat attente">À compléter</span>'
+        + (sa.date ? formScore(id + '|' + sa.date, 'du match à compléter') : '') + '</li>');
+    }
+    passes.forEach(function(m){ lignes.push('<li data-amical="' + (m.aid || '') + '"><span><strong>' + dateFr(m.d) + '</strong>' + (m.amical ? AMI : '') + '<br>' + esc(m.txt) + gestes(m) + '</span><span class="etat">' + (m.amical ? 'Match terminé' : 'Score sur la FFBB') + '</span>'
+      + formScore(cleDe(id, m), 'du match du ' + dateFr(m.d) + ' ' + m.txt) + (m.amical && supprAttente === m.aid ? confSuppr(m) : '') + '</li>'); });
     if (e.dernier) lignes.push('<li><span><strong>Dernier résultat publié</strong><br>' + e.dernier + '</span><span></span></li>');
     document.getElementById('coach-matchs').innerHTML = lignes.join('');
     document.getElementById('coach-source').textContent = 'Source : affiches du club et FFBB.' + (id === 'u18' ? ' Horaires de l\'élite non encore fixés.' : '');
     document.getElementById('coach-conv-etat').hidden = true;
+    document.getElementById('amical-etat').hidden = true;
+    document.getElementById('coach-score-etat').hidden = true;
     attenteConf = null;
     selection();
     var lm = document.getElementById('coach-medias');
     lm.setAttribute('href', !R ? 'medias.html' : R.role() === 'coach' ? R.lien('medias.html', 'coach', id) : R.lien('medias.html'));
     lm.hidden = false;
   }
+  /* Saisie du score de fin de match : deux entiers de 0 à 200, puis publication proposée à la communication. */
+  document.getElementById('coach-matchs').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var f = ev.target.closest('[data-score]'); if (!f) return;
+    var k = f.getAttribute('data-score'), b = f.querySelector('[data-sc="b"]'), a = f.querySelector('[data-sc="a"]'), err = f.querySelector('.erreur');
+    var ok = function(v){ return /^\d{1,3}$/.test(v) && +v <= 200; };
+    [b, a].forEach(function(x){ x.removeAttribute('aria-invalid'); });
+    var faux = [b, a].filter(function(x){ return !ok(x.value.trim()); });
+    if (faux.length) { faux.forEach(function(x){ x.setAttribute('aria-invalid', 'true'); }); err.textContent = 'Saisissez deux nombres entiers, de 0 à 200.'; faux[0].focus(); return; }
+    var id = equipeId(), e = EQUIPES[id], p = k.split('|'), m = null, mm = matchsDe(id);
+    mm.passes.concat(mm.av).forEach(function(x){ if (cleDe(id, x) === k) m = x; });
+    var sa = saisies[id] || {};
+    var fiche = m ? { adv: m.adv, lieu: lieuDe(m), amical: m.amical } : { adv: sa.adv || '', lieu: sa.lieu || '', amical: false };
+    var l = scores().filter(function(x){ return x.id !== k; });
+    l.push({ id:k, equipe:e.titre, niv: fiche.amical ? 'Match amical' : e.niv, adv:fiche.adv, lieu:fiche.lieu, date:p[1], bcr:+b.value.trim(), ad:+a.value.trim(), amical:fiche.amical });
+    if (S) S.ecrire('bcr-scores', l);
+    coach();
+    montrer('coach-score-etat', 'Score enregistré (simulation). La personne des réseaux est prévenue : une publication est prête.');
+    try { document.dispatchEvent(new CustomEvent('bcr:score')); } catch (x) {}
+    document.getElementById('coach-score-etat').focus();
+  });
+  var listeM = document.getElementById('coach-matchs');
+  listeM.addEventListener('change', function(e){ var f = e.target.closest('.chg-form'); if (f && e.target.id === 'chg-statut') majChamps(f); });
+  listeM.addEventListener('submit', function(ev){
+    var f = ev.target.closest('.chg-form'); if (!f) return;
+    ev.preventDefault(); ev.stopImmediatePropagation();
+    var k = f.getAttribute('data-chg-form'), v = function(i){ return f.querySelector('#' + i).value.trim(); }, statut = v('chg-statut'), err = f.querySelector('#chg-erreur');
+    var c = { id:k, statut:statut, motif:v('chg-motif') };
+    if (statut === 'reporte') { c.nouvelleDate = v('chg-date'); c.nouvelleHeure = v('chg-heure'); }
+    if (statut === 'horaire') { c.nouvelleHeure = v('chg-h2'); if (!c.nouvelleHeure) { err.textContent = 'Indiquez le nouvel horaire.'; f.querySelector('#chg-h2').focus(); return; } }
+    if (statut === 'salle') { c.salle = v('chg-salle'); if (!c.salle) { err.textContent = 'Indiquez la nouvelle salle.'; f.querySelector('#chg-salle').focus(); return; } }
+    if (statut === 'autre') { c.autre = v('chg-autre'); if (!c.autre) { err.textContent = 'Décrivez le changement.'; f.querySelector('#chg-autre').focus(); return; } }
+    var id = equipeId(), e = EQUIPES[id], mm = matchsDe(id), m = null;
+    mm.av.concat(mm.passes).forEach(function(x){ if (cleDe(id, x) === k) m = x; });
+    c.equipe = e.titre; c.niv = m && m.amical ? 'Match amical' : e.niv; c.date = k.split('|')[1]; c.adv = m ? m.adv : ''; c.amical = !!(m && m.amical);
+    var conv = S ? S.convocations().filter(function(x){ return x.id === k; })[0] : null;
+    c.convoquees = conv ? conv.joueuses.length : 0;
+    var l = changements().filter(function(x){ return x.id !== k; }); l.push(c); if (S) S.ecrire('bcr-changements', l);
+    /* Report avec nouvelle date : la convocation déjà envoyée suit la nouvelle date dans l'espace des familles. */
+    if (conv && statut === 'reporte' && c.nouvelleDate) {
+      conv.date = c.nouvelleDate; conv.adv = conv.adv.replace(/ \((match amical, )?reporté du [^)]*\)$/, '').replace(/ \(match amical\)$/, '') + ' (' + (c.amical ? 'match amical, ' : '') + 'reporté du ' + dateFr(k.split('|')[1]).toLowerCase() + ')';
+      S.ajouterConvocation(conv);
+    }
+    chgOuvert = null; coach();
+    montrer('coach-score-etat', 'Simulation : changement enregistré (' + libChg(c) + '). ' + (c.convoquees ? c.convoquees + (c.convoquees > 1 ? ' familles convoquées sont prévenues dans leur espace. ' : ' famille convoquée est prévenue dans son espace. ') : '') + 'La personne des réseaux a une publication prête ; le président et le secrétaire voient le changement.');
+    try { document.dispatchEvent(new CustomEvent('bcr:changement')); } catch (x) {}
+    document.getElementById('coach-score-etat').focus();
+  }, true);
+  listeM.addEventListener('click', function(e){
+    var o = e.target.closest('[data-chg]'), fe = e.target.closest('[data-chg-fermer]'), rt = e.target.closest('[data-chg-retirer]');
+    if (o) { var k = o.getAttribute('data-chg'); chgOuvert = chgOuvert === k ? null : k; coach(); var f = document.querySelector('.chg-form'); if (f) { majChamps(f); f.querySelector('#chg-statut').focus(); } e.stopImmediatePropagation(); return; }
+    if (fe) { var k2 = chgOuvert; chgOuvert = null; coach(); var b = document.querySelector('[data-chg="' + k2 + '"]'); if (b) b.focus(); e.stopImmediatePropagation(); return; }
+    if (rt) { var k3 = rt.getAttribute('data-chg-retirer'); if (S) S.ecrire('bcr-changements', changements().filter(function(x){ return x.id !== k3; })); coach(); montrer('coach-score-etat', 'Changement retiré (simulation).'); try { document.dispatchEvent(new CustomEvent('bcr:changement')); } catch (x) {} e.stopImmediatePropagation(); }
+  }, true);
   document.getElementById('coach-matchs').addEventListener('click', function(e){
+    var mo = e.target.closest('[data-modifier]'), su = e.target.closest('[data-supprimer]'), ou = e.target.closest('[data-suppr-oui]'), no = e.target.closest('[data-suppr-non]');
+    if (mo) { ouvrirAmical(mo.getAttribute('data-modifier')); return; }
+    if (su) { supprAttente = su.getAttribute('data-supprimer'); coach(); var o = document.querySelector('[data-suppr-oui]'); if (o) o.focus(); return; }
+    if (no) { supprAttente = null; coach(); return; }
+    if (ou) {
+      var aid = ou.getAttribute('data-suppr-oui'), l = amicaux().filter(function(a){ return a.id !== aid; });
+      if (S) S.ecrire('bcr-amicaux', l); supprAttente = null; choix[equipeId()] = 0; coach();
+      montrer('amical-etat', 'Match amical supprimé (simulation).'); document.getElementById('ajouter-amical').focus(); return;
+    }
     var b = e.target.closest('[data-match]'); if (!b) return;
     choix[equipeId()] = +b.getAttribute('data-match'); coach();
     document.getElementById('sel-titre').focus();
   });
-  ['sel-date','sel-adv','sel-lieu'].forEach(function(idc){
-    document.getElementById(idc).addEventListener('change', function(){
-      var id = equipeId(); saisies[id] = { date: document.getElementById('sel-date').value, adv: document.getElementById('sel-adv').value.trim(), lieu: document.getElementById('sel-lieu').value };
-      if (S) S.ecrire('bcr-saisie', saisies); attenteConf = null; selection();
-    });
+  function enregistrerSaisie(){
+    var id = equipeId(); saisies[id] = { date: document.getElementById('sel-date').value, adv: document.getElementById('sel-adv').value.trim(), lieu: document.getElementById('sel-lieu').value };
+    if (S) S.ecrire('bcr-saisie', saisies);
+  }
+  ['sel-date','sel-lieu'].forEach(function(idc){
+    document.getElementById(idc).addEventListener('change', function(){ enregistrerSaisie(); attenteConf = null; selection(); });
+  });
+  /* L'adversaire : enregistré à chaque frappe, seul le titre change (la liste des joueuses n'est pas redessinée,
+     pour qu'un clic sur une joueuse juste après la saisie ne soit pas perdu). */
+  document.getElementById('sel-adv').addEventListener('input', function(){
+    enregistrerSaisie();
+    var m = matchCourant(), k = cle(), c = changementDe(k);
+    document.getElementById('sel-titre').textContent = (m.date ? dateFr(m.iso) : 'Prochain match, date à compléter') + ' · contre ' + (m.adv || 'adversaire à compléter') + (m.lieu ? ', ' + m.lieu : '') + (m.amical ? ' · match amical' : '') + (c ? ' · ' + etiquetteChg(c) : '');
   });
   document.getElementById('sel-max').addEventListener('input', function(){ compteur(); });
   var liste = document.getElementById('sel-liste');
@@ -672,7 +866,7 @@
     if (!n) { err.textContent = 'Sélectionnez au moins une joueuse.'; liste.querySelector('[data-sel]').focus(); return; }
     var joueuses = e.effectif.filter(function(nom){ return st.sel[nom]; });
     st.envoye = true;
-    if (S) S.ajouterConvocation({ id:k, equipe:id, equipeNom:e.titre, date:m.date, adv:m.adv, lieu:m.lieu, rdv:document.getElementById('sel-rdv').value.trim(), joueuses:joueuses });
+    if (S) S.ajouterConvocation({ id:k, equipe:id, equipeNom:e.titre, date:m.date, adv:m.amical ? m.adv + ' (match amical)' : m.adv, lieu:m.lieu, rdv:document.getElementById('sel-rdv').value.trim(), joueuses:joueuses });
     selection();
     montrer('coach-conv-etat', 'Simulation : convocation envoyée à ' + n + (n > 1 ? ' familles' : ' famille') + ' pour le match du ' + dateFr(m.date).toLowerCase() + '. Rien n\'est envoyé dans cette maquette ; les familles la verraient dans leur espace.');
     /* Quelques réponses d'exemple reviennent ; celle de Léa B. vient de l'espace licenciés. */
@@ -684,6 +878,73 @@
       if (cle() === k) { selection(); compteur(Math.min(autres.length, 3) + ' réponses d\'exemple reçues.'); }
     }, 1500);
   });
+
+  /* Matchs amicaux : ajout, modification, suppression (avec confirmation), avertissement si un match officiel tombe le même jour. */
+  var fa = document.getElementById('form-amical'), btA = document.getElementById('ajouter-amical'), enEdition = null;
+  var champs = { date:'am-date', heure:'am-heure', adv:'am-adv', dom:'am-dom', lieu:'am-lieu', com:'am-com' };
+  function val(c){ return document.getElementById(champs[c]).value.trim(); }
+  function officielLeMeme(date){
+    var e = EQUIPES[equipeId()];
+    return e.avenir.filter(function(m){ return m.d.slice(0,10) === date; })[0];
+  }
+  function avertir(){
+    var o = officielLeMeme(val('date'));
+    document.getElementById('amical-avert').textContent = o ? 'Un match officiel est déjà prévu ce jour-là (' + o.txt + '). Vous pouvez quand même ajouter le match amical.' : '';
+  }
+  function ouvrirAmical(aid){
+    var a = aid ? amicaux().filter(function(x){ return x.id === aid; })[0] : null;
+    enEdition = a ? a.id : null;
+    document.getElementById('am-date').value = a ? a.date : '';
+    document.getElementById('am-heure').value = a ? (a.heure || '') : '';
+    document.getElementById('am-adv').value = a ? a.adv : '';
+    document.getElementById('am-dom').value = a && !a.dom ? 'ext' : 'dom';
+    document.getElementById('am-lieu').value = a ? (a.lieu || '') : 'à domicile';
+    document.getElementById('am-com').value = a ? (a.commentaire || '') : '';
+    document.getElementById('amical-titre').textContent = a ? 'Modifier le match amical' : 'Ajouter un match amical';
+    document.getElementById('amical-ok').textContent = a ? 'Enregistrer les modifications' : 'Ajouter le match amical';
+    document.getElementById('amical-erreur').textContent = '';
+    fa.hidden = false; btA.setAttribute('aria-expanded', 'true'); avertir();
+    document.getElementById('amical-titre').focus();
+  }
+  function fermerAmical(){ fa.hidden = true; btA.setAttribute('aria-expanded', 'false'); enEdition = null; }
+  btA.addEventListener('click', function(){ if (fa.hidden) ouvrirAmical(null); else fermerAmical(); });
+  document.getElementById('amical-annuler').addEventListener('click', function(){ fermerAmical(); btA.focus(); });
+  document.getElementById('am-date').addEventListener('change', avertir);
+  document.getElementById('am-dom').addEventListener('change', function(){
+    var l = document.getElementById('am-lieu');
+    if (this.value === 'ext' && l.value.trim() === 'à domicile') l.value = '';
+    if (this.value === 'dom' && !l.value.trim()) l.value = 'à domicile';
+  });
+  fa.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var err = document.getElementById('amical-erreur');
+    ['am-date','am-adv'].forEach(function(i){ document.getElementById(i).removeAttribute('aria-invalid'); });
+    if (!val('date')) { document.getElementById('am-date').setAttribute('aria-invalid', 'true'); err.textContent = 'Choisissez la date du match amical.'; document.getElementById('am-date').focus(); return; }
+    if (!val('adv')) { document.getElementById('am-adv').setAttribute('aria-invalid', 'true'); err.textContent = 'Indiquez l\'adversaire.'; document.getElementById('am-adv').focus(); return; }
+    err.textContent = '';
+    var dom = val('dom') === 'dom';
+    var a = { id: enEdition || ('am' + Date.now()), equipe: equipeId(), date: val('date'), heure: val('heure'), adv: val('adv'), dom: dom,
+      lieu: val('lieu') || (dom ? 'à domicile' : 'à l\'extérieur'), commentaire: val('com') };
+    var l = amicaux().filter(function(x){ return x.id !== a.id; }); l.push(a);
+    if (S) S.ecrire('bcr-amicaux', l);
+    var o = officielLeMeme(a.date), modif = !!enEdition;
+    fermerAmical();
+    var av = matchsDe(equipeId()).av; choix[equipeId()] = Math.max(0, av.map(function(m){ return m.aid; }).indexOf(a.id));
+    coach();
+    montrer('amical-etat', 'Simulation : match amical ' + (modif ? 'modifié' : 'ajouté') + ' (' + dateFr(a.date).toLowerCase() + ', contre ' + a.adv + ').' + (o ? ' Attention : un match officiel est déjà prévu ce jour-là.' : '') + (av.some(function(m){ return m.aid === a.id; }) ? ' Il est prêt pour la sélection.' : ' La date est passée : le score peut être saisi.'));
+    btA.focus();
+  });
+
+  /* Président et secrétaire : changements de la semaine. */
+  function listeChangements(){
+    var l = changements(), ul = document.getElementById('liste-changements');
+    ul.innerHTML = l.length ? l.slice().reverse().map(function(c){
+      return '<li><div><strong>' + esc(c.equipe) + (c.amical ? ', match amical' : '') + '</strong><span>Match du ' + esc(dateFr(c.date).toLowerCase()) + ' contre ' + esc(c.adv || 'adversaire à compléter') + (c.motif ? ' · motif : ' + esc(c.motif) : '') + '</span></div>'
+        + '<div class="geste"><span class="etat pastille attente">' + esc(libChg(c)) + '</span></div></li>';
+    }).join('') : '<li><div><span>Aucun changement signalé par les coachs cette semaine.</span></div></li>';
+  }
+  document.addEventListener('bcr:changement', listeChangements);
+  listeChangements();
 
   /* Trésorier, secrétaire, responsable des stages. */
   document.getElementById('export-compta').addEventListener('click', function(){

@@ -72,13 +72,12 @@
     <div class="wrap">
       <p class="s-surtitre">Play-off élite U18 féminines · samedi 10 octobre</p>
       <h2 id="titre-resume" data-mv="mots">Résumé du match, monté à partir de vos médias</h2>
-      <p class="s-chapo" style="margin-top:0;margin-bottom:32px">À partir des photos et vidéos reçues, le résumé serait monté sans travail de montage pour le club. Il ne serait publié qu'après l'accord d'un dirigeant.</p>
+      <p class="s-chapo" style="margin-top:0;margin-bottom:32px">À partir des photos et vidéos reçues, le résumé serait monté pour le club : le dirigeant choisit les extraits, puis relit et décide de la publication.</p>
       <div class="resume-grille">
         <div>
           <ol class="chaine">
             <li><strong>Médias reçus</strong><span>Les photos et vidéos envoyées par les familles pour ce match, avec l'accord coché à l'envoi.</span></li>
-            <li><strong>Tri</strong><span>Les images floues et les doublons seraient écartés.</span></li>
-            <li><strong>Meilleurs moments</strong><span>Les actions les plus nettes et les temps forts seraient retenus.</span></li>
+            <li><strong>Choix des extraits</strong><span>Un dirigeant choisit les extraits à garder et leur ordre ; les images floues et les doublons pourraient lui être signalés.</span></li>
             <li><strong>Montage court</strong><span>Un format vertical pour les réseaux, un format horizontal pour le site.</span></li>
             <li><strong>Voix off en français</strong><span>Écrite à partir du score officiel publié par la FFBB, puis relue par un dirigeant avant l'enregistrement.</span></li>
             <li><strong>Sous-titres</strong><span>Pour les vidéos regardées sans le son, comme souvent sur téléphone.</span></li>
@@ -116,7 +115,7 @@
                 <path d="M40 120 L110 70 M110 70 L160 118" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="3 6"/>
                 <g id="ballon-tir"><circle r="9" fill="#e06a1b"/><path d="M-9 0 H9 M0 -9 V9" stroke="#3a1a05" stroke-width="1.2" fill="none"/></g>
               </svg>
-              <p class="cartouche">Plan dessiné : ici, les meilleurs moments filmés par les familles</p>
+              <p class="cartouche">Plan dessiné : ici, les extraits choisis parmi les vidéos des familles</p>
             </div>
             <div class="plan p-elite" aria-hidden="true">
               <span class="biais"></span>
@@ -152,7 +151,7 @@
           </div>
         </div>
       </div>
-      <div class="note"><b>Pas de publication automatique</b>Le résumé serait préparé sans travail de montage pour le club, mais il ne partirait jamais seul : un dirigeant le regarderait, corrigerait le texte si besoin et déciderait de le publier sur le site, la page Facebook ou le compte Instagram. Le score viendrait des résultats officiels de la FFBB, sous réserve de l'accord de la ligue et de la fédération, ou serait saisi par un dirigeant. Le texte de cet aperçu ne reprend que des faits publiés par le club et la fédération. Un essai sur un vrai match serait la première étape.</div>
+      <div class="note"><b>Pas de publication automatique</b>Le résumé serait monté pour le club à partir des extraits choisis par un dirigeant, mais il ne partirait jamais seul : un dirigeant le regarderait, corrigerait le texte si besoin et déciderait de le publier sur le site, la page Facebook ou le compte Instagram. Le score viendrait des résultats officiels de la FFBB, sous réserve de l'accord de la ligue et de la fédération, ou serait saisi par un dirigeant. Le texte de cet aperçu ne reprend que des faits publiés par le club et la fédération. Un essai sur un vrai match serait la première étape.</div>
     </div>
   </section>
 </main>
@@ -180,13 +179,13 @@
   };
   var AUTO_OK = 'ok', AUTO_VERIF = 'verifier';
   var M = [
-    { id:1, m:'u18', g:'video', titre:'Les dernières secondes du match', duree:'0:42', par:'Karine L.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valider', motif:'tir', fond:'' },
+    { id:1, m:'u18', g:'video', titre:'Les dernières secondes du match', duree:'0:42', par:'Karine L.', auto:AUTO_OK, autoTxt:'Accordée pour toutes les joueuses visibles', etat:'valider', motif:'tir', fond:'' },
     { id:2, m:'u18', g:'photo', titre:'L\'équipe après le match', par:'Marc D.', auto:AUTO_VERIF, autoTxt:'À vérifier : une joueuse mineure sans autorisation', etat:'valider', motif:'equipe', fond:'vert' },
     { id:3, m:'u18', g:'photo', titre:'Le tableau de score à la fin', par:'Sandrine P.', auto:AUTO_OK, autoTxt:'Personne n\'est reconnaissable', etat:'valide', motif:'tableau', fond:'' },
-    { id:4, m:'u18', g:'video', titre:'Action de jeu filmée depuis la tribune', duree:'0:18', par:'Karine L.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valider', motif:'panier', fond:'clair' },
+    { id:4, m:'u18', g:'video', titre:'Action de jeu filmée depuis la tribune', duree:'0:18', par:'Karine L.', auto:AUTO_OK, autoTxt:'Accordée pour toutes les joueuses visibles', etat:'valider', motif:'panier', fond:'clair' },
     { id:5, m:'u15', g:'photo', titre:'L\'échauffement', par:'Céline B.', auto:AUTO_VERIF, autoTxt:'À vérifier : joueuses adverses mineures visibles', etat:'valider', motif:'ballon', fond:'vert' },
-    { id:6, m:'u15', g:'video', titre:'Action de jeu', duree:'1:05', par:'Thomas R.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valider', motif:'tir', fond:'clair' },
-    { id:7, m:'u13', g:'photo', titre:'Série de 3 photos', par:'Céline B.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valide', motif:'panier', fond:'' },
+    { id:6, m:'u15', g:'video', titre:'Action de jeu', duree:'1:05', par:'Thomas R.', auto:AUTO_OK, autoTxt:'Accordée pour toutes les joueuses visibles', etat:'valider', motif:'tir', fond:'clair' },
+    { id:7, m:'u13', g:'photo', titre:'Série de 3 photos', par:'Céline B.', auto:AUTO_OK, autoTxt:'Accordée pour toutes les joueuses visibles', etat:'valide', motif:'panier', fond:'' },
     { id:8, m:'prm', g:'video', titre:'Enregistrement du direct', duree:'direct', par:'Page Facebook du club', auto:AUTO_OK, autoTxt:'Match déjà diffusé en direct par le club', etat:'valide', img:'img/direct-prm.jpg', large:true }
   ];
   /* Fichiers envoyés pendant cette visite depuis l'espace licenciés (noms seulement : les fichiers restent sur l'appareil). */

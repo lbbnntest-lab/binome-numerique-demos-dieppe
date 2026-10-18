@@ -299,3 +299,75 @@ input[type=number]{width:100%;font:inherit;padding:10px 12px;border:1px solid #b
 .notifs-barre + .convoc-alerte{padding-top:16px}
 .notifs-barre + section.bloc,.notifs-barre ~ .convoc-alerte + section.bloc{padding-top:48px}
 @media (max-width:600px){.push-bloc{align-items:flex-start}.push-bloc .aide{text-align:left}.notifs-liste li{flex-direction:column}}
+
+/* Publications des matchs (js/publications.js) */
+.bouton.gros{font-family:var(--titre);font-style:italic;text-transform:uppercase;letter-spacing:.04em;font-size:1.25rem;padding:16px 24px;margin:6px 0 24px;max-width:100%;text-align:left}
+.bouton[disabled],.bouton:disabled{background:#c9cdca;color:#4f5866;cursor:not-allowed;box-shadow:none}
+.we-etat{margin:0 0 12px}
+.we-attente{margin:8px 0 0;padding-left:20px;color:var(--ink-soft)}
+.we-sous-titre{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.3rem;margin:8px 0 12px}
+.pub{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px;background:var(--surface);border:1px solid var(--line);padding:18px;margin:0 0 18px;align-items:start}
+.pub-corps{min-width:0}
+.pub-corps h4{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.25rem;line-height:1.15;margin:0 0 6px}
+.pub-type{margin:0 0 4px;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;color:var(--ballon-ink);font-weight:700;font-size:.95rem}
+.pub-corps textarea{min-height:170px;font-size:.96rem}
+.pub-boutons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pub-etat{margin:8px 0 0;font-weight:600;color:var(--ok)}
+.pub-etat:empty{display:none}
+.pub-cadre{width:100%;max-width:300px}
+.pub-visuel{container-type:inline-size;position:relative;overflow:hidden;aspect-ratio:4/5;background:#080a09;color:#fff;display:flex;flex-direction:column;padding:7%}
+.pub-visuel.general{aspect-ratio:auto}
+.pub-visuel > *{position:relative}
+.pv-biais{position:absolute !important;right:-18%;top:0;width:42%;height:100%;background:var(--ballon);transform:skewX(-14deg);opacity:.45}
+.pv-tete{display:flex;align-items:center;gap:3cqw;font-family:var(--titre);font-weight:700;text-transform:uppercase;font-size:4.6cqw;line-height:1.05;margin-bottom:5cqw}
+.pv-logo{width:12cqw;height:12cqw;object-fit:contain;background:#000;border-radius:50%;flex:none}
+.pv-logo.clair{background:#fff;padding:.8cqw}
+.pv-sigle{width:12cqw;height:12cqw;border-radius:50%;background:#1c2320;border:.6cqw solid #3a443f;display:inline-flex;align-items:center;justify-content:center;font-family:var(--titre);font-weight:700;font-size:3.6cqw;flex:none}
+.pv-equipe{margin:0;font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:var(--vif);font-weight:700;font-size:5cqw}
+.pv-niv{margin:0 0 3cqw;font-size:3.8cqw;color:#c9cdca;line-height:1.25}
+.pv-issue{margin:0 0 3cqw;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:10cqw;line-height:.95}
+.pv-issue.v{color:var(--vif)}
+.pv-score{display:grid;gap:2cqw;margin-bottom:3cqw}
+.pv-score > div{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:3cqw;background:#14181c;padding:2cqw 3cqw}
+.pv-score span{font-family:var(--titre);font-weight:700;text-transform:uppercase;font-size:4.4cqw;line-height:1.1;overflow-wrap:anywhere}
+.pv-score b{font-family:var(--titre);font-style:italic;font-size:10cqw;line-height:1;font-variant-numeric:tabular-nums}
+.pv-quand{margin:0;font-size:3.8cqw;color:#d7dbd8;line-height:1.3}
+.pv-fort{margin-top:2cqw;color:#fff;font-weight:700;font-size:4.6cqw}
+.pv-partenaire{margin:auto 0 0;padding:2.4cqw;border:.5cqw dashed rgba(255,255,255,.55);text-align:center;font-family:var(--titre);text-transform:uppercase;letter-spacing:.1em;font-size:3.6cqw}
+.pub-visuel.general .pv-partenaire{margin-top:5cqw}
+.pv-liste{list-style:none;margin:0;padding:0;border-top:.5cqw solid var(--vif)}
+.pv-liste li{display:flex;justify-content:space-between;align-items:center;gap:3cqw;padding:2.4cqw 0;border-bottom:1px solid rgba(255,255,255,.16)}
+.pv-liste b{display:block;font-family:var(--titre);text-transform:uppercase;font-size:4.2cqw;line-height:1.1}
+.pv-liste small{display:block;font-size:3.4cqw;color:#c9cdca;line-height:1.25}
+.pv-liste strong{font-family:var(--titre);font-style:italic;font-size:7cqw;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pv-liste strong.v{color:var(--vif)}
+
+/* Pastille du rôle Communication */
+.pastille-role{display:inline-block;margin-left:8px;background:var(--manque);color:#fff;font-size:.8rem;font-weight:700;padding:1px 8px;border-radius:10px;vertical-align:1px}
+
+/* Coach : score de fin de match, matchs amicaux, changements */
+.score-form,.chg-form{flex-basis:100%;margin:8px 0 4px}
+.score-form fieldset,.chg-form fieldset{border:1px solid var(--line);background:#f7f8f5;padding:10px 14px 12px;margin:0;min-width:0}
+.score-form legend,.chg-form legend{font-weight:700;padding:0 4px;font-size:.95rem}
+.score-champs{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 10px}
+.score-champs label{margin:4px 0 4px;font-size:.92rem}
+.score-champs input{width:80px;font:inherit;padding:8px 10px;border:1px solid #b9b3a6;background:#fff;border-radius:2px}
+.score-tiret{padding-bottom:10px;font-weight:700}
+.score-saisi{flex-basis:100%;margin:6px 0 0;font-size:.92rem}
+.chg-form input[type=text],.chg-form input[type=time],.chg-form input[type=date],.chg-form select{width:100%}
+.etiquette-amical,.etiquette-chg{display:inline-block;margin-left:8px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:1px 7px;vertical-align:1px}
+.etiquette-amical{background:var(--club);color:#fff}
+.etiquette-chg{background:var(--attente);color:#fff}
+.chg-detail{color:var(--attente);font-weight:600}
+#coach-matchs li{flex-wrap:wrap}
+#coach-matchs li > span:first-child{flex:1 1 260px;min-width:0}
+.amical-zone{margin:20px 0 0}
+.amical-zone #form-amical{margin-top:12px}
+.avertissement{margin:10px 0 0;color:var(--attente);font-weight:700}
+.avertissement:empty{display:none}
+input[type=time]{width:100%;font:inherit;padding:10px 12px;border:1px solid #b9b3a6;background:#fff;border-radius:2px}
+@media (max-width:700px){
+  .pub{grid-template-columns:1fr;padding:14px}
+  .pub-cadre{max-width:340px}
+  .bouton.gros{font-size:1.1rem;padding:14px 16px}
+}

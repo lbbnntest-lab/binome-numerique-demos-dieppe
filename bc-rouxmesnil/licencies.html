@@ -21,7 +21,7 @@
   <section class="p-tete s-nuit" aria-labelledby="titre-page">
     <span class="p-filigrane" aria-hidden="true">Famille</span>
     <div class="wrap">
-      <p class="s-surtitre">Espace licenciés · famille Exemple</p>
+      <p class="s-surtitre">Espace licenciés · famille B. (exemple)</p>
       <h1 id="titre-page" class="s-titre">Bonjour, voici la semaine de Léa</h1>
       <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et le stage viennent des publications du club.</p>
     </div>
@@ -67,13 +67,9 @@
       <div class="grille-licencie">
         <div>
           <div class="fiche">
-            <h3>Prochain match</h3>
-            <p><strong>Samedi 17 octobre, 16 h 00</strong> · U15 féminines contre BC Offranville<br>À domicile</p>
-            <div class="actions" style="margin-top:8px">
-              <button class="bouton" type="button" data-rep="present">Léa sera présente</button>
-              <button class="bouton ligne" type="button" data-rep="absent">Léa est absente</button>
-            </div>
-            <p class="resultat" id="reponse" hidden></p>
+            <h3>Dernier match</h3>
+            <p><strong>Samedi 17 octobre, 16 h</strong> · U15 féminines contre BC Offranville, à domicile<br><a href="https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080" target="_blank" rel="noopener">Score officiel sur la FFBB</a></p>
+            <p id="prochain-match">Prochain match : date à reprendre du calendrier FFBB. Quand le coach sélectionne Léa, la convocation s'affiche en haut de cette page, avec les boutons de réponse.</p>
           </div>
 
           <div class="fiche" style="margin-top:20px">
@@ -107,8 +103,8 @@
           <div class="fiche" style="margin-top:20px">
             <h3>Documents</h3>
             <ul class="liste-docs">
-              <li><span>Attestation de paiement (comité d'entreprise, mutuelle)</span><a href="#">Télécharger</a></li>
-              <li><span>Calendrier de l'équipe</span><a href="#">Voir</a></li>
+              <li><span>Attestation de paiement (comité d'entreprise, mutuelle)</span><button type="button" class="retirer-ligne" onclick="this.textContent='Simulation : attestation prête (PDF)'">Télécharger</button></li>
+              <li><span>Calendrier de l'équipe</span><a href="equipes.html#u15f">Voir</a></li>
             </ul>
           </div>
         </div>
@@ -234,16 +230,6 @@
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
 <script src="js/selection.js"></script>
-<script>
-document.querySelectorAll('[data-rep]').forEach(function(b){
-  b.addEventListener('click', function(){
-    var p = document.getElementById('reponse'); p.hidden = false;
-    p.textContent = b.getAttribute('data-rep')==='present'
-      ? 'C\'est noté : le coach voit que Léa sera présente.'
-      : 'C\'est noté : le coach est prévenu de l\'absence de Léa.';
-  });
-});
-</script>
 <script>
 /* Demandes au bureau et partage de photos et vidéos : tout est simulé, rien ne quitte l'appareil.
    Le temps de la visite, la demande et la liste des fichiers envoyés sont gardés dans l'onglet
@@ -418,6 +404,14 @@ document.querySelectorAll('[data-rep]').forEach(function(b){
     du.focus();
   });
   afficher();
+
+  /* Prochain match de Léa : un match amical U15 ajouté par le coach pendant la visite, s'il y en a un. */
+  (function(){
+    var maintenant = new Date().toISOString().slice(0, 10);
+    var am = S.lire('bcr-amicaux', []).filter(function(a){ return a.equipe === 'u15' && a.date >= maintenant; }).sort(function(a, b){ return a.date < b.date ? -1 : 1; })[0];
+    if (!am) return;
+    document.getElementById('prochain-match').innerHTML = '<strong>Prochain match : ' + esc(S.dateFr(am.date)) + (am.heure ? ', ' + esc(am.heure.replace(':00', ' h').replace(':', ' h ')) : '') + '</strong> · match amical contre ' + esc(am.adv) + ', ' + esc(am.lieu || (am.dom ? 'à domicile' : 'à l\'extérieur')) + '<br>Ajouté par le coach. Quand il sélectionne Léa, la convocation s\'affiche en haut de cette page.';
+  })();
 
   /* Convocations : celles où le coach a sélectionné Léa B. pendant la visite. */
   var LIB = { confirme:'Présence confirmée', absente:'Absence signalée' };
