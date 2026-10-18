@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="espaces.css">
 </head>
 <body data-page="licencies">
 
@@ -83,6 +84,80 @@
       <div class="note"><b>Pour le club</b>Le coach verrait qui sera présent avant chaque match, sans relancer chaque famille. Les attestations de paiement seraient prêtes à télécharger : le trésorier n'aurait plus à les préparer une par une.</div>
     </div>
   </section>
+
+  <section class="bloc clair" id="demandes" aria-labelledby="titre-demandes">
+    <div class="wrap">
+      <p class="surtitre">Une question, un document, une absence</p>
+      <h2 id="titre-demandes" data-mv="mots">Faire une demande au bureau</h2>
+      <p class="chapo-bloc">La demande arrive dans l'espace des dirigeants. Vous suivez ici sa réponse et son état, sans chercher à qui écrire.</p>
+      <div class="colonnes">
+        <form id="form-demande" class="fiche" novalidate>
+          <h3>Nouvelle demande</h3>
+          <label for="dm-type">Type de demande</label>
+          <select id="dm-type" name="type">
+            <option>Attestation de paiement</option>
+            <option>Question sur la licence</option>
+            <option>Absence prolongée</option>
+            <option>Autre</option>
+          </select>
+          <label for="dm-message">Votre message</label>
+          <textarea id="dm-message" name="message" rows="5" aria-describedby="dm-aide dm-erreur" required></textarea>
+          <p class="aide" id="dm-aide">Pour une absence, indiquez les dates. Les informations de santé ne passent pas par ce formulaire.</p>
+          <p class="erreur" id="dm-erreur"></p>
+          <div class="actions"><button class="bouton" type="submit">Envoyer au bureau</button></div>
+          <p class="resultat" id="dm-confirmation" role="status" aria-live="polite" hidden></p>
+        </form>
+        <div class="fiche">
+          <h3>Mes demandes</h3>
+          <ul class="demandes" id="mes-demandes"></ul>
+        </div>
+      </div>
+      <div class="note"><b>Pour le club</b>Les familles écriraient au bureau depuis leur espace, au lieu de chercher le bon numéro ou le bon dirigeant. Chaque demande arriverait dans l'espace dirigeants avec son type, et la famille verrait quand elle est traitée. Dans cette maquette, rien n'est envoyé : une demande faite ici apparaît aussi dans l'espace dirigeants, le temps de la visite.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="partage" aria-labelledby="titre-partage">
+    <div class="wrap">
+      <p class="surtitre">Photos et vidéos des tribunes</p>
+      <h2 id="titre-partage" data-mv="mots">Partager mes photos et vidéos du match</h2>
+      <p class="chapo-bloc">Vos photos et vidéos arrivent au bureau, rangées par match. Un dirigeant les regarde avant toute publication sur le site ou les réseaux du club.</p>
+      <div class="colonnes">
+        <form id="form-medias" class="fiche" novalidate>
+          <h3>Nouvel envoi</h3>
+          <label for="md-match">Match</label>
+          <select id="md-match" name="match">
+            <option value="u15">Samedi 17 octobre · U15 F contre BC Offranville (match de Léa)</option>
+            <option value="u13">Samedi 17 octobre · U13 F contre CEP Saint-Nicolas-d'Aliermont</option>
+            <option value="u18">Samedi 10 octobre · U18 F, play-off élite contre Alençon-Damigny Basket</option>
+          </select>
+
+          <p id="md-titre-fichiers" style="font-weight:600;margin:14px 0 6px">Photos et vidéos</p>
+          <div class="zone-depot" id="zone-depot" role="group" aria-labelledby="md-titre-fichiers" aria-describedby="md-regles">
+            <p class="grand"><span class="pour-souris">Glissez vos fichiers ici</span><span class="pour-doigt">Ajoutez vos photos et vidéos</span></p>
+            <p class="pour-souris">ou</p>
+            <input class="visuellement-cache" type="file" id="md-fichiers" multiple accept="image/*,video/*" aria-describedby="md-regles">
+            <label class="choisir bouton" for="md-fichiers">Choisir des fichiers</label>
+            <p class="aide" id="md-regles">Photos et vidéos uniquement, 500 Mo maximum par fichier. Sur un téléphone, le bouton ouvre la galerie ou l'appareil photo.</p>
+          </div>
+          <ul class="refus" id="md-refus" role="alert"></ul>
+          <ul class="apercus" id="md-apercus" aria-label="Fichiers prêts à envoyer"></ul>
+
+          <label class="choix" for="md-accord"><input type="checkbox" id="md-accord" aria-describedby="md-erreur"> <span>Les personnes visibles, ou leurs parents, ont donné leur accord pour la publication.</span></label>
+          <p class="erreur" id="md-erreur"></p>
+          <div class="actions"><button class="bouton" type="submit">Envoyer au bureau</button></div>
+          <p class="resultat" id="md-confirmation" role="status" aria-live="polite" hidden></p>
+        </form>
+        <div class="fiche">
+          <h3>Mes envois</h3>
+          <ul class="envois" id="md-envois">
+            <li><span class="nom">3 photos · U13 F contre CEP Saint-Nicolas-d'Aliermont <span class="etiquette-ex">exemple</span></span><span class="etat ok">Validées par le bureau</span></li>
+          </ul>
+          <p class="aide">Rien n'est publié tant qu'un dirigeant n'a pas validé l'envoi et vérifié les autorisations photo des joueurs mineurs.</p>
+        </div>
+      </div>
+      <div class="note"><b>Pour le club</b>Les photos et vidéos prises par les parents pendant les matchs pourraient être déposées ici, en quelques secondes depuis un téléphone. Elles alimenteraient le site et les réseaux du club, sans qu'un bénévole ait à les réclamer. Rien ne serait publié directement : chaque fichier passerait d'abord par un dirigeant, qui vérifierait les autorisations photo des mineurs. Dans cette maquette, les fichiers restent sur votre appareil : rien n'est envoyé.</div>
+    </div>
+  </section>
 </main>
 
 <script src="maquette.js"></script>
@@ -99,6 +174,143 @@ document.querySelectorAll('[data-rep]').forEach(function(b){
       : 'C\'est noté : le coach est prévenu de l\'absence de Léa.';
   });
 });
+</script>
+<script>
+/* Demandes au bureau et partage de photos et vidéos : tout est simulé, rien ne quitte l'appareil.
+   Le temps de la visite, la demande et la liste des fichiers envoyés sont gardés dans l'onglet
+   (sessionStorage) pour apparaître aussi dans l'espace dirigeants. */
+(function(){
+  function lire(cle){ try { return JSON.parse(sessionStorage.getItem(cle) || '[]'); } catch (e) { return []; } }
+  function ecrire(cle, v){ try { sessionStorage.setItem(cle, JSON.stringify(v)); } catch (e) {} }
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function aujourdhui(){ try { return new Date().toLocaleDateString('fr-FR', {day:'numeric', month:'long'}); } catch (e) { return 'aujourd\'hui'; } }
+
+  /* ---------- Demandes ---------- */
+  var EXEMPLES = [
+    { type:'Question sur la licence', date:'15 octobre', texte:'La licence de Léa apparaît comme faite : faut-il encore faire quelque chose sur le site de la fédération ?', etat:'attente', ex:true },
+    { type:'Attestation de paiement', date:'2 octobre', texte:'Bonjour, pourriez-vous préparer l\'attestation de paiement de la cotisation pour mon comité d\'entreprise ?', etat:'traitee', ex:true,
+      reponse:'L\'attestation est disponible dans vos documents, en haut de cette page.' }
+  ];
+  var liste = document.getElementById('mes-demandes');
+  function ligneDemande(d, nouvelle){
+    return '<li' + (nouvelle ? ' class="nouvelle"' : '') + '><div class="dm-tete"><span class="dm-type">' + esc(d.type)
+      + (d.ex ? ' <span class="etiquette-ex">exemple</span>' : '') + '</span>'
+      + '<span class="etat pastille ' + (d.etat === 'traitee' ? 'ok">Traitée' : 'attente">En attente') + '</span></div>'
+      + '<p class="dm-date">' + (d.ex ? 'Envoyée le ' + esc(d.date) : 'Envoyée aujourd\'hui, pendant cette visite') + '</p>'
+      + '<p class="dm-texte">' + esc(d.texte) + '</p>'
+      + (d.reponse ? '<p class="dm-reponse"><b>Réponse du bureau</b>' + esc(d.reponse) + '</p>' : '')
+      + '</li>';
+  }
+  function afficherDemandes(derniere){
+    var miennes = lire('bcr-demandes');
+    liste.innerHTML = miennes.slice().reverse().map(function(d, i){ return ligneDemande(d, derniere && i === 0); }).join('')
+      + EXEMPLES.map(function(d){ return ligneDemande(d); }).join('');
+  }
+  afficherDemandes(false);
+
+  var fDem = document.getElementById('form-demande'), msg = document.getElementById('dm-message'),
+      errDem = document.getElementById('dm-erreur'), confDem = document.getElementById('dm-confirmation');
+  fDem.addEventListener('submit', function(e){
+    e.preventDefault();
+    var texte = msg.value.trim();
+    if (texte.length < 5) {
+      msg.setAttribute('aria-invalid', 'true');
+      errDem.textContent = 'Écrivez votre message avant d\'envoyer la demande.';
+      confDem.hidden = true; msg.focus(); return;
+    }
+    msg.removeAttribute('aria-invalid'); errDem.textContent = '';
+    var miennes = lire('bcr-demandes');
+    miennes.push({ type: document.getElementById('dm-type').value, texte: texte, date: aujourdhui(), etat: 'attente', famille: 'Famille B.', enfant: 'Léa, U15 F' });
+    ecrire('bcr-demandes', miennes);
+    afficherDemandes(true);
+    msg.value = '';
+    confDem.hidden = false;
+    confDem.textContent = 'Simulation : demande transmise au bureau. Elle apparaît dans « Mes demandes », en attente. Dans cette maquette, rien n\'est envoyé.';
+  });
+  msg.addEventListener('input', function(){ if (msg.value.trim().length >= 5) { msg.removeAttribute('aria-invalid'); errDem.textContent = ''; } });
+
+  /* ---------- Photos et vidéos ---------- */
+  var MAX = 500 * 1024 * 1024;
+  var EXT_IMG = /\.(jpe?g|png|gif|webp|heic|heif|avif|bmp)$/i, EXT_VID = /\.(mp4|mov|m4v|webm|3gp|avi|mkv)$/i;
+  var choisis = [], idSuiv = 1;
+  var input = document.getElementById('md-fichiers'), zone = document.getElementById('zone-depot'),
+      ulApercus = document.getElementById('md-apercus'), ulRefus = document.getElementById('md-refus'),
+      accord = document.getElementById('md-accord'), errMd = document.getElementById('md-erreur'),
+      confMd = document.getElementById('md-confirmation'), ulEnvois = document.getElementById('md-envois'),
+      selMatch = document.getElementById('md-match');
+
+  function poids(o){
+    if (o >= 1024 * 1024 * 1024) return (o / 1073741824).toFixed(1).replace('.', ',') + ' Go';
+    if (o >= 1024 * 1024) return (o / 1048576).toFixed(1).replace('.', ',') + ' Mo';
+    return Math.max(1, Math.round(o / 1024)) + ' Ko';
+  }
+  function genre(f){
+    if (/^image\//.test(f.type)) return 'photo';
+    if (/^video\//.test(f.type)) return 'video';
+    if (!f.type && EXT_IMG.test(f.name)) return 'photo';
+    if (!f.type && EXT_VID.test(f.name)) return 'video';
+    return null;
+  }
+  function ajouter(fichiers){
+    var refus = [];
+    Array.prototype.forEach.call(fichiers, function(f){
+      var g = genre(f);
+      if (!g) { refus.push('« ' + f.name + ' » n\'est pas accepté : seules les photos et les vidéos peuvent être envoyées.'); return; }
+      if (f.size > MAX) { refus.push('« ' + f.name + ' » est trop lourd (' + poids(f.size) + ') : 500 Mo maximum par fichier. Pour une longue vidéo, envoyez plutôt un extrait.'); return; }
+      if (choisis.some(function(c){ return c.f.name === f.name && c.f.size === f.size; })) { refus.push('« ' + f.name + ' » est déjà dans la liste.'); return; }
+      choisis.push({ id: idSuiv++, f: f, g: g, url: URL.createObjectURL(f) });
+    });
+    ulRefus.innerHTML = refus.map(function(r){ return '<li>' + esc(r) + '</li>'; }).join('');
+    if (choisis.length) errMd.textContent = '';
+    confMd.hidden = true;
+    afficherApercus();
+  }
+  function afficherApercus(){
+    ulApercus.innerHTML = choisis.map(function(c){
+      var vue = c.g === 'photo'
+        ? '<img src="' + c.url + '" alt="Aperçu de ' + esc(c.f.name) + '">'
+        : '<video src="' + c.url + '" muted playsinline preload="metadata" aria-label="Aperçu de la vidéo ' + esc(c.f.name) + '"></video>';
+      return '<li><div class="vue">' + vue + '<span class="type">' + (c.g === 'photo' ? 'Photo' : 'Vidéo') + '</span></div>'
+        + '<div class="infos"><span class="nom">' + esc(c.f.name) + '</span><span class="poids">' + poids(c.f.size) + ' · prêt à envoyer</span>'
+        + '<button type="button" class="retirer" data-retirer="' + c.id + '">Retirer<span class="visuellement-cache"> ' + esc(c.f.name) + '</span></button></div></li>';
+    }).join('');
+  }
+  ulApercus.addEventListener('click', function(e){
+    var b = e.target.closest('[data-retirer]'); if (!b) return;
+    var id = +b.getAttribute('data-retirer');
+    choisis = choisis.filter(function(c){ if (c.id === id) { URL.revokeObjectURL(c.url); return false; } return true; });
+    afficherApercus();
+    input.focus();
+  });
+  input.addEventListener('change', function(){ ajouter(input.files); input.value = ''; });
+  ['dragenter', 'dragover'].forEach(function(t){ zone.addEventListener(t, function(e){ e.preventDefault(); zone.classList.add('survol'); }); });
+  ['dragleave', 'dragend'].forEach(function(t){ zone.addEventListener(t, function(e){ if (!zone.contains(e.relatedTarget)) zone.classList.remove('survol'); }); });
+  zone.addEventListener('drop', function(e){ e.preventDefault(); zone.classList.remove('survol'); if (e.dataTransfer && e.dataTransfer.files) ajouter(e.dataTransfer.files); });
+  /* Un fichier lâché à côté de la zone ne doit pas remplacer la page. */
+  window.addEventListener('dragover', function(e){ e.preventDefault(); });
+  window.addEventListener('drop', function(e){ e.preventDefault(); });
+
+  document.getElementById('form-medias').addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!choisis.length) { errMd.textContent = 'Ajoutez au moins une photo ou une vidéo.'; confMd.hidden = true; input.focus(); return; }
+    if (!accord.checked) { accord.setAttribute('aria-invalid', 'true'); errMd.textContent = 'Cochez la case d\'accord : sans elle, le bureau ne peut pas recevoir les fichiers.'; confMd.hidden = true; accord.focus(); return; }
+    accord.removeAttribute('aria-invalid'); errMd.textContent = '';
+    var match = selMatch.options[selMatch.selectedIndex].text.replace(/ \(match de Léa\)$/, '');
+    var envoyes = lire('bcr-medias');
+    var html = choisis.map(function(c){
+      envoyes.push({ nom: c.f.name, genre: c.g, poids: poids(c.f.size), match: selMatch.value });
+      URL.revokeObjectURL(c.url);
+      return '<li class="nouvelle"><span class="nom">' + (c.g === 'photo' ? 'Photo' : 'Vidéo') + ' · ' + esc(c.f.name) + ' · ' + esc(match) + '</span><span class="etat attente">En attente de validation par le bureau</span></li>';
+    }).join('');
+    ecrire('bcr-medias', envoyes);
+    ulEnvois.insertAdjacentHTML('afterbegin', html);
+    var n = choisis.length;
+    choisis = []; afficherApercus(); ulRefus.innerHTML = ''; accord.checked = false;
+    confMd.hidden = false;
+    confMd.textContent = 'Simulation : ' + n + (n > 1 ? ' fichiers transmis au bureau. Ils restent' : ' fichier transmis au bureau. Il reste') + ' en attente de validation par un dirigeant : rien n\'est publié avant. Dans cette maquette, rien n\'est envoyé.';
+  });
+  accord.addEventListener('change', function(){ if (accord.checked) { accord.removeAttribute('aria-invalid'); if (/accord/.test(errMd.textContent)) errMd.textContent = ''; } });
+})();
 </script>
 </body>
 </html>

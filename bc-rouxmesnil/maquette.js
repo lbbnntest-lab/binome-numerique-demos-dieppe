@@ -24,7 +24,8 @@
     ['videos.html','videos','Vidéos'],
     ['u18f.html','u18f','U18F élite'],
     ['licencies.html','licencies','Espace licenciés'],
-    ['dirigeants.html','dirigeants','Espace dirigeants']
+    ['dirigeants.html','dirigeants','Espace dirigeants'],
+    ['medias.html','medias','Photos et vidéos du club']
   ];
   var menu = liens.map(function(l, i){
     var n = (i < 9 ? '0' : '') + (i + 1);

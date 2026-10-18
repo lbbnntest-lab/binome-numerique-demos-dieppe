@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+
+<title>Photos et vidéos du club | Espace dirigeants | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="espaces.css">
+</head>
+<body data-page="dirigeants">
+
+<main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Médias</span>
+    <div class="wrap">
+      <p class="s-surtitre">Espace dirigeants · accès réservé au bureau</p>
+      <h1 id="titre-page" class="s-titre">Photos et vidéos du club</h1>
+      <p class="demo-ex"><strong>Démonstration</strong> : les médias, les noms et les envois de cette page sont des exemples dessinés pour montrer la fonction. Les matchs et le score du play-off U18F viennent des publications du club et de la FFBB.</p>
+      <p class="s-chapo">Tout ce que les familles envoient depuis l'espace licenciés, rangé par match : à valider, à garder pour le site, à proposer pour les réseaux.</p>
+      <div class="s-actions"><a class="s-bouton" href="#resume">Voir le résumé du play-off</a><a class="s-bouton creux" href="dirigeants.html">Retour à l'espace dirigeants</a></div>
+    </div>
+  </section>
+
+  <section class="bloc" aria-labelledby="titre-recus">
+    <div class="wrap">
+      <p class="surtitre">Médias reçus · exemples</p>
+      <h2 id="titre-recus" data-mv="mots">Rangés par match</h2>
+      <div class="filtres" role="group" aria-label="Filtrer les médias">
+        <button type="button" aria-pressed="true" data-filtre="tous">Tous</button>
+        <button type="button" aria-pressed="false" data-filtre="valider">À valider</button>
+        <button type="button" aria-pressed="false" data-filtre="valide">Validés</button>
+        <button type="button" aria-pressed="false" data-filtre="photo">Photos</button>
+        <button type="button" aria-pressed="false" data-filtre="video">Vidéos</button>
+      </div>
+      <p class="compte-filtre" id="compte"></p>
+      <div id="groupes"></div>
+      <p class="visuellement-cache" id="medias-etat" role="status" aria-live="polite"></p>
+
+      <div class="note"><b>Pour le club</b>Les photos et vidéos envoyées par les familles arriveraient ici, rangées par match. Un dirigeant choisirait ce qui va sur le site, par exemple la page de l'équipe ou une actualité, et ce qui est proposé pour la page Facebook et le compte Instagram du club. Les photographes bénévoles du club pourraient déposer leurs photos au même endroit, avec leur nom en crédit.</div>
+      <div class="note"><b>Droit à l'image</b>Rien ne serait publié sans autorisation. Pour un joueur mineur, le dirigeant verrait si l'autorisation photo a été donnée à l'inscription ; si elle manque, ou si des joueurs d'une autre équipe sont reconnaissables, le média resterait en interne. La case cochée par la famille qui envoie ne remplacerait pas cette vérification : un dirigeant validerait chaque photo et chaque vidéo.</div>
+    </div>
+  </section>
+
+  <section class="bloc s-nuit" id="resume" aria-labelledby="titre-resume">
+    <div class="wrap">
+      <p class="s-surtitre">Play-off élite U18 féminines · samedi 10 octobre</p>
+      <h2 id="titre-resume" data-mv="mots">Résumé du match, monté à partir de vos médias</h2>
+      <p class="s-chapo" style="margin-top:0;margin-bottom:32px">À partir des photos et vidéos reçues, le résumé serait monté sans travail de montage pour le club. Il ne serait publié qu'après l'accord d'un dirigeant.</p>
+      <div class="resume-grille">
+        <div>
+          <ol class="chaine">
+            <li><strong>Médias reçus</strong><span>Les photos et vidéos envoyées par les familles pour ce match, avec l'accord coché à l'envoi.</span></li>
+            <li><strong>Tri</strong><span>Les images floues et les doublons seraient écartés.</span></li>
+            <li><strong>Meilleurs moments</strong><span>Les actions les plus nettes et les temps forts seraient retenus.</span></li>
+            <li><strong>Montage court</strong><span>Un format vertical pour les réseaux, un format horizontal pour le site.</span></li>
+            <li><strong>Voix off en français</strong><span>Écrite à partir du score officiel publié par la FFBB, puis relue par un dirigeant avant l'enregistrement.</span></li>
+            <li><strong>Sous-titres</strong><span>Pour les vidéos regardées sans le son, comme souvent sur téléphone.</span></li>
+            <li><strong>Habillage du club</strong><span>Aux couleurs du BCR, avec le logo d'un partenaire en fin de vidéo.</span></li>
+            <li class="verrou"><strong>Validation par un dirigeant</strong><span>Il regarde le résumé, corrige le texte si besoin et décide de le publier. Rien ne part sans lui.</span></li>
+          </ol>
+        </div>
+
+        <div class="lecteur" id="lecteur" data-format="horizontal">
+          <p class="avertissement-demo"><strong>Aperçu de démonstration</strong> : la version finale serait montée à partir des photos et vidéos envoyées par les familles, avec une voix de synthèse professionnelle. Ici, les plans sont dessinés et l'essai de voix utilise la voix de votre navigateur.</p>
+          <div class="ecran" role="img" aria-label="Aperçu du résumé en six plans dessinés : titre du match, score 78 à 57, action de jeu, élite régionale, emplacement partenaire, logo du club. Le texte de la voix off est écrit sous le lecteur.">
+            <div class="plan p-titre actif" aria-hidden="true">
+              <span class="biais"></span>
+              <div class="pl-logos"><img class="bcr" src="img/logo-bcr.jpg" alt=""><img src="img/logos/alencon.png" alt=""></div>
+              <p class="pl-sur">Play-off élite · U18 féminines</p>
+              <p class="pl-grand">BCR <i>contre</i> Alençon-Damigny Basket</p>
+              <p class="pl-petit">Samedi 10 octobre · à domicile</p>
+            </div>
+            <div class="plan p-score" aria-hidden="true">
+              <p class="pl-sur">Score final</p>
+              <div class="tableau-plan">
+                <div class="cote"><span>BCR</span><b id="sc-bcr">78</b></div>
+                <div class="milieu">Fin</div>
+                <div class="cote"><span>Alençon</span><b id="sc-adv">57</b></div>
+              </div>
+              <p class="ecart">+21 points</p>
+            </div>
+            <div class="plan p-action" data-terrain aria-hidden="true">
+              <svg class="scene-tir" viewBox="0 0 320 180" preserveAspectRatio="xMaxYMid slice">
+                <line x1="292" y1="40" x2="292" y2="96" stroke="#fff" stroke-width="3"/>
+                <line x1="284" y1="58" x2="284" y2="84" stroke="#fff" stroke-width="2"/>
+                <ellipse cx="270" cy="80" rx="14" ry="4" fill="none" stroke="#ff8a3d" stroke-width="3"/>
+                <path d="M258 81 L262 98 L270 100 L278 98 L282 81" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="1.4"/>
+                <path id="trajet-tir" d="M70 140 Q170 -10 270 76" fill="none" stroke="rgba(70,196,111,.6)" stroke-width="2" stroke-dasharray="5 7"/>
+                <path d="M40 120 L110 70 M110 70 L160 118" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="3 6"/>
+                <g id="ballon-tir"><circle r="9" fill="#e06a1b"/><path d="M-9 0 H9 M0 -9 V9" stroke="#3a1a05" stroke-width="1.2" fill="none"/></g>
+              </svg>
+              <p class="cartouche">Plan dessiné : ici, les meilleurs moments filmés par les familles</p>
+            </div>
+            <div class="plan p-elite" aria-hidden="true">
+              <span class="biais"></span>
+              <p class="pl-sur">Saison 2026-2027</p>
+              <p class="pl-grand">Élite régionale</p>
+              <p class="vs"><img src="img/logos/cherbourg.png" alt=""><span>Premier match le 7 novembre contre Cherbourg Basket Ball, à domicile</span></p>
+            </div>
+            <div class="plan p-partenaire" aria-hidden="true">
+              <p class="pl-sur">Avec le soutien de</p>
+              <div class="cadre-partenaire">Emplacement partenaire</div>
+            </div>
+            <div class="plan p-fin" aria-hidden="true">
+              <img src="img/logo-bcr.jpg" alt="">
+              <p class="pl-grand" style="text-align:center">Basket Club de Rouxmesnil</p>
+              <p class="pl-petit" style="text-align:center">Passion, esprit d'équipe, respect</p>
+            </div>
+            <p class="sous-titre" id="sous-titre" aria-hidden="true"></p>
+            <span class="marque-demo" aria-hidden="true">Aperçu de démonstration</span>
+          </div>
+          <div class="progression" aria-hidden="true"><i id="barre"></i></div>
+          <div class="commandes">
+            <button type="button" class="bouton" id="lancer">Lancer l'aperçu</button>
+            <div class="formats" role="group" aria-label="Format de la vidéo">
+              <button type="button" aria-pressed="true" data-format="horizontal">Horizontal · site</button>
+              <button type="button" aria-pressed="false" data-format="vertical">Vertical · réseaux</button>
+            </div>
+            <button type="button" class="bouton ligne" id="voix">Écouter un essai de voix off</button>
+          </div>
+          <p class="etat-lecteur" id="etat-lecteur" role="status" aria-live="polite"></p>
+          <div class="transcription">
+            <h3>Texte de la voix off · environ 30 secondes</h3>
+            <p id="texte-voix"><span data-i="0">Samedi 10 octobre, play-off élite des U18 féminines.</span> <span data-i="1">Le Basket Club de Rouxmesnil reçoit Alençon-Damigny Basket.</span> <span data-i="2">Au coup de sifflet final, le tableau affiche 78 à 57.</span> <span data-i="3">Victoire de 21 points.</span> <span data-i="4">Après deux tours de qualification, elles gagnent leur place en élite régionale : une première.</span> <span data-i="5">Premier rendez-vous le samedi 7 novembre, à domicile, face à Cherbourg Basket Ball.</span> <span data-i="6">Merci à nos partenaires.</span> <span data-i="7">Basket Club de Rouxmesnil : passion, esprit d'équipe, respect.</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>Pas de publication automatique</b>Le résumé serait préparé sans travail de montage pour le club, mais il ne partirait jamais seul : un dirigeant le regarderait, corrigerait le texte si besoin et déciderait de le publier sur le site, la page Facebook ou le compte Instagram. Le score viendrait des résultats officiels de la FFBB, sous réserve de l'accord de la ligue et de la fédération, ou serait saisi par un dirigeant. Le texte de cet aperçu ne reprend que des faits publiés par le club et la fédération. Un essai sur un vrai match serait la première étape.</div>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
+<script>
+/* Médias reçus : exemples dessinés, regroupés par match. Valider / Refuser / Pour les réseaux sont simulés. */
+(function(){
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var BCR = '<img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR">';
+  var MATCHS = {
+    u18: { phase:'Play-off élite U18 féminines · samedi 10 octobre', titre:'BCR contre Alençon-Damigny Basket',
+           adv:'<img class="logo-eq clair" src="img/logos/alencon.png" alt="Alençon-Damigny Basket">', sc:'78-57', bilan:'Victoire à domicile · score FFBB' },
+    u15: { phase:'U15 féminines · samedi 17 octobre', titre:'BCR contre BC Offranville',
+           adv:'<span class="logo-adv" aria-hidden="true">BCO</span>', bilan:'À domicile · résultat à reprendre de la FFBB' },
+    u13: { phase:'U13 féminines · samedi 17 octobre', titre:'BCR contre CEP Saint-Nicolas-d\'Aliermont',
+           adv:'<span class="logo-adv" aria-hidden="true">CEP</span>', bilan:'À domicile · résultat à reprendre de la FFBB' },
+    prm: { phase:'Pré-régionale masculine · direct du club', titre:'BCR contre US Lillebonne',
+           adv:'<span class="logo-adv" aria-hidden="true">USL</span>', bilan:'Match diffusé en direct sur Facebook' }
+  };
+  var AUTO_OK = 'ok', AUTO_VERIF = 'verifier';
+  var M = [
+    { id:1, m:'u18', g:'video', titre:'Les dernières secondes du match', duree:'0:42', par:'Karine L.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valider', motif:'tir', fond:'' },
+    { id:2, m:'u18', g:'photo', titre:'L\'équipe après le match', par:'Marc D.', auto:AUTO_VERIF, autoTxt:'À vérifier : une joueuse mineure sans autorisation', etat:'valider', motif:'equipe', fond:'vert' },
+    { id:3, m:'u18', g:'photo', titre:'Le tableau de score à la fin', par:'Sandrine P.', auto:AUTO_OK, autoTxt:'Personne n\'est reconnaissable', etat:'valide', motif:'tableau', fond:'' },
+    { id:4, m:'u18', g:'video', titre:'Action de jeu filmée depuis la tribune', duree:'0:18', par:'Karine L.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valider', motif:'panier', fond:'clair' },
+    { id:5, m:'u15', g:'photo', titre:'L\'échauffement', par:'Céline B.', auto:AUTO_VERIF, autoTxt:'À vérifier : joueuses adverses mineures visibles', etat:'valider', motif:'ballon', fond:'vert' },
+    { id:6, m:'u15', g:'video', titre:'Action de jeu', duree:'1:05', par:'Thomas R.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valider', motif:'tir', fond:'clair' },
+    { id:7, m:'u13', g:'photo', titre:'Série de 3 photos', par:'Céline B.', auto:AUTO_OK, autoTxt:'Données pour les joueuses visibles', etat:'valide', motif:'panier', fond:'' },
+    { id:8, m:'prm', g:'video', titre:'Enregistrement du direct', duree:'direct', par:'Page Facebook du club', auto:AUTO_OK, autoTxt:'Match déjà diffusé en direct par le club', etat:'valide', img:'img/direct-prm.jpg', large:true }
+  ];
+  /* Fichiers envoyés pendant cette visite depuis l'espace licenciés (noms seulement : les fichiers restent sur l'appareil). */
+  try {
+    JSON.parse(sessionStorage.getItem('bcr-medias') || '[]').forEach(function(f, i){
+      M.unshift({ id: 100 + i, m: MATCHS[f.match] ? f.match : 'u15', g: f.genre === 'video' ? 'video' : 'photo', titre: f.nom,
+        duree: f.genre === 'video' ? 'reçue' : '', par: 'Famille B.', visite: true, auto: AUTO_VERIF,
+        autoTxt: 'À vérifier : joueuses mineures concernées', etat: 'valider', motif: 'ballon', fond: 'clair' });
+    });
+  } catch (e) {}
+
+  var MOTIFS = {
+    tir: '<path d="M30 110 Q90 10 150 58" fill="none" stroke="#46c46f" stroke-width="3" stroke-dasharray="6 7"/><circle cx="150" cy="58" r="10" fill="#e06a1b"/><ellipse cx="166" cy="70" rx="14" ry="4" fill="none" stroke="#ff8a3d" stroke-width="3"/>',
+    panier: '<rect x="118" y="22" width="56" height="38" fill="none" stroke="#fff" stroke-width="3"/><rect x="136" y="36" width="20" height="14" fill="none" stroke="#fff" stroke-width="2"/><ellipse cx="146" cy="66" rx="16" ry="4" fill="none" stroke="#ff8a3d" stroke-width="3"/><path d="M131 67 L135 88 L146 91 L157 88 L161 67" fill="none" stroke="#fff" stroke-width="1.5"/>',
+    tableau: '<rect x="40" y="34" width="120" height="58" fill="#080a09" stroke="#fff" stroke-width="2"/><text x="70" y="76" fill="#46c46f" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="30" text-anchor="middle">78</text><text x="130" y="76" fill="#fff" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="30" text-anchor="middle">57</text><line x1="100" y1="44" x2="100" y2="84" stroke="#fff" stroke-width="1"/>',
+    equipe: '<path d="M20 120 Q100 60 180 120" fill="none" stroke="#fff" stroke-width="3"/><circle cx="100" cy="58" r="22" fill="none" stroke="#fff" stroke-width="3"/><path d="M78 58 H122 M100 36 V80" stroke="#fff" stroke-width="2"/>',
+    ballon: '<circle cx="100" cy="64" r="34" fill="#e06a1b"/><path d="M66 64 H134 M100 30 V98 M76 40 Q100 64 76 88 M124 40 Q100 64 124 88" fill="none" stroke="#3a1a05" stroke-width="2.5"/>'
+  };
+  var TERRAIN = '<svg class="terrain" viewBox="0 0 280 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#fff" stroke-width="1.2"><rect x="4" y="4" width="272" height="142"/><line x1="140" y1="4" x2="140" y2="146"/><circle cx="140" cy="75" r="18"/><rect x="4" y="50" width="58" height="50"/><rect x="218" y="50" width="58" height="50"/></svg>';
+
+  function vignette(x){
+    var mention = x.visite ? 'Fichier reçu, sans aperçu dans la maquette' : (x.g === 'photo' ? 'Photo d\'exemple' : 'Vidéo d\'exemple');
+    if (x.img) {
+      return '<div class="dessin"><img src="' + x.img + '" alt="Image d\'un direct du club : seniors masculins contre l\'US Lillebonne, score affiché à l\'écran">'
+        + '<span class="lecture" aria-hidden="true"></span><span class="duree">Direct</span><span class="mention">Capture d\'un direct du club</span></div>';
+    }
+    return '<div class="dessin ' + (x.fond || '') + '" aria-hidden="true">' + TERRAIN
+      + '<svg class="motif" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet">' + (MOTIFS[x.motif] || '') + '</svg>'
+      + (x.g === 'video' ? '<span class="lecture"></span>' + (x.duree ? '<span class="duree">' + esc(x.duree) + '</span>' : '') : '')
+      + '<span class="mention">' + mention + '</span></div>';
+  }
+  function libEtat(x){
+    if (x.etat === 'valide') return '<span class="etat ok">Validé</span>';
+    if (x.etat === 'refuse') return '<span class="etat manque">Refusé</span>';
+    return '<span class="etat attente">À valider</span>';
+  }
+  function carte(x){
+    var nomM = MATCHS[x.m].titre;
+    return '<li class="media' + (x.large ? ' large' : '') + (x.etat === 'refuse' ? ' refuse' : '') + (x.reseaux ? ' reseaux' : '') + '" id="media-' + x.id + '">'
+      + vignette(x)
+      + '<div class="corps"><span class="titre-m">' + (x.g === 'photo' ? 'Photo' : 'Vidéo') + ' · ' + esc(x.titre) + '</span>'
+      + '<dl><dt>Envoyé par</dt><dd>' + esc(x.par) + (x.visite ? ' <span class="etiquette-ex" style="margin-left:0">pendant cette visite</span>' : (x.par.indexOf('Page') === 0 ? '' : ' <span class="etiquette-ex" style="margin-left:0">exemple</span>')) + '</dd>'
+      + '<dt>Match</dt><dd>' + esc(nomM) + '</dd>'
+      + '<dt>Autorisation photo</dt><dd><span class="etat ' + (x.auto === AUTO_OK ? 'ok' : 'attente') + '">' + esc(x.autoTxt) + '</span></dd>'
+      + '<dt>État</dt><dd>' + libEtat(x) + (x.reseaux ? ' · <strong>sélection réseaux</strong>' : '') + '</dd></dl>'
+      + '<div class="boutons">'
+      + (x.auto === AUTO_VERIF ? '<button type="button" class="b-autorisation" data-action="auto" data-id="' + x.id + '">Autorisation vérifiée</button>' : '')
+      + (x.etat !== 'valide' ? '<button type="button" class="b-valider" data-action="valider" data-id="' + x.id + '">Valider</button>' : '')
+      + (x.etat !== 'refuse' ? '<button type="button" class="b-refuser" data-action="refuser" data-id="' + x.id + '">Refuser</button>' : '')
+      + '<button type="button" class="b-reseaux" aria-pressed="' + (x.reseaux ? 'true' : 'false') + '" data-action="reseaux" data-id="' + x.id + '">Pour les réseaux</button>'
+      + '</div><p class="message" id="msg-' + x.id + '">' + (x.msg ? esc(x.msg) : '') + '</p></div></li>';
+  }
+  var filtre = 'tous';
+  function garde(x){
+    if (filtre === 'valider') return x.etat === 'valider';
+    if (filtre === 'valide') return x.etat === 'valide';
+    if (filtre === 'photo') return x.g === 'photo';
+    if (filtre === 'video') return x.g === 'video';
+    return true;
+  }
+  function afficher(){
+    var html = '';
+    Object.keys(MATCHS).forEach(function(k){
+      var liste = M.filter(function(x){ return x.m === k && garde(x); });
+      if (!liste.length) return;
+      var mt = MATCHS[k];
+      html += '<div class="groupe"><div class="groupe-tete"><div><p class="phase">' + esc(mt.phase) + '</p><h3>' + esc(mt.titre) + '</h3>'
+        + '<span class="duel">' + BCR + '<i>vs</i>' + mt.adv + '</span></div>'
+        + '<div class="bilan">' + (mt.sc ? '<div class="sc">' + mt.sc + '</div>' : '') + esc(mt.bilan) + '<br>' + liste.length + (liste.length > 1 ? ' médias' : ' média') + ' <span class="etiquette-ex">exemples</span></div></div>'
+        + '<ul class="medias">' + liste.map(carte).join('') + '</ul></div>';
+    });
+    document.getElementById('groupes').innerHTML = html || '<p class="vide-filtre">Aucun média dans ce filtre.</p>';
+    var aV = M.filter(function(x){ return x.etat === 'valider'; }).length,
+        v = M.filter(function(x){ return x.etat === 'valide'; }).length,
+        r = M.filter(function(x){ return x.reseaux; }).length;
+    document.getElementById('compte').textContent = M.length + ' médias reçus · ' + aV + ' à valider · ' + v + ' validés · ' + r + ' pour les réseaux';
+  }
+  function trouver(id){ for (var i = 0; i < M.length; i++) if (M[i].id === id) return M[i]; }
+  var live = document.getElementById('medias-etat');
+  document.getElementById('groupes').addEventListener('click', function(e){
+    var b = e.target.closest('[data-action]'); if (!b) return;
+    var x = trouver(+b.getAttribute('data-id')), a = b.getAttribute('data-action');
+    if (a === 'auto') { x.auto = AUTO_OK; x.autoTxt = 'Vérifiée par un dirigeant dans les dossiers d\'inscription'; x.msg = 'Autorisation vérifiée : le média peut maintenant être validé.'; }
+    if (a === 'valider') {
+      if (x.auto === AUTO_VERIF) x.msg = 'Vérifiez d\'abord l\'autorisation photo : sans elle, le média reste en interne.';
+      else { x.etat = 'valide'; x.msg = 'Simulation : média validé. Il peut paraître sur le site du club.'; }
+    }
+    if (a === 'refuser') { x.etat = 'refuse'; x.reseaux = false; x.msg = 'Simulation : média refusé. Il reste hors du site ; la famille verrait le refus dans son espace.'; }
+    if (a === 'reseaux') {
+      if (x.reseaux) { x.reseaux = false; x.msg = 'Retiré de la sélection pour les réseaux.'; }
+      else if (x.etat !== 'valide') x.msg = 'Validez d\'abord ce média pour le proposer aux réseaux.';
+      else { x.reseaux = true; x.msg = 'Simulation : ajouté à la sélection pour les réseaux. Rien n\'est publié : un dirigeant publie lui-même.'; }
+    }
+    afficher();
+    live.textContent = x.msg || '';
+    var cible = document.querySelector('#media-' + x.id + ' [data-action="' + a + '"]') || document.querySelector('#media-' + x.id + ' [data-action]');
+    if (cible) cible.focus();
+  });
+  document.querySelectorAll('[data-filtre]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-filtre]').forEach(function(y){ y.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true'); filtre = b.getAttribute('data-filtre'); afficher();
+      live.textContent = document.getElementById('compte').textContent;
+    });
+  });
+  afficher();
+})();
+</script>
+<script>
+/* Aperçu du résumé : six plans dessinés enchaînés avec GSAP, sous-titres synchronisés, essai de voix off
+   avec la synthèse vocale du navigateur. Sans GSAP, le premier plan et le texte restent affichés. */
+(function(){
+  var lecteur = document.getElementById('lecteur'), btn = document.getElementById('lancer'), btVoix = document.getElementById('voix'),
+      etat = document.getElementById('etat-lecteur'), st = document.getElementById('sous-titre'), barre = document.getElementById('barre'),
+      spans = document.querySelectorAll('#texte-voix span');
+  var REPLIQUES = Array.prototype.map.call(spans, function(s){ return s.textContent; });
+  var DEBUTS = [0, 3.5, 7, 10.5, 12, 18, 24, 27], FIN = 31, PLANS_T = [0, 7, 12, 18, 24, 27];
+
+  document.querySelectorAll('[data-format]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-format]').forEach(function(y){ y.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      lecteur.setAttribute('data-format', b.getAttribute('data-format'));
+      etat.textContent = b.getAttribute('data-format') === 'vertical' ? 'Format vertical, pour les réseaux.' : 'Format horizontal, pour le site.';
+    });
+  });
+
+  function surligner(i){ spans.forEach(function(s, k){ s.classList.toggle('lu', k === i); }); }
+
+  /* ---------- Lecteur ---------- */
+  var tl = null;
+  if (window.gsap) {
+    var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches, d = reduit ? 0 : 1;
+    var plans = lecteur.querySelectorAll('.plan'), courant = -1;
+    var ballon = document.getElementById('ballon-tir'), trajet = document.getElementById('trajet-tir'), lg = trajet.getTotalLength();
+    var scB = document.getElementById('sc-bcr'), scA = document.getElementById('sc-adv');
+    function placer(p){ var pt = trajet.getPointAtLength(lg * p); ballon.setAttribute('transform', 'translate(' + pt.x + ' ' + pt.y + ')'); }
+    plans.forEach(function(p){ p.classList.remove('actif'); });
+    tl = gsap.timeline({ paused: true,
+      onUpdate: function(){
+        var t = tl.time(), i = -1;
+        for (var k = 0; k < DEBUTS.length; k++) if (t >= DEBUTS[k]) i = k;
+        if (i !== courant) { courant = i; st.innerHTML = i < 0 ? '' : '<span>' + REPLIQUES[i] + '</span>'; }
+        barre.style.width = (t / FIN * 100).toFixed(2) + '%';
+      },
+      onComplete: function(){ btn.textContent = 'Revoir l\'aperçu'; etat.textContent = 'Aperçu terminé : 31 secondes, six plans.'; st.innerHTML = ''; courant = -1; }
+    });
+    tl.set(plans, { autoAlpha: 0 }, 0);
+    PLANS_T.forEach(function(t, i){
+      if (i > 0) tl.set(plans[i - 1], { autoAlpha: 0 }, t);
+      tl.set(plans[i], { autoAlpha: 1 }, t);
+    });
+    /* 1. Titre */
+    tl.from(plans[0].querySelector('.biais'), { xPercent: 40, autoAlpha: 0, duration: 0.8 * d, ease: 'power3.out' }, 0.05)
+      .from(plans[0].querySelectorAll('.pl-logos img'), { scale: 0.6, autoAlpha: 0, duration: 0.5 * d, stagger: 0.15 * d, ease: 'back.out(2)' }, 0.3)
+      .from(plans[0].querySelectorAll('p'), { y: 18, autoAlpha: 0, duration: 0.6 * d, stagger: 0.12 * d, ease: 'power2.out' }, 0.5);
+    /* 2. Score qui compte */
+    var sc = { a: 0, b: 0 };
+    tl.call(function(){ scB.textContent = '0'; scA.textContent = '0'; }, null, 7)
+      .fromTo(sc, { a: 0, b: 0 }, { a: 78, b: 57, duration: 2.6 * d + 0.01, ease: 'power2.out',
+        onUpdate: function(){ scB.textContent = Math.round(sc.a); scA.textContent = Math.round(sc.b); } }, 7.3)
+      .from(plans[1].querySelector('.ecart'), { scale: 0.7, autoAlpha: 0, duration: 0.5 * d, ease: 'back.out(2)' }, 10.3);
+    /* 3. Action dessinée : le ballon suit sa trajectoire jusqu'au panier, deux fois */
+    var pr = { p: 0 };
+    tl.fromTo(plans[2].querySelector('.scene-tir'), { scale: 1 }, { scale: 1.08, duration: 6 * d + 0.01, ease: 'none', transformOrigin: '70% 50%' }, 12)
+      .from(plans[2].querySelector('.cartouche'), { x: -20, autoAlpha: 0, duration: 0.5 * d }, 12.2)
+      .fromTo(pr, { p: 0 }, { p: 1, duration: 1.4 * d + 0.01, ease: 'power1.in', onUpdate: function(){ placer(pr.p); } }, 12.6)
+      .fromTo(pr, { p: 0 }, { p: 1, duration: 1.4 * d + 0.01, ease: 'power1.in', onUpdate: function(){ placer(pr.p); } }, 15.2);
+    /* 4. Élite régionale */
+    tl.from(plans[3].querySelector('.biais'), { xPercent: 40, autoAlpha: 0, duration: 0.8 * d }, 18)
+      .from(plans[3].querySelector('.pl-grand'), { yPercent: 40, autoAlpha: 0, duration: 0.7 * d, ease: 'power3.out' }, 18.2)
+      .from(plans[3].querySelector('.vs'), { y: 14, autoAlpha: 0, duration: 0.6 * d }, 18.8);
+    /* 5. Partenaire, 6. Fin */
+    tl.from(plans[4].querySelector('.cadre-partenaire'), { scale: 0.9, autoAlpha: 0, duration: 0.6 * d }, 24.2)
+      .from(plans[5].querySelector('img'), { scale: 0.8, autoAlpha: 0, duration: 0.7 * d, ease: 'back.out(1.6)' }, 27.1)
+      .from(plans[5].querySelectorAll('p'), { y: 12, autoAlpha: 0, duration: 0.5 * d, stagger: 0.12 * d }, 27.5);
+    tl.set({}, {}, FIN);
+    /* Affiche de départ : le premier plan complet, sans sous-titre. */
+    tl.seek(2, true); st.innerHTML = ''; courant = -1; barre.style.width = '0%'; placer(0);
+    var lance = false;
+    btn.addEventListener('click', function(){
+      if (!lance || tl.progress() === 1) { lance = true; tl.restart(); btn.textContent = 'Pause'; etat.textContent = 'Aperçu en cours : 31 secondes, sous-titré.'; return; }
+      if (tl.paused()) { tl.play(); btn.textContent = 'Pause'; etat.textContent = 'Lecture reprise.'; }
+      else { tl.pause(); btn.textContent = 'Reprendre'; etat.textContent = 'Aperçu en pause.'; }
+    });
+  } else {
+    btn.addEventListener('click', function(){ etat.textContent = 'L\'animation n\'a pas pu se charger. Le texte de la voix off reste lisible ci-dessous.'; });
+  }
+
+  /* ---------- Essai de voix off ---------- */
+  var enCours = false, garde = null;
+  function finVoix(message){ enCours = false; clearTimeout(garde); surligner(-1); btVoix.textContent = 'Écouter un essai de voix off'; if (message) etat.textContent = message; }
+  function parler(voix){
+    var demarre = false;
+    REPLIQUES.forEach(function(texte, i){
+      var u = new SpeechSynthesisUtterance(texte);
+      u.lang = 'fr-FR'; if (voix) u.voice = voix; u.rate = 1;
+      u.onstart = function(){ demarre = true; clearTimeout(garde); surligner(i); };
+      u.onerror = function(e){ if (enCours && e.error !== 'interrupted' && e.error !== 'canceled') { speechSynthesis.cancel(); finVoix('La lecture n\'a pas pu se faire sur cet appareil. Le texte de la voix off reste lisible ci-dessous.'); } };
+      if (i === REPLIQUES.length - 1) u.onend = function(){ if (enCours) finVoix('Essai de voix off terminé.'); };
+      speechSynthesis.speak(u);
+    });
+    garde = setTimeout(function(){ if (!demarre && enCours) { speechSynthesis.cancel(); finVoix('La synthèse vocale ne répond pas sur cet appareil. Le texte de la voix off reste lisible ci-dessous.'); } }, 4000);
+  }
+  btVoix.addEventListener('click', function(){
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      etat.textContent = 'La synthèse vocale n\'est pas disponible dans ce navigateur. Le texte de la voix off reste lisible ci-dessous.'; return;
+    }
+    if (enCours) { speechSynthesis.cancel(); finVoix('Voix off arrêtée.'); return; }
+    enCours = true; btVoix.textContent = 'Arrêter la voix off';
+    speechSynthesis.cancel();
+    function choisir(){
+      var voix = speechSynthesis.getVoices(), v = null;
+      for (var i = 0; i < voix.length && !v; i++) if (/^fr[-_]FR/i.test(voix[i].lang)) v = voix[i];
+      for (var j = 0; j < voix.length && !v; j++) if (/^fr/i.test(voix[j].lang)) v = voix[j];
+      etat.textContent = v ? 'Essai de voix off avec la voix française du navigateur (' + v.name + ').' : 'Aucune voix française trouvée sur cet appareil : le navigateur lit avec sa voix par défaut.';
+      parler(v);
+    }
+    if (speechSynthesis.getVoices().length) choisir();
+    else {
+      var fait = false, une = function(){ if (fait) return; fait = true; speechSynthesis.removeEventListener && speechSynthesis.removeEventListener('voiceschanged', une); choisir(); };
+      if (speechSynthesis.addEventListener) speechSynthesis.addEventListener('voiceschanged', une);
+      setTimeout(une, 800);
+    }
+  });
+  window.addEventListener('pagehide', function(){ if (enCours && window.speechSynthesis) speechSynthesis.cancel(); });
+})();
+</script>
+</body>
+</html>

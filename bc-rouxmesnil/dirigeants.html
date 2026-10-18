@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="espaces.css">
 </head>
 <body data-page="dirigeants">
 
@@ -24,6 +25,7 @@
       <h1 id="titre-page" class="s-titre">Espace dirigeants</h1>
       <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et le stage viennent des publications du club.</p>
       <p class="s-chapo">Toute la saison sur un seul écran : inscriptions, paiements, licences, bénévoles, stages et événements.</p>
+      <div class="s-actions"><a class="s-bouton" href="medias.html">Photos et vidéos du club</a><a class="s-bouton creux" href="#demandes-familles">Demandes des familles</a></div>
     </div>
   </section>
   <section class="bloc">
@@ -58,6 +60,26 @@
       <p id="rappel-texte" class="resultat" hidden></p>
 
       <div class="note"><b>Pour le club</b>En un clic, le trésorier verrait qui n'a pas payé, le secrétaire qui n'a pas fait sa licence, et le rappel partirait aux familles concernées après validation par un dirigeant. La colonne « photos autorisées » indiquerait qui l'on peut montrer sur les réseaux.</div>
+    </div>
+  </section>
+
+  <section class="bloc clair" id="demandes-familles" aria-labelledby="titre-demandes">
+    <div class="wrap">
+      <div class="acces-medias">
+        <div>
+          <p class="surtitre" style="color:var(--vif)">Envoyés par les familles</p>
+          <h2>Photos et vidéos du club</h2>
+          <p>Les photos et vidéos des matchs, rangées par match, à valider avant publication. On y trouve aussi l'aperçu d'un résumé du play-off U18F. <span class="etiquette-ex">médias d'exemple</span></p>
+        </div>
+        <a class="s-bouton" href="medias.html">Ouvrir la page</a>
+      </div>
+
+      <p class="surtitre">Boîte de réception · demandes d'exemple</p>
+      <h2 id="titre-demandes" data-mv="mots">Demandes des familles</h2>
+      <p class="compteur-boite"><span id="nb-attente">0 demande en attente</span></p>
+      <ul class="boite" id="boite"></ul>
+      <p class="resultat" id="boite-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le club</b>Les demandes envoyées depuis l'espace licenciés arriveraient ici, classées par type : attestation, licence, absence. Le dirigeant concerné répondrait depuis cet écran, la famille verrait la réponse dans son espace, et le bureau saurait ce qui reste à traiter. Dans cette maquette, aucune réponse n'est envoyée.</div>
     </div>
   </section>
 
@@ -213,6 +235,73 @@
     p.textContent = R.length + ' acheteurs seraient prévenus par email : « Votre commande est arrivée. Retrait ' + c.charAt(0).toLowerCase() + c.slice(1) + '. »';
   });
   aff();
+})();
+</script>
+<script>
+/* Demandes des familles : boîte de réception d'exemple. Réponse simulée, rien n'est envoyé.
+   Une demande faite pendant la visite depuis l'espace licenciés apparaît en tête (sessionStorage). */
+(function(){
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var D = [
+    { famille:'Famille B.', enfant:'Léa, U15 F', type:'Question sur la licence', date:'15 octobre', ex:true,
+      texte:'La licence de Léa apparaît comme faite : faut-il encore faire quelque chose sur le site de la fédération ?' },
+    { famille:'Famille M.', enfant:'Inès, U18 F', type:'Absence prolongée', date:'16 octobre', ex:true,
+      texte:'Inès sera absente deux semaines en novembre pour un stage scolaire. Pouvez-vous prévenir son coach ?' },
+    { famille:'Famille D.', enfant:'Zoé, U13 F', type:'Attestation de paiement', date:'16 octobre', ex:true,
+      texte:'Bonjour, j\'aurais besoin d\'une attestation de paiement de la cotisation pour la mutuelle.' }
+  ];
+  try {
+    JSON.parse(sessionStorage.getItem('bcr-demandes') || '[]').forEach(function(d){
+      D.unshift({ famille: d.famille || 'Famille B.', enfant: d.enfant || 'Léa, U15 F', type: d.type, date: d.date, texte: d.texte, visite: true });
+    });
+  } catch (e) {}
+  D.forEach(function(d){ d.etat = 'attente'; });
+  var boite = document.getElementById('boite'), etat = document.getElementById('boite-etat');
+  function compter(){
+    var n = D.filter(function(d){ return d.etat === 'attente'; }).length;
+    document.getElementById('nb-attente').innerHTML = '<strong>' + n + '</strong> ' + (n > 1 ? 'demandes en attente' : 'demande en attente') + ' sur ' + D.length;
+  }
+  function ligne(d, i){
+    return '<li id="dm-' + i + '"><div class="qui"><strong>' + esc(d.famille) + '</strong><span>' + esc(d.enfant) + '</span>'
+      + '<span>' + (d.visite ? 'Reçue aujourd\'hui' : 'Reçue le ' + esc(d.date)) + '</span>'
+      + (d.ex ? '<span class="etiquette-ex" style="margin:4px 0 0">exemple</span>' : '<span class="etiquette-ex" style="margin:4px 0 0">envoyée pendant cette visite</span>') + '</div>'
+      + '<div><span class="dm-type">' + esc(d.type) + '</span><p class="dm-texte">' + esc(d.texte) + '</p>'
+      + (d.reponse ? '<p class="dm-reponse"><b>Votre réponse</b>' + esc(d.reponse) + '</p>' : '') + '</div>'
+      + '<div class="geste"><span class="etat pastille ' + (d.etat === 'traitee' ? 'ok">Traitée' : 'attente">En attente') + '</span>'
+      + (d.etat === 'traitee' ? '' : '<button type="button" class="bouton petit" aria-expanded="false" aria-controls="rep-' + i + '" data-repondre="' + i + '">Répondre<span class="visuellement-cache"> à ' + esc(d.famille) + '</span></button>') + '</div>'
+      + '<form class="zone-reponse" id="rep-' + i + '" data-i="' + i + '" hidden novalidate>'
+      + '<label for="txt-' + i + '">Réponse à ' + esc(d.famille) + '</label>'
+      + '<textarea id="txt-' + i + '" rows="3" aria-describedby="err-' + i + '"></textarea>'
+      + '<p class="erreur" id="err-' + i + '"></p>'
+      + '<div class="actions" style="margin-top:10px"><button type="submit" class="bouton petit">Envoyer la réponse</button><button type="button" class="bouton ligne petit" data-annuler="' + i + '">Annuler</button></div>'
+      + '</form></li>';
+  }
+  function afficher(){ boite.innerHTML = D.map(ligne).join(''); compter(); }
+  boite.addEventListener('click', function(e){
+    var b = e.target.closest('[data-repondre]'), a = e.target.closest('[data-annuler]');
+    if (b) {
+      var f = document.getElementById(b.getAttribute('aria-controls')), ouvrir = f.hidden;
+      f.hidden = !ouvrir; b.setAttribute('aria-expanded', String(ouvrir));
+      if (ouvrir) f.querySelector('textarea').focus();
+    }
+    if (a) {
+      var i = a.getAttribute('data-annuler'), fr = document.getElementById('rep-' + i);
+      fr.hidden = true;
+      var bt = boite.querySelector('[data-repondre="' + i + '"]'); bt.setAttribute('aria-expanded', 'false'); bt.focus();
+    }
+  });
+  boite.addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target, i = +f.getAttribute('data-i'), t = f.querySelector('textarea'), err = f.querySelector('.erreur');
+    if (t.value.trim().length < 2) { t.setAttribute('aria-invalid', 'true'); err.textContent = 'Écrivez la réponse avant de l\'envoyer.'; t.focus(); return; }
+    D[i].reponse = t.value.trim(); D[i].etat = 'traitee';
+    afficher();
+    var li = document.getElementById('dm-' + i); li.classList.add('nouvelle');
+    etat.hidden = false;
+    etat.textContent = 'Simulation : réponse enregistrée pour ' + D[i].famille + ', la demande passe à « traitée ». La famille la verrait dans son espace ; dans cette maquette, rien n\'est envoyé.';
+    li.setAttribute('tabindex', '-1'); li.focus({ preventScroll: true });
+  });
+  afficher();
 })();
 </script>
 </body>
