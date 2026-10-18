@@ -1,6 +1,6 @@
 /* Accueil niveau Signature : scènes propres au basket (terrain tracé, tir à 3 points, montée des U18F). */
 .s-nuit{background:#080a09;color:#fff}
-.s-accueil{position:relative;overflow:hidden;min-height:calc(100vh - 120px);display:flex;align-items:stretch;background:linear-gradient(100deg,rgba(8,10,9,.97) 0%,rgba(8,10,9,.9) 45%,rgba(8,10,9,.72) 100%),url(img/salle-cheruel.jpg) center 30%/cover no-repeat #080a09}
+.s-accueil{position:relative;overflow:hidden;min-height:calc(100vh - 120px);display:flex;align-items:stretch;background:linear-gradient(100deg,rgba(8,10,9,.93) 0%,rgba(8,10,9,.8) 42%,rgba(8,10,9,.62) 100%),url(img/salle-tribunes.jpg) left center/cover no-repeat #080a09}
 .s-accueil .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding-top:40px;padding-bottom:56px;width:100%}
 .s-surtitre{font-family:var(--titre);text-transform:uppercase;letter-spacing:.14em;color:var(--vif);font-weight:600;margin:0 0 14px}
 .s-titre{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;line-height:.9;font-size:clamp(3rem,6.9vw,6.6rem);margin:0;letter-spacing:-.01em}
