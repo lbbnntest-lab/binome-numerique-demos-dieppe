@@ -496,3 +496,8 @@ label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
 .num-licence{font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:.02em}
 .recherche-lic{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
 .recherche-lic input{flex:0 1 280px;min-width:0;padding:8px 10px}
+.licence-copie{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.num-licence{user-select:all;-webkit-user-select:all}
+.bouton-copier{font:inherit;font-size:.82rem;font-weight:700;padding:4px 10px;border:1.5px solid currentColor;border-radius:6px;background:transparent;color:var(--ballon);cursor:pointer;min-height:32px}
+.bouton-copier:hover,.bouton-copier:focus-visible{background:var(--ballon);color:#fff}
+.bouton-copier.copie-faite{background:var(--ballon);color:#fff}

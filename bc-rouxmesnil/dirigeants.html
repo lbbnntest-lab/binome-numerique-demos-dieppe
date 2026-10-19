@@ -212,6 +212,7 @@
         <button type="button" aria-pressed="false" data-filtre="incomplet">Dossiers incomplets</button>
         <button type="button" aria-pressed="false" data-filtre="U18">U18 féminines</button>
       </div>
+      <p class="visuellement-cache" id="copie-etat" role="status" aria-live="polite"></p>
       <div class="recherche-lic"><label for="cherche-lic">Chercher un licencié</label><input type="search" id="cherche-lic" placeholder="Nom ou numéro de licence" autocomplete="off"></div>
       <p class="aide" data-roles="secretaire">Numéros de licence d'exemple. Le secrétaire noterait le numéro à la validation de la licence sur le site de la fédération ; seuls le président et le secrétaire le verraient.</p>
       <div class="table-defile">
@@ -533,7 +534,7 @@
   function colonnes(){ return ROLE === 'tresorier' ? [2] : [2,3,6,4]; }
   var ENTETES = {2:'Cotisation',3:'Licence fédérale',4:'Photos autorisées',6:'N° de licence'};
   function cellule(j, i){
-    if (i === 6) return '<td>' + (j[6] ? '<span class="num-licence">' + j[6] + '</span>' : '<span class="aide">après validation</span>') + '</td>';
+    if (i === 6) return '<td>' + (j[6] ? '<span class="licence-copie"><span class="num-licence">' + j[6] + '</span><button type="button" class="bouton-copier" data-copier="' + j[6] + '">Copier<span class="visuellement-cache"> le numéro de licence de ' + j[0] + '</span></button></span>' : '<span class="aide">après validation</span>') + '</td>';
     return '<td><span class="etat '+classe(j[i])+'">'+j[i]+'</span></td>';
   }
   var recherche = '';
@@ -560,6 +561,26 @@
     }).join('');
     document.getElementById('liste').innerHTML = lignes || '<tr><td colspan="6" class="aide">Aucun licencié ne correspond à la recherche.</td></tr>';
   }
+  /* Copier un numéro de licence en un clic (pour le coller sur le site de la fédération ou dans un message). */
+  function copier(texte, bouton){
+    function fait(ok){
+      var lib = bouton.firstChild; lib.nodeValue = ok ? 'Copié' : 'Sélectionné';
+      bouton.classList.add('copie-faite');
+      var e = document.getElementById('copie-etat'); if (e) e.textContent = ok ? 'Numéro ' + texte + ' copié.' : 'Numéro ' + texte + ' sélectionné : faites Ctrl+C pour le copier.';
+      setTimeout(function(){ lib.nodeValue = 'Copier'; bouton.classList.remove('copie-faite'); }, 1600);
+    }
+    function selection(){
+      var n = bouton.parentNode.querySelector('.num-licence'), r = document.createRange(); r.selectNodeContents(n);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      fait(ok);
+    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texte).then(function(){ fait(true); }, selection);
+    else selection();
+  }
+  document.getElementById('liste').addEventListener('click', function(ev){
+    var b = ev.target.closest('[data-copier]'); if (b) copier(b.getAttribute('data-copier'), b);
+  });
   var champRecherche = document.getElementById('cherche-lic');
   if (champRecherche) champRecherche.addEventListener('input', function(){ recherche = champRecherche.value.trim(); afficher(filtreCourant); });
   document.querySelectorAll('[data-filtre]').forEach(function(b){
