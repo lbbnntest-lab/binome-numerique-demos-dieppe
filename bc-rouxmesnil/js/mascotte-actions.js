@@ -160,6 +160,7 @@
     }
     /* La fête, pieds fixes : la mascotte se tourne vers le visiteur, le ballon rebondit jusqu'à son doigt et y tourne. */
     function fete(t){
+      if (traits.length) tl.call(function(){ traits.forEach(function(el){ el.setAttribute('filter', el.getAttribute('data-filtre')); }); }, null, t);
       k(t, 0.4, Object.assign({}, F.fete, { hy: DEBOUT }), 'back.out(1.6)');
       tl.call(function(){ depR = [522, SOL_B]; mode = 'retour'; e.r = 0; maj(); }, null, t)
         .to(e, { r: 1, tour: '+=540', duration: 0.95, ease: 'power1.inOut', onUpdate: maj }, t)
@@ -168,6 +169,10 @@
         .to(trajet, { opacity: 0, duration: 0.4 }, t);
     }
 
+    /* Petits écrans : les contours intérieurs (filtres) sont coupés pendant l'action, puis remis pour la fête ;
+       le liseré crème reste. Coût de dessin divisé par 2,4 (mesure de l'examen du 19/10). */
+    var traits = matchMedia('(max-width: 899px), (pointer: coarse)').matches ? Array.prototype.slice.call(document.querySelectorAll('#j-racine [filter]')) : [];
+    traits.forEach(function(el){ el.setAttribute('data-filtre', el.getAttribute('filter')); el.removeAttribute('filter'); });
     tl.set(trajet, { opacity: 0 }, 0);
     maj(); tl.call(maj, null, 0.01);
     passe('dribble', 1.0);
@@ -193,14 +198,14 @@
       passe('main', 2.62); k(2.62, 0.16, haut(P.prise), 'power1.out');
       tb = tir(2.74);
     } else {
-      /* Course en dribblant ; le ballon est pris en l'air pendant la dernière foulée. */
+      /* Course en dribblant ; le ballon est pris en fin de dribble. */
       tl.to(e, { s: 76, a: 57, duration: 2.0, ease: 'power1.out', onUpdate: compte }, 1.0);
       foulee(1.0, 0.32, 'b', 212, 192, 20);
       foulee(1.32, 0.32, 'a', 286, 266, 20);
       if (nom === 'dunk') {
-        foulee(1.64, 0.32, 'b', 346, 330, 22);
+        pas('b', 346, 1.64, 0.32, 22); k(1.64, 0.32, { hx: 330 }, 'none'); dribble(1.64, 0.22);
         passe('main', 1.86); k(1.86, 0.12, haut(P.prise), 'power1.out');
-        /* Appui 1 : pied arrière posé (ballon pris en l'air). Appui 2 : pied avant, impulsion, dunk à une main. */
+        /* Prise pied arrière posé, puis deux appuis : pied avant, pied arrière, impulsion, dunk à une main. */
         pas('a', 404, 1.98, 0.24, 18); k(1.98, 0.24, Object.assign(haut(P.appel), { hx: 392, hy: ACCROUPI - 6 }), 'power1.in');
         h = hanchesPourBallon(F.envol1, 506, 62);
         k(2.22, 0.42, Object.assign({}, F.envol1, { hx: h.hx, hy: h.hy, bx: h.hx + 22, bl: CHEV - (h.hy + 52 * S), pA: 40, pB: 20 }), 'power2.out');
@@ -230,9 +235,7 @@
         k(2.94, 0.16, Object.assign({}, F.suspendu, { hx: h.hx, hy: h.hy, ax: h.hx + 8, al: CHEV - (h.hy + 96 * S), bx: h.hx - 4, bl: CHEV - (h.hy + 96 * S) }), 'power1.out');
         tl.to('.cercle-av, .cercle-ar, #filet', { rotation: -9, svgOrigin: '542 104', duration: 0.16, ease: 'power2.out' }, 2.96)
           .to('.cercle-av, .cercle-ar, #filet', { rotation: 0, svgOrigin: '542 104', duration: 0.5, ease: 'elastic.out(1, 0.35)' }, 3.46);
-        h2 = hanchesPourMain(F.balance, 503, 105);
-        k(3.1, 0.18, Object.assign({}, F.balance, { hx: h2.hx, hy: h2.hy, ax: h2.hx - 20, bx: h2.hx - 30 }), 'sine.inOut');
-        k(3.28, 0.18, Object.assign({}, F.suspendu, { hx: h.hx, hy: h.hy + 2, ax: h.hx + 8, bx: h.hx - 4 }), 'sine.inOut');
+        /* Prise momentanée du cercle (tolérée après un dunk), sans balancement. */
         k(3.46, 0.14, { ax: 476, bx: 456, al: 30, bl: 30 }, 'power1.out');
         k(3.46, 0.36, Object.assign({}, F.atterri, { hx: 466, hy: ACCROUPI, pA: 0, pB: 0 }), 'power2.in');
         k(3.6, 0.22, { al: 0, bl: 0 }, 'power2.in');

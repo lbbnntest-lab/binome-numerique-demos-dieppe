@@ -43,7 +43,7 @@
         return '<li data-creneau="' + esc(c.id) + '" class="' + (t ? 'tm-pourvu' : 'tm-libre') + '"><span>' + esc(c.poste) + (t ? '' : ' <span class="libre">à pourvoir</span>') + info + '</span><span class="tm-choix">' + choix + retirer + '</span></li>';
       }).join('') + '</ul>'
         + '<form class="tm-ajout" data-tm-date="' + esc(d) + '" data-tm-match="' + esc(match) + '"><label class="visuellement-cache" for="tm-n-' + esc(d) + '">Nouveau poste pour ce match</label>'
-        + '<input id="tm-n-' + esc(d) + '" list="tm-suggestions" placeholder="Ajouter un poste (ex. aide-marqueur)" maxlength="40" autocomplete="off"><button type="submit" class="bouton ligne petit">Ajouter</button></form></div>';
+        + '<input id="tm-n-' + esc(d) + '" list="tm-suggestions" placeholder="Nouveau poste" maxlength="40" autocomplete="off"><button type="submit" class="bouton ligne petit">Ajouter</button></form></div>';
     }).join('') + '<datalist id="tm-suggestions">' + T.SUGGESTIONS.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>';
     /* Ce qui manque, match par match. */
     var manque = [];

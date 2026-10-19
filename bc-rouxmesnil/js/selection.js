@@ -3,9 +3,12 @@
    Rien n'est envoyé : sur le vrai site, ces données seraient sur le serveur du club. */
 (function () {
   'use strict';
+  /* Prochain samedi (au moins demain), pour que les exemples de la démonstration restent à venir. */
+  function isoJ(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function prochainSamedi(decalage) { var d = new Date(); d.setDate(d.getDate() + 1); while (d.getDay() !== 6) d.setDate(d.getDate() + 1); d.setDate(d.getDate() + (decalage || 0)); return isoJ(d); }
   /* Indisponibilités d'exemple de Léa (U15 F) : de simples dates, sans match associé. */
   var EXEMPLES = [
-    { id: 'ex1', du: '2026-10-24', au: '2026-10-24', motif: 'Vacances', ex: true },
+    { id: 'ex1', du: prochainSamedi(), au: prochainSamedi(), motif: 'Vacances', ex: true },
     { id: 'ex2', du: '2026-11-14', au: '2026-11-15', motif: 'Examen', ex: true }
   ];
   function lire(cle, defaut) { try { var v = sessionStorage.getItem(cle); return v ? JSON.parse(v) : defaut; } catch (e) { return defaut; } }
@@ -18,7 +21,7 @@
     return t.charAt(0).toUpperCase() + t.slice(1);
   }
   window.BCRSel = {
-    lire: lire, ecrire: ecrire, dateFr: dateFr,
+    lire: lire, ecrire: ecrire, dateFr: dateFr, prochainSamedi: prochainSamedi,
     plage: function (x) {
       if (!x.au || x.au === x.du) return dateFr(x.du);
       return 'Du ' + dateFr(x.du).toLowerCase() + ' au ' + dateFr(x.au).toLowerCase();

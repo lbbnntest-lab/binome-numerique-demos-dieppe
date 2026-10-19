@@ -215,6 +215,7 @@
       <p class="visuellement-cache" id="copie-etat" role="status" aria-live="polite"></p>
       <div class="recherche-lic"><label for="cherche-lic">Chercher un licencié</label><input type="search" id="cherche-lic" placeholder="Nom ou numéro de licence" autocomplete="off"></div>
       <p class="aide" data-roles="secretaire">Numéros de licence d'exemple. Le secrétaire noterait le numéro à la validation de la licence sur le site de la fédération ; seuls le président et le secrétaire le verraient.</p>
+      <p class="aide aide-glisser">Faites glisser le tableau vers la gauche pour voir les licences.</p>
       <div class="table-defile">
         <table class="suivi">
           <thead><tr><th>Joueur</th><th>Catégorie</th><th>Cotisation</th><th>Licence fédérale</th><th>Photos autorisées</th></tr></thead>
@@ -540,6 +541,7 @@
   var recherche = '';
   function incomplet(j){ return ROLE === 'tresorier' ? j[2]!=='Payée' : (j[2]!=='Payée' || j[3]!=='Faite' || j[4]==='Non renseigné'); }
   function entete(){
+    document.getElementById('cherche-lic').placeholder = ROLE === 'tresorier' ? 'Nom du licencié' : 'Nom ou numéro de licence';
     document.querySelector('#suivi table.suivi thead tr').innerHTML = '<th>Joueur</th><th>Catégorie</th>' + colonnes().map(function(i){ return '<th>'+ENTETES[i]+'</th>'; }).join('');
     document.querySelector('#suivi table.suivi').style.minWidth = ROLE === 'tresorier' ? '0' : '';
     document.querySelector('[data-filtre="incomplet"]').textContent = ROLE === 'tresorier' ? 'Cotisations en attente' : 'Dossiers incomplets';
@@ -735,11 +737,11 @@
       avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', adv:'CEP Saint-Nicolas-d\'Aliermont', dom:true}],
       dernier:'3-4 octobre : victoire 47-19 contre Seventy Six Belleville',
       effectif:['Zoé D.','Emma G.','Louise F.','Nora K.','Romane T.','Jeanne P.','Lou A.','Agathe M.','Elsa B.','Mila C.','Rose V.','Iris N.'],
-      indispos:[{nom:'Louise F.', du:'2026-10-24', au:'2026-10-31', motif:'Vacances'}], sansRep:['Rose V.','Iris N.'] },
+      indispos:[{nom:'Louise F.', du:S.prochainSamedi(), au:S.prochainSamedi(7), motif:'Vacances'}], sansRep:['Rose V.','Iris N.'] },
     u15: { titre:'U15 féminines', niv:'Départementale féminine U15 (DFU15)', media:'u15',
-      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', adv:'BC Offranville', dom:true}],
+      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', adv:'BC Offranville', dom:true},{d:S.prochainSamedi() + 'T14:00', txt:'contre une équipe à confirmer (match amical, exemple)', adv:'Match amical (exemple)', dom:true}],
       effectif:['Léa B.','Lina P.','Camille T.','Jade R.','Sarah M.','Clara V.','Margaux D.','Lisa F.','Océane B.','Lucie H.','Eva S.','Juliette C.'],
-      indispos:[{nom:'Jade R.', du:'2026-10-24', au:'2026-11-01', motif:'Vacances'}], sansRep:['Eva S.','Juliette C.'] },
+      indispos:[{nom:'Jade R.', du:S.prochainSamedi(), au:S.prochainSamedi(8), motif:'Vacances'}], sansRep:['Eva S.','Juliette C.'] },
     u18: { titre:'U18 féminines', niv:'Régionale féminine U18, poule élite (RFU18)', media:'u18',
       avenir:[{d:'2026-11-07', txt:'contre Cherbourg Basket Ball', adv:'Cherbourg Basket Ball', dom:true},{d:'2026-11-14', txt:'contre Aplemont Le Havre Basket 2', adv:'Aplemont Le Havre Basket 2', dom:false},{d:'2026-11-21', txt:'contre USO Mondeville Basket 2', adv:'USO Mondeville Basket 2', dom:true},{d:'2026-11-28', txt:'contre Élan sportif Carpiquet Basket', adv:'Élan sportif Carpiquet Basket', dom:false},{d:'2026-12-05', txt:'contre Club Basket d\'Ifs 1', adv:'Club Basket d\'Ifs 1', dom:false}],
       dernier:'10 octobre : victoire 78-57 contre Alençon-Damigny Basket (play-off élite)',

@@ -135,7 +135,7 @@
               <li><span>Cotisation</span><span class="etat ok">Payée</span></li>
               <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
               <li><span>Autorisation photos et vidéos</span><span class="etat ok">Donnée</span></li>
-              <li><span>Stage des vacances</span><span class="etat attente">Non inscrite</span></li>
+              <li data-fin="2026-10-22T17:00"><span>Stage des vacances</span><span class="etat attente">Non inscrite</span></li>
               <li><span>Tee-shirt U18F élite <span class="etiquette-ex">exemple</span></span><span class="etat ok">Prêt à retirer</span></li>
             </ul>
             <p class="resultat" style="font-size:.95rem">Exemple de message : votre commande est arrivée ; retrait à la salle, au créneau indiqué par le club.</p>
@@ -146,7 +146,7 @@
               <li><span>Cotisation <span class="etiquette-ex">exemple</span></span><span class="etat ok">Payée</span></li>
               <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
               <li><span>Autorisation photos et vidéos</span><span class="etat attente">À donner</span></li>
-              <li><span>Stage des vacances (U13 : mardi 20 octobre)</span><span class="etat attente">Non inscrite</span></li>
+              <li data-fin="2026-10-20T17:00"><span>Stage des vacances (U13 : mardi 20 octobre)</span><span class="etat attente">Non inscrite</span></li>
             </ul>
             </div>
             <div data-enfant="tom">
@@ -155,10 +155,10 @@
               <li><span>Cotisation <span class="etiquette-ex">exemple</span></span><span class="etat attente">En attente</span></li>
               <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
               <li><span>Autorisation photos et vidéos</span><span class="etat ok">Donnée</span></li>
-              <li><span>Stage des vacances (U13 : mardi 20 octobre)</span><span class="etat attente">Non inscrit</span></li>
+              <li data-fin="2026-10-20T17:00"><span>Stage des vacances (U13 : mardi 20 octobre)</span><span class="etat attente">Non inscrit</span></li>
             </ul>
             </div>
-            <div class="actions"><a class="bouton ligne" href="inscription.html#stage">Inscrire au stage</a></div>
+            <div class="actions" data-fin="2026-10-22T17:00"><a class="bouton ligne" href="inscription.html#stage">Inscrire au stage</a></div>
           </div>
           <div class="fiche" style="margin-top:20px">
             <h3>Documents</h3>
@@ -386,6 +386,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script>/* Stage d'octobre : retiré de l'espace une fois passé. */ document.querySelectorAll("[data-fin]").forEach(function(e){ if (new Date(e.getAttribute("data-fin")) < new Date()) e.remove(); });</script>
 <script src="js/selection.js"></script>
 <script src="js/table-marque.js"></script>
 <script src="js/famille.js"></script>

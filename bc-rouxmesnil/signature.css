@@ -168,7 +168,7 @@
   .compteurs-sc > div + div{padding-left:12px}
   .tableau .eq{padding:8px 10px;gap:8px}
   .tableau .eq b{font-size:1.4rem}
-  .compteurs-sc div:nth-child(3){padding-left:0;border-left:0}
+  .compteurs-sc > div:nth-child(3){padding-left:0;border-left:0}
   .logos{grid-template-columns:1fr 1fr}
   .logos div:nth-child(2){border-right:0}
   .logos div:nth-child(-n+2){border-bottom:1px solid var(--line)}
@@ -283,3 +283,6 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .venir-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 @media (max-width:760px){.venir-grille{grid-template-columns:1fr}.s-venir{padding:56px 0}}
 @media (max-width:600px){.jdm .wrap{gap:8px 10px;padding-top:10px;padding-bottom:10px}.jdm .s-bouton{padding:8px 12px;font-size:.92rem}}
+/* Logos des partenaires sur l'accueil */
+.logos div{border-bottom:1px solid var(--line)}
+.logos div img{max-height:72px;max-width:100%;width:auto;height:auto;object-fit:contain;border-radius:3px}

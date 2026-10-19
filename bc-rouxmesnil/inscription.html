@@ -41,9 +41,9 @@
           <input type="text" id="st-prenom" value="Hugo">
           <label for="st-jour">Catégorie et jour</label>
           <select id="st-jour">
-            <option value="U11">U11, lundi 19 octobre</option>
-            <option value="U13" selected>U13, mardi 20 octobre</option>
-            <option value="U15">U15, jeudi 22 octobre</option>
+            <option value="U11" data-fin="2026-10-19T16:30">U11, lundi 19 octobre</option>
+            <option value="U13" data-fin="2026-10-20T16:30" selected>U13, mardi 20 octobre</option>
+            <option value="U15" data-fin="2026-10-22T16:30">U15, jeudi 22 octobre</option>
           </select>
           <label for="st-duree">Durée</label>
           <select id="st-duree"><option value="j">La journée</option><option value="d">La demi-journée</option></select>
@@ -133,6 +133,24 @@
   </section>
 </main>
 
+<script>
+/* Stage : les jours passés ne se réservent plus ; une fois le stage fini, la page le dit. */
+(function(){
+  var sel = document.getElementById('st-jour'); if (!sel) return;
+  var maintenant = new Date(), libres = 0;
+  Array.prototype.forEach.call(sel.options, function(o){
+    if (new Date(o.getAttribute('data-fin')) < maintenant) { o.disabled = true; o.textContent += ' (passé)'; if (o.selected) o.selected = false; }
+    else libres++;
+  });
+  var premier = Array.prototype.filter.call(sel.options, function(o){ return !o.disabled; })[0];
+  if (premier) premier.selected = true;
+  if (!libres) {
+    sel.disabled = true;
+    var b = document.getElementById('st-payer'); if (b) b.disabled = true;
+    var ok = document.getElementById('st-ok'); if (ok) { ok.hidden = false; ok.textContent = 'Le stage des vacances d\'octobre est terminé. Les dates du prochain stage seraient publiées ici par le club.'; }
+  }
+})();
+</script>
 <script src="maquette.js"></script>
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>

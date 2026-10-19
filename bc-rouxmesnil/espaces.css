@@ -501,3 +501,7 @@ label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
 .bouton-copier{font:inherit;font-size:.82rem;font-weight:700;padding:4px 10px;border:1.5px solid currentColor;border-radius:6px;background:transparent;color:var(--ballon);cursor:pointer;min-height:32px}
 .bouton-copier:hover,.bouton-copier:focus-visible{background:var(--ballon);color:#fff}
 .bouton-copier.copie-faite{background:var(--ballon);color:#fff}
+.aide-glisser{display:none;margin:0 0 8px}
+@media (max-width:700px){.aide-glisser{display:block}}
+/* Le texte caché des boutons (lecteurs d'écran) reste dans le tableau défilant. */
+.table-defile{position:relative}
