@@ -1,8 +1,8 @@
 /* Mascotte du BCR (jaguar vert tacheté) : mêmes pièces et mêmes articulations que la joueuse (js/joueuse.js),
-   donc mêmes postures et même animation. Brouillon : elle ne remplace la joueuse que si l'adresse contient ?mascotte.
+   donc mêmes postures et même animation. Elle remplace la joueuse sur l'accueil ; la joueuse reste visible avec ?joueuse.
    Contours : un filtre par membre trace la silhouette (pas de trait parasite aux articulations). */
 (function(){
-  if (!/[?&]mascotte\b/.test(location.search)) return;
+  if (/[?&]joueuse\b/.test(location.search)) return;
   var racine = document.getElementById('j-racine');
   if (!racine || !racine.ownerSVGElement) return;
 
