@@ -133,6 +133,24 @@
     </div>
   </section>
 
+  <section class="s-venir" id="venir" aria-labelledby="titre-venir">
+    <div class="wrap">
+      <div class="venir-grille">
+        <div>
+          <h2 id="titre-venir" data-mv="mots">Venir à la salle</h2>
+          <p class="venir-adresse"><b>Salle Alexandre-Cheruel</b><br>Rue du Champ de Courses, Rouxmesnil-Bouteilles</p>
+          <p>Quand deux matchs ont lieu en même temps, l'un se joue à l'ancien gymnase Lefebvre : le lieu serait indiqué sur chaque match.</p>
+          <p class="aide-venir">Stationnement et accès : à compléter avec le club.</p>
+        </div>
+        <div class="venir-actions">
+          <a class="s-bouton" href="https://www.openstreetmap.org/search?query=rue%20du%20Champ%20de%20Courses%2C%20Rouxmesnil-Bouteilles" target="_blank" rel="noopener">Itinéraire (OpenStreetMap)</a>
+          <a class="s-bouton creux" href="equipes.html">Voir tous les matchs</a>
+        </div>
+      </div>
+      <div class="note"><b>Pour le club</b>Le jour d'un match à domicile, l'accueil passerait en mode « jour de match » : un bandeau en tête annonce la rencontre, renvoie vers le score en direct et vers l'accès à la salle. <a href="index.html?jour-de-match&amp;explications">Voir l'accueil un jour de match</a>.</div>
+    </div>
+  </section>
+
   <section class="s-resultats" aria-labelledby="titre-res">
     <div class="wrap">
       <div class="s-entete-bloc">
@@ -164,6 +182,12 @@
           <h3>Initiation à l'arbitrage</h3>
           <p>Mercredi 21 octobre, avec la Ligue de Normandie et le comité de Seine-Maritime. Licenciés de U13 à seniors, filles et garçons ; ouverte aux autres clubs.</p>
           <p style="font-weight:700;margin:0">Inscription auprès de Bertrand, au club.</p>
+        </article>
+        <article class="vie-carte">
+          <span class="gros-num" aria-hidden="true">+</span>
+          <h3>Rejoindre l'équipe du club</h3>
+          <p>Table de marque, accueil des matchs, arbitrage, encadrement d'une équipe : un peu de temps de temps en temps fait vivre le club.</p>
+          <a class="s-bouton" href="rejoindre.html">Proposer mon aide</a>
         </article>
       </div>
       <div class="note"><b>Pour le club</b>Aujourd'hui, le stage se réserve par téléphone auprès du responsable. Sur le futur site, il pourrait se réserver et se payer en ligne, et le responsable recevrait la liste des inscrits par jour et par catégorie.</div>
@@ -217,6 +241,7 @@
 <script src="js/joueuse.js"></script>
 <script src="js/mascotte.js"></script>
 <script src="js/mascotte-actions.js"></script>
+<script src="js/jour-de-match.js"></script>
 <script>
 window.BCRsceneFixe = function(){
   var J = window.Joueuse; if (!J) return;

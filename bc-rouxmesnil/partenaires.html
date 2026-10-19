@@ -118,7 +118,7 @@
       </form>
     </div>
     <div class="wrap">
-      <div class="note"><b>Pour le club</b>La demande serait reçue par le président ou par le responsable des partenaires, dans l'espace dirigeants. Les formules et leurs tarifs restent à définir avec vous ; la page servirait aussi de support quand un dirigeant démarche une entreprise.</div>
+      <div class="note"><b>Pour le club</b>La demande serait reçue par le président ou par le responsable des partenaires, dans l'espace dirigeants (rubrique « Demandes » : <a href="dirigeants.html#role=president">la voir côté dirigeants</a>). Les formules et leurs tarifs restent à définir avec vous ; la page servirait aussi de support quand un dirigeant démarche une entreprise.</div>
     </div>
   </section>
 </main>
@@ -139,8 +139,16 @@
     msg.hidden = false;
     if (!ent) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez le nom de votre entreprise.'; document.getElementById('pt-entreprise').focus(); return; }
     if (contact.length < 6) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez un téléphone ou un email pour que le club vous rappelle.'; document.getElementById('pt-contact').focus(); return; }
+    /* La demande rejoint la boîte « Demandes » de l'espace dirigeants (visite seulement). */
+    var nom = document.getElementById('pt-nom').value.trim(), mot = document.getElementById('pt-message').value.trim();
+    try {
+      var l = JSON.parse(sessionStorage.getItem('bcr-demandes') || '[]');
+      l.push({ famille: ent, enfant: nom ? 'Contact : ' + nom : 'Entreprise du secteur', type: 'Demande de partenariat', date: 'aujourd\'hui',
+        texte: (formules.length ? 'Intéressée par : ' + formules.join(', ').toLowerCase() + '. ' : '') + 'Joindre : ' + contact + '.' + (mot ? ' Message : ' + mot : '') });
+      sessionStorage.setItem('bcr-demandes', JSON.stringify(l));
+    } catch (e2) {}
     msg.className = 'msg';
-    msg.textContent = 'Simulation : demande de ' + ent + ' prête' + (formules.length ? ' (' + formules.join(', ').toLowerCase() + ')' : '') + '. Sur le vrai site, elle serait reçue par le président ou par le responsable des partenaires. Rien n\'est envoyé dans cette maquette.';
+    msg.textContent = 'Simulation : la demande de « ' + ent + ' » est envoyée au club' + (formules.length ? ' (' + formules.join(', ').toLowerCase() + ')' : '') + '. Elle arrive dans l\'espace dirigeants, rubrique « Demandes », où le président la voit. Rien n\'est envoyé dans cette maquette.';
   });
 })();
 </script>

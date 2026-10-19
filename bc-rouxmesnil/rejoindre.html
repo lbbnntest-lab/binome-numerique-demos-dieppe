@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement);</script>
+<title>Rejoindre le club | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="pages-plus.css">
+</head>
+<body data-page="rejoindre">
+
+<main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Ensemble</span>
+    <div class="wrap">
+      <p class="s-surtitre">Bénévoles, arbitres, encadrants</p>
+      <h1 id="titre-page" class="s-titre">Rejoindre <span class="vert">l'équipe du club</span></h1>
+      <p class="s-chapo">Le BCR vit grâce à celles et ceux qui donnent un peu de leur temps. Dites-nous comment vous aimeriez aider : le bureau vous recontacte.</p>
+    </div>
+  </section>
+
+  <section class="bloc" aria-labelledby="titre-facons">
+    <div class="wrap">
+      <h2 id="titre-facons">Trois façons d'aider</h2>
+      <ol class="formules">
+        <li><span class="n">1</span><div><h3>Les jours de match</h3><p>Tenir la table de marque (feuille de marque, chronomètre), accueillir à la salle, aider aux événements du club. Un créneau de temps en temps suffit ; les familles licenciées choisissent leurs créneaux depuis leur espace.</p></div></li>
+        <li><span class="n">2</span><div><h3>L'arbitrage</h3><p id="rj-arbitrage">Journée d'initiation à l'arbitrage le mercredi 21 octobre, de 10 h à 16 h 30, salle Alexandre-Cheruel, proposée par la Ligue de Normandie et le comité de Seine-Maritime et accueillie par le BCR. Pour les licenciés de U13 à seniors, filles et garçons ; ouverte aux autres clubs. Inscription auprès de Bertrand, au club.</p></div></li>
+        <li><span class="n">3</span><div><h3>L'encadrement d'une équipe</h3><p>Aider un coach à l'entraînement ou accompagner une équipe en match. Le bureau vous présente ce que cela demande avant tout engagement.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="bloc clair" id="proposer" aria-labelledby="titre-proposer">
+    <div class="wrap deux-col">
+      <div>
+        <p class="surtitre">Proposer son aide</p>
+        <h2 id="titre-proposer">Le bureau vous recontacte</h2>
+        <p class="chapo-bloc">Votre proposition arrive dans l'espace des dirigeants, avec vos disponibilités. Pas besoin d'être licencié : parents, anciens joueurs, voisins de la salle sont les bienvenus.</p>
+      </div>
+      <form class="form-plus" id="form-rejoindre" novalidate>
+        <h3>Je propose mon aide</h3>
+        <p class="champ-aide" style="margin:0">Démonstration : rien n'est envoyé.</p>
+        <label for="rj-nom">Prénom et nom</label>
+        <input type="text" id="rj-nom" autocomplete="name" maxlength="60">
+        <label for="rj-contact">Téléphone ou email</label>
+        <input type="text" id="rj-contact" autocomplete="email" maxlength="80">
+        <fieldset style="border:0;padding:0;margin:14px 0 0"><legend style="font-weight:600;margin-bottom:4px">J'aimerais aider</legend>
+          <label class="choix"><input type="checkbox" name="aide" value="les jours de match"> Les jours de match</label>
+          <label class="choix"><input type="checkbox" name="aide" value="à l'arbitrage"> À l'arbitrage</label>
+          <label class="choix"><input type="checkbox" name="aide" value="à l'encadrement d'une équipe"> À l'encadrement d'une équipe</label>
+        </fieldset>
+        <label for="rj-dispo">Disponibilités</label>
+        <select id="rj-dispo">
+          <option>Le week-end</option>
+          <option>En semaine, en soirée</option>
+          <option>De temps en temps, selon les dates</option>
+        </select>
+        <label for="rj-message">Message (facultatif)</label>
+        <textarea id="rj-message" maxlength="600"></textarea>
+        <button type="submit" class="bouton">Envoyer ma proposition (simulation)</button>
+        <p class="msg" id="rj-msg" role="status" hidden></p>
+      </form>
+    </div>
+    <div class="wrap">
+      <div class="note"><b>Pour le club</b>La proposition arriverait dans l'espace dirigeants, rubrique « Demandes », visible du président et du secrétaire, qui recontacteraient la personne. Seuls le nom, un moyen de contact et les disponibilités seraient demandés. <a href="dirigeants.html#role=president">Voir la demande côté dirigeants</a>.</div>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
+<script>
+(function(){
+  /* La journée d'arbitrage passée, le texte annonce la suivante sans inventer de date. */
+  var d = new Date(), auj = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  if (auj > '2026-10-21') document.getElementById('rj-arbitrage').textContent = 'Le club accueille des journées d\'initiation à l\'arbitrage avec la Ligue de Normandie et le comité de Seine-Maritime (la dernière : le 21 octobre 2026). La prochaine date serait annoncée ici ; en attendant, renseignez-vous auprès de Bertrand, au club.';
+
+  /* Proposition d'aide : contrôlée, puis déposée dans les demandes de l'espace dirigeants (visite seulement). */
+  var f = document.getElementById('form-rejoindre'), msg = document.getElementById('rj-msg');
+  function lire(){ try { return JSON.parse(sessionStorage.getItem('bcr-demandes') || '[]'); } catch (e) { return []; } }
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nom = document.getElementById('rj-nom').value.trim(), contact = document.getElementById('rj-contact').value.trim();
+    var aides = Array.prototype.map.call(f.querySelectorAll('[name="aide"]:checked'), function(c){ return c.value; });
+    msg.hidden = false;
+    if (nom.length < 2) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez votre prénom et votre nom.'; document.getElementById('rj-nom').focus(); return; }
+    if (contact.length < 6) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez un téléphone ou un email pour que le bureau vous recontacte.'; document.getElementById('rj-contact').focus(); return; }
+    if (!aides.length) { msg.className = 'msg erreur'; msg.textContent = 'Cochez au moins une façon d\'aider.'; f.querySelector('[name="aide"]').focus(); return; }
+    var dispo = document.getElementById('rj-dispo').value, mot = document.getElementById('rj-message').value.trim();
+    var l = lire();
+    l.push({ famille: nom, enfant: 'Proposition d\'aide · ' + dispo.toLowerCase(), type: 'Rejoindre le club', date: 'aujourd\'hui',
+      texte: 'Aimerait aider ' + aides.join(', ') + '. Contact : ' + contact + '.' + (mot ? ' Message : ' + mot : '') });
+    try { sessionStorage.setItem('bcr-demandes', JSON.stringify(l)); } catch (e2) {}
+    msg.className = 'msg';
+    msg.textContent = 'Simulation : merci ' + nom.split(' ')[0] + ' ! Votre proposition arrive dans l\'espace dirigeants, rubrique « Demandes ». Rien n\'est envoyé dans cette maquette.';
+    f.reset();
+  });
+})();
+</script>
+</body>
+</html>
