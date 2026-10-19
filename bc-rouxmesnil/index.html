@@ -39,9 +39,11 @@
             <path class="sol-l t" pathLength="1" d="M96 438 H606"/>
           </g>
           <g class="panier-g">
-            <rect class="poteau-pied" x="566" y="378" width="30" height="28" rx="3"/>
-            <path class="poteau" d="M581 380 V86 H556"/>
+            <path class="poutre" d="M440 -14 H700"/>
+            <path class="suspente" d="M578 -400 V96 M606 -14 L578 66 M556 44 H578 M556 96 H578"/>
+            <path class="suspente-f" d="M592 -400 V-14"/>
             <path class="planche" d="M546 38 L556 30 L556 132 L546 140 Z"/>
+            <path class="protection" d="M546 122 L556 115 L556 132 L546 140 Z"/>
             <path class="planche-c" d="M546 86 L552 82 L552 112 L546 116 Z"/>
             <path class="potence" d="M540 104 L547 106"/>
             <path class="cercle-ar" d="M498 104 A 22 5.5 0 0 1 542 104"/>
@@ -74,7 +76,7 @@
     <span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span>Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span>Le BCR soutient Octobre rose</span>
   </div></div>
 
-  <div class="wrap"><div class="note"><b>Pour le club</b>L'ouverture raconte le basket : le terrain se trace, la mascotte du BCR dribble, s'élève derrière la ligne et tire à 3 points ; le ballon traverse le filet et le tableau affiche le vrai score du play-off qui a qualifié les U18F pour l'élite régionale (78-57, FFBB). Pour cette maquette, nous avons redessiné votre mascotte d'après la couverture du calendrier, en personnage articulé. Sur le futur site, elle serait animée à partir du dessin d'origine, avec l'accord du club et de son auteur. Les animations s'arrêtent d'elles-mêmes si le téléphone du visiteur demande moins de mouvement.</div></div>
+  <div class="wrap"><div class="note"><b>Pour le club</b>L'ouverture raconte le basket : le terrain se trace, le panier descend du plafond comme à la salle Alexandre-Cheruel, et la mascotte du BCR marque. Son action change au hasard à chaque visite : tir à 3 points, tir après un pas en arrière, dunk à une main ou dunk à deux mains suspendue au cercle. Elle fête ensuite le panier, ballon sur le doigt, et le tableau affiche le vrai score du play-off qui a qualifié les U18F pour l'élite régionale (78-57, FFBB). Pour cette maquette, nous avons redessiné votre mascotte d'après la couverture du calendrier, en personnage articulé. Sur le futur site, elle serait animée à partir du dessin d'origine, avec l'accord du club et de son auteur. Les animations s'arrêtent d'elles-mêmes si le téléphone du visiteur demande moins de mouvement.</div></div>
 
   <section class="s-montee s-nuit" aria-labelledby="titre-montee">
     <div class="wrap grille">
@@ -214,6 +216,7 @@
 <script src="js/mouvement.js"></script>
 <script src="js/joueuse.js"></script>
 <script src="js/mascotte.js"></script>
+<script src="js/mascotte-actions.js"></script>
 <script>
 window.BCRsceneFixe = function(){
   var J = window.Joueuse; if (!J) return;
@@ -223,6 +226,7 @@ window.BCRsceneFixe = function(){
   var x = (1-k)*(1-k)*d[0] + 2*(1-k)*k*c[0] + k*k*520, y = (1-k)*(1-k)*d[1] + 2*(1-k)*k*c[1] + k*k*101;
   document.getElementById('j-ballon').setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')');
 };
+if (window.MascotteActions) window.BCRsceneFixe = window.MascotteActions.fixe;
 window.BCRsceneFixe();
 </script>
 <script>
@@ -262,10 +266,14 @@ window.BCRsceneFixe();
     tl.from('.s-titre .ligne', { yPercent: 105, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 })
       .from('.s-chapo, .s-actions, .s-accueil .s-surtitre, .s-annonce', { opacity: 0, y: 14, duration: 0.6, stagger: 0.1 }, 0.4)
       .fromTo('.lignes .t', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut', stagger: 0.1 }, 0.2)
-      .from('.panier-g, .filet, .cercle-av', { opacity: 0, y: -12, duration: 0.6, ease: 'power2.out' }, 0.7)
+      .from('.panier-g, .filet, .cercle-av', { opacity: 0, y: -60, duration: 0.7, ease: 'power2.out' }, 0.6)
       .from('.tableau, .tableau-legende', { opacity: 0, y: 10, duration: 0.5 }, 0.9)
       .from('#j-racine, #j-ombre, #j-ballon', { opacity: 0, duration: 0.5 }, 0.8)
-      .to(etat, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
+    ;
+    /* Avec la mascotte : une action tirée au hasard puis la fête du panier (js/mascotte-actions.js). */
+    if (window.MascotteActions) window.MascotteActions.jouer(tl, { ballon: ballon, rotB: rotB, bOmbre: bOmbre, filet: filet, sc: sc, adv: adv });
+    else {
+    tl.to(etat, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
     /* Deux dribbles en avançant : le ballon descend au sol pendant que la main pousse, puis remonte. */
     tl.call(function(){ mode = 'dribble'; }, null, 1.0);
     [1.0, 1.62].forEach(function(t0){
@@ -306,6 +314,7 @@ window.BCRsceneFixe();
       .to(bOmbre, { attr: { cx: 546 }, duration: 1.34, ease: 'none' }, 4.59)
       .to(etat, { tour: 980, duration: 1.4, ease: 'power1.out', onUpdate: function(){ rotB.setAttribute('transform', 'rotate(' + (etat.tour % 360).toFixed(1) + ')'); } }, 4.59)
       .to('#trajet', { opacity: 0.55, duration: 0.6 }, 5.0);
+    }
 
     /* 2. Les scores comptent jusqu'au résultat quand ils arrivent à l'écran. */
     gsap.utils.toArray('[data-compte]').forEach(function(el){

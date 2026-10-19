@@ -18,8 +18,10 @@
 .s-scene svg{width:100%;height:auto;overflow:visible}
 .s-scene .sol-l{fill:none;stroke:rgba(255,255,255,.5);stroke-width:2}
 .s-scene .raquette{fill:rgba(31,122,63,.38);stroke:rgba(255,255,255,.5);stroke-width:2}
-.s-scene .poteau{fill:none;stroke:#7d878e;stroke-width:9;stroke-linejoin:round}
-.s-scene .poteau-pied{fill:#1f7a3f}
+.s-scene .poutre{stroke:#2f5fb3;stroke-width:9}
+.s-scene .suspente{fill:none;stroke:#cfd5d9;stroke-width:5;stroke-linecap:round}
+.s-scene .suspente-f{stroke:#3b4248;stroke-width:3}
+.s-scene .protection{fill:#2f5fb3}
 .s-scene .planche{fill:rgba(255,255,255,.14);stroke:#fff;stroke-width:2.5;stroke-linejoin:round}
 .s-scene .planche-c{fill:none;stroke:#ff8a3d;stroke-width:2}
 .s-scene .potence{stroke:#ff8a3d;stroke-width:4}

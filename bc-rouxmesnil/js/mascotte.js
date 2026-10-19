@@ -22,9 +22,17 @@
       '<g id="j-coude' + c + '">' +
         '<path class="' + f + '" d="M-7.6 0 C-8.2 10 -7.2 21 -6.4 29 L6.4 29 C7.2 21 8.2 10 7.6 0 Z"/>' +
         taches([[2.2, 8, 1.9, 2.6, 12], [-2.2, 17, 1.8, 2.4, -8]], t) +
-        '<path class="' + k + '" d="M-6.8 25 C-10 30 -9.8 40 -4.6 44 C-0.8 46.8 5.4 46 7.8 41.6 C10 37 9.2 30 6.8 25 Z"/>' +
-        '<ellipse class="' + k + '" cx="7.4" cy="31" rx="3.2" ry="5" transform="rotate(-24 7.4 31)"/>' +
-        '<path class="m-detail" d="M-2.8 38.6 L-2.2 42.4 M0.8 39.4 L1 43.2 M4 38.4 L4.4 41.8"/>' +
+        '<g class="m-patte">' +
+          '<path class="' + k + '" d="M-6.8 25 C-10 30 -9.8 40 -4.6 44 C-0.8 46.8 5.4 46 7.8 41.6 C10 37 9.2 30 6.8 25 Z"/>' +
+          '<ellipse class="' + k + '" cx="7.4" cy="31" rx="3.2" ry="5" transform="rotate(-24 7.4 31)"/>' +
+          '<path class="m-detail" d="M-2.8 38.6 L-2.2 42.4 M0.8 39.4 L1 43.2 M4 38.4 L4.4 41.8"/>' +
+        '</g>' +
+        (c === 'A' ? '<g class="m-index" style="display:none">' +
+          '<path class="' + k + '" d="M-2.6 38 L-2.8 52 C-2.8 55.8 3.2 55.8 3.2 52 L3 38 Z"/>' +
+          '<path class="' + k + '" d="M-6.8 25 C-10 30 -9.6 38 -5 41.4 C-1.4 43.8 4.6 43.4 7 39.6 C9.2 35.6 8.6 29.4 6.8 25 Z"/>' +
+          '<ellipse class="' + k + '" cx="7.2" cy="32" rx="3" ry="4.6" transform="rotate(-20 7.2 32)"/>' +
+          '<path class="m-detail" d="M-5 33.4 Q-1 35 3 33.6 M-0.2 38.6 L0.2 42"/>' +
+        '</g>' : '') +
       '</g>' +
       '<path class="' + f + '" d="M-10.4 -3 C-10.6 -10 -5.4 -13 0 -13 C5.6 -13 10.6 -10 10.4 -3 C10.8 2 10.2 6 9.2 10 L-9 10 C-10.2 6 -10.8 2 -10.4 -3 Z"/>' +
     '</g></g>';
@@ -61,7 +69,7 @@
 
   /* La tête est dessinée au premier plan (au-dessus du bras avant), dans un groupe qui suit le tronc. */
   var tete =
-      '<g id="j-tete" filter="url(#m-trait)"><g transform="translate(-2 4) scale(1.32)">' +
+      '<g id="j-tete" filter="url(#m-trait)"><g class="m-profil" transform="translate(-2 4) scale(1.32)">' +
         '<path class="m-fourrure" d="M-15 -36 C-21 -50 -17 -61 -12 -64 C-4 -61 2 -55 5 -48 Z"/>' +
         '<path class="m-oreille" d="M-12.6 -45 C-15.4 -52 -13.8 -58 -11.6 -59.6 C-7.4 -57 -4.4 -53.4 -2.8 -49.6 Z"/>' +
         '<path class="m-fourrure" d="M-19.4 -20 C-21.4 -36 -10 -50.6 6 -50.6 C22.4 -50.6 33.6 -38.6 33.6 -24 C33.6 -10 24 -1 8 -1 C-8 -1 -18.4 -8 -19.4 -20 Z"/>' +
@@ -81,6 +89,28 @@
         '<path class="m-langue" d="M16.4 -4.6 C18.6 -9 25.2 -9.4 28.6 -6.2 C27.4 -2 23.6 -0.2 20.4 -0.6 C18.2 -0.9 16.6 -2.6 16.4 -4.6 Z"/>' +
         '<path class="m-blanc" d="M16.6 -13.4 L18.4 -9.2 L20 -13 Z"/><path class="m-blanc" d="M28 -13.6 L29.2 -10 L30.6 -14.2 Z"/>' +
         '<ellipse class="m-nez" cx="30.6" cy="-22" rx="3.8" ry="2.7"/><ellipse class="m-blanc" cx="29.6" cy="-22.9" rx="1.1" ry="0.6"/>' +
+      '</g>' +
+      /* Tête de face, comme sur la couverture du calendrier : clin d'œil, grand sourire, langue rose. */
+      '<g class="m-face" style="display:none" transform="translate(-16 0) scale(1.32)">' +
+        '<path class="m-fourrure" d="M-15 -40 C-22 -52 -20 -63 -14 -66 C-5 -63 1 -57 3 -50 Z"/>' +
+        '<path class="m-oreille" d="M-12.5 -47 C-16 -54 -14.6 -60 -12.4 -61.6 C-8 -59 -4.6 -55 -3 -51.4 Z"/>' +
+        '<path class="m-fourrure" d="M15 -50 C19 -60 28 -66 35 -64 C37.6 -55 36 -45 31.6 -39 Z"/>' +
+        '<path class="m-oreille" d="M19.6 -51.4 C22.6 -58.4 27.6 -62 31.6 -61.6 C32.6 -56 31.6 -50.4 29.4 -46.6 Z"/>' +
+        '<path class="m-fourrure" d="M-21 -22 C-23 -40 -10 -53 8 -53 C26 -53 38 -40 37 -24 C36 -9 25 -1 8 -1 C-9 -1 -20 -9 -21 -22 Z"/>' +
+        taches([[-12, -38, 3, 2.3, -30], [-3, -45, 3, 2.2, -10], [8, -47, 3.2, 2.2, 0], [19, -45, 2.8, 2.1, 15], [28, -38, 2.6, 2, 35], [-17, -28, 2.4, 2, -50], [32, -29, 2.3, 1.9, 50], [3, -40, 2, 1.5, 0], [14, -40, 2, 1.5, 0]], 'm-tache') +
+        '<path class="m-creme" d="M-20 -20 L-27 -17.6 L-20.6 -14.6 L-25.6 -10.4 L-17.6 -9.6 L-19 -4 L-10 -5 C-13.6 -10 -16 -15 -20 -20 Z"/>' +
+        '<path class="m-creme" d="M36 -20 L43 -17.6 L36.6 -14.6 L41.6 -10.4 L33.6 -9.6 L35 -4 L26 -5 C29.6 -10 32 -15 36 -20 Z"/>' +
+        '<path class="m-creme" d="M-15 -15 C-13 -25 -2 -28 8 -27 C18 -28 29 -25 31 -15 C33 -5 22 2 8 2 C-6 2 -17 -5 -15 -15 Z"/>' +
+        '<path class="m-detail" d="M-10 -31 Q-4 -36.4 2 -31"/><path class="m-detail" d="M-9 -30.2 Q-4 -28.4 1 -30.2"/>' +
+        '<path class="m-detail" d="M-11 -37.4 Q-4.6 -40.6 1.6 -37.8"/><path class="m-detail" d="M11 -39.4 Q17.4 -42.6 23.6 -39"/>' +
+        '<ellipse class="m-blanc" cx="17" cy="-31" rx="6" ry="7"/>' +
+        '<circle class="m-iris" cx="15.2" cy="-30.4" r="4.2"/><circle class="m-pupille" cx="14.8" cy="-30.4" r="2.1"/>' +
+        '<circle class="m-blanc" cx="16.6" cy="-32.6" r="1.2"/>' +
+        '<path class="m-detail" d="M5 -19.4 L5 -15.8"/>' +
+        '<path class="m-bouche" d="M-6 -15.6 C-1 -13 11 -13 16 -15.6 C16.6 -6 11 0.4 5 0.4 C-1 0.4 -6.6 -6 -6 -15.6 Z"/>' +
+        '<path class="m-langue" d="M-1.6 -4.4 C0.6 -8.6 9.4 -8.6 11.6 -4.4 C10 -0.8 6.6 0.4 5 0.4 C2.4 0.4 -0.4 -1.4 -1.6 -4.4 Z"/>' +
+        '<path class="m-blanc" d="M-3.4 -14.6 L-2 -10.4 L-0.4 -14.2 Z"/><path class="m-blanc" d="M10.4 -14.2 L12 -10.4 L13.4 -14.6 Z"/>' +
+        '<ellipse class="m-nez" cx="5" cy="-22" rx="3.8" ry="2.8"/><ellipse class="m-blanc" cx="3.8" cy="-23" rx="1.1" ry="0.6"/>' +
       '</g></g>' +
     '';
 
@@ -113,5 +143,19 @@
     Object.assign(P.reception, { brasA: -112, avantA: -18, brasB: -50,  avantB: -30 });
     Object.assign(P.fin,       { brasA: -24,  avantA: -50, brasB: -14,  avantB: -30 });
   }
+  /* Réglages pilotés par l'animation : tête de face, doigt levé, bras avant dessiné devant la tête. */
+  var etatM = {};
+  function voir(sel, oui){ var e = racine.querySelector(sel); if (e) e.style.display = oui ? '' : 'none'; }
+  window.Mascotte = {
+    regler: function(face, index, dessus){
+      if (etatM.face !== face) { voir('.m-profil', !face); voir('.m-face', face); etatM.face = face; }
+      if (etatM.index !== index) { voir('#j-coudeA .m-patte', !index); voir('#j-coudeA .m-index', index); etatM.index = index; }
+      if (etatM.dessus !== dessus) {
+        var b = document.getElementById('j-brasA'), t = document.getElementById('j-tete-g');
+        if (dessus) racine.appendChild(b); else racine.insertBefore(b, t);
+        etatM.dessus = dessus;
+      }
+    }
+  };
   document.documentElement.classList.add('avec-mascotte');
 })();
