@@ -23,12 +23,14 @@
     <span class="p-filigrane" aria-hidden="true">Famille</span>
     <div class="wrap">
       <p class="s-surtitre">Espace licenciés · famille B. (exemple)</p>
-      <h1 id="titre-page" class="s-titre">Bonjour, voici la semaine <span data-fam="de-prenom">de Léa</span></h1>
+      <h1 id="titre-page" class="s-titre">Bonjour, voici la semaine <span data-fam="titre-de">de Léa, Elsa et Tom</span></h1>
       <div class="fam-enfants" role="group" aria-labelledby="fam-enfants-titre">
-        <p id="fam-enfants-titre" class="fam-enfants-titre">Un seul compte pour la famille · choisir l'enfant</p>
+        <p id="fam-enfants-titre" class="fam-enfants-titre">Un seul compte pour la famille · afficher</p>
         <div class="fam-enfants-boutons">
-          <button type="button" data-choisir="lea" aria-pressed="true"><b>Léa</b> · U15 féminines (DFU15)</button>
-          <button type="button" data-choisir="elsa" aria-pressed="false"><b>Elsa</b> · U13 féminines (DFU13) <span class="etiquette-ex">exemple</span></button>
+          <button type="button" data-choisir="tous" aria-pressed="true"><b>Toute la famille</b></button>
+          <button type="button" data-choisir="lea" aria-pressed="false"><span class="fam-pastille fam-p-lea" aria-hidden="true">L</span><b>Léa</b> · U15 féminines (DFU15)</button>
+          <button type="button" data-choisir="elsa" aria-pressed="false"><span class="fam-pastille fam-p-elsa" aria-hidden="true">E</span><b>Elsa</b> · U13 féminines (DFU13) <span class="etiquette-ex">exemple</span></button>
+          <button type="button" data-choisir="tom" aria-pressed="false"><span class="fam-pastille fam-p-tom" aria-hidden="true">T</span><b>Tom</b> · U13 masculins (DMU13) <span class="etiquette-ex">exemple</span></button>
         </div>
         <p class="visuellement-cache" id="fam-enfant-etat" role="status" aria-live="polite"></p>
       </div>
@@ -73,7 +75,7 @@
     <div class="wrap">
       <p class="fam-nav-titre" aria-hidden="true">Dans cet espace</p>
       <ul>
-        <li><a href="#enfant">Son équipe</a></li>
+        <li><a href="#enfant">Équipes et dossiers</a></li>
         <li><a href="#score-direct">Score en direct</a></li>
         <li><a href="#annonces">Annonces</a></li>
         <li><a href="#indisponibilites">Indisponibilités</a></li>
@@ -87,28 +89,30 @@
     </div>
   </nav>
 
-  <section class="bloc" id="enfant" aria-label="L'équipe et le dossier de l'enfant">
+  <section class="bloc" id="enfant" aria-label="Équipes et dossiers des enfants">
     <div class="wrap">
-      <p id="fam-equipe-lib">Léa · U15 féminines, départementale (DFU15) · saison 2026-2027</p>
-      <div class="note"><b>Pour le club</b>Chaque famille aurait son accès personnel. Elle y trouverait tout ce qui la concerne, sans demander aux dirigeants ni chercher dans les messages. Les informations ci-dessous sont des exemples.</div>
+      <ul class="fam-equipes" id="fam-equipe-lib"><li>Léa · U15 féminines, départementale (DFU15) · saison 2026-2027</li></ul>
+      <div class="note"><b>Pour le club</b>Chaque famille aurait son accès personnel. Avec plusieurs enfants licenciés, le parent verrait d'abord tout sur un seul écran, chaque ligne marquée du prénom de l'enfant, et pourrait n'afficher qu'un enfant. Les informations ci-dessous sont des exemples ; l'équipe des U13 masculins n'a pas d'espace coach dans cette maquette.</div>
 
       <div class="grille-licencie">
         <div>
           <div class="fiche">
             <h3>Dernier match</h3>
-            <p><span id="fam-dernier"><strong>Samedi 17 octobre, 16 h</strong> · U15 féminines contre BC Offranville, à domicile</span><br><a href="https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080" target="_blank" rel="noopener">Score officiel sur la FFBB</a></p>
-            <p id="prochain-match">Prochain match : date à reprendre du calendrier FFBB. Quand le coach sélectionne <span data-fam="prenom">Léa</span>, la convocation s'affiche en haut de cette page, avec les boutons de réponse.</p>
+            <ul class="fam-lignes" id="fam-dernier"><li><strong>Samedi 17 octobre, 16 h</strong> · U15 féminines contre BC Offranville, à domicile</li></ul>
+            <p><a href="https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080" target="_blank" rel="noopener">Score officiel sur la FFBB</a></p>
+            <h3 style="margin-top:18px">Prochain match</h3>
+            <div id="prochain-match">Date à reprendre du calendrier FFBB.</div>
           </div>
 
           <div class="fiche" style="margin-top:20px" id="score-direct">
             <h3>Score en direct</h3>
-            <p class="aide" style="margin-top:0">Pendant un match de son équipe, à domicile comme à l'extérieur, un parent ou un licencié connecté tient le score depuis son téléphone ; les autres le suivent en direct.</p>
+            <p class="aide" style="margin-top:0">Pendant un match, à domicile comme à l'extérieur, un parent ou un licencié connecté tient le score depuis son téléphone ; les autres le suivent en direct.</p>
             <ul class="demandes" id="fam-direct"></ul>
             <div class="note"><b>Pour le club</b>Seuls les membres connectés du club pourraient tenir le score. Il n'y aurait qu'un seul marqueur par match : une fois la saisie commencée, personne d'autre ne pourrait la modifier. Le coach validerait le score final avant toute publication. Dans cette maquette, rien n'est envoyé.</div>
           </div>
 
           <div class="fiche" style="margin-top:20px">
-            <h3>Les vidéos de son équipe</h3>
+            <h3>Les vidéos des matchs</h3>
             <div class="videos" data-mv="suite">
               <div>
                 <div class="vignette-video" data-terrain><span class="lecture" aria-hidden="true"></span><span class="legende">Match complet</span></div>
@@ -124,8 +128,9 @@
 
         <div>
           <div class="fiche">
-            <h3>Son dossier</h3>
+            <h3 id="fam-dossier-titre">Dossiers</h3>
             <div data-enfant="lea">
+            <p class="fam-tag-ligne" data-fam-tag="lea"></p>
             <ul class="liste-docs">
               <li><span>Cotisation</span><span class="etat ok">Payée</span></li>
               <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
@@ -135,12 +140,22 @@
             </ul>
             <p class="resultat" style="font-size:.95rem">Exemple de message : votre commande est arrivée ; retrait à la salle, au créneau indiqué par le club.</p>
             </div>
-            <div data-enfant="elsa" hidden>
+            <div data-enfant="elsa">
+            <p class="fam-tag-ligne" data-fam-tag="elsa"></p>
             <ul class="liste-docs">
               <li><span>Cotisation <span class="etiquette-ex">exemple</span></span><span class="etat ok">Payée</span></li>
               <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
               <li><span>Autorisation photos et vidéos</span><span class="etat attente">À donner</span></li>
               <li><span>Stage des vacances (U13 : mardi 20 octobre)</span><span class="etat attente">Non inscrite</span></li>
+            </ul>
+            </div>
+            <div data-enfant="tom">
+            <p class="fam-tag-ligne" data-fam-tag="tom"></p>
+            <ul class="liste-docs">
+              <li><span>Cotisation <span class="etiquette-ex">exemple</span></span><span class="etat attente">En attente</span></li>
+              <li><span>Licence fédérale</span><span class="etat ok">Faite</span></li>
+              <li><span>Autorisation photos et vidéos</span><span class="etat ok">Donnée</span></li>
+              <li><span>Stage des vacances (U13 : mardi 20 octobre)</span><span class="etat attente">Non inscrit</span></li>
             </ul>
             </div>
             <div class="actions"><a class="bouton ligne" href="inscription.html#stage">Inscrire au stage</a></div>
@@ -149,7 +164,9 @@
             <h3>Documents</h3>
             <ul class="liste-docs">
               <li><span>Attestation de paiement (comité d'entreprise, mutuelle)</span><button type="button" class="retirer-ligne" onclick="this.textContent='Simulation : attestation prête (PDF)'">Télécharger</button></li>
-              <li><span>Calendrier de l'équipe</span><a id="fam-calendrier" href="equipes.html#u15f">Voir</a></li>
+              <li data-enfant="lea"><span>Calendrier de l'équipe <span data-fam-tag="lea"></span></span><a href="equipes.html#u15f">Voir<span class="visuellement-cache"> le calendrier des U15 féminines</span></a></li>
+              <li data-enfant="elsa"><span>Calendrier de l'équipe <span data-fam-tag="elsa"></span></span><a href="equipes.html#u13f">Voir<span class="visuellement-cache"> le calendrier des U13 féminines</span></a></li>
+              <li data-enfant="tom"><span>Calendrier de l'équipe <span data-fam-tag="tom"></span></span><a href="equipes.html#dmu13">Voir<span class="visuellement-cache"> le calendrier des U13 masculins</span></a></li>
             </ul>
           </div>
         </div>
@@ -163,7 +180,7 @@
     <div class="wrap">
       <p class="surtitre">Le mot du coach</p>
       <h2 id="titre-annonces" data-mv="mots">Annonces de l'équipe</h2>
-      <p class="chapo-bloc">Les messages du coach <span data-fam="equipe-court">U15 F</span> à toute l'équipe, au même endroit. Chaque nouvelle annonce arrive aussi sous la cloche des notifications.</p>
+      <p class="chapo-bloc">Les messages <span data-fam="annonces-qui">des coachs de vos enfants</span> à toute l'équipe, au même endroit. Chaque nouvelle annonce arrive aussi sous la cloche des notifications.</p>
       <ul class="demandes fiche fam-annonces" id="fam-annonces"></ul>
       <div class="note"><b>Pour le club</b>Le coach écrirait une annonce depuis son espace. Seules les familles de son équipe la recevraient : dans leur espace, et par une notification sur le téléphone pour celles qui l'ont activée. Une famille de plusieurs enfants recevrait les annonces de chaque équipe, avec le prénom de l'enfant concerné. Dans cette maquette, rien n'est envoyé : une annonce écrite dans l'espace du coach apparaît ici le temps de la visite.</div>
     </div>
@@ -173,11 +190,12 @@
     <div class="wrap">
       <p class="surtitre">Pour que le coach s'organise</p>
       <h2 id="titre-indispo" data-mv="mots">Mes indisponibilités</h2>
-      <p class="chapo-bloc">Indiquez les jours où <span data-fam="prenom">Léa</span> ne pourra pas jouer. Le coach les voit quand il prépare la sélection de chaque match.</p>
+      <p class="chapo-bloc">Indiquez les jours où <span data-fam="prenom">l'un de vos enfants</span> ne pourra pas jouer. Le coach les voit quand il prépare la sélection de chaque match.</p>
       <div class="colonnes">
         <div>
           <form id="form-indispo" class="fiche" novalidate>
             <h3>Ajouter une indisponibilité</h3>
+            <div class="fam-pour" data-seul-tous><label for="ind-pour">Pour quel enfant</label><select id="ind-pour" data-pour-enfant></select></div>
             <div class="deux-champs">
               <div><label for="ind-du">Date, ou début</label><input type="date" id="ind-du" aria-describedby="ind-erreur" required></div>
               <div><label for="ind-au">Fin (facultatif)</label><input type="date" id="ind-au" aria-describedby="ind-aide ind-erreur"></div>
@@ -208,7 +226,7 @@
     <div class="wrap">
       <p class="surtitre">Matchs à l'extérieur</p>
       <h2 id="titre-covoit" data-mv="mots">Covoiturage</h2>
-      <p class="chapo-bloc">Pour chaque match à l'extérieur de l'équipe <span data-fam="de-prenom">de Léa</span>, proposez des places dans votre voiture ou réservez-en une. Une réservation s'annule en un clic.</p>
+      <p class="chapo-bloc">Pour chaque match à l'extérieur <span data-fam="de-prenom">de vos enfants</span>, proposez des places dans votre voiture ou réservez-en une. Une réservation s'annule en un clic.</p>
       <div class="colonnes">
         <div>
           <p class="resultat" id="cv-etat" role="status" aria-live="polite" hidden></p>
@@ -227,7 +245,7 @@
           <div class="actions"><button class="bouton" type="submit">Proposer mes places</button></div>
         </form>
       </div>
-      <div class="note"><b>Pour le club</b>Les familles s'organiseraient entre elles pour chaque match à l'extérieur, sans liste à tenir par le coach. Le coach verrait qui part avec qui. Les autres familles verraient seulement le nombre de places libres et le lieu de départ choisi par le conducteur : aucune adresse ni aucune position. Aucun match à l'extérieur n'est encore publié pour les U15 et les U13 féminines : un match amical ajouté par le coach pendant la visite apparaît ici. Dans cette maquette, rien n'est envoyé.</div>
+      <div class="note"><b>Pour le club</b>Les familles s'organiseraient entre elles pour chaque match à l'extérieur, sans liste à tenir par le coach. Le coach verrait qui part avec qui. Les autres familles verraient seulement le nombre de places libres et le lieu de départ choisi par le conducteur : aucune adresse ni aucune position. Aucun match à l'extérieur n'est encore publié pour les U15 et les U13 féminines ni pour les U13 masculins : un match amical ajouté par le coach pendant la visite apparaît ici. Dans cette maquette, rien n'est envoyé.</div>
     </div>
   </section>
 
@@ -248,10 +266,11 @@
       <p class="surtitre">Le jour du match</p>
       <h2 id="titre-urgence" data-mv="mots">Contacts d'urgence</h2>
       <p class="fam-option">Option à valider avec le club</p>
-      <p class="chapo-bloc">Deux numéros de téléphone de parents, pour que le coach puisse vous joindre pendant un match <span data-fam="de-prenom">de Léa</span>. Rien d'autre n'est demandé.</p>
+      <p class="chapo-bloc">Deux numéros de téléphone de parents, pour que le coach puisse vous joindre pendant un match <span data-fam="de-prenom">de vos enfants</span>. Rien d'autre n'est demandé.</p>
       <div class="colonnes">
         <form id="ur-form" class="fiche" novalidate>
           <h3>Numéros des parents</h3>
+          <div class="fam-pour" data-seul-tous><label for="ur-pour">Pour quel enfant</label><select id="ur-pour"><option value="tous">Tous mes enfants</option><option value="lea">Léa · U15 F</option><option value="elsa">Elsa · U13 F</option><option value="tom">Tom · U13 M</option></select></div>
           <label for="ur-tel1">Premier numéro</label>
           <input type="tel" id="ur-tel1" autocomplete="tel" aria-describedby="ur-aide ur-erreur">
           <label for="ur-tel2">Second numéro (facultatif)</label>
@@ -301,6 +320,7 @@
             <option>Absence prolongée</option>
             <option>Autre</option>
           </select>
+          <div class="fam-pour" data-seul-tous><label for="dm-enfant">Concerne</label><select id="dm-enfant"><option value="tous">Toute la famille</option><option value="lea">Léa · U15 F</option><option value="elsa">Elsa · U13 F</option><option value="tom">Tom · U13 M</option></select></div>
           <label for="dm-message">Votre message</label>
           <textarea id="dm-message" name="message" rows="5" aria-describedby="dm-aide dm-erreur" required></textarea>
           <p class="aide" id="dm-aide">Pour une absence, indiquez les dates. Les informations de santé ne passent pas par ce formulaire.</p>
@@ -413,7 +433,7 @@
     }
     msg.removeAttribute('aria-invalid'); errDem.textContent = '';
     var miennes = lire('bcr-demandes');
-    miennes.push({ type: document.getElementById('dm-type').value, texte: texte, date: aujourdhui(), etat: 'attente', famille: 'Famille B.', enfant: window.BCRFam ? BCRFam.courant().prenom + ', ' + BCRFam.courant().court : 'Léa, U15 F' });
+    miennes.push({ type: document.getElementById('dm-type').value, texte: texte, date: aujourdhui(), etat: 'attente', famille: 'Famille B.', enfant: window.BCRFam ? BCRFam.libDemande() : 'Léa, U15 F' });
     ecrire('bcr-demandes', miennes);
     afficherDemandes(true);
     msg.value = '';
@@ -506,97 +526,110 @@
 })();
 </script>
 <script>
-/* Indisponibilités et convocations de l'enfant affiché (simulation : rien n'est envoyé).
-   Léa : indisponibilités dans bcr-indispos, lues par le coach U15. Autre enfant : bcr-indispos-<id>. */
+/* Indisponibilités, prochain match et convocations des enfants affichés (toute la famille, ou un seul enfant).
+   Simulation : rien n'est envoyé. Léa : bcr-indispos (lue par le coach U15) ; Elsa : bcr-indispos-elsa (lue par le coach U13) ;
+   Tom : bcr-indispos-tom (son équipe n'a pas d'espace coach dans la maquette). */
 (function(){
   var S = window.BCRSel, F = window.BCRFam;
-  function E(){ return F.courant(); }
-  function mesIndispos(){ return E().id === 'lea' ? S.indispos() : S.lire('bcr-indispos-' + E().id, []); }
-  function enregistrer(l){ if (E().id === 'lea') S.enregistrerIndispos(l); else S.ecrire('bcr-indispos-' + E().id, l); }
   function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function indisposDe(e){ return e.id === 'lea' ? S.indispos() : S.lire('bcr-indispos-' + e.id, []); }
+  function enregistrer(e, l){ if (e.id === 'lea') S.enregistrerIndispos(l); else S.ecrire('bcr-indispos-' + e.id, l); }
   var liste = document.getElementById('ind-liste'), err = document.getElementById('ind-erreur'), conf = document.getElementById('ind-confirmation'),
-      du = document.getElementById('ind-du'), au = document.getElementById('ind-au');
+      du = document.getElementById('ind-du'), au = document.getElementById('ind-au'), pour = document.getElementById('ind-pour');
   function afficher(){
-    var l = mesIndispos().slice().sort(function(a, b){ return a.du < b.du ? -1 : 1; });
-    liste.innerHTML = l.length ? l.map(function(x){
-      return '<li><div class="dm-tete"><span class="dm-type">' + esc(S.plage(x)) + (x.ex ? ' <span class="etiquette-ex">exemple</span>' : '') + '</span>'
-        + '<button type="button" class="retirer-ligne" data-suppr="' + x.id + '">Supprimer<span class="visuellement-cache"> l\'indisponibilité ' + esc(S.plage(x)) + '</span></button></div>'
+    var l = [];
+    F.visibles().forEach(function(e){ indisposDe(e).forEach(function(x){ l.push({ x:x, e:e }); }); });
+    l.sort(function(a, b){ return a.x.du < b.x.du ? -1 : 1; });
+    liste.innerHTML = l.length ? l.map(function(o){
+      var x = o.x;
+      return '<li><div class="dm-tete"><span class="dm-type">' + F.tag(o.e) + esc(S.plage(x)) + (x.ex ? ' <span class="etiquette-ex">exemple</span>' : '') + '</span>'
+        + '<button type="button" class="retirer-ligne" data-suppr="' + esc(x.id) + '" data-suppr-enfant="' + o.e.id + '">Supprimer<span class="visuellement-cache"> l\'indisponibilité de ' + esc(o.e.prenom) + ' : ' + esc(S.plage(x)) + '</span></button></div>'
         + '<p class="dm-date">' + (x.motif ? 'Motif : ' + esc(x.motif.toLowerCase()) : 'Sans motif') + (x.ex ? '' : ' · déclarée pendant cette visite') + '</p></li>';
     }).join('') : '<li><p class="dm-texte">Aucune indisponibilité déclarée.</p></li>';
   }
-  document.getElementById('form-indispo').addEventListener('submit', function(e){
-    e.preventDefault();
+  document.getElementById('form-indispo').addEventListener('submit', function(ev){
+    ev.preventDefault();
     du.removeAttribute('aria-invalid'); au.removeAttribute('aria-invalid');
     if (!du.value) { du.setAttribute('aria-invalid', 'true'); err.textContent = 'Choisissez la date, ou le premier jour.'; conf.hidden = true; du.focus(); return; }
     if (au.value && au.value < du.value) { au.setAttribute('aria-invalid', 'true'); err.textContent = 'La fin doit être après le début.'; conf.hidden = true; au.focus(); return; }
     err.textContent = '';
+    var e = F.enfantChoisi(pour);
     var x = { id: 'v' + Date.now(), du: du.value, au: au.value || du.value, motif: document.getElementById('ind-motif').value };
-    var l = mesIndispos(); l.push(x); enregistrer(l);
+    var l = indisposDe(e); l.push(x); enregistrer(e, l);
     afficher();
     conf.hidden = false;
-    conf.textContent = E().id === 'lea'
-      ? 'Simulation : le coach est prévenu. ' + S.plage(x) + (x.motif ? ' (' + x.motif.toLowerCase() + ')' : '') + ' apparaît dans sa préparation des matchs.'
-      : 'Simulation : indisponibilité enregistrée pour ' + E().prenom + ' (' + S.plage(x).toLowerCase() + '). Sur le vrai site, le coach ' + E().court + ' la verrait en préparant ses matchs ; dans cette maquette, ce lien avec l\'espace du coach est montré pour Léa.';
+    var quoi = (F.tous() ? e.prenom + ' : ' + S.plage(x).toLowerCase() : S.plage(x)) + (x.motif ? ' (' + x.motif.toLowerCase() + ')' : '');
+    conf.textContent = e.coach
+      ? 'Simulation : le coach est prévenu. ' + quoi + ' apparaît dans sa préparation des matchs.'
+      : 'Simulation : indisponibilité enregistrée. ' + quoi + '. Sur le vrai site, le coach ' + e.court + ' la verrait ; son équipe n\'a pas d\'espace coach dans cette maquette.';
     du.value = ''; au.value = ''; document.getElementById('ind-motif').value = '';
   });
-  liste.addEventListener('click', function(e){
-    var b = e.target.closest('[data-suppr]'); if (!b) return;
-    var id = b.getAttribute('data-suppr');
-    enregistrer(mesIndispos().filter(function(x){ return x.id !== id; }));
+  liste.addEventListener('click', function(ev){
+    var b = ev.target.closest('[data-suppr]'); if (!b) return;
+    var id = b.getAttribute('data-suppr'), e = F.parId(b.getAttribute('data-suppr-enfant'));
+    enregistrer(e, indisposDe(e).filter(function(x){ return x.id !== id; }));
     afficher();
-    conf.hidden = false; conf.textContent = E().id === 'lea' ? 'Simulation : indisponibilité supprimée, le coach le voit aussi.' : 'Simulation : indisponibilité supprimée.';
+    conf.hidden = false; conf.textContent = e.coach ? 'Simulation : indisponibilité supprimée, le coach le voit aussi.' : 'Simulation : indisponibilité supprimée.';
     du.focus();
   });
-  afficher();
 
-  /* Prochain match de l'enfant : un match amical de son équipe ajouté par le coach pendant la visite, s'il y en a un. */
+  /* Prochain match de chaque enfant : un match amical de son équipe ajouté par le coach pendant la visite, s'il y en a un. */
   function prochainMatch(){
-    var maintenant = new Date().toISOString().slice(0, 10), e = E(), pm = document.getElementById('prochain-match');
-    var am = S.lire('bcr-amicaux', []).filter(function(a){ return a.equipe === e.equipe && a.date >= maintenant; }).sort(function(a, b){ return a.date < b.date ? -1 : 1; })[0];
-    if (!am) { pm.innerHTML = 'Prochain match : date à reprendre du calendrier FFBB. Quand le coach sélectionne ' + esc(e.prenom) + ', la convocation s\'affiche en haut de cette page, avec les boutons de réponse.'; return; }
-    pm.innerHTML = '<strong>Prochain match : ' + esc(S.dateFr(am.date)) + (am.heure ? ', ' + esc(am.heure.replace(':00', ' h').replace(':', ' h ')) : '') + '</strong> · match amical contre ' + esc(am.adv) + ', ' + esc(am.lieu || (am.dom ? 'à domicile' : 'à l\'extérieur')) + '<br>Ajouté par le coach. Quand il sélectionne ' + esc(e.prenom) + ', la convocation s\'affiche en haut de cette page.';
+    var maintenant = new Date().toISOString().slice(0, 10), pm = document.getElementById('prochain-match'), vs = F.visibles();
+    var lignes = vs.map(function(e){
+      var am = S.lire('bcr-amicaux', []).filter(function(a){ return a.equipe === e.equipe && a.date >= maintenant; }).sort(function(a, b){ return a.date < b.date ? -1 : 1; })[0];
+      if (!am) return '<li>' + F.tag(e) + 'Date à reprendre du calendrier FFBB.</li>';
+      return '<li>' + F.tag(e) + '<strong>' + esc(S.dateFr(am.date)) + (am.heure ? ', ' + esc(am.heure.replace(':00', ' h').replace(':', ' h ')) : '') + '</strong> · match amical contre ' + esc(am.adv) + ', ' + esc(am.lieu || (am.dom ? 'à domicile' : 'à l\'extérieur')) + ' · ajouté par le coach</li>';
+    });
+    pm.innerHTML = '<ul class="fam-lignes">' + lignes.join('') + '</ul><p>' + (F.tous()
+      ? 'Quand un coach sélectionne l\'un de vos enfants, la convocation s\'affiche en haut de cette page, avec les boutons de réponse.'
+      : 'Quand le coach sélectionne ' + esc(vs[0].prenom) + ', la convocation s\'affiche en haut de cette page, avec les boutons de réponse.') + '</p>';
   }
   prochainMatch();
 
-  /* Convocations : celles où le coach a sélectionné l'enfant affiché pendant la visite. */
+  /* Convocations : celles où un coach a sélectionné un enfant affiché pendant la visite. */
   var LIB = { confirme:'Présence confirmée', absente:'Absence signalée' };
   function intitule(c){ return S.dateFr(c.date) + ' · ' + c.equipeNom + ' contre ' + (c.adv || 'adversaire à compléter') + (c.lieu ? ', ' + c.lieu : ''); }
+  function miennes(){ var vs = F.visibles(); return S.convocations().filter(function(c){ return vs.indexOf(F.enfantDe(c)) >= 0; }); }
   function convocations(){
     var r = S.reponses();
-    var l = S.convocations().filter(function(c){ return F.enfantDe(c) === E(); });
+    var l = miennes();
     document.getElementById('convoc-liste').innerHTML = l.length ? l.slice().reverse().map(function(c){
       var rep = r[c.id], ch = S.changement(c.id), fin = ch && (ch.statut === 'annule' || ch.statut === 'forfait');
-      return '<li><div class="dm-tete"><span class="dm-type">' + esc(intitule(c)) + '</span><span class="etat pastille ' + (fin ? 'manque">' + (ch.statut === 'annule' ? 'Match annulé' : 'Forfait') : (rep === 'confirme' ? 'ok">' : rep === 'absente' ? 'manque">' : 'attente">') + (LIB[rep] || 'Réponse attendue')) + '</span></div>'
+      return '<li><div class="dm-tete"><span class="dm-type">' + F.tag(F.enfantDe(c)) + esc(intitule(c)) + '</span><span class="etat pastille ' + (fin ? 'manque">' + (ch.statut === 'annule' ? 'Match annulé' : 'Forfait') : (rep === 'confirme' ? 'ok">' : rep === 'absente' ? 'manque">' : 'attente">') + (LIB[rep] || 'Réponse attendue')) + '</span></div>'
         + (ch ? '<p class="dm-date chg-detail">' + esc(S.avisChangement(ch)) + '</p>' : '')
         + (c.rdv ? '<p class="dm-date">Rendez-vous : ' + esc(c.rdv) + '</p>' : '') + '</li>';
-    }).join('') : '<li><p class="dm-texte">Aucune convocation pour le moment. Quand le coach sélectionnera ' + esc(E().prenom) + ' pour un match, la convocation apparaîtra ici et en haut de cet espace.</p></li>';
+    }).join('') : '<li><p class="dm-texte">Aucune convocation pour le moment. Quand ' + (F.tous() ? 'un coach sélectionnera l\'un de vos enfants' : 'le coach sélectionnera ' + esc(F.visibles()[0].prenom)) + ' pour un match, la convocation apparaîtra ici et en haut de cet espace.</p></li>';
     var alerte = document.getElementById('convoc-alerte'), der = l[l.length - 1];
     alerte.hidden = !der;
     if (!der) return;
+    var e = F.enfantDe(der);
     alerte.setAttribute('data-id', der.id);
-    document.getElementById('convoc-titre').textContent = E().prenom + ' est sélectionnée pour le match du ' + S.dateFr(der.date).toLowerCase() + ' contre ' + (der.adv || 'un adversaire à compléter') + ' ; confirmez sa présence';
+    document.getElementById('convoc-titre').textContent = e.prenom + ' est sélectionné' + e.accord + ' pour le match du ' + S.dateFr(der.date).toLowerCase() + ' contre ' + (der.adv || 'un adversaire à compléter') + ' ; confirmez sa présence';
     document.getElementById('convoc-detail').textContent = der.equipeNom + (der.lieu ? ' · ' + der.lieu : '') + (der.rdv ? ' · rendez-vous : ' + der.rdv : ' · heure de rendez-vous précisée par le coach');
     var rep = r[der.id], ch = S.changement(der.id), fin = ch && (ch.statut === 'annule' || ch.statut === 'forfait');
     var pc = document.getElementById('convoc-chg');
     pc.hidden = !ch; pc.textContent = ch ? 'Changement signalé par le coach : ' + S.avisChangement(ch) : '';
-    if (fin) document.getElementById('convoc-titre').textContent = 'Changement pour le match du ' + S.dateFr(ch.date).toLowerCase() + ' : ' + (ch.statut === 'annule' ? 'match annulé' : 'forfait');
+    if (fin) document.getElementById('convoc-titre').textContent = 'Changement pour le match du ' + S.dateFr(ch.date).toLowerCase() + ' (' + e.prenom + ') : ' + (ch.statut === 'annule' ? 'match annulé' : 'forfait');
     if (fin) document.getElementById('convoc-detail').textContent = der.equipeNom + ' · plus de rendez-vous pour ce match';
     document.getElementById('convoc-boutons').hidden = !!rep || !!fin;
     if (rep) { var et = document.getElementById('convoc-etat'); et.hidden = false; if (!et.textContent) et.textContent = LIB[rep] + '. Le coach le voit dans son espace.'; }
   }
-  document.getElementById('convoc-boutons').addEventListener('click', function(e){
-    var b = e.target.closest('[data-convoc]'); if (!b) return;
+  document.getElementById('convoc-boutons').addEventListener('click', function(ev){
+    var b = ev.target.closest('[data-convoc]'); if (!b) return;
     var v = b.getAttribute('data-convoc'), id = document.getElementById('convoc-alerte').getAttribute('data-id');
+    var c = S.convocations().filter(function(x){ return x.id === id; })[0], e = c && F.enfantDe(c);
     S.repondre(id, v);
     var lues = S.lire('bcr-notifs-lues', {}); lues['convoc-' + id] = true; S.ecrire('bcr-notifs-lues', lues);
     if (window.BCRNotifs) BCRNotifs.afficher();
     var et = document.getElementById('convoc-etat');
-    et.textContent = v === 'confirme' ? 'Simulation : présence confirmée, le coach le voit dans sa sélection.' : 'Simulation : absence signalée au coach, qui pourra convoquer une autre joueuse.';
+    et.textContent = v === 'confirme' ? 'Simulation : présence confirmée, le coach le voit dans sa sélection.' : 'Simulation : absence signalée au coach, qui pourra convoquer ' + (e && !e.accord ? 'un autre joueur.' : 'une autre joueuse.');
     convocations();
     document.getElementById('convoc-titre').focus();
   });
+  afficher();
   convocations();
-  /* Changement d'enfant : sa liste d'indisponibilités, son prochain match et ses convocations. */
+  /* Changement d'affichage (toute la famille ou un enfant) : listes, prochain match et convocations suivent. */
   F.surChangement(function(){
     conf.hidden = true; err.textContent = '';
     var et = document.getElementById('convoc-etat'); et.hidden = true; et.textContent = '';
@@ -621,7 +654,7 @@
     var r = S.reponses();
     var conv = S.convocations().filter(function(c){ return F.enfantDe(c); }).reverse().map(function(c){
       var e = F.enfantDe(c);
-      return { id:'convoc-' + c.id, quand:'Aujourd\'hui', texte:'Convocation : ' + e.prenom + ' est sélectionnée pour le match du ' + S.dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'un adversaire à compléter') + '.' + (r[c.id] ? '' : ' Confirmez sa présence.'), lien:'#convoc-alerte', enfant:e.id };
+      return { id:'convoc-' + c.id, quand:'Aujourd\'hui', texte:'Convocation : ' + e.prenom + ' est sélectionné' + e.accord + ' pour le match du ' + S.dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'un adversaire à compléter') + '.' + (r[c.id] ? '' : ' Confirmez sa présence.'), lien:'#convoc-alerte', enfant:e.id };
     });
     /* Avis de changement (report, annulation, horaire, salle, forfait, autre) pour les matchs où un enfant est convoqué. */
     var chg = S.convocations().filter(function(c){ return F.enfantDe(c) && S.changement(c.id); }).reverse().map(function(c){
@@ -652,7 +685,7 @@
     var b = e.target.closest('[data-lire]'); if (!b) return;
     lire(b.getAttribute('data-lire')); var lien = b.tagName === 'A';
     /* Notification d'un autre enfant : l'espace bascule sur lui avant d'aller à la convocation ou aux annonces. */
-    var en = b.getAttribute('data-enfant-lien'); if (en && en !== F.courant().id) F.choisir(en, true);
+    var en = b.getAttribute('data-enfant-lien'); if (en && !F.tous() && en !== F.courant().id) F.choisir(en, true);
     afficher();
     if (!lien) { var t = document.getElementById('notifs-titre'); t.focus(); }
   });

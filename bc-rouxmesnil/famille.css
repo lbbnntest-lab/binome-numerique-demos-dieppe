@@ -60,3 +60,24 @@ input.cv-court{max-width:120px}
 .bv-ex{margin:0 0 8px;font-size:.88rem;color:var(--ink-soft)}
 .bv-ex .etiquette-ex{margin:0 4px 0 0}
 .fam-avantages .etiquette-ex{margin-left:0;flex:none}
+
+/* Vue « Toute la famille » : chaque ligne porte l'initiale et le prénom de l'enfant */
+.fam-pastille{display:inline-flex;align-items:center;justify-content:center;width:1.45em;height:1.45em;border-radius:50%;font-family:var(--texte);font-style:normal;font-weight:700;font-size:.8rem;line-height:1;color:#fff;margin-right:6px;vertical-align:.1em;flex:none}
+.fam-p-lea{background:var(--ballon)}
+.fam-p-elsa{background:var(--club)}
+.fam-p-tom{background:var(--attente)}
+.fam-enfants .fam-pastille{box-shadow:0 0 0 1px rgba(255,255,255,.75);font-size:.85rem;vertical-align:.15em}
+.fam-enfants button[aria-pressed=true] .fam-pastille{box-shadow:0 0 0 1px #080a09}
+.fam-tag{display:inline-flex;align-items:center;flex-wrap:wrap;gap:0 2px;font-family:var(--texte);font-style:normal;text-transform:none;letter-spacing:0;font-weight:700;font-size:.88rem;color:var(--ink);margin-right:8px;vertical-align:.1em}
+.fam-tag .etiquette-ex{margin-left:4px}
+.fam-tag-ligne{margin:0 0 4px}
+.fam-tag-ligne:empty{display:none}
+.fam-equipes,.fam-lignes{list-style:none;margin:0 0 12px;padding:0}
+.fam-equipes li,.fam-lignes li{padding:3px 0}
+#prochain-match p{margin:6px 0 0;color:var(--ink-soft);font-size:.95rem}
+.fam-pour{margin:0 0 4px}
+.fam-pour label{margin-top:4px}
+.dm-type .fam-tag{font-size:.82rem}
+#ur-resume .etat{text-align:right}
+p.fam-tag-ligne[data-fam-tag]{margin:18px 0 2px}
+[data-enfant="lea"] > p.fam-tag-ligne[data-fam-tag]{margin-top:0}
