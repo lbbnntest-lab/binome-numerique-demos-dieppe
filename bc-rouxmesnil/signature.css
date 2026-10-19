@@ -47,6 +47,15 @@
 .s-scene .cheveux{fill:#2a1a12}
 .s-scene .bandeau{fill:none;stroke:#46c46f;stroke-width:3.4;stroke-linecap:round}
 .s-scene .oeil{fill:#1a0f09}
+/* Mascotte (brouillon, ?mascotte) */
+.s-scene .m-fourrure{fill:#3d8a5a}.s-scene .m-fourrure-s{fill:#2c6a44}
+.s-scene .m-tache{fill:#1f5236}.s-scene .m-tache-s{fill:#173d28}
+.s-scene .m-creme{fill:#f2e4bf}.s-scene .m-creme-s{fill:#c9b993}
+.s-scene .m-oreille{fill:#1f5236}
+.s-scene .m-queue{fill:none;stroke:#3d8a5a;stroke-width:9;stroke-linecap:round}
+.s-scene .m-detail{fill:none;stroke:#0e2618;stroke-width:1.5;stroke-linecap:round}
+.s-scene .m-blanc{fill:#fbf8ef}.s-scene .m-iris{fill:#2d6b45}.s-scene .m-pupille{fill:#0e1a12}
+.s-scene .m-bouche{fill:#3b1220}.s-scene .m-langue{fill:#ec8fa5}.s-scene .m-nez{fill:#2b1612}
 .tableau{display:flex;align-items:stretch;margin-top:18px;font-family:var(--titre);font-weight:700;box-shadow:0 18px 40px rgba(0,0,0,.45);max-width:520px}
 .tableau .eq{background:#14181c;color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px;flex:1}
 .tableau .eq img{width:30px;height:30px}

@@ -27,13 +27,14 @@
     ['saut','pointeA','pointeB','tete','queue'].forEach(function(k){ p[k] = +p[k] || 0; });
     var y = hanches(p);
     el('j-racine').setAttribute('transform', 'translate('+p.x.toFixed(2)+' '+y.toFixed(2)+') scale('+S+')');
-    ['j-tronc','j-brasB','j-brasA'].forEach(function(id){ rot(id, p.tronc); });
+    ['j-tronc','j-brasB','j-brasA','j-tete-g'].forEach(function(id){ rot(id, p.tronc); });
     rot('j-epauleA', p.brasA, EPAULE[0], EPAULE[1]); rot('j-coudeA', p.avantA, 0, BRAS);
     rot('j-epauleB', p.brasB, EPAULE[0], EPAULE[1]); rot('j-coudeB', p.avantB, 0, BRAS);
     rot('j-cuisseA', p.cuisseA); rot('j-genouA', p.tibiaA, 0, CUISSE); rot('j-piedA', -(p.cuisseA + p.tibiaA) + (p.pointeA || 0), 0, TIBIA);
     rot('j-cuisseB', p.cuisseB); rot('j-genouB', p.tibiaB, 0, CUISSE); rot('j-piedB', -(p.cuisseB + p.tibiaB) + (p.pointeB || 0), 0, TIBIA);
     rot('j-tete', p.tete || 0, 4, -80);
-    rot('j-queue', p.queue || 0, -10, -22);
+    var q = el('j-queue'), pq = q && q.getAttribute('data-pivot') ? q.getAttribute('data-pivot').split(' ') : [-10, -22];
+    rot('j-queue', p.queue || 0, +pq[0], +pq[1]);
     var o = el('j-ombre'); if (o) { o.setAttribute('cx', p.x + 6); var k = Math.max(0.45, 1 - (p.saut || 0) / 90); o.setAttribute('rx', 40 * k); o.setAttribute('opacity', 0.5 * k); }
   }
   /* Postures clés. */
