@@ -22,22 +22,75 @@
   var R = window.BCRRole;
   function role() { return R ? R.role() : 'president'; }
 
-  /* ---------- Bénévoles : réservations des familles sur les postes de la table de marque ---------- */
+  /* ---------- Table de marque : le président organise qui tient chaque poste (js/table-marque.js) ---------- */
+  var T = window.BCRTable;
+  function aujourdhui() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function avenir() { return T ? T.postes().filter(function (c) { return c.date >= aujourdhui(); }) : []; }
   function rendreBenevoles() {
-    var postes = document.querySelectorAll('[data-creneau]');
-    if (!postes.length) return;
-    var resa = lire('bcr-benevoles', []), libres = 0, avenir = 0;
-    Array.prototype.forEach.call(postes, function (li) {
-      var id = li.getAttribute('data-creneau'), r = resa.filter(function (x) { return x && x.creneauId === id; })[0];
-      var cible = li.querySelector('span:last-child');
-      if (!li.hasAttribute('data-initial')) li.setAttribute('data-initial', cible.outerHTML);
-      if (r) cible.outerHTML = '<span class="etat ok">Pris par ' + esc(r.nom) + '<small>réservé depuis l\'espace des familles</small></span>';
-      else cible.outerHTML = li.getAttribute('data-initial');
-      if (!li.closest('[data-passe]')) { avenir++; if (li.querySelector('.libre')) libres++; }
+    var zone = document.getElementById('tm-planning'); if (!zone || !T) return;
+    var liste = avenir(), dates = [];
+    liste.forEach(function (c) { if (dates.indexOf(c.date) < 0) dates.push(c.date); });
+    dates.sort();
+    zone.innerHTML = dates.map(function (d) {
+      var cs = liste.filter(function (c) { return c.date === d; }), match = cs[0].match;
+      return '<div class="creneau tm-match"><h3>' + esc(dateFr(d)) + ' · horaire à fixer<br>' + esc(match) + '</h3><ul>' + cs.map(function (c) {
+        var t = T.tenu(c), noms = T.BENEVOLES.slice();
+        if (t && noms.indexOf(t.nom) < 0) noms.push(t.nom);
+        var choix = '<select data-tm-poste="' + esc(c.id) + '" aria-label="' + esc(c.poste + ', ' + dateFr(d).toLowerCase()) + '">'
+          + '<option value="">À pourvoir</option>' + noms.map(function (n) { return '<option' + (t && t.nom === n ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join('') + '</select>';
+        var info = t && t.source === 'famille' ? '<small class="tm-source">réservé depuis l\'espace des familles</small>' : '';
+        var retirer = c.ajoute ? '<button type="button" class="retirer-ligne" data-tm-retirer="' + esc(c.id) + '">Retirer<span class="visuellement-cache"> le poste ' + esc(c.poste) + '</span></button>' : '';
+        return '<li data-creneau="' + esc(c.id) + '" class="' + (t ? 'tm-pourvu' : 'tm-libre') + '"><span>' + esc(c.poste) + (t ? '' : ' <span class="libre">à pourvoir</span>') + info + '</span><span class="tm-choix">' + choix + retirer + '</span></li>';
+      }).join('') + '</ul>'
+        + '<form class="tm-ajout" data-tm-date="' + esc(d) + '" data-tm-match="' + esc(match) + '"><label class="visuellement-cache" for="tm-n-' + esc(d) + '">Nouveau poste pour ce match</label>'
+        + '<input id="tm-n-' + esc(d) + '" list="tm-suggestions" placeholder="Ajouter un poste (ex. aide-marqueur)" maxlength="40" autocomplete="off"><button type="submit" class="bouton ligne petit">Ajouter</button></form></div>';
+    }).join('') + '<datalist id="tm-suggestions">' + T.SUGGESTIONS.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>';
+    /* Ce qui manque, match par match. */
+    var manque = [];
+    dates.forEach(function (d) {
+      var l = liste.filter(function (c) { return c.date === d && !T.tenu(c); }).map(function (c) { return c.poste.toLowerCase(); });
+      if (l.length) manque.push('<li><b>' + esc(dateFr(d)) + '</b> : ' + esc(l.join(', ')) + '</li>');
     });
+    var nb = liste.filter(function (c) { return !T.tenu(c); }).length;
+    var m = document.getElementById('tm-manque');
+    if (m) m.innerHTML = nb ? '<p><b>Il manque ' + nb + (nb > 1 ? ' personnes' : ' personne') + '</b> pour les prochains matchs à domicile :</p><ul>' + manque.join('') + '</ul>'
+      : '<p class="etat ok">Tous les postes des prochains matchs à domicile sont pourvus.</p>';
     var e = document.getElementById('benevoles-etat');
-    if (e) e.textContent = libres ? libres + (libres > 1 ? ' postes restent à pourvoir' : ' poste reste à pourvoir') + ' sur ' + avenir + ' pour les prochains matchs.' : 'Tous les postes des prochains matchs sont pourvus.';
+    if (e) e.textContent = nb ? nb + (nb > 1 ? ' postes restent à pourvoir' : ' poste reste à pourvoir') + ' sur ' + liste.length + ' pour les prochains matchs.' : 'Tous les postes des prochains matchs sont pourvus.';
+    var bt = document.getElementById('tm-appel'); if (bt) bt.disabled = !nb;
   }
+  (function brancherTable() {
+    var zone = document.getElementById('tm-planning'); if (!zone || !T) return;
+    zone.addEventListener('change', function (ev) {
+      var sel = ev.target.closest('[data-tm-poste]'); if (!sel) return;
+      var id = sel.getAttribute('data-tm-poste'), c = T.postes().filter(function (x) { return x.id === id; })[0];
+      T.affecter(id, sel.value); rendreBenevoles();
+      annoncer('tm-etat', sel.value ? 'Simulation : ' + sel.value + ' tiendra le poste de ' + c.poste.toLowerCase() + ' (' + dateFr(c.date).toLowerCase() + '). Rien n\'est envoyé dans cette maquette.'
+        : 'Simulation : le poste de ' + c.poste.toLowerCase() + ' (' + dateFr(c.date).toLowerCase() + ') est de nouveau à pourvoir ; les familles peuvent le prendre depuis leur espace.');
+      var n = zone.querySelector('[data-tm-poste="' + id + '"]'); if (n) n.focus();
+    });
+    zone.addEventListener('submit', function (ev) {
+      var f = ev.target.closest('.tm-ajout'); if (!f) return; ev.preventDefault();
+      var champ = f.querySelector('input'), poste = champ.value.trim().replace(/\s+/g, ' ');
+      if (!poste) { champ.focus(); return; }
+      poste = poste.charAt(0).toUpperCase() + poste.slice(1);
+      var id = T.ajouterPoste(f.getAttribute('data-tm-date'), f.getAttribute('data-tm-match'), poste);
+      rendreBenevoles();
+      annoncer('tm-etat', 'Simulation : poste « ' + poste + ' » ajouté, à pourvoir.');
+      var n = zone.querySelector('[data-tm-poste="' + id + '"]'); if (n) n.focus();
+    });
+    zone.addEventListener('click', function (ev) {
+      var b = ev.target.closest('[data-tm-retirer]'); if (!b) return;
+      T.retirerPoste(b.getAttribute('data-tm-retirer')); rendreBenevoles();
+      annoncer('tm-etat', 'Simulation : poste retiré du match.');
+      var a = document.getElementById('tm-appel'); if (a) a.focus();
+    });
+    var bt = document.getElementById('tm-appel');
+    if (bt) bt.addEventListener('click', function () {
+      var nb = avenir().filter(function (c) { return !T.tenu(c); }).length;
+      annoncer('tm-etat', 'Simulation : un message aux familles listerait les ' + nb + (nb > 1 ? ' postes libres' : ' poste libre') + ', avec un lien pour le prendre depuis leur espace. Le président le relirait avant l\'envoi ; rien n\'est envoyé dans cette maquette.');
+    });
+  })();
 
   /* ---------- Événements ---------- */
   var FIXES = [

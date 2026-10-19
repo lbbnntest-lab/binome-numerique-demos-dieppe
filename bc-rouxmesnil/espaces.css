@@ -481,3 +481,18 @@ label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
   .appel-ligne legend{float:none;width:100%}
   table.suivi.appel-table th,table.suivi.appel-table td{padding:8px 6px;font-size:.88rem}
 }
+/* Table de marque organisée par le président */
+.tm-match li{flex-wrap:wrap;align-items:center;gap:8px}
+.tm-match li>span:first-child{flex:1 1 140px}
+.tm-match .tm-source{display:block;font-weight:400;color:var(--ink-soft);font-size:.82rem}
+.tm-choix{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tm-choix select{max-width:170px;padding:6px 8px}
+.tm-ajout{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tm-ajout input{flex:1 1 160px;min-width:0;padding:6px 8px}
+.tm-manque{margin-top:16px;padding:12px 16px;border-left:4px solid var(--attente,#c77b00);background:rgba(0,0,0,.03)}
+.tm-manque ul{margin:6px 0 0;padding-left:18px}
+.tm-manque p{margin:0}
+/* Numéros de licence (président, secrétaire) */
+.num-licence{font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:.02em}
+.recherche-lic{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
+.recherche-lic input{flex:0 1 280px;min-width:0;padding:8px 10px}

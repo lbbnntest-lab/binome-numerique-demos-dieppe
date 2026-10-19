@@ -297,15 +297,18 @@
   /* ---------- Créneaux de bénévoles (pour toute la famille) ---------- */
   function rendreBenevoles() {
     var zone = $('bv-creneaux'); if (!zone) return;
-    var pris = lire('bcr-benevoles', []), a = auj();
+    var pris = lire('bcr-benevoles', []), a = auj(), T = window.BCRTable, liste = T ? T.postes() : CRENEAUX;
     var dates = [];
-    CRENEAUX.forEach(function (c) { if (c.date >= a && dates.indexOf(c.date) < 0) dates.push(c.date); });
+    liste.forEach(function (c) { if (c.date >= a && dates.indexOf(c.date) < 0) dates.push(c.date); });
+    dates.sort();
     zone.innerHTML = dates.map(function (d) {
-      var cs = CRENEAUX.filter(function (c) { return c.date === d; });
+      var cs = liste.filter(function (c) { return c.date === d; });
       return '<div class="creneau"><h3>' + esc(dateFr(d)) + ' · horaire à fixer<br>' + esc(cs[0].match) + '</h3><p class="bv-ex"><span class="etiquette-ex">exemple</span> postes et noms</p><ul>' + cs.map(function (c) {
         var moi = pris.some(function (p) { return p.creneauId === c.id && p.nom === NOM_FAMILLE; });
         var autre = pris.filter(function (p) { return p.creneauId === c.id && p.nom !== NOM_FAMILLE; })[0];
-        var droite = c.pris ? '<span>' + esc(c.pris) + '</span>'
+        /* Poste tenu selon le planning du président (js/table-marque.js), sinon nom d'exemple. */
+        var t = T ? T.tenu(c) : (c.pris ? { nom: c.pris } : null), tient = t && !moi && !autre ? t.nom : null;
+        var droite = tient ? (tient === NOM_FAMILLE ? '<span class="etat ok">Vous (' + NOM_FAMILLE + ')<small>placé par le président</small></span>' : '<span>' + esc(tient) + '</span>')
           : moi ? '<span class="bv-moi"><span class="etat ok">Vous (' + NOM_FAMILLE + ')</span> <button type="button" class="retirer-ligne" data-bv-liberer="' + c.id + '">Libérer<span class="visuellement-cache"> le créneau ' + esc(c.poste) + ' du ' + esc(dateFr(d).toLowerCase()) + '</span></button></span>'
           : autre ? '<span>' + esc(autre.nom) + '</span>'
           : '<span class="bv-libre"><span class="libre">À pourvoir</span> <button type="button" class="bouton petit" data-bv-prendre="' + c.id + '">Prendre ce créneau<span class="visuellement-cache"> : ' + esc(c.poste) + ', ' + esc(dateFr(d).toLowerCase()) + '</span></button></span>';
@@ -320,7 +323,8 @@
       var id = b.getAttribute('data-bv-prendre'), lib;
       if (id) {
         var l = lire('bcr-benevoles', []).filter(function (p) { return p.creneauId !== id; }); l.push({ creneauId: id, nom: NOM_FAMILLE }); ecrire('bcr-benevoles', l);
-        lib = CRENEAUX.filter(function (c) { return c.id === id; })[0];
+        if (window.BCRTable) window.BCRTable.oublierAffectation(id);
+        lib = (window.BCRTable ? window.BCRTable.postes() : CRENEAUX).filter(function (c) { return c.id === id; })[0];
         rendreBenevoles();
         etat.hidden = false; etat.textContent = 'Simulation : créneau pris (' + lib.poste.toLowerCase() + ', ' + dateFr(lib.date).toLowerCase() + '). Les dirigeants le verraient dans leur planning. Rien n\'est envoyé dans cette maquette.';
         var bl = zone.querySelector('[data-bv-liberer="' + id + '"]'); if (bl) bl.focus();
