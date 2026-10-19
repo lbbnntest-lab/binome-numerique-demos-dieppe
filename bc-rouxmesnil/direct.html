@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+<title>Score en direct | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="pages-plus.css">
+</head>
+<body data-page="direct">
+
+<main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Direct</span>
+    <div class="wrap">
+      <p class="s-surtitre">Pendant les matchs du BCR</p>
+      <h1 id="titre-page" class="s-titre">Score en <span class="vert">direct</span></h1>
+      <p class="s-chapo">Le score est saisi panier après panier par un membre du club, à domicile comme à l'extérieur. Pour voir les images, le direct vidéo est sur la page Facebook du club.</p>
+    </div>
+  </section>
+
+  <section class="direct-zone" aria-labelledby="direct-lib">
+    <div class="wrap">
+      <div class="demo-live"><span><strong>Démonstration</strong> : ouvrez la table de marque dans un autre onglet, le score s'affiche ici en direct.</span><a href="table-de-marque.html" target="_blank" rel="noopener">Ouvrir la table de marque</a></div>
+      <p class="etat-direct" id="direct-etat"><span class="point" aria-hidden="true"></span><span>Pas de match en direct pour le moment</span></p>
+      <p class="match-lib" id="direct-lib"></p>
+      <p class="maj-direct" id="direct-suivi" style="margin:-10px 0 16px;color:#c9cdca"></p>
+      <div id="direct-tableau"></div>
+      <p class="maj-direct" id="direct-maj"></p>
+      <div class="direct-actions">
+        <a class="s-bouton" id="direct-fb" href="https://www.facebook.com/BCRouxmesnil" target="_blank" rel="noopener">Les directs sur la page Facebook du club</a>
+        <a class="s-bouton creux" id="direct-ffbb" href="https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080" target="_blank" rel="noopener">Score officiel sur la FFBB après le match</a>
+      </div>
+      <p class="fin-msg" id="direct-fin" hidden>Match terminé. Le score final peut préparer la publication de fin de match : <a href="dirigeants.html#role=communication">voir l'espace communication</a> (démonstration ; rien n'est publié sans la validation d'un dirigeant).</p>
+      <div class="note"><b>Pour le club</b>Dans cette maquette, les deux onglets se parlent par le navigateur de l'ordinateur. Sur le vrai site, la table de marque enverrait le score par le serveur du club (par exemple le temps réel de Supabase, déjà utilisé par Le Binôme Numérique) et tous les téléphones des supporters le verraient en direct, sans recharger la page. Ce score serait un affichage pour le public : il ne remplacerait pas la feuille de marque électronique officielle (e-Marque). Reprendre le direct depuis l'e-Marque de la FFBB serait à demander à la fédération. Seuls les membres connectés du club pourraient saisir le score, ce qui permettrait aussi de suivre les matchs à l'extérieur ; le nom de la personne à la table ne serait visible que des membres connectés du club.</div>
+    </div>
+  </section>
+
+  <section class="bloc" aria-labelledby="titre-comment">
+    <div class="wrap deux-col">
+      <div>
+        <p class="surtitre">Comment ça marche</p>
+        <h2 id="titre-comment">De la table aux tribunes</h2>
+        <ol class="formules">
+          <li><span class="n">1</span><div><h3>Au bord du terrain</h3><p>Un membre du club, connecté à son espace, choisit le match et touche +1, +2 ou +3 à chaque panier, sur son téléphone.</p></div></li>
+          <li><span class="n">2</span><div><h3>Sur cette page</h3><p>Le score, la période et les fautes d'équipe s'affichent aussitôt, pour les proches restés à la maison comme pour les supporters.</p></div></li>
+          <li><span class="n">3</span><div><h3>Après le match</h3><p>Le score final est figé ; le résultat officiel reste celui de la FFBB.</p></div></li>
+        </ol>
+      </div>
+      <figure class="photo-direct">
+        <img src="img/direct-prm.jpg" alt="Image d'un direct du club sur Facebook : seniors masculins contre l'US Lillebonne, tableau de score à l'écran" width="1090" height="656" loading="lazy">
+        <figcaption>Un direct du club sur Facebook (seniors masculins contre l'US Lillebonne). Le tableau de cette page reprend le même affichage.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
+<script src="js/direct.js"></script>
+</body>
+</html>

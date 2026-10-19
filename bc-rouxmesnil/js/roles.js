@@ -11,13 +11,16 @@
     ['coach', 'Coach'], ['stages', 'Responsable des stages'], ['communication', 'Communication et bénévoles']
   ];
   var EQUIPES = [['u13', 'U13 F (DFU13)'], ['u15', 'U15 F (DFU15)'], ['u18', 'U18 F élite (RFU18)'], ['rf2', 'Seniors F, régionale 2 (RF2)']];
+  /* Ce que voit chaque rôle (texte annoncé sous les boutons). Les blocs eux-mêmes portent data-roles dans dirigeants.html :
+     contacts d'urgence dans le bloc du coach (coach et président seulement) ; billetterie : le trésorier voit les montants,
+     ajout et publication restent au président et au secrétaire (js/evenements.js) ; matériel : le coach voit son équipe. */
   var VUE = {
     president: 'tout l\'espace, et les décisions qui attendent votre accord.',
-    tresorier: 'cotisations, encaissements du stage, commande groupée, attestations de paiement et export pour la comptabilité.',
-    secretaire: 'licences fédérales, dossiers incomplets et rappels, demandes des familles, documents, chiffres des subventions.',
-    coach: 'votre équipe seulement : effectif, prochains matchs et matchs amicaux, présences, convocation, scores de fin de match, absences et médias.',
+    tresorier: 'cotisations, encaissements du stage, commande groupée, attestations de paiement, montants de la billetterie des événements et export pour la comptabilité.',
+    secretaire: 'licences fédérales et qui peut jouer, dossiers incomplets et rappels, demandes des familles, documents, maillots et matériel, événements et billetterie, chiffres des subventions.',
+    coach: 'votre équipe seulement : effectif et licences, prochains matchs et matchs amicaux, sélection, convocation, annonces à l\'équipe, appel aux entraînements, covoiturage, contacts d\'urgence le jour du match, maillots et matériel, scores de fin de match, absences et médias.',
     stages: 'la liste du stage d\'octobre et les inscriptions.',
-    communication: 'table de marque, photos et vidéos à valider, publications de fin de match et du week-end.'
+    communication: 'table de marque et créneaux de bénévoles, photos et vidéos à valider, publications de fin de match et du week-end.'
   };
   function nom(liste, id) { for (var i = 0; i < liste.length; i++) if (liste[i][0] === id) return liste[i][1]; return ''; }
   function valide(liste, id) { return !!nom(liste, id); }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+<title>Espace partenaire | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="mouvement.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="pages-plus.css">
+</head>
+<body data-page="espace-partenaire">
+
+<main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Partenaire</span>
+    <div class="wrap">
+      <p class="s-surtitre">Accès réservé aux partenaires du club</p>
+      <h1 id="titre-page" class="s-titre">Votre <span class="vert">visibilité</span></h1>
+      <p class="demo-ex"><strong>Démonstration</strong> : espace d'une « Entreprise partenaire (exemple) ». Tous les chiffres de cette page sont des chiffres d'exemple.</p>
+      <p class="s-chapo">Où votre logo est apparu cette saison, combien de personnes l'ont vu, votre offre aux licenciés et vos visuels.</p>
+    </div>
+  </section>
+
+  <section class="bloc" aria-labelledby="titre-vu">
+    <div class="wrap">
+      <p class="surtitre">Saison 2026-2027 · chiffres d'exemple</p>
+      <h2 id="titre-vu">Où votre logo est apparu</h2>
+      <div class="chiffres-ex">
+        <div><b>37</b><span>apparitions de votre logo <span class="etiquette-ex">exemple</span></span></div>
+        <div><b>18 300</b><span>personnes touchées sur Facebook, en cumul <span class="etiquette-ex">exemple</span></span></div>
+        <div><b>640</b><span>visites de la page « Nos partenaires » <span class="etiquette-ex">exemple</span></span></div>
+      </div>
+      <p class="champ-aide" style="margin:0 0 22px">En cumul : une même personne qui voit trois publications compte trois fois.</p>
+      <div class="table-defile" style="border:0">
+        <table class="tab-vue">
+          <caption class="visuellement-cache">Apparitions du logo par support, chiffres d'exemple</caption>
+          <thead><tr><th>Support</th><th class="nb">Apparitions</th><th class="nb">Personnes touchées</th></tr></thead>
+          <tbody>
+            <tr><td>Publications de la page Facebook du club<small>annonces de matchs, résultats du week-end</small></td><td class="nb">18</td><td class="nb">9 400</td></tr>
+            <tr><td>Directs Facebook des matchs<small>logo à l'écran pendant toute la diffusion</small></td><td class="nb">6</td><td class="nb">3 100</td></tr>
+            <tr><td>Visuels de fin de match<small>publiés après chaque match</small></td><td class="nb">12</td><td class="nb">5 800</td></tr>
+            <tr><td>Page « Nos partenaires » du site<small>logo et lien vers votre site, toute la saison</small></td><td class="nb">1</td><td class="nb">640 visites</td></tr>
+            <tr class="total"><td>Total (chiffres d'exemple)</td><td class="nb">37</td><td class="nb">18 300 + 640 visites</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px"><a class="lien-fort" href="partenaires.html">Voir la page « Nos partenaires »</a></p>
+      <div class="note"><b>D'où viendraient les chiffres</b>Rien ne serait estimé ni inventé : les personnes touchées viendraient des statistiques de la page Facebook du club (la couverture de chaque publication et de chaque direct), et les visites de celles du site, sous réserve que le club nous en donne l'accès. Le nombre d'apparitions serait compté à chaque publication qui porte le logo. Le tableau se mettrait à jour chaque semaine, et le partenaire recevrait un bilan en fin de saison.</div>
+    </div>
+  </section>
+
+  <section class="bloc clair" aria-labelledby="titre-offre">
+    <div class="wrap deux-col">
+      <div>
+        <p class="surtitre">Avantage licenciés</p>
+        <h2 id="titre-offre">Votre offre aux licenciés</h2>
+        <div class="offre-actuelle" id="offre-en-ligne"><b>-10 % sur votre première commande</b><span>Sur présentation de la licence BCR. <span class="etiquette-ex">exemple</span></span><br><span class="statut ok">En ligne</span></div>
+        <div class="offre-actuelle" id="offre-proposee" hidden></div>
+        <p class="chapo-bloc">Votre offre paraît sur la page « Nos partenaires » et dans l'espace des licenciés. Toute modification est relue par un dirigeant du club avant d'être publiée.</p>
+      </div>
+      <form class="form-plus" id="form-offre" novalidate>
+        <h3>Modifier l'offre</h3>
+        <label for="of-texte">Votre offre</label>
+        <input type="text" id="of-texte" maxlength="80" value="-10 % sur votre première commande">
+        <label for="of-cond">Conditions</label>
+        <textarea id="of-cond" maxlength="300">Sur présentation de la licence BCR.</textarea>
+        <button type="submit" class="bouton">Proposer cette offre au club (simulation)</button>
+        <p class="msg" id="of-msg" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="bloc" aria-labelledby="titre-visuels">
+    <div class="wrap">
+      <p class="surtitre">Pour votre communication</p>
+      <h2 id="titre-visuels">Vos visuels à télécharger</h2>
+      <p class="chapo-bloc">Les visuels où figure votre logo, prêts à repartager sur vos propres réseaux.</p>
+      <ul class="visuels">
+        <li><div class="apercu" aria-hidden="true"><span class="mini-sc">BCR 0 · 0 ADV</span><span class="bloc-logo">Votre logo</span></div>
+          <div class="infos"><strong>Votre logo sur les directs</strong><p>Le bandeau du tableau de score, tel qu'il passe à l'écran.</p><button type="button" class="bouton ligne" data-dl="Bandeau des directs">Télécharger (simulation)</button></div></li>
+        <li><div class="apercu" aria-hidden="true"><img src="img/logo-bcr.jpg" alt="" width="44" height="44"><span class="mini-sc">Score final</span><span class="bloc-logo">Votre logo</span></div>
+          <div class="infos"><strong>Visuel de fin de match</strong><p>Le visuel publié après chaque match à domicile, avec votre logo.</p><button type="button" class="bouton ligne" data-dl="Visuel de fin de match">Télécharger (simulation)</button></div></li>
+        <li><div class="apercu clair" aria-hidden="true"><img src="img/logo-bcr.jpg" alt="" width="44" height="44"><span class="mini-sc">Partenaire du BCR</span><span>Saison 2026-2027</span></div>
+          <div class="infos"><strong>Attestation de partenariat</strong><p>À afficher en vitrine ou à joindre à votre comptabilité.</p><button type="button" class="bouton ligne" data-dl="Attestation de partenariat">Télécharger (simulation)</button></div></li>
+      </ul>
+      <p class="msg" id="dl-msg" role="status" hidden></p>
+      <div class="note"><b>Pour le club</b>Cet espace serait réservé à chaque partenaire (accès personnel) et ne montrerait que ses propres chiffres. C'est un argument pour renouveler un partenariat : l'entreprise voit ce que son soutien lui a apporté, sans que les dirigeants aient à préparer de bilan à la main.</div>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
+<script>
+(function(){
+  /* Offre aux licenciés : la modification part « en attente de validation » (simulation, gardée pendant la visite). */
+  var CLE = 'bcr-partenaire-offre';
+  var prop = document.getElementById('offre-proposee'), msg = document.getElementById('of-msg');
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function montrer(o){
+    if (!o) { prop.hidden = true; return; }
+    prop.hidden = false;
+    prop.innerHTML = '<b>' + esc(o.texte) + '</b><span>' + esc(o.cond) + '</span><br><span class="statut attente">En attente de validation par le club</span>';
+  }
+  var o = null; try { o = JSON.parse(sessionStorage.getItem(CLE) || 'null'); } catch (e) {}
+  if (o && o.texte) { montrer(o); document.getElementById('of-texte').value = o.texte; document.getElementById('of-cond').value = o.cond || ''; }
+  document.getElementById('form-offre').addEventListener('submit', function(e){
+    e.preventDefault();
+    var t = document.getElementById('of-texte').value.trim(), c = document.getElementById('of-cond').value.trim();
+    msg.hidden = false;
+    if (t.length < 3) { msg.className = 'msg erreur'; msg.textContent = 'Écrivez votre offre en quelques mots.'; return; }
+    var n = { texte: t, cond: c, statut: 'attente' };
+    try { sessionStorage.setItem(CLE, JSON.stringify(n)); } catch (er) {}
+    montrer(n);
+    msg.className = 'msg';
+    msg.textContent = 'Simulation : offre transmise au club. Elle paraîtra sur le site après validation par un dirigeant ; en attendant, l\'offre en ligne reste celle du dessus.';
+  });
+  var dl = document.getElementById('dl-msg');
+  Array.prototype.forEach.call(document.querySelectorAll('[data-dl]'), function(b){
+    b.addEventListener('click', function(){
+      dl.hidden = false;
+      dl.textContent = 'Simulation : « ' + b.getAttribute('data-dl') + ' » serait téléchargé en image haute définition. Aucun fichier n\'est créé dans cette maquette.';
+    });
+  });
+})();
+</script>
+</body>
+</html>

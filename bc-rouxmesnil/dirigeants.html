@@ -122,11 +122,76 @@
         <div class="actions" style="margin-top:8px"><button type="button" class="bouton" id="coach-conv">Envoyer la convocation</button></div>
         <p class="resultat" id="coach-conv-etat" role="status" aria-live="polite" hidden></p>
       </div>
+
+      <div class="fiche urgence" id="urgence" aria-labelledby="urg-titre">
+        <p class="urg-option">Option à valider avec le club</p>
+        <h3 id="urg-titre">Contacts d'urgence, le jour du match</h3>
+        <div id="urg-corps"></div>
+        <p class="aide">Seulement les téléphones des parents : aucune information de santé. Visible du coach de l'équipe et du président.</p>
+      </div>
       <div class="note"><b>Pour le coach</b>Le coach verrait les réponses des familles avant chaque match et préparerait la convocation en un clic ; elle partirait aux familles après sa relecture. Les demandes d'absence de ses joueuses arriveraient directement chez lui. Il ne verrait ni les paiements ni les subventions. Les matchs viennent des affiches du club et de la FFBB ; les prénoms et les réponses sont des exemples.</div>
       <div class="note"><b>Matchs amicaux</b>Les matchs amicaux n'existent pas dans le calendrier de la fédération : le coach les ajouterait lui-même. Ils suivraient le même circuit que les autres (sélection, convocation, score, publication) et pourraient apparaître dans le calendrier de l'équipe sur le site et dans l'agenda des familles, si le club le souhaite. Le président et le secrétaire les verraient aussi, pour la salle et la table de marque.</div>
       <div class="note"><b>Indisponibilités</b>Le coach préparerait chaque match en voyant d'avance qui n'est pas disponible, déclaré par les familles depuis leur espace. Les familles seraient prévenues de la sélection sans groupe de messages. Seuls le coach de l'équipe et le président verraient le motif d'une indisponibilité : les autres dirigeants n'en auraient pas besoin.</div>
+      <div class="note"><b>Qui peut jouer</b>La sélection montrerait pour chaque joueuse si sa licence est validée. Une joueuse dont la licence est en attente ne pourrait pas être cochée : elle ne peut pas être inscrite sur la feuille de match. Le secrétaire verrait la même information et noterait la licence validée dès qu'elle l'est sur le site de la fédération ; la joueuse redeviendrait sélectionnable aussitôt.</div>
+      <div class="note"><b>Contacts d'urgence, option à valider</b>Le jour du match seulement, le coach aurait sous la main les deux téléphones des parents des joueuses convoquées, en cas d'accident ou de retard au retour. Rien d'autre : ni adresse, ni information de santé. Seuls le coach de l'équipe et le président y auraient accès, et le bouton disparaîtrait le lendemain. Ces données restent limitées au nécessaire, un principe du RGPD ; le club déciderait s'il veut cette option.</div>
     </div>
   </section>
+
+  <section class="bloc" id="vie-equipe" data-roles="coach" aria-labelledby="titre-vie-equipe">
+    <div class="wrap">
+      <p class="surtitre" id="vie-sur">Coach · votre équipe</p>
+      <h2 id="titre-vie-equipe" data-mv="mots">Écrire à l'équipe</h2>
+      <div class="colonnes">
+        <div>
+          <form class="fiche" id="an-form" novalidate>
+            <label for="an-texte" style="margin-top:0">Message aux familles de l'équipe <span id="an-equipe"></span></label>
+            <textarea id="an-texte" rows="4" maxlength="600" aria-describedby="an-aide an-erreur"></textarea>
+            <p class="aide" id="an-aide">Un changement d'horaire, un rappel de matériel, un mot après le match. 600 caractères au plus.</p>
+            <p class="erreur" id="an-erreur"></p>
+            <div class="actions" style="margin-top:12px"><button type="submit" class="bouton">Envoyer à l'équipe</button></div>
+          </form>
+          <p class="resultat" id="an-etat" role="status" aria-live="polite" tabindex="-1" hidden></p>
+          <h3 class="an-titre">Annonces envoyées</h3>
+          <ul class="annonces" id="an-liste"></ul>
+        </div>
+        <div class="fiche">
+          <h3>Covoiturage des matchs</h3>
+          <p class="aide" style="margin:0 0 10px">Proposé et réservé par les familles depuis leur espace : qui conduit, combien de places, qui est réservé.</p>
+          <div id="covoit"></div>
+        </div>
+      </div>
+      <div class="note"><b>Annonces à l'équipe</b>Les annonces remplaceraient les groupes de messages : le coach écrirait une fois, et chaque famille de l'équipe recevrait une notification dans son espace et sur son téléphone, gratuitement ; l'email ne servirait qu'en secours. Les annonces resteraient lisibles dans l'espace des familles, sans se perdre dans une conversation. Dans cette maquette, rien n'est envoyé.</div>
+      <div class="note"><b>Covoiturage</b>Les familles proposeraient leurs places pour les matchs à l'extérieur et réserveraient celles des autres depuis leur espace. Le coach verrait d'un coup d'œil qui conduit et s'il manque des places, sans relancer chacun.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="appel" data-roles="coach" aria-labelledby="titre-appel">
+    <div class="wrap">
+      <p class="surtitre">Coach · entraînements, effectif d'exemple</p>
+      <h2 id="titre-appel" data-mv="mots">Appel à l'entraînement</h2>
+      <div class="fiche">
+        <div class="deux-champs">
+          <div><label for="ap-date" style="margin-top:0">Date de la séance</label><input type="date" id="ap-date"></div>
+          <div><label for="ap-heure" style="margin-top:0">Heure (facultatif)</label><input type="text" id="ap-heure" autocomplete="off" aria-describedby="ap-heure-aide"><p class="aide" id="ap-heure-aide">Champ libre, par exemple « 18 h 30 ».</p></div>
+        </div>
+        <div class="appel-barre"><button type="button" class="bouton ligne" id="ap-tous">Tout le monde présent</button><p class="sel-compteur" id="ap-compteur" aria-live="polite"></p></div>
+        <ul class="appel-liste" id="ap-liste"></ul>
+        <p class="erreur" id="ap-erreur"></p>
+        <div class="actions" style="margin-top:14px"><button type="button" class="bouton" id="ap-ok">Enregistrer l'appel</button></div>
+        <p class="resultat" id="ap-etat" role="status" aria-live="polite" tabindex="-1" hidden></p>
+      </div>
+      <h3 class="ap-titre">Assiduité de la saison <span class="etiquette-ex">chiffres d'exemple</span></h3>
+      <p class="aide" id="ap-seances" style="margin:0 0 10px"></p>
+      <div class="table-defile">
+        <table class="suivi appel-table">
+          <thead><tr><th>Joueuse</th><th>Présente</th><th>Absente</th><th>Excusée</th><th>Taux</th></tr></thead>
+          <tbody id="ap-assiduite"></tbody>
+        </table>
+      </div>
+      <div class="note"><b>Pour le coach</b>Les créneaux d'entraînement ne sont pas connus dans cette maquette : le coach choisirait la date de la séance, puis cocherait les présences en quelques secondes depuis son téléphone, au bord du terrain. Une joueuse dont la famille a déclaré une indisponibilité serait déjà notée « excusée ». L'assiduité de la saison se calculerait toute seule, utile pour préparer les sélections ou parler avec une famille.</div>
+    </div>
+  </section>
+
   <section class="bloc" id="suivi" data-roles="tresorier secretaire">
     <div class="wrap">
 
@@ -228,6 +293,29 @@
     </div>
   </section>
 
+  <section class="bloc" id="qui-peut-jouer" data-roles="secretaire" aria-labelledby="titre-qui-joue">
+    <div class="wrap">
+      <p class="surtitre">Secrétaire · licences d'exemple</p>
+      <h2 id="titre-qui-joue" data-mv="mots">Qui peut jouer</h2>
+      <p class="chapo-bloc">Une joueuse dont la licence est en attente ne peut pas être inscrite sur la feuille de match. Les coachs voient la même information dans leur sélection.</p>
+      <ul class="decisions" id="qpj-liste"></ul>
+      <p class="resultat" id="qpj-etat" role="status" aria-live="polite" tabindex="-1" hidden></p>
+      <div class="note"><b>Pour le secrétaire</b>Dès qu'une licence serait validée sur le site de la fédération, le secrétaire la noterait ici d'un clic ; la joueuse redeviendrait sélectionnable chez son coach. Plus d'appel du coach la veille du match pour savoir qui peut jouer.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="materiel" data-roles="secretaire coach" aria-labelledby="titre-materiel">
+    <div class="wrap">
+      <p class="surtitre">Équipement · inventaire d'exemple</p>
+      <h2 id="titre-materiel" data-mv="mots">Maillots et matériel</h2>
+      <div class="mat-alerte" id="mat-alerte" role="status" aria-live="polite"></div>
+      <div class="actions" style="margin:0 0 18px"><button type="button" class="bouton ligne" id="mat-rappel">Préparer le rappel de fin de saison</button></div>
+      <ul class="decisions mat-liste" id="mat-liste"></ul>
+      <p class="resultat" id="mat-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le club</b>Chaque jeu de maillots, les ballons, les chasubles, les sacs et les trousses de secours auraient leur fiche : à qui ils sont confiés, prêt et retour en un clic. En fin de saison, la liste de ce qui reste à rendre serait prête, et le rappel partirait aux personnes concernées après accord d'un dirigeant. Un coach verrait le matériel de son équipe et le matériel commun ; le président et le secrétaire verraient tout.</div>
+    </div>
+  </section>
+
   <section class="bloc" data-roles="tresorier">
     <div class="wrap">
       <p class="surtitre">Commande groupée · exemple</p>
@@ -250,31 +338,85 @@
   <section class="bloc clair" data-roles="communication">
     <div class="wrap">
       <p class="surtitre">Bénévoles · noms d'exemple</p>
-      <h2 data-mv="mots">Table de marque · exemple du week-end des 17 et 18 octobre</h2>
+      <h2 data-mv="mots">Table de marque et bénévoles</h2>
+      <h3 class="planning-titre">Prochains matchs à domicile <span class="etiquette-ex">noms d'exemple</span></h3>
       <div class="planning" data-mv="suite">
+        <div class="creneau">
+          <h3>Samedi 7 novembre · horaire à fixer<br>U18 F (RFU18) contre Cherbourg Basket Ball</h3>
+          <ul>
+            <li data-creneau="tm-2026-11-07-marqueur"><span>Marqueur</span><span>Sophie D.</span></li>
+            <li data-creneau="tm-2026-11-07-chrono"><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
+          </ul>
+        </div>
+        <div class="creneau">
+          <h3>Samedi 21 novembre · horaire à fixer<br>U18 F (RFU18) contre USO Mondeville Basket 2</h3>
+          <ul>
+            <li data-creneau="tm-2026-11-21-marqueur"><span>Marqueur</span><span class="libre">À pourvoir</span></li>
+            <li data-creneau="tm-2026-11-21-chrono"><span>Chronométreur</span><span>Thomas R.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="sel-compteur" id="benevoles-etat" aria-live="polite" style="margin-top:14px"></p>
+      <h3 class="planning-titre">Week-end des 17 et 18 octobre, passé <span class="etiquette-ex">noms d'exemple</span></h3>
+      <div class="planning" data-passe data-mv="suite">
         <div class="creneau">
           <h3>Samedi 17 octobre · 14 h<br>U13 F (DFU13) contre Saint-Nicolas</h3>
           <ul>
-            <li><span>Marqueur</span><span>Sophie D.</span></li>
-            <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
+            <li data-creneau="tm-1017-1400-marqueur"><span>Marqueur</span><span>Sophie D.</span></li>
+            <li data-creneau="tm-1017-1400-chrono"><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
           </ul>
         </div>
         <div class="creneau">
           <h3>Samedi 17 octobre · 16 h<br>U15 F (DFU15) contre Offranville</h3>
           <ul>
-            <li><span>Marqueur</span><span>Thomas R.</span></li>
-            <li><span>Chronométreur</span><span>Julie M.</span></li>
+            <li data-creneau="tm-1017-1600-marqueur"><span>Marqueur</span><span>Thomas R.</span></li>
+            <li data-creneau="tm-1017-1600-chrono"><span>Chronométreur</span><span>Julie M.</span></li>
           </ul>
         </div>
         <div class="creneau">
           <h3>Dimanche 18 octobre · 8 h 45<br>Seniors féminines, départementale 2 (DF2)<br>contre Rouen Métropole Basket</h3>
           <ul>
-            <li><span>Marqueur</span><span>Nadia B.</span></li>
-            <li><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
+            <li data-creneau="tm-1018-0845-marqueur"><span>Marqueur</span><span>Nadia B.</span></li>
+            <li data-creneau="tm-1018-0845-chrono"><span>Chronométreur</span><span class="libre">À pourvoir</span></li>
           </ul>
         </div>
       </div>
-      <div class="note"><b>Pour le club</b>Les parents s'inscriraient eux-mêmes sur les créneaux libres depuis leur téléphone. Les dirigeants verraient d'un coup d'œil ce qui reste à pourvoir.</div>
+      <div class="note"><b>Pour le club</b>Les parents s'inscriraient eux-mêmes sur les créneaux libres depuis leur téléphone. Les dirigeants verraient d'un coup d'œil ce qui reste à pourvoir : un poste réservé par une famille passe à « Pris par » avec son nom.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="evenements" data-roles="secretaire tresorier" aria-labelledby="titre-evenements">
+    <div class="wrap">
+      <p class="surtitre">Événements et billetterie</p>
+      <h2 id="titre-evenements" data-mv="mots">Les événements du club</h2>
+      <p class="chapo-bloc" id="ev-intro"></p>
+      <div data-roles="secretaire">
+        <button type="button" class="bouton ligne" id="ajouter-ev" aria-expanded="false" aria-controls="form-ev">Ajouter un événement</button>
+        <form class="fiche" id="form-ev" hidden novalidate aria-labelledby="ev-form-titre">
+          <h3 id="ev-form-titre" tabindex="-1">Ajouter un événement</h3>
+          <label for="ev-titre">Titre</label><input type="text" id="ev-titre" autocomplete="off">
+          <div class="trois-champs">
+            <div><label for="ev-date">Date</label><input type="date" id="ev-date"></div>
+            <div><label for="ev-heure">Heure (facultatif)</label><input type="text" id="ev-heure" autocomplete="off" aria-describedby="ev-heure-aide"><p class="aide" id="ev-heure-aide">Champ libre, par exemple « 10 h-16 h 30 ».</p></div>
+            <div><label for="ev-lieu">Lieu</label><input type="text" id="ev-lieu" autocomplete="off" value="Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles"></div>
+          </div>
+          <div class="deux-champs">
+            <div><label for="ev-prix">Prix d'une place, en euros</label><input type="text" id="ev-prix" inputmode="decimal" autocomplete="off">
+              <label class="case"><input type="checkbox" id="ev-gratuit"> Gratuit, sur réservation</label></div>
+            <div><label for="ev-places">Nombre de places</label><input type="text" id="ev-places" inputmode="numeric" autocomplete="off">
+              <label class="case"><input type="checkbox" id="ev-illimite"> Sans limite de places</label></div>
+          </div>
+          <label for="ev-desc">Description (facultatif)</label><textarea id="ev-desc" rows="3" maxlength="800"></textarea>
+          <label class="case"><input type="checkbox" id="ev-publier"> Publier tout de suite sur la page Événements du site</label>
+          <p class="erreur" id="ev-erreur" role="alert"></p>
+          <div class="actions"><button type="submit" class="bouton">Ajouter l'événement</button><button type="button" class="bouton ligne" id="ev-annuler">Annuler</button></div>
+        </form>
+      </div>
+      <p class="resultat" id="ev-etat" role="status" aria-live="polite" hidden></p>
+      <div class="compteurs ev-total" id="ev-total"></div>
+      <p class="aide" id="ev-total-aide" style="margin:-10px 0 16px"></p>
+      <ul class="decisions evenements" id="ev-liste"></ul>
+      <div class="note"><b>Pour le club</b>Le président ou le secrétaire ajouterait un événement en une minute : titre, date, lieu, prix ou gratuit, nombre de places. Une fois publié, il apparaîtrait sur la page Événements du site, avec la réservation en ligne ; les réservations arriveraient ici. Le trésorier verrait les montants, sans les réglages. La journée d'arbitrage du 21 octobre est une vraie publication du club (inscription auprès de Bertrand) ; le tournoi est un exemple.</div>
     </div>
   </section>
 
@@ -372,6 +514,7 @@
 <script src="js/roles.js"></script>
 <script src="js/selection.js"></script>
 <script src="js/publications.js"></script>
+<script src="js/equipe.js"></script>
 <script>
 (function(){
   var JOUEURS = [
@@ -391,6 +534,8 @@
     if(v==='Non'||v==='Non renseigné') return 'manque';
     return 'attente';
   }
+  /* Licence notée validée pendant la visite (bloc « Qui peut jouer », js/equipe.js). */
+  if (window.BCRLicences) JOUEURS.forEach(function(j){ if (j[3] === 'En attente' && BCRLicences.valideeParNom(j[0])) j[3] = 'Faite'; });
   var ROLE = window.BCRRole ? BCRRole.role() : 'president', filtreCourant = 'tous';
   /* Colonnes selon le rôle : le trésorier ne voit que la cotisation, ni licence ni autorisation photo. */
   function colonnes(){ return ROLE === 'tresorier' ? [2] : [2,3,4]; }
@@ -432,6 +577,7 @@
       : 'Rappel préparé pour ' + n + ' familles de cette liste, avec pour chacune ce qui manque (paiement, licence ou autorisation photo). Il part après validation par un dirigeant.';
   });
   document.addEventListener('bcr:role', function(e){ ROLE = e.detail.role; entete(); afficher(filtreCourant); });
+  document.addEventListener('bcr:licence', function(e){ JOUEURS.forEach(function(j){ if (j[0] === e.detail.nom) j[3] = 'Faite'; }); afficher(filtreCourant); });
   entete();
   afficher('tous');
 })();
@@ -560,7 +706,8 @@
 
   /* Coach : son équipe seulement. Matchs réels (affiches du club, FFBB) ; effectifs, disponibilités et réponses : exemples.
      Les indisponibilités de Léa B. (U15 F) viennent de l'espace licenciés (js/selection.js). */
-  var S = window.BCRSel;
+  var S = window.BCRSel, L = window.BCRLicences;
+  function licOk(id, nom){ return L ? L.valide(id, nom) : true; }
   var EQUIPES = {
     u13: { titre:'U13 féminines', niv:'Départementale féminine U13 (DFU13)', media:'u13',
       avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', adv:'CEP Saint-Nicolas-d\'Aliermont', dom:true}],
@@ -655,6 +802,8 @@
     if (!date) return { t:'inconnu', lib:'Date du match à saisir' };
     var e = EQUIPES[id], x = null;
     if (id === 'u15' && nom === 'Léa B.' && S) { x = S.couvre(S.indispos(), date); if (x) return { t:'indispo', lib:'Indisponible' + (x.motif ? ' : ' + x.motif.toLowerCase() : ''), famille:true }; return { t:'dispo', lib:'Disponible' }; }
+    /* Elsa B. (U13 F), second enfant de la famille B. : indisponibilités déclarées dans l'espace licenciés (bcr-indispos-elsa). */
+    if (id === 'u13' && nom === 'Elsa B.' && S) { x = S.couvre(S.lire('bcr-indispos-elsa', []), date); if (x) return { t:'indispo', lib:'Indisponible' + (x.motif ? ' : ' + x.motif.toLowerCase() : ''), famille:true }; return { t:'dispo', lib:'Disponible' }; }
     e.indispos.forEach(function(i){ if (!x && i.nom === nom && date >= i.du && date <= i.au) x = i; });
     if (x) return { t:'indispo', lib:'Indisponible : ' + x.motif.toLowerCase(), famille:true };
     if (e.sansRep.indexOf(nom) >= 0) return { t:'attente', lib:'Pas de réponse' };
@@ -667,7 +816,7 @@
     return ['attente','Convoquée, en attente de réponse'];
   }
   function maxi(){ var v = parseInt(document.getElementById('sel-max').value, 10); return v > 0 ? v : 12; }
-  function nbSel(st){ return Object.keys(st.sel).filter(function(n){ return st.sel[n]; }).length; }
+  function nbSel(st){ var id = equipeId(); return Object.keys(st.sel).filter(function(n){ return st.sel[n] && licOk(id, n); }).length; }
   function compteur(msg){
     var st = etat(), n = nbSel(st);
     document.getElementById('sel-compteur').textContent = (msg ? msg + ' ' : '') + n + (n > 1 ? ' sélectionnées' : ' sélectionnée') + ' sur ' + maxi() + ' au maximum (nombre fixé par le coach).';
@@ -682,10 +831,11 @@
       document.getElementById('sel-lieu').value = m.lieu;
     }
     document.getElementById('sel-liste').innerHTML = e.effectif.map(function(nom, i){
-      var d = dispo(id, nom, m.date), coche = !!st.sel[nom];
+      var d = dispo(id, nom, m.date), lic = licOk(id, nom), coche = !!st.sel[nom] && lic;
       var droite = st.envoye && coche ? (function(r){ return '<span class="etat ' + r[0] + '">' + r[1] + '</span>'; })(reponse(nom, st, k))
         : '<span class="etat ' + (d.t === 'dispo' ? 'ok' : d.t === 'indispo' ? 'manque' : 'attente') + '">' + esc(d.lib) + (d.famille ? '<small> · déclaré par la famille</small>' : '') + '</span>';
-      return '<li data-nom="' + esc(nom) + '"><label class="sel-joueuse"><input type="checkbox" data-sel="' + i + '"' + (coche ? ' checked' : '') + (st.envoye ? ' disabled' : '') + '> <span>' + esc(nom) + '</span></label>' + droite
+      return '<li data-nom="' + esc(nom) + '"' + (lic ? '' : ' class="sans-licence"') + '><label class="sel-joueuse"><input type="checkbox" data-sel="' + i + '"' + (coche ? ' checked' : '') + (st.envoye || !lic ? ' disabled' : '') + (lic ? '' : ' aria-describedby="lic-' + i + '"') + '> <span>' + esc(nom) + '<small class="sel-lic ' + (lic ? 'ok">Licence validée' : 'attente">Licence en attente') + '</small></span></label>' + droite
+        + (lic ? '' : '<p class="sel-bloque" id="lic-' + i + '">' + esc(L.MESSAGE) + '</p>')
         + (attenteConf === nom ? '<div class="sel-confirme" role="alertdialog" aria-labelledby="conf-' + i + '"><p id="conf-' + i + '">Elle a déclaré une indisponibilité ce jour-là : la sélectionner quand même ?</p>'
           + '<button type="button" class="bouton petit" data-forcer="' + i + '">La sélectionner quand même</button> <button type="button" class="bouton ligne petit" data-annuler-sel="' + i + '">Annuler</button></div>' : '')
         + '</li>';
@@ -704,11 +854,14 @@
     /* Résumé à droite */
     var c = {dispo:0, indispo:0, attente:0, inconnu:0};
     e.effectif.forEach(function(nom){ c[dispo(id, nom, m.date).t]++; });
+    var att = e.effectif.filter(function(nom){ return !licOk(id, nom); });
+    var licLigne = '<li><span>Licences validées</span><span class="etat ' + (att.length ? 'attente' : 'ok') + '">' + (e.effectif.length - att.length) + ' sur ' + e.effectif.length + '</span></li>'
+      + (att.length ? '<li><span>Licence en attente, ne peut pas jouer</span><span class="etat attente">' + esc(att.join(', ')) + '</span></li>' : '');
     document.getElementById('coach-presences').textContent = m.date ? 'Pour le match du ' + dateFr(m.date).toLowerCase() + ', d\'après les réponses des familles :' : 'Les disponibilités s\'afficheront dès que la date du match sera saisie.';
     document.getElementById('coach-effectif').innerHTML = m.date
       ? '<li><span>Disponibles</span><span class="etat ok">' + c.dispo + '</span></li><li><span>Indisponibles (motif connu du coach)</span><span class="etat manque">' + c.indispo + '</span></li><li><span>Sans réponse</span><span class="etat attente">' + c.attente + '</span></li>'
-        + '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>'
-      : '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>';
+        + '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>' + licLigne
+      : '<li><span>Effectif</span><span class="etat">' + e.effectif.length + ' joueuses</span></li>' + licLigne;
   }
   function scores(){ return S ? S.lire('bcr-scores', []) : []; }
   /* Formulaire « Fin de match » sous un match passé (ou à compléter) : aucun score prérempli. */
@@ -843,6 +996,7 @@
     var cb = e.target.closest('[data-sel]'); if (!cb) return;
     var id = equipeId(), nom = EQUIPES[id].effectif[+cb.getAttribute('data-sel')], st = etat(), m = matchCourant();
     if (!cb.checked) { delete st.sel[nom]; attenteConf = null; selection(); liste.querySelector('[data-sel="' + cb.getAttribute('data-sel') + '"]').focus(); return; }
+    if (!licOk(id, nom)) { cb.checked = false; compteur(nom + ' : ' + L.MESSAGE); return; }
     if (nbSel(st) >= maxi()) { cb.checked = false; compteur('Maximum atteint.'); return; }
     if (dispo(id, nom, m.date).t === 'indispo') {
       cb.checked = false; attenteConf = nom; selection();
@@ -855,7 +1009,7 @@
     var f = e.target.closest('[data-forcer]'), a = e.target.closest('[data-annuler-sel]');
     if (!f && !a) return;
     var i = (f || a).getAttribute(f ? 'data-forcer' : 'data-annuler-sel'), nom = EQUIPES[equipeId()].effectif[+i], st = etat();
-    if (f && nbSel(st) < maxi()) st.sel[nom] = true;
+    if (f && nbSel(st) < maxi() && licOk(equipeId(), nom)) st.sel[nom] = true;
     attenteConf = null; selection();
     compteur(f ? nom + ' sélectionnée malgré son indisponibilité.' : 'Sélection annulée.');
     liste.querySelector('[data-sel="' + i + '"]').focus();
@@ -864,7 +1018,7 @@
     var id = equipeId(), e = EQUIPES[id], m = matchCourant(), st = etat(), k = cle(), n = nbSel(st), err = document.getElementById('sel-erreur');
     if (!m.date) { err.textContent = 'Saisissez d\'abord la date du match.'; document.getElementById('sel-date').focus(); return; }
     if (!n) { err.textContent = 'Sélectionnez au moins une joueuse.'; liste.querySelector('[data-sel]').focus(); return; }
-    var joueuses = e.effectif.filter(function(nom){ return st.sel[nom]; });
+    var joueuses = e.effectif.filter(function(nom){ return st.sel[nom] && licOk(id, nom); });
     st.envoye = true;
     if (S) S.ajouterConvocation({ id:k, equipe:id, equipeNom:e.titre, date:m.date, adv:m.amical ? m.adv + ' (match amical)' : m.adv, lieu:m.lieu, rdv:document.getElementById('sel-rdv').value.trim(), joueuses:joueuses });
     selection();
@@ -956,8 +1110,11 @@
   });
 
   document.addEventListener('bcr:role', function(){ coach(); majLiens(); });
+  /* Pour js/equipe.js (appel, contacts d'urgence, covoiturage) : effectifs, matchs et disponibilités de cette page. */
+  window.BCRDir = { equipes: EQUIPES, matchsDe: matchsDe, matchCourant: matchCourant, cle: cle, dispo: dispo, rafraichir: coach };
   coach(); majLiens();
 })();
 </script>
+<script src="js/evenements.js"></script>
 </body>
 </html>

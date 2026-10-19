@@ -25,7 +25,10 @@
     ['u18f.html','u18f','U18F élite'],
     ['licencies.html','licencies','Espace licenciés'],
     ['dirigeants.html','dirigeants','Espace dirigeants'],
-    ['medias.html','medias','Photos et vidéos du club']
+    ['medias.html','medias','Photos et vidéos du club'],
+    ['evenements.html','evenements','Événements'],
+    ['direct.html','direct','Score en direct'],
+    ['partenaires.html','partenaires','Nos partenaires']
   ];
   var menu = liens.map(function(l, i){
     var n = (i < 9 ? '0' : '') + (i + 1);
@@ -54,7 +57,7 @@
 
   var pied = '<footer class="pied"><div class="wrap">'
     + '<div><h3>Basket Club de Rouxmesnil</h3><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles ; ancien gymnase Lefebvre quand deux matchs ont lieu en même temps.</p></div>'
-    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="index.html#partenaires">Devenir partenaire</a></p></div>'
+    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="partenaires.html">Nos partenaires</a></p></div>'
     + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span>Mentions légales et confidentialité : à rédiger avec le club</span>'
     + '<span class="signe-lbn">Maquette réalisée par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a></span></div>'
@@ -70,6 +73,7 @@
         var k = sessionStorage.key(i);
         if (k && k.indexOf('bcr-') === 0 && k !== 'bcr-expl') sessionStorage.removeItem(k);
       }
+      localStorage.removeItem('bcr-direct');
     } catch (e) {}
     location.reload();
   });

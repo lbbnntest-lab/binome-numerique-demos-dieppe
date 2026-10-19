@@ -372,3 +372,112 @@ input[type=time]{width:100%;font:inherit;padding:10px 12px;border:1px solid #b9b
   .bouton.gros{font-size:1.1rem;padding:14px 16px}
 }
 .convoc-chg{margin:8px 0 0 !important;padding:8px 12px;background:#fdf0e6;border-left:4px solid var(--attente);color:#5a2a08;font-weight:600}
+
+/* Espace dirigeants : vie de l'équipe et du club (js/equipe.js, js/evenements.js) */
+/* Qui peut jouer : état de la licence dans la sélection */
+.sel-lic{display:block;font-size:.8rem;font-weight:700;line-height:1.2}
+.sel-lic.ok{color:var(--ok)}
+.sel-lic.attente{color:var(--attente)}
+.sel-liste > li.sans-licence .sel-joueuse{cursor:not-allowed;color:var(--ink-soft)}
+.sel-bloque{flex-basis:100%;margin:2px 0 0;padding:6px 10px;background:#fdf0e6;border-left:4px solid var(--attente);color:#5a2a08;font-size:.92rem;font-weight:600}
+.qpj-attente{list-style:none;margin:8px 0 0;padding:0}
+.qpj-attente li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 14px;padding:8px 0;border-top:1px solid var(--line)}
+.qpj-attente b{font-weight:700;color:var(--ink)}
+.decisions .qpj-attente .etat{color:var(--attente)}
+#qpj-liste > li > div:first-child,#mat-liste > li > div:first-child{min-width:0;flex:1 1 280px}
+
+/* Contacts d'urgence (option à valider) */
+.urgence{margin-top:20px;border-top:4px solid var(--attente)}
+.urg-option{display:inline-block;margin:0 0 8px;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#fff;background:var(--attente);padding:2px 8px}
+.urgence #urg-corps > p{margin:0 0 10px}
+.urg-liste{list-style:none;margin:10px 0 14px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0 24px}
+.urg-liste li{display:flex;flex-direction:column;padding:8px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.urg-liste b{font-weight:700}
+.urg-liste small{color:var(--ink-soft);font-size:.82rem}
+
+/* Annonces à l'équipe */
+.an-titre{margin:24px 0 8px}
+.annonces{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line)}
+.annonces > li{padding:14px 18px;border-top:1px solid var(--line)}
+.annonces > li:first-child{border-top:0}
+.an-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0}
+.an-tete strong{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.1rem}
+.an-tete span{color:var(--ink-soft);font-size:.92rem}
+.an-tete .etiquette-ex{margin-left:0}
+.annonces .aide{margin-top:4px}
+
+/* Covoiturage (lecture) */
+.covoit-vide{margin:0 0 12px;color:var(--ink-soft)}
+.covoit-match + .covoit-match{margin-top:16px}
+.covoit-lib{margin:0 0 4px;font-weight:700}
+.covoit-lib .etiquette-ex{margin-left:4px}
+.covoit-offres{list-style:none;margin:0;padding:0}
+.covoit-offres li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;padding:8px 0;border-top:1px solid var(--line);font-size:.95rem}
+.covoit-resa{flex-basis:100%;color:var(--ink-soft);font-size:.9rem}
+
+/* Appel aux entraînements */
+.appel-barre{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin:18px 0 10px}
+.appel-barre .sel-compteur{margin:0}
+.appel-liste{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.appel-ligne{border:0;border-bottom:1px solid var(--line);margin:0;padding:8px 0;min-width:0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 14px}
+.appel-ligne legend{float:left;padding:0;font-weight:600}
+.appel-ligne legend small{font-weight:400;color:var(--attente)}
+.appel-choix{display:inline-flex}
+.appel-choix label{margin:0;position:relative}
+.appel-choix input{position:absolute;opacity:0;width:1px;height:1px}
+.appel-choix span{display:inline-block;padding:6px 12px;border:1px solid var(--club);font-size:.92rem;font-weight:600;background:#fff;cursor:pointer;min-width:84px;text-align:center}
+.appel-choix label + label span{border-left:0}
+.appel-choix input:focus-visible + span{outline:3px solid var(--ballon);outline-offset:2px;position:relative;z-index:1}
+.appel-choix .ap-present input:checked + span{background:var(--ok);border-color:var(--ok);color:#fff}
+.appel-choix .ap-absent input:checked + span{background:var(--manque);border-color:var(--manque);color:#fff}
+.appel-choix .ap-excuse input:checked + span{background:var(--attente);border-color:var(--attente);color:#fff}
+.ap-titre{margin:30px 0 4px}
+table.suivi.appel-table{min-width:0}
+.appel-table td:not(:first-child),.appel-table th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.appel-table td:first-child{white-space:nowrap}
+.decisions .etiquette-ex,.an-tete .etiquette-ex{color:#a8460f}
+
+/* Maillots et matériel */
+.mat-alerte{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;background:#fdf0e6;border-left:6px solid var(--attente);padding:12px 16px;margin:0 0 12px}
+.mat-alerte strong{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.2rem;color:#5a2a08}
+.mat-alerte span{color:#5a2a08}
+.mat-info strong{display:block}
+.mat-info > span{display:block}
+.mat-info details{margin-top:4px}
+.mat-info summary{cursor:pointer;font-weight:600;color:var(--club);font-size:.92rem}
+.mat-info details p{margin:4px 0 0;font-size:.9rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.mat-pret{flex-basis:100%;border:1px solid var(--line);background:#f7f8f5;padding:4px 14px 12px}
+.mat-pret input[type=text]{max-width:420px}
+
+/* Bénévoles */
+.planning-titre{margin:22px 0 12px;font-size:1.3rem}
+.creneau li .etat{text-align:right}
+.creneau li .etat small{display:block;font-weight:400;color:var(--ink-soft)}
+
+/* Événements et billetterie */
+label.case{display:flex;align-items:center;gap:8px;font-weight:600;margin:10px 0 0;cursor:pointer}
+label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
+#form-ev input:disabled{background:#eceeea;color:var(--ink-soft)}
+#form-ev{margin:12px 0 0;max-width:900px}
+#form-ev h3{margin:0}
+.ev-total{grid-template-columns:repeat(3,1fr);margin:20px 0 18px}
+.ev-total b{font-variant-numeric:tabular-nums}
+.evenements > li{align-items:flex-start}
+.ev-corps{min-width:0;flex:1 1 320px}
+.ev-quand{margin:0;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;color:var(--ballon-ink);font-weight:700}
+.evenements h3{margin:2px 0 4px;font-size:clamp(1.25rem,2.4vw,1.5rem)}
+.ev-lieu{margin:0;color:var(--ink-soft)}
+.ev-desc{margin:6px 0 0;max-width:44em}
+.ev-chiffres{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px;font-size:.95rem}
+.ev-chiffres li{color:var(--ink)}
+.evenements details{margin-top:6px}
+.evenements summary{cursor:pointer;font-weight:600;color:var(--club)}
+.ev-resa{margin:4px 0 0;padding-left:20px;font-size:.94rem}
+@media (max-width:600px){
+  .ev-total{grid-template-columns:1fr 1fr 1fr}
+  .ev-total div{padding:12px 10px}
+  .ev-total b{font-size:1.5rem}
+  .appel-choix span{min-width:0;padding:6px 10px}
+  .appel-ligne legend{float:none;width:100%}
+  table.suivi.appel-table th,table.suivi.appel-table td{padding:8px 6px;font-size:.88rem}
+}
