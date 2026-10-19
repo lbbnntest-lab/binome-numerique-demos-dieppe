@@ -200,8 +200,20 @@
       <div class="logos" data-mv="suite">
         <div class="nous"><span style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center"><img src="img/lbn.png" alt="" width="76" height="40">Le Binôme Numérique<small style="font-weight:400;font-size:.72rem">proposition de partenariat</small></span></div><div><img src="img/partenaires/commune-rouxmesnil.jpg" alt="Commune de Rouxmesnil-Bouteilles" loading="lazy"></div><div><img src="img/partenaires/auchan.jpg" alt="Auchan Dieppe" loading="lazy"></div><div><img src="img/partenaires/bigmat.jpg" alt="BigMat Roger" loading="lazy"></div><div><img src="img/partenaires/brico-depot.jpg" alt="Brico Dépôt Dieppe" loading="lazy"></div><div><img src="img/partenaires/carbon.jpg" alt="Carbon Decor · Carbon Meta" loading="lazy"></div><div><img src="img/partenaires/demare.jpg" alt="SAS Demare Luc" loading="lazy"></div><div><img src="img/partenaires/boulangerie-prieure.jpg" alt="Boulangerie du Prieuré" loading="lazy"></div>
       </div>
+      <script>
+      /* Partenaires de l'accueil : à chaque visite, 7 logos tirés au hasard parmi les 31 du calendrier 2026 ;
+         la case du Binôme Numérique reste fixe. Sans script, les 7 logos écrits ci-dessus restent affichés. */
+      (function(){
+        var P = [["commune-rouxmesnil", "Commune de Rouxmesnil-Bouteilles"], ["mekabulle", "Mekabulle"], ["chaumont", "Michael Chaumont"], ["demare", "SAS Demare Luc"], ["proxi", "Proxi Super"], ["salon-m", "Le salon M"], ["stadium", "Sport Solidaire Stadium"], ["abrafer", "Abrafer"], ["diamant", "SAS Diamant Fermetures"], ["auchan", "Auchan Dieppe"], ["ligny-gaspary", "Ligny-Gaspary Immobilier"], ["dequesne", "SAS Dequesne"], ["trianon", "Le Trianon"], ["atelier", "L'atelier"], ["bigmat", "BigMat Roger"], ["wlc", "WLC Automobiles"], ["art-mony", "Art Mony Pub"], ["ongles", "Les Ongles en Gel in A."], ["hysope", "Hysope Fleurs"], ["leader", "Leader actual emploi"], ["bayeux", "EURL Bayeux Maçonnerie"], ["boulangerie-prieure", "Boulangerie du Prieuré"], ["etria", "Etria"], ["eph", "EPH publicité"], ["bistrot-barrieres", "Bistrot des Barrières"], ["franck-provost", "Franck Provost"], ["brico-depot", "Brico Dépôt"], ["samp", "SAMP Services"], ["carbon", "Carbon Decor · Carbon Meta"], ["regates", "Les Régates"], ["feron", "Boucherie charcuterie Feron"]];
+        var zone = document.querySelector('.s-partenaires .logos'); if (!zone) return;
+        for (var i = P.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = P[i]; P[i] = P[j]; P[j] = t; }
+        Array.prototype.forEach.call(zone.querySelectorAll(':scope > div:not(.nous)'), function(d){ d.remove(); });
+        function esc(x){ return String(x).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+        P.slice(0, 7).forEach(function(p){ zone.insertAdjacentHTML('beforeend', '<div><img src="img/partenaires/' + p[0] + '.jpg" alt="' + esc(p[1]) + '" loading="lazy"></div>'); });
+      })();
+      </script>
       <p class="resultat" id="part-msg" hidden>Sur le futur site : un formulaire de contact pour les entreprises, reçu par le président ou par le responsable des partenaires.</p>
-      <div class="note"><b>Pour le club</b>Les partenaires remerciés dans votre calendrier 2026, avec leurs logos ; la liste complète est sur la page Nos partenaires. Sur le futur site, chaque logo mènerait au site du partenaire, et la page présenterait aux entreprises les formules que vous proposez (à compléter avec vous).</div>
+      <div class="note"><b>Pour le club</b>À chaque visite, sept des 31 partenaires de votre calendrier 2026 s'affichent ici, tirés au hasard : chacun a sa place sur l'accueil, à tour de rôle. La liste complète est sur la page Nos partenaires. Sur le futur site, chaque logo mènerait au site du partenaire, et la page présenterait aux entreprises les formules que vous proposez (à compléter avec vous).</div>
     </div>
   </section>
 </main>
