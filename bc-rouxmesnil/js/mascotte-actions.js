@@ -222,18 +222,25 @@
       pas('b', 236, 2.04, 0.3, 10); k(2.04, 0.3, { hx: 228 }, 'power1.inOut');
       tb = tir(2.36);
     } else if (nom === 'pas-arriere') {
-      /* Trois pas en dribblant vers la ligne ; le dernier dribble dure pendant le saut en arrière ; ballon pris à la
-         réception sur les deux pieds (arrêt simultané) ; tir sans bouger les pieds, derrière la ligne à 3 points. */
+      /* Step back moderne, en cinq temps (décomposition transmise par le fondateur le 20/10). Règles : ramassé sur le
+         pied avant (pas zéro), puis deux appuis (pied arrière, puis pied avant), puis tir ; ballon lâché en l'air. */
       tl.to(e, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
+      /* 1. Dribble d'approche : trois pas en dribblant vers la ligne. */
       foulee(1.0, 0.42, 'b', 198, 184);
       foulee(1.42, 0.42, 'a', 236, 220);
       foulee(1.84, 0.4, 'b', 266, 252);
-      dribble(2.24, 0.38);
-      k(2.3, 0.32, { ax: 198, bx: 214, hx: 206 }, 'power2.out');
-      k(2.3, 0.16, { al: 12, bl: 16, hy: DEBOUT - 8, ecr: -0.04 }, 'power1.out'); k(2.46, 0.16, { al: 0, bl: 0, hy: DEBOUT, ecr: 0.05 }, 'power1.in');
-      poussiere(2.6, false);
-      passe('main', 2.62); k(2.62, 0.16, haut(P.prise), 'power1.out');
-      tb = tir(2.74);
+      /* 2. Ramassé : fin du dribble, ballon à deux mains, pied avant posé ; le poids passe sur ce pied, genoux fléchis. */
+      passe('main', 2.24); k(2.24, 0.16, Object.assign(haut(P.prise), { hx: 258, hy: ACCROUPI - 4, ecr: 0.05 }), 'power1.out');
+      /* 3. Pas en arrière : poussée sur le pied avant, le corps part vers l'arrière, le pied arrière se repose le
+            premier (1er appui) ; le dos reste droit. */
+      pas('a', 200, 2.4, 0.22, 12);
+      k(2.4, 0.3, { hx: 212, hy: DEBOUT - 6, ecr: -0.03 }, 'power2.out');
+      pas('b', 222, 2.46, 0.24, 16);
+      /* 4. Ancrage : le pied avant revient se poser à côté (2e appui), le corps se stabilise en se tassant un peu. */
+      k(2.62, 0.14, { hy: DEBOUT + 4, ecr: 0.05 }, 'power1.in');
+      poussiere(2.66, false);
+      /* 5. Tir en suspension : il s'élève droit vers le haut, sans pencher en arrière, et lâche le ballon au sommet. */
+      tb = tir(2.8);
     } else {
       /* Course en dribblant ; le ballon est pris en fin de dribble. */
       tl.to(e, { s: 76, a: 57, duration: 2.0, ease: 'power1.out', onUpdate: compte }, 1.0);

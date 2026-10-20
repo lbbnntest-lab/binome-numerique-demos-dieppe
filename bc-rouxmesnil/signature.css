@@ -32,7 +32,8 @@
 .s-scene .ombre{fill:#000}
 .s-scene .eclat path{fill:none;stroke:#ffe08a;stroke-width:5;stroke-linecap:round}.s-scene .eclat circle{fill:#ffe08a}
 .s-scene .poussiere ellipse{fill:rgba(236,222,192,.85)}
-.s-scene .trajet{fill:none;stroke:rgba(70,196,111,.6);stroke-width:2;stroke-dasharray:5 8}
+/* Trajectoire du tir : calculée par l'animation mais jamais affichée (retirée à la demande du fondateur, 20/10). */
+.s-scene .trajet{display:none}
 .s-scene .ballon{fill:#e06a1b}
 .s-scene .ballon-l{fill:none;stroke:#3a1a05;stroke-width:1.5}
 .s-scene .peau{fill:#b77a52}
