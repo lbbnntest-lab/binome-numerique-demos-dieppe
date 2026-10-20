@@ -66,10 +66,43 @@
     fete:     { tronc: 2, tete: 0, brasA: -92, avantA: -82, brasB: 26, avantB: -78, queue: 22, face: 1, index: 1, dessus: 1 }
   };
 
+  /* Enchaînement sans fin : après chaque action, une autre est tirée au hasard, jamais la même deux fois de suite
+     (tirage dans un sac : toutes les actions passent avant qu'une revienne). */
+  var sac = [], derniere = null, boucle = null, courante = null, enPause = false, enAttente = null, visible = true, bouton = null;
+  function suivante(){
+    if (!sac.length || (sac.length === 1 && sac[0] === derniere)) sac = ACTIONS.filter(function(a){ return a !== derniere; }).sort(function(){ return Math.random() - 0.5; });
+    return sac.splice(sac[0] === derniere ? 1 : 0, 1)[0];
+  }
   function choisir(){
     var m = /[?&]action=([a-z-]+)/.exec(location.search);
     if (m && ACTIONS.indexOf(m[1]) >= 0) return m[1];
-    return ACTIONS[Math.floor(Math.random() * ACTIONS.length)];
+    return suivante();
+  }
+  function relancer(A){
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (enPause || !visible) { enAttente = A; return; }
+    enAttente = null; boucle = gsap.timeline(); jouer(boucle, A, true);
+  }
+  /* Bouton pause (une animation qui dure plus de 5 secondes doit pouvoir être arrêtée) et mise en veille quand la
+     scène n'est plus à l'écran. Créés une seule fois, au premier lancement animé. */
+  function preparerControles(A){
+    if (bouton) return;
+    var scene = document.querySelector('.s-scene'); if (!scene) return;
+    bouton = document.createElement('button');
+    bouton.type = 'button'; bouton.className = 's-pause'; bouton.textContent = 'Pause';
+    bouton.setAttribute('aria-label', "Mettre l'animation en pause");
+    bouton.addEventListener('click', function(){
+      enPause = !enPause;
+      if (courante) courante.paused(enPause);
+      bouton.textContent = enPause ? 'Reprendre' : 'Pause';
+      bouton.setAttribute('aria-label', enPause ? "Reprendre l'animation" : "Mettre l'animation en pause");
+      if (!enPause && enAttente) relancer(enAttente);
+    });
+    scene.appendChild(bouton);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(es){
+      visible = es[0].isIntersecting;
+      if (visible && enAttente && !enPause) relancer(enAttente);
+    }).observe(scene);
   }
 
   /* Scène fixe (visiteur qui demande moins de mouvement) : la mascotte de face, ballon sur le doigt. */
@@ -82,9 +115,14 @@
     var t = document.getElementById('trajet'); if (t) t.style.opacity = 0;
   }
 
-  function jouer(tl, A){
-    var nom = choisir();
-    var c = etatDepart(), e = { d: 0, v: 0, r: 0, tour: 0, s: 0, a: 0 }, pose = construire(c);
+  function jouer(tl, A, suite){
+    if (!suite && boucle) { boucle.kill(); boucle = null; }
+    courante = tl; preparerControles(A);
+    if (enPause) tl.paused(true);
+    var nom = suite ? suivante() : choisir(); derniere = nom;
+    /* Dans l'enchaînement, le tableau garde le score officiel (78-57) au lieu de recompter depuis zéro. */
+    var c = etatDepart(), e = { d: 0, v: 0, r: 0, tour: 0, s: suite ? 78 : 0, a: suite ? 57 : 0 }, pose = construire(c);
+    function compteur(s, d){ if (!suite) tl.to(e, { s: s, a: 57, duration: d, ease: 'power1.out', onUpdate: compte }, 1.0); }
     var mode = 'main', dep = null, ctrl = null, depR = null;
     var trajet = document.getElementById('trajet');
     document.documentElement.setAttribute('data-action', nom);
@@ -92,8 +130,9 @@
 
     /* Ballon façon dessin animé : il s'étire dans le sens de sa course quand il va vite, et s'écrase au contact du
        sol pendant le dribble (déformation autour du point de contact, le bas du ballon reste au sol). */
-    var dern = null, etir = { s: 0, a: 0 };
+    var dern = null, etir = { s: 0, a: 0 }, balle = [0, 0];
     function placer(x, y){
+      balle = [x, y];
       var now = performance.now(), tr = 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')';
       if (!dern) dern = { x: x, y: y, t: now };
       else if (now - dern.t > 8) {
@@ -109,9 +148,17 @@
       A.bOmbre.setAttribute('cx', x.toFixed(1));
       A.bOmbre.setAttribute('opacity', (mode === 'main' || mode === 'doigt' ? 0 : 0.45 * (1 - h)).toFixed(2));
     }
+    /* La tête suit le ballon des yeux pendant son vol, puis revient doucement (lissage en temps réel). */
+    var regard = 0, tRegard = null;
+    function suivreBallon(){
+      var now = performance.now(), dt = tRegard === null ? 16 : Math.min(100, now - tRegard), cible = 0; tRegard = now;
+      if (mode === 'vol') cible = Math.max(-40, Math.min(10, deg(Math.atan2(balle[1] - (c.hy - 80 * S), balle[0] - (c.hx + 10))))) * 0.7;
+      regard += (cible - regard) * (1 - Math.exp(-dt / 120));
+    }
     function maj(){
       M.regler(c.face > 0.5, c.index > 0.5, c.dessus > 0.5);
-      pose = construire(c); J.poser(pose);
+      suivreBallon();
+      pose = construire(c); pose.tete = (pose.tete || 0) + regard; J.poser(pose);
       var m, k;
       if (mode === 'main') { m = J.main(pose); placer(m[0] + 4, m[1] + 9); }
       else if (mode === 'dribble') { m = J.main(pose); placer(m[0] + 4, m[1] + 9 + (SOL_B - m[1] - 9) * e.d); }
@@ -142,6 +189,11 @@
     /* Une foulée en dribblant : le pied « pied » va en x, les hanches avancent en hx. */
     function foulee(t, d, pied, x, hx, h){ pas(pied, x, t, d, h); k(t, d, { hx: hx }, 'none'); dribble(t, d); }
     /* Tir en extension, pieds fixes : flexion, détente, lâcher en l'air, retombée sur place. Renvoie l'heure du panier. */
+    /* Traits de vitesse laissés au décollage d'un dunk, dans l'axe du saut, qui s'effacent aussitôt. */
+    function vitesse(t){
+      tl.call(function(){ document.getElementById('vitesse').setAttribute('transform', 'translate(' + c.hx.toFixed(1) + ' ' + c.hy.toFixed(1) + ')'); }, null, t)
+        .fromTo('#vitesse-l', { opacity: 0.9, x: 0, y: 0 }, { opacity: 0, x: -14, y: 18, duration: 0.4, ease: 'power1.out', immediateRender: false }, t);
+    }
     /* Clignement d'œil (paupière qui descend puis remonte). */
     function cligne(t, sel){
       tl.fromTo(sel, { scaleY: 0, transformOrigin: '50% 0%' }, { scaleY: 1, duration: 0.07, ease: 'power1.in', yoyo: true, repeat: 1, transformOrigin: '50% 0%' }, t);
@@ -215,35 +267,37 @@
     var tb, h, cible, h2;
     if (nom === 'trois-points') {
       /* Deux pas en dribblant ; ballon pris pied avant posé ; un seul appui (le pied arrière revient à côté) ; tir. */
-      tl.to(e, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
-      foulee(1.0, 0.5, 'b', 194, 180);
-      foulee(1.5, 0.5, 'a', 222, 208);
+      compteur(75, 2.2);
+      /* Tir de loin : il part nettement derrière la ligne à 3 points (pointe du pied vers x 228, ligne à x 280),
+         pour bien se distinguer du lancer franc. */
+      foulee(1.0, 0.5, 'b', 176, 164);
+      foulee(1.5, 0.5, 'a', 198, 186);
       passe('main', 2.0); k(2.0, 0.24, haut(P.prise), 'power1.out');
-      pas('b', 236, 2.04, 0.3, 10); k(2.04, 0.3, { hx: 228 }, 'power1.inOut');
+      pas('b', 208, 2.04, 0.3, 10); k(2.04, 0.3, { hx: 200 }, 'power1.inOut');
       tb = tir(2.36);
     } else if (nom === 'pas-arriere') {
       /* Step back moderne, en cinq temps (décomposition transmise par le fondateur le 20/10). Règles : ramassé sur le
          pied avant (pas zéro), puis deux appuis (pied arrière, puis pied avant), puis tir ; ballon lâché en l'air. */
-      tl.to(e, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
+      compteur(75, 2.2);
       /* 1. Dribble d'approche : trois pas en dribblant vers la ligne. */
-      foulee(1.0, 0.42, 'b', 198, 184);
-      foulee(1.42, 0.42, 'a', 236, 220);
-      foulee(1.84, 0.4, 'b', 266, 252);
+      foulee(1.0, 0.42, 'b', 186, 174);
+      foulee(1.42, 0.42, 'a', 212, 200);
+      foulee(1.84, 0.4, 'b', 236, 226);
       /* 2. Ramassé : fin du dribble, ballon à deux mains, pied avant posé ; le poids passe sur ce pied, genoux fléchis. */
-      passe('main', 2.24); k(2.24, 0.16, Object.assign(haut(P.prise), { hx: 258, hy: ACCROUPI - 4, ecr: 0.05 }), 'power1.out');
+      passe('main', 2.24); k(2.24, 0.16, Object.assign(haut(P.prise), { hx: 230, hy: ACCROUPI - 4, ecr: 0.05 }), 'power1.out');
       /* 3. Pas en arrière : poussée sur le pied avant, le corps part vers l'arrière, le pied arrière se repose le
             premier (1er appui) ; le dos reste droit. */
-      pas('a', 200, 2.4, 0.22, 12);
-      k(2.4, 0.3, { hx: 212, hy: DEBOUT - 6, ecr: -0.03 }, 'power2.out');
-      pas('b', 222, 2.46, 0.24, 16);
+      pas('a', 166, 2.4, 0.24, 13);
+      k(2.4, 0.32, { hx: 178, hy: DEBOUT - 8, ecr: -0.03 }, 'power2.out');
+      pas('b', 190, 2.46, 0.26, 17);
       /* 4. Ancrage : le pied avant revient se poser à côté (2e appui), le corps se stabilise en se tassant un peu. */
-      k(2.62, 0.14, { hy: DEBOUT + 4, ecr: 0.05 }, 'power1.in');
-      poussiere(2.66, false);
+      k(2.66, 0.14, { hy: DEBOUT + 4, ecr: 0.05 }, 'power1.in');
+      poussiere(2.7, false);
       /* 5. Tir en suspension : il s'élève droit vers le haut, sans pencher en arrière, et lâche le ballon au sommet. */
-      tb = tir(2.8);
+      tb = tir(2.86);
     } else {
       /* Course en dribblant ; le ballon est pris en fin de dribble. */
-      tl.to(e, { s: 76, a: 57, duration: 2.0, ease: 'power1.out', onUpdate: compte }, 1.0);
+      compteur(76, 2.0);
       foulee(1.0, 0.32, 'b', 212, 192, 20);
       foulee(1.32, 0.32, 'a', 286, 266, 20);
       if (nom === 'dunk') {
@@ -252,6 +306,7 @@
         /* Prise pied arrière posé, puis deux appuis : pied avant, pied arrière, impulsion, dunk à une main. */
         pas('a', 404, 1.98, 0.24, 18); k(1.98, 0.24, Object.assign(haut(P.appel), { hx: 392, hy: ACCROUPI - 6, ecr: 0.09 }), 'power1.in');
         h = hanchesPourBallon(Object.assign({}, F.envol1, { ecr: -0.1 }), 506, 62);
+        vitesse(2.24);
         k(2.22, 0.42, Object.assign({}, F.envol1, { hx: h.hx, hy: h.hy, bx: h.hx + 22, bl: CHEV - (h.hy + 52 * S), pA: 40, pB: 20, ecr: -0.1 }), 'power2.out');
         cible = hanchesPourBallon(Object.assign({}, F.smash1, { ecr: -0.04 }), 520, 112);
         k(2.64, 0.14, Object.assign({}, F.smash1, { hx: cible.hx, hy: cible.hy, ax: cible.hx - 30, bx: cible.hx + 18, bl: CHEV - (cible.hy + 60 * S), ecr: -0.04 }), 'power2.in');
@@ -272,6 +327,7 @@
         k(1.64, 0.28, { al: 24, bl: 18, hy: DEBOUT - 14 }, 'power1.out'); k(1.92, 0.28, { al: 0, bl: 0, hy: DEBOUT }, 'power1.in');
         k(2.2, 0.16, Object.assign(haut(P.prise), { hy: ACCROUPI + 4, ecr: 0.1 }), 'power2.in');
         h = hanchesPourBallon(Object.assign({}, F.envol2, { ecr: -0.1 }), 504, 66);
+        vitesse(2.38);
         k(2.36, 0.44, Object.assign({}, F.envol2, { hx: h.hx, hy: h.hy, ax: h.hx + 18, al: CHEV - (h.hy + 60 * S), bx: h.hx + 6, bl: CHEV - (h.hy + 64 * S), pA: 30, pB: 30, ecr: -0.1 }), 'power2.out');
         cible = hanchesPourBallon(Object.assign({}, F.smash2, { ecr: -0.04 }), 520, 110);
         k(2.8, 0.14, Object.assign({}, F.smash2, { hx: cible.hx, hy: cible.hy, ecr: -0.04 }), 'power2.in');
@@ -291,6 +347,11 @@
     }
     if (nom === 'trois-points' || nom === 'pas-arriere') tb = filet(tb, false);
     fete(tb + 0.1);
+    /* Fin de la fête : la mascotte s'efface, puis une autre action commence (voir relancer). */
+    var fin = tb + 0.1 + 4.15 + 1.2;
+    tl.to('#j-racine, #j-ballon, #j-ombre', { opacity: 0, duration: 0.35 }, fin)
+      .call(function(){ relancer(A); }, null, fin + 0.4);
+    if (suite) tl.fromTo('#j-racine, #j-ballon, #j-ombre', { opacity: 0 }, { opacity: 1, duration: 0.35, immediateRender: true }, 0.05);
   }
 
   window.MascotteActions = { jouer: jouer, fixe: fixe, actions: ACTIONS };
