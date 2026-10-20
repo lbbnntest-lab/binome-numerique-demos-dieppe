@@ -32,11 +32,16 @@
 
       <div class="s-scene" aria-hidden="true">
         <svg viewBox="96 -16 510 456">
+          <!-- Demi-terrain vu de côté (cercle à x 520) : ligne de fond, raquette, ligne à 3 points avec ses parties
+               droites le long des coins, zone à 2 points éclaircie. Sommet de la ligne à 3 points à x 280 : les pieds
+               de la mascotte restent nettement derrière pour les tirs à 3 points (pointe du pied avant vers x 256). -->
           <g class="lignes">
-            <path class="sol-l t" pathLength="1" d="M96 374 H606"/>
-            <path class="raquette t" pathLength="1" d="M436 374 H590 L600 438 H424 Z"/>
-            <path class="sol-l t" pathLength="1" d="M520 374 A 238 32 0 0 0 520 438"/>
-            <path class="sol-l t" pathLength="1" d="M96 438 H606"/>
+            <path class="zone-2pts" d="M590 378 H476 A 240 28.5 0 0 0 476 434 H590 Z"/>
+            <path class="sol-l t" pathLength="1" d="M96 374 H590"/>
+            <path class="sol-l t" pathLength="1" d="M590 374 V438"/>
+            <path class="raquette t" pathLength="1" d="M590 394 H372 V418 H590 Z"/>
+            <path class="ligne-3pts t" pathLength="1" d="M590 378 H476 A 240 28.5 0 0 0 476 434 H590"/>
+            <path class="sol-l t" pathLength="1" d="M96 438 H590"/>
           </g>
           <g class="panier-g">
             <path class="poutre" d="M440 -14 H700"/>
@@ -304,6 +309,7 @@ window.BCRsceneFixe();
     tl.from('.s-titre .ligne', { yPercent: 105, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 })
       .from('.s-chapo, .s-actions, .s-accueil .s-surtitre, .s-annonce', { opacity: 0, y: 14, duration: 0.6, stagger: 0.1 }, 0.4)
       .fromTo('.lignes .t', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut', stagger: 0.1 }, 0.2)
+      .from('.lignes .zone-2pts', { opacity: 0, duration: 0.6 }, 1.2)
       .from('.panier-g, .filet, .cercle-av', { opacity: 0, y: -60, duration: 0.7, ease: 'power2.out' }, 0.6)
       .from('.tableau, .tableau-legende', { opacity: 0, y: 10, duration: 0.5 }, 0.9)
       .from('#j-racine, #j-ombre, #j-ballon', { opacity: 0, duration: 0.5 }, 0.8)
