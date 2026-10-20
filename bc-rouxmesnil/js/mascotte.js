@@ -83,6 +83,7 @@
         '<ellipse class="m-blanc" cx="20.4" cy="-29.4" rx="5.8" ry="6.6"/>' +
         '<circle class="m-iris" cx="22.8" cy="-28.6" r="3.8"/><circle class="m-pupille" cx="23.4" cy="-28.6" r="1.9"/>' +
         '<circle class="m-blanc" cx="24.6" cy="-30.4" r="1.1"/>' +
+        '<ellipse class="m-fourrure m-paupiere" cx="20.4" cy="-29.4" rx="6.4" ry="7.2" transform="scale(1 0)"/>' +
         '<path class="m-detail" d="M14.6 -36.8 Q20.6 -40.4 26.4 -36.4"/>' +
         '<path class="m-detail" d="M30.4 -19.4 L29.4 -15.4"/>' +
         '<path class="m-bouche" d="M13.4 -14.6 C18.4 -12.4 26.4 -12.4 33.4 -15.6 C33.6 -6.4 27.6 -0.6 21.2 -0.6 C15.6 -0.6 12.4 -7 13.4 -14.6 Z"/>' +
@@ -106,6 +107,7 @@
         '<ellipse class="m-blanc" cx="17" cy="-31" rx="6" ry="7"/>' +
         '<circle class="m-iris" cx="15.2" cy="-30.4" r="4.2"/><circle class="m-pupille" cx="14.8" cy="-30.4" r="2.1"/>' +
         '<circle class="m-blanc" cx="16.6" cy="-32.6" r="1.2"/>' +
+        '<ellipse class="m-fourrure m-paupiere" cx="17" cy="-31" rx="6.6" ry="7.6" transform="scale(1 0)"/>' +
         '<path class="m-detail" d="M5 -19.4 L5 -15.8"/>' +
         '<path class="m-bouche" d="M-6 -15.6 C-1 -13 11 -13 16 -15.6 C16.6 -6 11 0.4 5 0.4 C-1 0.4 -6.6 -6 -6 -15.6 Z"/>' +
         '<path class="m-langue" d="M-1.6 -4.4 C0.6 -8.6 9.4 -8.6 11.6 -4.4 C10 -0.8 6.6 0.4 5 0.4 C2.4 0.4 -0.4 -1.4 -1.6 -4.4 Z"/>' +

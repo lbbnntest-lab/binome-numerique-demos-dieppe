@@ -16,18 +16,21 @@
     var a = cheville(p.cuisseA, p.tibiaA)[1], b = cheville(p.cuisseB, p.tibiaB)[1];
     return SOL - (Math.max(a, b) + PIED) * S - (p.saut || 0);
   }
+  /* p.ecr : écrasement du haut du corps à la façon d'un dessin animé (positif = tassé et élargi, négatif = étiré),
+     appliqué au tronc, aux bras et à la tête, dans l'axe du tronc, à partir des hanches ; les jambes n'en tiennent pas
+     compte, donc les pieds posés restent exactement au sol. */
   function main(p, cote){
-    var c = cote || 'A', y = hanches(p);
-    var ep = tourne(EPAULE, p.tronc);
-    var coude = plus(ep, tourne([0, BRAS], p.tronc + p['bras'+c]));
-    var m = plus(coude, tourne([0, AVANT + MAIN], p.tronc + p['bras'+c] + p['avant'+c]));
+    var c = cote || 'A', y = hanches(p), e = +p.ecr || 0;
+    var l = plus(EPAULE, plus(tourne([0, BRAS], p['bras'+c]), tourne([0, AVANT + MAIN], p['bras'+c] + p['avant'+c])));
+    var m = tourne([l[0] * (1 + e), l[1] * (1 - e)], p.tronc);
     return [p.x + m[0]*S, y + m[1]*S];
   }
   function poser(p){
-    ['saut','pointeA','pointeB','tete','queue'].forEach(function(k){ p[k] = +p[k] || 0; });
+    ['saut','pointeA','pointeB','tete','queue','ecr'].forEach(function(k){ p[k] = +p[k] || 0; });
     var y = hanches(p);
     el('j-racine').setAttribute('transform', 'translate('+p.x.toFixed(2)+' '+y.toFixed(2)+') scale('+S+')');
-    ['j-tronc','j-brasB','j-brasA','j-tete-g'].forEach(function(id){ rot(id, p.tronc); });
+    var ec = p.ecr ? ' scale(' + (1 + p.ecr).toFixed(3) + ' ' + (1 - p.ecr).toFixed(3) + ')' : '';
+    ['j-tronc','j-brasB','j-brasA','j-tete-g'].forEach(function(id){ var x = el(id); if (x) x.setAttribute('transform', 'rotate(' + (+p.tronc || 0).toFixed(2) + ')' + ec); });
     rot('j-epauleA', p.brasA, EPAULE[0], EPAULE[1]); rot('j-coudeA', p.avantA, 0, BRAS);
     rot('j-epauleB', p.brasB, EPAULE[0], EPAULE[1]); rot('j-coudeB', p.avantB, 0, BRAS);
     rot('j-cuisseA', p.cuisseA); rot('j-genouA', p.tibiaA, 0, CUISSE); rot('j-piedA', -(p.cuisseA + p.tibiaA) + (p.pointeA || 0), 0, TIBIA);
