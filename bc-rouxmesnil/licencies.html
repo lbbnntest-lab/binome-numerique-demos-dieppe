@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
@@ -22,7 +22,7 @@
   <section class="p-tete s-nuit" aria-labelledby="titre-page">
     <span class="p-filigrane" aria-hidden="true">Famille</span>
     <div class="wrap">
-      <p class="s-surtitre">Espace licenciés · famille B. (exemple)</p>
+      <p class="s-surtitre">Espace licenciés · famille B. (exemple) <span class="repere etape">2e étape</span></p>
       <h1 id="titre-page" class="s-titre">Bonjour, voici la semaine <span data-fam="titre-de">de Léa, Elsa et Tom</span></h1>
       <div class="fam-enfants" role="group" aria-labelledby="fam-enfants-titre">
         <p id="fam-enfants-titre" class="fam-enfants-titre">Un seul compte pour la famille · afficher</p>
@@ -112,7 +112,7 @@
           </div>
 
           <div class="fiche" style="margin-top:20px">
-            <h3>Les vidéos des matchs</h3>
+            <h3>Les vidéos des matchs <span class="repere idee">Idée, sur devis</span></h3>
             <div class="videos" data-mv="suite">
               <div>
                 <div class="vignette-video" data-terrain><span class="lecture" aria-hidden="true"></span><span class="legende">Match complet</span></div>
@@ -163,7 +163,7 @@
           <div class="fiche" style="margin-top:20px">
             <h3>Documents</h3>
             <ul class="liste-docs">
-              <li><span>Attestation de paiement (comité d'entreprise, mutuelle)</span><button type="button" class="retirer-ligne" onclick="this.textContent='Simulation : attestation prête (PDF)'">Télécharger</button></li>
+              <li><span>Attestation de paiement (comité d'entreprise, mutuelle) <span class="repere idee">Idée, sur devis</span></span><button type="button" class="retirer-ligne" onclick="this.textContent='Simulation : attestation prête (PDF)'">Télécharger</button></li>
               <li data-enfant="lea"><span>Calendrier de l'équipe <span data-fam-tag="lea"></span></span><a href="equipes.html#u15f">Voir<span class="visuellement-cache"> le calendrier des U15 féminines</span></a></li>
               <li data-enfant="elsa"><span>Calendrier de l'équipe <span data-fam-tag="elsa"></span></span><a href="equipes.html#u13f">Voir<span class="visuellement-cache"> le calendrier des U13 féminines</span></a></li>
               <li data-enfant="tom"><span>Calendrier de l'équipe <span data-fam-tag="tom"></span></span><a href="equipes.html#dmu13">Voir<span class="visuellement-cache"> le calendrier des U13 masculins</span></a></li>
@@ -178,7 +178,7 @@
 
   <section class="bloc clair" id="annonces" aria-labelledby="titre-annonces">
     <div class="wrap">
-      <p class="surtitre">Le mot du coach</p>
+      <p class="surtitre">Le mot du coach <span class="repere idee">Idée, sur devis</span></p>
       <h2 id="titre-annonces" data-mv="mots">Annonces de l'équipe</h2>
       <p class="chapo-bloc">Les messages <span data-fam="annonces-qui">des coachs de vos enfants</span> à toute l'équipe, au même endroit. Chaque nouvelle annonce arrive aussi sous la cloche des notifications.</p>
       <ul class="demandes fiche fam-annonces" id="fam-annonces"></ul>
@@ -265,7 +265,7 @@
     <div class="wrap">
       <p class="surtitre">Le jour du match</p>
       <h2 id="titre-urgence" data-mv="mots">Contacts d'urgence</h2>
-      <p class="fam-option">Option à valider avec le club</p>
+      <p class="fam-option">Option à valider avec le club <span class="repere idee">Idée, sur devis</span></p>
       <p class="chapo-bloc">Deux numéros de téléphone de parents, pour que le coach puisse vous joindre pendant un match <span data-fam="de-prenom">de vos enfants</span>. Rien d'autre n'est demandé.</p>
       <div class="colonnes">
         <form id="ur-form" class="fiche" novalidate>
@@ -577,11 +577,11 @@
 
   /* Prochain match de chaque enfant : un match amical de son équipe ajouté par le coach pendant la visite, s'il y en a un. */
   function prochainMatch(){
-    var maintenant = new Date().toISOString().slice(0, 10), pm = document.getElementById('prochain-match'), vs = F.visibles();
+    var pm = document.getElementById('prochain-match'), vs = F.visibles();
     var lignes = vs.map(function(e){
-      var am = S.lire('bcr-amicaux', []).filter(function(a){ return a.equipe === e.equipe && a.date >= maintenant; }).sort(function(a, b){ return a.date < b.date ? -1 : 1; })[0];
-      if (!am) return '<li>' + F.tag(e) + 'Date à reprendre du calendrier FFBB.</li>';
-      return '<li>' + F.tag(e) + '<strong>' + esc(S.dateFr(am.date)) + (am.heure ? ', ' + esc(am.heure.replace(':00', ' h').replace(':', ' h ')) : '') + '</strong> · match amical contre ' + esc(am.adv) + ', ' + esc(am.lieu || (am.dom ? 'à domicile' : 'à l\'extérieur')) + ' · ajouté par le coach</li>';
+      var m = F.prochainMatch(e), i = m.lib.indexOf(' · ');
+      if (m.aCompleter || i < 0) return '<li>' + F.tag(e) + 'Date à reprendre du calendrier FFBB.</li>';
+      return '<li>' + F.tag(e) + '<strong>' + esc(m.lib.slice(0, i)) + '</strong>' + esc(m.lib.slice(i)) + (m.exemple ? '' : ' · ajouté par le coach') + '</li>';
     });
     pm.innerHTML = '<ul class="fam-lignes">' + lignes.join('') + '</ul><p>' + (F.tous()
       ? 'Quand un coach sélectionne l\'un de vos enfants, la convocation s\'affiche en haut de cette page, avec les boutons de réponse.'

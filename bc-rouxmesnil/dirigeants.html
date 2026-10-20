@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
@@ -21,7 +21,7 @@
   <section class="p-tete s-nuit" aria-labelledby="titre-page">
     <span class="p-filigrane" aria-hidden="true">Bureau</span>
     <div class="wrap">
-      <p class="s-surtitre">Accès réservé au bureau du club</p>
+      <p class="s-surtitre">Accès réservé au bureau du club <span class="repere etape">2e étape</span></p>
       <h1 id="titre-page" class="s-titre">Espace dirigeants</h1>
       <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et le stage viennent des publications du club.</p>
       <p class="s-chapo">Toute la saison sur un seul écran : inscriptions, paiements, licences, bénévoles, stages et événements.</p>
@@ -34,6 +34,17 @@
       <h2 id="titre-roles" class="visuellement-cache">Choix du rôle</h2>
       <div data-choix-role></div>
       <p class="roles-regle">Chaque dirigeant ne voit que ce qui concerne son rôle ; le président voit tout.</p>
+      <nav class="aller-a" data-roles="" aria-labelledby="aller-a-lib"><p class="aller-lib" id="aller-a-lib">Aller à</p><ul>
+        <li><a href="#a-decider">À décider</a></li>
+        <li><a href="#coach">Matchs et convocations</a></li>
+        <li><a href="#suivi">Inscriptions et licences</a></li>
+        <li><a href="#demandes-familles">Demandes reçues</a></li>
+        <li><a href="#comptabilite">Comptabilité</a></li>
+        <li><a href="#table-marque">Table de marque et bénévoles</a></li>
+        <li><a href="#evenements">Événements</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#inscriptions-stage">Stage</a></li>
+      </ul></nav>
       <div class="note"><b>Pour le club</b>Chaque dirigeant aurait un accès à son nom, limité à son rôle : le trésorier verrait les paiements sans les autorisations photo, un coach verrait son équipe sans les paiements ni les subventions. Moins d'informations à l'écran, c'est moins d'erreurs, et des données personnelles limitées à ce dont chacun a besoin, l'un des principes du RGPD. Les rôles se régleraient avec le bureau. Dans cette maquette, le choix du rôle sert seulement à la démonstration : sur le vrai site, ce qu'un rôle ne doit pas voir ne serait pas envoyé à son écran.</div>
     </div>
   </section>
@@ -124,7 +135,7 @@
       </div>
 
       <div class="fiche urgence" id="urgence" aria-labelledby="urg-titre">
-        <p class="urg-option">Option à valider avec le club</p>
+        <p class="urg-option">Option à valider avec le club <span class="repere idee">Idée, sur devis</span></p>
         <h3 id="urg-titre">Contacts d'urgence, le jour du match</h3>
         <div id="urg-corps"></div>
         <p class="aide">Seulement les téléphones des parents : aucune information de santé. Visible du coach de l'équipe et du président.</p>
@@ -141,6 +152,7 @@
     <div class="wrap">
       <p class="surtitre" id="vie-sur">Coach · votre équipe</p>
       <h2 id="titre-vie-equipe" data-mv="mots">Écrire à l'équipe</h2>
+      <p class="repere-ligne"><span class="repere idee">Idée, sur devis</span>Les annonces à l'équipe ne font pas partie de la proposition écrite. Le covoiturage, lui, fait partie de la deuxième étape.</p>
       <div class="colonnes">
         <div>
           <form class="fiche" id="an-form" novalidate>
@@ -167,7 +179,7 @@
 
   <section class="bloc" id="appel" data-roles="coach" aria-labelledby="titre-appel">
     <div class="wrap">
-      <p class="surtitre">Coach · entraînements, effectif d'exemple</p>
+      <p class="surtitre">Coach · entraînements, effectif d'exemple <span class="repere idee">Idée, sur devis</span></p>
       <h2 id="titre-appel" data-mv="mots">Appel à l'entraînement</h2>
       <div class="fiche">
         <div class="deux-champs">
@@ -195,7 +207,7 @@
   <section class="bloc" id="suivi" data-roles="tresorier secretaire">
     <div class="wrap">
 
-      <div class="note"><b>Pour le club</b>C'est la partie qui pourrait faire gagner le plus de temps. Chaque dirigeant aurait son propre accès protégé par mot de passe. Les noms ci-dessous sont inventés pour la démonstration.</div>
+      <div class="note"><b>Pour le club</b>C'est la partie qui pourrait faire gagner le plus de temps. Chaque dirigeant aurait son propre accès, protégé par un mot de passe et par un code de confirmation. Les noms ci-dessous sont inventés pour la démonstration.</div>
 
       <p style="margin:0 0 10px"><span class="etiquette-ex" style="margin-left:0">Chiffres d'exemple</span></p>
       <div class="compteurs" data-mv="suite">
@@ -257,7 +269,7 @@
   <section class="bloc" id="comptabilite" data-roles="tresorier" aria-labelledby="titre-compta">
     <div class="wrap deux" style="align-items:start">
       <div>
-        <p class="surtitre">Trésorier · chiffres d'exemple</p>
+        <p class="surtitre">Trésorier · chiffres d'exemple <span class="repere idee">Idée, sur devis</span></p>
         <h2 id="titre-compta" data-mv="mots">Pour la comptabilité</h2>
         <p>Les encaissements de la saison, prêts pour le tableur du club ou l'expert-comptable. Les montants des cotisations dépendraient de vos tarifs, à compléter avec vous.</p>
         <div class="actions"><button type="button" class="bouton" id="export-compta">Exporter pour la comptabilité</button></div>
@@ -310,7 +322,7 @@
 
   <section class="bloc" id="materiel" data-roles="secretaire coach" aria-labelledby="titre-materiel">
     <div class="wrap">
-      <p class="surtitre">Équipement · inventaire d'exemple</p>
+      <p class="surtitre">Équipement · inventaire d'exemple <span class="repere idee">Idée, sur devis</span></p>
       <h2 id="titre-materiel" data-mv="mots">Maillots et matériel</h2>
       <div class="mat-alerte" id="mat-alerte" role="status" aria-live="polite"></div>
       <div class="actions" style="margin:0 0 18px"><button type="button" class="bouton ligne" id="mat-rappel">Préparer le rappel de fin de saison</button></div>
@@ -322,7 +334,7 @@
 
   <section class="bloc" data-roles="tresorier">
     <div class="wrap">
-      <p class="surtitre">Commande groupée · exemple</p>
+      <p class="surtitre">Commande groupée · exemple <span class="repere idee">Idée, sur devis</span></p>
       <h2 data-mv="mots">Tee-shirts U18F : les colis arrivent</h2>
       <p style="max-width:44em">Quand les colis arriveraient, un dirigeant choisirait le créneau de retrait et appuierait sur un bouton : chaque acheteur serait prévenu dans son espace et sur son téléphone, avec sa commande, sa taille et le créneau ; l'email ne servirait qu'en secours. À la remise, on cocherait « retiré ».</p>
       <label for="creneau">Créneau de retrait</label>
@@ -339,7 +351,7 @@
     </div>
   </section>
 
-  <section class="bloc clair" data-roles="communication">
+  <section class="bloc clair" id="table-marque" data-roles="communication">
     <div class="wrap">
       <p class="surtitre">Bénévoles · noms d'exemple</p>
       <h2 data-mv="mots">Table de marque et bénévoles</h2>
@@ -420,7 +432,7 @@
       <ul class="decisions">
         <li><div><strong>Résumé du play-off U18F, format vertical</strong><span>Attend l'accord du président. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille attente">En attente</span></div></li>
         <li><div><strong>Photo du tableau de score U18F, 78-57</strong><span>Validée, autorisation vérifiée. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille ok">Prête</span></div></li>
-        <li><div><strong>Rappel : journée d'initiation à l'arbitrage, mercredi 21 octobre</strong><span>Brouillon à relire avant publication. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille attente">Brouillon</span></div></li>
+        <li><div><strong id="pub-rappel-titre">Rappel : prochain match à domicile</strong><span>Brouillon à relire avant publication. <span class="etiquette-ex">exemple</span></span></div><div class="geste"><span class="etat pastille attente">Brouillon</span></div></li>
       </ul>
       <div class="actions"><a class="bouton" href="medias.html" data-lien-role>Photos et vidéos à valider</a></div>
       <div class="note"><b>Pour la communication</b>Les photos et vidéos validées formeraient une réserve où piocher pour la page Facebook et le compte Instagram. La publication resterait un geste de la personne chargée de la communication : rien ne partirait seul.</div>
@@ -462,7 +474,7 @@
         </table>
       </div>
       <div data-roles="secretaire">
-        <p class="surtitre">Subventions · chiffres d'exemple</p>
+        <p class="surtitre">Subventions · chiffres d'exemple <span class="repere idee">Idée, sur devis</span></p>
         <h2 data-mv="mots">Les chiffres pour les dossiers</h2>
         <p>Les dossiers de subvention (commune, Département, Agence nationale du sport) demandent souvent les mêmes chiffres : nombre de licenciés, filles et garçons, moins de 18 ans, communes d'origine. Ils seraient calculés à partir des inscriptions.</p>
         <table class="recap">
@@ -732,14 +744,16 @@
      Les indisponibilités de Léa B. (U15 F) viennent de l'espace licenciés (js/selection.js). */
   var S = window.BCRSel, L = window.BCRLicences;
   function licOk(id, nom){ return L ? L.valide(id, nom) : true; }
+  /* Matchs amicaux d'exemple : mêmes dates, heures et adversaire que dans l'espace des familles (js/selection.js). */
+  function exemples(eq){ return S.amicauxExemple(eq).map(function(m){ return {d:m.date + 'T' + m.heure, txt:'contre ' + m.adv + ' (match amical, exemple)', adv:m.adv, dom:m.dom}; }); }
   var EQUIPES = {
     u13: { titre:'U13 féminines', niv:'Départementale féminine U13 (DFU13)', media:'u13',
-      avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', adv:'CEP Saint-Nicolas-d\'Aliermont', dom:true}],
+      avenir:[{d:'2026-10-17T14:00', txt:'contre CEP Saint-Nicolas-d\'Aliermont', adv:'CEP Saint-Nicolas-d\'Aliermont', dom:true}].concat(exemples('u13')),
       dernier:'3-4 octobre : victoire 47-19 contre Seventy Six Belleville',
       effectif:['Zoé D.','Emma G.','Louise F.','Nora K.','Romane T.','Jeanne P.','Lou A.','Agathe M.','Elsa B.','Mila C.','Rose V.','Iris N.'],
       indispos:[{nom:'Louise F.', du:S.prochainSamedi(), au:S.prochainSamedi(7), motif:'Vacances'}], sansRep:['Rose V.','Iris N.'] },
     u15: { titre:'U15 féminines', niv:'Départementale féminine U15 (DFU15)', media:'u15',
-      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', adv:'BC Offranville', dom:true},{d:S.prochainSamedi() + 'T14:00', txt:'contre une équipe à confirmer (match amical, exemple)', adv:'Match amical (exemple)', dom:true}],
+      avenir:[{d:'2026-10-17T16:00', txt:'contre BC Offranville', adv:'BC Offranville', dom:true}].concat(exemples('u15')),
       effectif:['Léa B.','Lina P.','Camille T.','Jade R.','Sarah M.','Clara V.','Margaux D.','Lisa F.','Océane B.','Lucie H.','Eva S.','Juliette C.'],
       indispos:[{nom:'Jade R.', du:S.prochainSamedi(), au:S.prochainSamedi(8), motif:'Vacances'}], sansRep:['Eva S.','Juliette C.'] },
     u18: { titre:'U18 féminines', niv:'Régionale féminine U18, poule élite (RFU18)', media:'u18',
@@ -751,7 +765,7 @@
       avenir:[], suivant:'contre Montville : date et heure sur la FFBB', advSuivant:'Montville',
       dernier:'Début de saison : invaincues après trois matchs (Les Informations Dieppoises)',
       effectif:['Julie V.','Claire P.','Marion S.','Aurélie D.','Sonia L.','Élodie R.','Sandra M.','Céline T.','Audrey B.','Laetitia G.','Nathalie F.','Virginie C.'],
-      indispos:[{nom:'Sonia L.', du:'2026-10-24', au:'2026-10-25', motif:'Examen'}], sansRep:['Virginie C.'] }
+      indispos:[{nom:'Sonia L.', du:S.prochainSamedi(), au:S.prochainSamedi(1), motif:'Examen'}], sansRep:['Virginie C.'] }
   };
   function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function dateFr(iso){
@@ -1141,5 +1155,20 @@
 </script>
 <script src="js/table-marque.js"></script>
 <script src="js/evenements.js"></script>
+<script>
+/* Publication de rappel d'exemple : le prochain match à domicile de la table de marque (js/table-marque.js), jamais une date écrite en dur. */
+(function(){
+  var T = window.BCRTable, S = window.BCRSel, t = document.getElementById('pub-rappel-titre'); if (!t || !S) return;
+  var a = S.aujourdhui(), p = T ? T.postes().filter(function(c){ return c.date >= a; }).sort(function(x, y){ return x.date < y.date ? -1 : 1; })[0] : null;
+  t.textContent = p ? 'Rappel : ' + p.match.replace(' (RFU18)', '') + ', ' + S.dateFr(p.date).toLowerCase() + ', à la salle' : 'Rappel : merci aux bénévoles de la table de marque';
+})();
+/* Stage d'octobre terminé : la liste reste en exemple, mais plus de rappel à préparer. */
+(function(){
+  if (new Date() < new Date('2026-10-22T17:00')) return;
+  var s = document.querySelector('#inscriptions-stage .surtitre'), b = document.getElementById('stage-rappel');
+  if (s) s.textContent = 'Stage d\'octobre, terminé · inscriptions d\'exemple';
+  if (b) { b.disabled = true; b.textContent = 'Le stage est terminé : plus de rappel à préparer'; }
+})();
+</script>
 </body>
 </html>

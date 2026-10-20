@@ -31,7 +31,7 @@
 .s-scene .filet{fill:none;stroke:rgba(255,255,255,.85);stroke-width:1.3;stroke-linecap:round}
 .s-scene .ombre{fill:#000}
 .s-scene .eclat path{fill:none;stroke:#ffe08a;stroke-width:5;stroke-linecap:round}.s-scene .eclat circle{fill:#ffe08a}
-.s-scene .s-pause{position:absolute;left:0;top:0;z-index:3;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(8,10,9,.6);color:#fff;font:inherit;font-size:.75rem;font-weight:600;letter-spacing:.02em;cursor:pointer}
+.s-scene .s-pause{position:absolute;left:0;top:0;z-index:3;min-height:44px;min-width:44px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(8,10,9,.6);color:#fff;font:inherit;font-size:.75rem;font-weight:600;letter-spacing:.02em;cursor:pointer}
 .s-scene .s-pause:hover{background:rgba(8,10,9,.85)}
 .s-scene .s-pause:focus-visible{outline:2px solid #46c46f;outline-offset:2px}
 .s-scene .vitesse path{fill:none;stroke:rgba(255,255,255,.8);stroke-width:3.5;stroke-linecap:round}
@@ -267,6 +267,14 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .pm-cl{position:sticky;top:110px}
 @media (max-width:900px){.pm-cl{position:static}}
 .tableau-legende{margin:10px 0 0;font-size:.85rem;color:#c9cdca}
+/* Repères d'étape (la proposition écrite compte deux étapes) et fonctions montrées qui n'y figurent pas (idées, sur devis). */
+.repere{display:inline-block;font-family:var(--texte);font-style:normal;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:700;line-height:1.5;padding:1px 7px;margin-left:8px;vertical-align:middle}
+.repere.etape{background:#e3efe6;color:#14532d;border:1px solid #14532d}
+.repere.idee{background:#f6efd9;color:#5a4410;border:1px dashed #8a6d1f}
+.repere-ligne{margin:6px 0 14px;font-size:.95rem;max-width:46em}
+.repere-ligne .repere{margin:0 8px 0 0}
+.repere-page{margin:14px 0 0;font-size:.95rem;max-width:46em}
+.repere-page .repere{margin:0 8px 0 0}
 .etiquette-ex{display:inline-block;font-family:var(--texte);font-style:normal;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:700;color:#a8460f;border:1px solid #a8460f;padding:1px 6px;margin-left:6px;vertical-align:middle;background:#fff}
 .demo-ex{display:inline-block;margin:14px 0 0;background:#fff4d6;color:#3b3220;border-left:4px solid #d9a520;padding:8px 12px;font-size:.92rem;max-width:44em}
 .signe-lbn a{display:inline-flex;align-items:center;gap:8px}

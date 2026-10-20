@@ -4,6 +4,8 @@
      et affiche les événements publiés ; une réservation ajoute {nom, nb} à « reservations ».
    - Affiche aussi les deux événements publiés par le club (journée d'arbitrage du 21 octobre, stage d'octobre),
      sauf si les dirigeants les ont déjà créés eux-mêmes (même date, même sujet).
+   - Le « Tournoi des jeunes (exemple) » est écrit dans « bcr-evenements » par js/selection.js (amorcerEvenements) : il reste
+     toujours à venir et réservable, quel que soit le jour d'ouverture de la page.
    - Ce qui est passé quitte « À venir ». Paramètre de test facultatif : ?aujourdhui=AAAA-MM-JJTHH:MM. */
 (function () {
   'use strict';
@@ -106,7 +108,7 @@
     tout.sort(function (a, b) { return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
     var avenir = tout.filter(function (x) { return x.finT > MAINTENANT; }), anciens = tout.filter(function (x) { return x.finT <= MAINTENANT; }).reverse();
     var html = function (x, p) { return x.t === 'club' ? carteClub(x.ev, p) : carteReelle(x.ev, p); };
-    liste.innerHTML = avenir.length ? avenir.map(function (x) { return html(x, false); }).join('') : '<li class="evt"><div style="grid-column:1/-1"><p class="desc" style="margin:0">Aucun événement à venir pour le moment. Les prochains seront annoncés ici et sur la page Facebook du club.</p></div></li>';
+    liste.innerHTML = avenir.length ? avenir.map(function (x) { return html(x, false); }).join('') : '<li class="evt"><div style="grid-column:1/-1"><p class="desc" style="margin:0">Pas d\'autre événement annoncé pour le moment. Les prochains seront publiés ici et sur la page Facebook du club.</p></div></li>';
     passesBloc.hidden = !anciens.length;
     passes.innerHTML = anciens.map(function (x) { return html(x, true); }).join('');
     origine.textContent = club.length
@@ -153,5 +155,6 @@
   }
 
   window.addEventListener('storage', function (e) { if (e.key === CLE) rendre(); });
+  if (window.BCRSel) window.BCRSel.amorcerEvenements();
   rendre();
 })();

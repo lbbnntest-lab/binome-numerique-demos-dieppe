@@ -1,5 +1,6 @@
 /* Indisponibilités et convocations : données partagées entre l'espace licenciés et l'espace dirigeants
-   le temps de la visite (sessionStorage de l'onglet). Lié uniquement depuis licencies.html et dirigeants.html.
+   le temps de la visite (sessionStorage de l'onglet). Lié depuis licencies.html, dirigeants.html et evenements.html
+   (pour que les dates d'exemple restent à venir quel que soit le jour où la page est ouverte).
    Rien n'est envoyé : sur le vrai site, ces données seraient sur le serveur du club. */
 (function () {
   'use strict';
@@ -9,8 +10,38 @@
   /* Indisponibilités d'exemple de Léa (U15 F) : de simples dates, sans match associé. */
   var EXEMPLES = [
     { id: 'ex1', du: prochainSamedi(), au: prochainSamedi(), motif: 'Vacances', ex: true },
-    { id: 'ex2', du: '2026-11-14', au: '2026-11-15', motif: 'Examen', ex: true }
+    { id: 'ex2', du: prochainSamedi(14), au: prochainSamedi(15), motif: 'Examen', ex: true }
   ];
+  /* Date du jour, en heure locale (AAAA-MM-JJ). */
+  function aujourdhui() { return isoJ(new Date()); }
+  /* Matchs amicaux d'exemple, communs à l'espace du coach (dirigeants.html) et à l'espace des familles : même date, même
+     heure, même adversaire des deux côtés. Toujours à venir (prochain samedi, au moins demain). */
+  var AMICAUX = [
+    { equipe: 'u15', decalage: 0, heure: '14:00', dom: true },
+    { equipe: 'u15', decalage: 7, heure: '11:00', dom: false },
+    { equipe: 'u13', decalage: 0, heure: '10:30', dom: false },
+    { equipe: 'u13m', decalage: 7, heure: '15:00', dom: false }
+  ];
+  function amicauxExemple(equipe) {
+    return AMICAUX.filter(function (m) { return m.equipe === equipe; }).map(function (m) {
+      return { equipe: m.equipe, date: prochainSamedi(m.decalage), heure: m.heure, dom: m.dom, adv: 'une équipe à confirmer', ex: true };
+    });
+  }
+  /* Événement d'exemple de la billetterie : « Tournoi des jeunes (exemple) », publié, dans trois samedis. Il est écrit dans
+     « bcr-evenements » (le même magasin que les événements créés par les dirigeants) quand il n'y est pas encore, pour que la
+     page publique des événements puisse le réserver et que l'espace dirigeants voie les réservations. Appelé par
+     js/billetterie.js et js/evenements.js. « Remettre la démonstration à zéro » l'efface : il revient au chargement suivant. */
+  function amorcerEvenements() {
+    try {
+      var l = JSON.parse(sessionStorage.getItem('bcr-evenements') || '[]'); if (!Array.isArray(l)) l = [];
+      if (l.some(function (e) { return e && e.id === 'ev-exemple-tournoi'; })) return;
+      l.push({ id: 'ev-exemple-tournoi', titre: 'Tournoi des jeunes (exemple)', date: prochainSamedi(21), heure: '14 h',
+        lieu: 'Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles', prix: 2, places: 150,
+        description: 'Événement d\'exemple pour montrer la billetterie : la date, le prix et le nombre de places seraient fixés par le club.',
+        publie: true, reservations: [{ nom: 'Famille B.', nb: 3 }, { nom: 'Famille D.', nb: 2 }, { nom: 'Famille M.', nb: 4 }], ex: true });
+      sessionStorage.setItem('bcr-evenements', JSON.stringify(l));
+    } catch (e) {}
+  }
   function lire(cle, defaut) { try { var v = sessionStorage.getItem(cle); return v ? JSON.parse(v) : defaut; } catch (e) { return defaut; } }
   function ecrire(cle, v) { try { sessionStorage.setItem(cle, JSON.stringify(v)); } catch (e) {} }
   function dateFr(iso, sansJour) {
@@ -21,7 +52,7 @@
     return t.charAt(0).toUpperCase() + t.slice(1);
   }
   window.BCRSel = {
-    lire: lire, ecrire: ecrire, dateFr: dateFr, prochainSamedi: prochainSamedi,
+    lire: lire, ecrire: ecrire, dateFr: dateFr, prochainSamedi: prochainSamedi, aujourdhui: aujourdhui, amicauxExemple: amicauxExemple, amorcerEvenements: amorcerEvenements,
     plage: function (x) {
       if (!x.au || x.au === x.du) return dateFr(x.du);
       return 'Du ' + dateFr(x.du).toLowerCase() + ' au ' + dateFr(x.au).toLowerCase();

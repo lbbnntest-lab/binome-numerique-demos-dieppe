@@ -4,8 +4,9 @@
    - bcr-benevoles : [{creneauId, nom}] écrit par l'espace des familles ; chaque poste de la table de marque porte data-creneau.
    - bcr-evenements : [{id, titre, date, heure, lieu, prix, places, description, publie, reservations:[{nom, nb}], ex}]
      créé ici, lu par la page publique des événements (js/billetterie.js). prix : 0 = gratuit ; places : null = sans limite.
-   Les deux événements affichés d'office ne sont PAS écrits dans bcr-evenements : la journée d'arbitrage (vraie publication du club,
-   sans billetterie) est déjà montrée par la page publique, et le tournoi n'est qu'un exemple pour cet écran. */
+   La journée d'arbitrage (vraie publication du club, sans billetterie) est affichée d'office sans être écrite dans bcr-evenements ;
+   le « Tournoi des jeunes (exemple) » y est écrit par js/selection.js (amorcerEvenements), publié, pour que la page publique
+   puisse le réserver. */
 (function () {
   'use strict';
   function lire(cle, d) { try { var v = sessionStorage.getItem(cle); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
@@ -97,11 +98,7 @@
     { id: 'ev-arbitrage-2026-10-21', titre: 'Journée d\'initiation à l\'arbitrage', date: '2026-10-21', heure: '10 h-16 h 30',
       lieu: 'Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles', prix: null, places: null,
       description: 'Proposée par la Ligue de Normandie et le CD76, accueillie par le BCR. Pour les licenciés U13 à seniors, filles et garçons ; ouverte aux autres clubs. Inscription auprès de Bertrand.',
-      publie: true, reservations: [], ex: false, club: true },
-    { id: 'ev-exemple-tournoi', titre: 'Tournoi des jeunes (exemple)', date: '2026-12-19', heure: '14 h',
-      lieu: 'Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles', prix: 2, places: 150,
-      description: 'Événement d\'exemple pour montrer la billetterie : la date, le prix et le nombre de places seraient fixés par le club.',
-      publie: false, reservations: [{ nom: 'Famille B.', nb: 3 }, { nom: 'Famille D.', nb: 2 }, { nom: 'Famille M.', nb: 4 }], ex: true }
+      publie: true, reservations: [], ex: false, club: true }
   ];
   /* Événements créés pendant la visite (bcr-evenements) ; les fixes s'y ajoutent seulement à l'affichage. */
   function evenements() { var l = lire('bcr-evenements', []); return Array.isArray(l) ? l.filter(function (e) { return e && e.id; }) : []; }
@@ -114,6 +111,7 @@
     return n + (n > 1 ? ' places réservées' : ' place réservée') + (typeof ev.places === 'number' ? ' sur ' + ev.places : ', sans limite de places');
   }
   var liste = document.getElementById('ev-liste');
+  if (window.BCRSel) window.BCRSel.amorcerEvenements();
   if (!liste) { rendreBenevoles(); return; }
   function rendreEvenements() {
     var l = FIXES.concat(evenements()).sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
@@ -123,7 +121,7 @@
       : 'Un événement ajouté ici apparaîtrait sur la page Événements du site une fois publié, avec la réservation en ligne si une billetterie est ouverte.';
     var places = 0, montant = 0;
     l.forEach(function (ev) { if (billetterie(ev)) { places += reserve(ev); montant += reserve(ev) * ev.prix; } });
-    var ex = FIXES.filter(function (e) { return e.ex && billetterie(e); }), exN = ex.reduce(function (t, e) { return t + reserve(e); }, 0), exM = ex.reduce(function (t, e) { return t + reserve(e) * e.prix; }, 0);
+    var ex = l.filter(function (e) { return e.ex && billetterie(e); }), exN = ex.reduce(function (t, e) { return t + reserve(e); }, 0), exM = ex.reduce(function (t, e) { return t + reserve(e) * e.prix; }, 0);
     document.getElementById('ev-total-aide').textContent = 'Chiffres d\'exemple inclus : le tournoi des jeunes compte pour ' + exN + ' places et ' + euros(exM) + '.';
     document.getElementById('ev-total').innerHTML = '<div><b>' + l.length + '</b><span>' + (l.length > 1 ? 'événements' : 'événement') + '</span></div>'
       + '<div><b>' + places + '</b><span>places réservées</span></div><div><b>' + euros(montant) + '</b><span>montant des réservations</span></div>';
@@ -135,7 +133,7 @@
         + (tres ? '' : '<p class="ev-lieu">' + esc(ev.lieu || 'Lieu à préciser') + '</p>' + (ev.description ? '<p class="ev-desc">' + esc(ev.description) + '</p>' : ''))
         + '<ul class="ev-chiffres"><li>' + esc(libPrix(ev)) + '</li><li>' + esc(libPlaces(ev)) + '</li>' + (billetterie(ev) ? '<li>Montant : <b>' + euros(m) + '</b></li>' : '') + '</ul>'
         + (gere && n ? '<details><summary>Réservations (' + n + ')</summary><ul class="ev-resa">' + ev.reservations.map(function (r) { return '<li>' + esc(r.nom) + ' · ' + (parseInt(r.nb, 10) || 0) + ' place' + (r.nb > 1 ? 's' : '') + '</li>'; }).join('') + '</ul></details>' : '')
-        + '</div><div class="geste"><span class="etat pastille ' + (ev.club ? 'ok">Publié par le club sur Facebook' : ev.ex ? 'attente">Exemple, non publié' : ev.publie ? 'ok">Publié sur le site' : 'attente">Brouillon, non publié') + '</span>'
+        + '</div><div class="geste"><span class="etat pastille ' + (ev.club ? 'ok">Publié par le club sur Facebook' : ev.ex ? 'ok">Exemple, publié sur le site' : ev.publie ? 'ok">Publié sur le site' : 'attente">Brouillon, non publié') + '</span>'
         + (gere && !ev.club && !ev.ex ? '<button type="button" class="bouton ' + (ev.publie ? 'ligne ' : '') + 'petit" data-publier-ev="' + esc(ev.id) + '">' + (ev.publie ? 'Dépublier' : 'Publier') + '<span class="visuellement-cache"> : ' + esc(ev.titre) + '</span></button>' : '')
         + '</div></li>';
     }).join('') || '<li><div class="ev-corps"><p>Aucun événement pour l\'instant.</p></div></li>';

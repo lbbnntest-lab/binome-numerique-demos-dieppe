@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
@@ -22,7 +22,7 @@
     <div class="wrap">
       <p class="s-surtitre">Boutique du club</p>
       <h1 id="titre-page" class="s-titre">Aux couleurs du BCR</h1>
-      <p class="s-chapo">L'équipement officiel du club chez JAKO, et le stage des vacances à réserver ici.</p>
+      <p class="s-chapo">L'équipement officiel du club chez JAKO, et les stages et articles du club à réserver ici.</p>
     </div>
   </section>
   <section class="bloc">
@@ -57,10 +57,10 @@
 
   <section class="bloc clair">
     <div class="wrap">
-      <p class="surtitre">Le stage et les articles du club</p>
+      <p class="surtitre">Le stage et les articles du club <span class="repere etape">2e étape</span></p>
       <h2 data-mv="mots">Réserver et payer en ligne</h2>
       <div class="produits" data-mv="suite" style="margin-top:20px">
-        <article class="produit">
+        <article class="produit" data-fin="2026-10-22T17:00" data-passe="Passé : stage des vacances d&#39;octobre">
           <div class="visuel"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#1f7a3f"/><g fill="none" stroke="#101412" stroke-width="4"><path d="M8 60h104M60 8v104"/><path d="M24 22c18 16 18 60 0 76M96 22c-18 16-18 60 0 76"/></g></svg></div>
           <div class="infos">
             <h3>Stage des vacances d'octobre</h3>
@@ -72,7 +72,7 @@
         <article class="produit">
           <div class="visuel"><svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 6h44l30 18-12 24-14-7v83H34V41l-14 7L8 24z" fill="#101412"/><path d="M38 6c4 14 40 14 44 0" fill="none" stroke="#46c46f" stroke-width="5"/><text x="60" y="70" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-style="italic" font-weight="700" font-size="22" fill="#46c46f">U18F</text><text x="60" y="92" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-style="italic" font-weight="700" font-size="12" fill="#fff">ÉLITE 2026</text></svg></div>
           <div class="infos">
-            <h3>Tee-shirt « U18F élite » <span class="etiquette-ex">idée d'article</span></h3>
+            <h3>Tee-shirt « U18F élite » <span class="repere idee">Idée, sur devis</span></h3>
             <p>Article que le club pourrait vendre en plus de JAKO, en commande groupée.</p>
             <div class="prix" style="font-size:1.1rem">Prix fixé par le club</div>
             <div class="actions"><button class="bouton" type="button" data-ajout="15">Réserver (exemple)</button></div>
@@ -91,6 +91,15 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script>
+/* Stage d'octobre : une fois terminé, la carte est marquée « Passé » et ne propose plus de réserver (même mécanisme que l'accueil). */
+document.querySelectorAll('.produit[data-fin]').forEach(function(c){
+  if (new Date(c.getAttribute('data-fin')) >= new Date()) return;
+  c.querySelector('h3').insertAdjacentHTML('beforebegin', '<p class="surtitre">' + c.getAttribute('data-passe') + '</p>');
+  var p = c.querySelector('.prix'); if (p) p.remove();
+  var b = c.querySelector('.actions'); if (b) b.innerHTML = '<p>Les dates du prochain stage seraient publiées ici par le club.</p>';
+});
+</script>
 <script>
 (function(){
   var nb = 0, total = 0;

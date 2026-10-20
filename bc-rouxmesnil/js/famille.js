@@ -17,7 +17,7 @@
   function ecrire(cle, v) { try { sessionStorage.setItem(cle, JSON.stringify(v)); } catch (e) {} }
   function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function dateFr(iso) { return S ? S.dateFr(iso) : iso; }
-  function auj() { return new Date().toISOString().slice(0, 10); }
+  function auj() { return S ? S.aujourdhui() : new Date().toISOString().slice(0, 10); }
   function $(id) { return document.getElementById(id); }
 
   /* ---------- Les enfants de la famille B. (exemple) ---------- */
@@ -157,6 +157,13 @@
      (« u15|AAAA-MM-JJ » ou « u15|AAAA-MM-JJ|am… »). exterieurSeul : pour le covoiturage. */
   function matchsAVenir(e, exterieurSeul) {
     var a = auj(), l = [], vus = {};
+    /* Match amical d'exemple de l'équipe : le même que dans l'espace du coach (js/selection.js), pour que chaque enfant
+       ait un prochain match. Même identifiant que la convocation du coach, donc jamais en double. */
+    (S ? S.amicauxExemple(e.equipe) : []).forEach(function (m) {
+      var id = e.equipe + '|' + m.date; if ((exterieurSeul && m.dom) || annule(id)) return;
+      vus[id] = 1;
+      l.push({ id: id, date: m.date, adv: m.adv, dom: m.dom, exemple: true, lib: dateFr(m.date) + heureFr(m.heure) + ' · match amical (exemple) contre ' + m.adv + ', ' + (m.dom ? 'à domicile' : 'à l\'extérieur') });
+    });
     (S ? S.lire('bcr-amicaux', []) : []).forEach(function (m) {
       if (m.equipe !== e.equipe || !m.date || m.date < a || (exterieurSeul && m.dom)) return;
       var id = e.equipe + '|' + m.date + '|' + m.id; if (annule(id)) return;
@@ -392,6 +399,7 @@
     de: de,
     tag: tag,
     enfantChoisi: enfantChoisi,
+    prochainMatch: function (e) { return matchsAVenir(e)[0]; },
     surChangement: function (f) { abonnes.push(f); },
     notifsAnnonces: notifsAnnonces,
     /* Libellé « enfant » d'une demande au bureau. */

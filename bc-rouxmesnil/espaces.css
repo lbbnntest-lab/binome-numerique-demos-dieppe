@@ -231,6 +231,12 @@ label.choisir{display:inline-block;margin:0;cursor:pointer}
 .roles-equipe .roles-boutons button{border-color:var(--ballon);color:var(--ballon-ink)}
 .roles-equipe .roles-boutons button[aria-pressed=true]{background:var(--ballon);color:#fff}
 .roles-vue{margin:4px 0 0;color:var(--ink-soft);max-width:60em}
+.aller-a{margin:16px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.aller-a .aller-lib{margin:0 6px 0 0;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;color:var(--ink)}
+.aller-a ul{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.aller-a a{display:inline-block;font-weight:600;font-size:.95rem;padding:8px 12px;border:2px solid var(--ballon);background:#fff;color:var(--ballon-ink);text-decoration:none;border-radius:2px}
+.aller-a a:hover,.aller-a a:focus-visible{background:var(--ballon);color:#fff}
+#a-decider,#coach,#suivi,#demandes-familles,#comptabilite,#table-marque,#evenements,#publications,#inscriptions-stage{scroll-margin-top:92px}
 .roles-regle{margin:12px 0 0;display:inline-block;background:#e3efe6;border-left:4px solid var(--ballon);padding:8px 12px;font-weight:600}
 .p-tete + .roles{margin-top:0}
 .roles + section.bloc{padding-top:48px}
