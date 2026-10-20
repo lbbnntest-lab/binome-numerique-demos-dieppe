@@ -1,7 +1,7 @@
 /* Actions de la mascotte dans l'ouverture : une action tirée au hasard à chaque visite (tir à 3 points, tir après
    un pas en arrière, dunk à une main, dunk à deux mains suspendu au cercle), puis la fête du panier : la mascotte se
    tourne vers le visiteur, fait un clin d'œil et le ballon revient tourner sur son doigt, comme sur la couverture du
-   calendrier. Pour montrer une action précise : ?action=trois-points, pas-arriere, dunk ou dunk-suspendu.
+   calendrier. Pour montrer une action précise : ?action=trois-points, pas-arriere, dunk, dunk-suspendu ou lancer-franc.
 
    Règles du basket respectées : les jambes sont calculées à partir de la position des pieds, donc un pied posé reste
    fixe au sol (aucun glissement) ; on ne se déplace qu'en dribblant ; après avoir pris le ballon en main, au plus deux
@@ -11,7 +11,7 @@
   var J = window.Joueuse, P = J.P, M = window.Mascotte, S = 0.86;
   var CUISSE = 50, TIBIA = 48, PIED = 9, CHEV = J.SOL - PIED * S;   /* CHEV : hauteur d'une cheville posée au sol */
   var CERCLE = [520, 101], SOL_B = J.SOL - 12, BOUT = 17, DEBOUT = 318, ACCROUPI = 334;
-  var ACTIONS = ['trois-points', 'pas-arriere', 'dunk', 'dunk-suspendu'];
+  var ACTIONS = ['trois-points', 'pas-arriere', 'dunk', 'dunk-suspendu', 'lancer-franc'];
   var HAUT = ['tronc', 'tete', 'brasA', 'avantA', 'brasB', 'avantB', 'queue', 'face', 'index', 'dessus', 'ecr'];
 
   function rad(a){ return a * Math.PI / 180; }
@@ -121,7 +121,8 @@
     if (enPause) tl.paused(true);
     var nom = suite ? suivante() : choisir(); derniere = nom;
     /* Dans l'enchaînement, le tableau garde le score officiel (78-57) au lieu de recompter depuis zéro. */
-    var c = etatDepart(), e = { d: 0, v: 0, r: 0, tour: 0, s: suite ? 78 : 0, a: suite ? 57 : 0 }, pose = construire(c);
+    /* Le lancer franc commence déjà sur la ligne (ballon remis par l'arbitre) : pieds derrière la ligne (x 372). */
+    var c = Object.assign(etatDepart(), nom === 'lancer-franc' ? { hx: 336, ax: 344, bx: 326 } : {}), e = { d: 0, v: 0, r: 0, tour: 0, s: suite ? 78 : 0, a: suite ? 57 : 0 }, pose = construire(c);
     function compteur(s, d){ if (!suite) tl.to(e, { s: s, a: 57, duration: d, ease: 'power1.out', onUpdate: compte }, 1.0); }
     var mode = 'main', dep = null, ctrl = null, depR = null;
     var trajet = document.getElementById('trajet');
@@ -206,22 +207,25 @@
     }
     /* Tir en extension, pieds fixes : préparation (le corps se tasse), détente (il s'étire), lâcher en l'air,
        retombée sur place avec un léger rebond. Renvoie l'heure du panier. */
-    function tir(t){
+    /* o (facultatif) : saut (hauteur de l'impulsion), haut (hauteur de la trajectoire), vol (durée du vol),
+       leger (réception légère, sans poussière) ; par défaut, un tir de loin. */
+    function tir(t, o){
+      o = Object.assign({ saut: 48, haut: 170, vol: 1.15, leger: false }, o || {});
       k(t, 0.22, Object.assign(haut(P.appel), { hy: ACCROUPI + 3, ecr: 0.08 }), 'power2.in');
-      k(t + 0.22, 0.3, Object.assign(haut(P.detente), { hy: DEBOUT - 48, pA: 38, pB: 30, ecr: -0.08 }), 'power2.out');
+      k(t + 0.22, 0.3, Object.assign(haut(P.detente), { hy: DEBOUT - o.saut, pA: 38, pB: 30, ecr: -0.08 }), 'power2.out');
       k(t + 0.52, 0.14, Object.assign(haut(P.lacher), { ecr: -0.03 }), 'power1.out');
       tl.call(function(){
         var m = J.main(pose); dep = [m[0] + 4, m[1] + 9];
-        ctrl = [(dep[0] + CERCLE[0]) / 2 + 10, Math.min(dep[1], CERCLE[1]) - 170];
+        ctrl = [(dep[0] + CERCLE[0]) / 2 + 10, Math.min(dep[1], CERCLE[1]) - o.haut];
         trajet.setAttribute('d', 'M' + dep[0].toFixed(1) + ' ' + dep[1].toFixed(1) + ' Q' + ctrl[0].toFixed(1) + ' ' + ctrl[1].toFixed(1) + ' ' + CERCLE[0] + ' ' + CERCLE[1]);
         mode = 'vol';
       }, null, t + 0.66);
-      tl.to(e, { v: 1, tour: 720, duration: 1.15, ease: 'none', onUpdate: maj }, t + 0.66)
+      tl.to(e, { v: 1, tour: 720, duration: o.vol, ease: 'none', onUpdate: maj }, t + 0.66)
         .fromTo(trajet, { opacity: 0 }, { opacity: 1, duration: 0.5 }, t + 0.72);
-      k(t + 0.7, 0.32, Object.assign(haut(P.reception), { hy: ACCROUPI - 4, pA: 0, pB: 0, ecr: 0.07 }), 'power2.in');
-      poussiere(t + 0.98, false);
+      k(t + 0.7, 0.32, Object.assign(haut(P.reception), { hy: o.leger ? DEBOUT + 6 : ACCROUPI - 4, pA: 0, pB: 0, ecr: o.leger ? 0.03 : 0.07 }), 'power2.in');
+      if (!o.leger) poussiere(t + 0.98, false);
       k(t + 1.02, 0.5, Object.assign(haut(P.fin), { hy: DEBOUT, ecr: 0 }), 'back.out(2)');
-      return t + 1.81;
+      return t + 0.66 + o.vol;
     }
     /* Le ballon traverse le filet ; le tableau prend les points ; le ballon tombe au sol. */
     function filet(t, fort){
@@ -275,6 +279,15 @@
       passe('main', 2.0); k(2.0, 0.24, haut(P.prise), 'power1.out');
       pas('b', 208, 2.04, 0.3, 10); k(2.04, 0.3, { hx: 200 }, 'power1.inOut');
       tb = tir(2.36);
+    } else if (nom === 'lancer-franc') {
+      /* Lancer franc : routine de deux dribbles sur place, temps de concentration ballon en main, puis tir avec une
+         petite impulsion droit vers le haut ; les pieds restent derrière la ligne jusqu'à ce que le ballon touche le
+         cercle (ils ne bougent pas du tout). Trajectoire plus courte et moins haute qu'un tir de loin ; 1 point. */
+      compteur(77, 1.8);
+      dribble(1.0, 0.42); dribble(1.42, 0.42);
+      passe('main', 1.84); k(1.84, 0.3, haut(P.prise), 'power1.out');
+      cligne(2.2, '.m-profil .m-paupiere');
+      tb = tir(2.45, { saut: 18, haut: 115, vol: 0.95, leger: true });
     } else if (nom === 'pas-arriere') {
       /* Step back moderne, en cinq temps (décomposition transmise par le fondateur le 20/10). Règles : ramassé sur le
          pied avant (pas zéro), puis deux appuis (pied arrière, puis pied avant), puis tir ; ballon lâché en l'air. */
@@ -345,7 +358,7 @@
         tb = Math.max(tb, 4.0);
       }
     }
-    if (nom === 'trois-points' || nom === 'pas-arriere') tb = filet(tb, false);
+    if (nom === 'trois-points' || nom === 'pas-arriere' || nom === 'lancer-franc') tb = filet(tb, false);
     fete(tb + 0.1);
     /* Fin de la fête : la mascotte s'efface, puis une autre action commence (voir relancer). */
     var fin = tb + 0.1 + 4.15 + 1.2;
