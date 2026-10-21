@@ -15,7 +15,7 @@
      contacts d'urgence dans le bloc du coach (coach et président seulement) ; billetterie : le trésorier voit les montants,
      ajout et publication restent au président et au secrétaire (js/evenements.js) ; matériel : le coach voit son équipe. */
   var VUE = {
-    president: 'tout l\'espace, et les décisions qui attendent votre accord.',
+    president: 'tout l\'espace, et les décisions qui attendent votre accord. Ce que vous laissez à un responsable est rangé dans « Qui s\'occupe de quoi ».',
     tresorier: 'cotisations, encaissements du stage, commande groupée, attestations de paiement, montants de la billetterie des événements et export pour la comptabilité.',
     secretaire: 'licences fédérales et qui peut jouer, dossiers incomplets et rappels, demandes des familles, documents, maillots et matériel, événements et billetterie, chiffres des subventions.',
     coach: 'votre équipe seulement : effectif et licences, prochains matchs et matchs amicaux, sélection, convocation, annonces à l\'équipe, appel aux entraînements, covoiturage, contacts d\'urgence le jour du match, maillots et matériel, scores de fin de match, absences et médias.',

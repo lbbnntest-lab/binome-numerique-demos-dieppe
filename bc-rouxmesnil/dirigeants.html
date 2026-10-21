@@ -36,6 +36,7 @@
       <p class="roles-regle">Chaque dirigeant ne voit que ce qui concerne son rôle ; le président voit tout.</p>
       <nav class="aller-a" data-roles="" aria-labelledby="aller-a-lib"><p class="aller-lib" id="aller-a-lib">Aller à</p><ul>
         <li><a href="#a-decider">À décider</a></li>
+        <li><a href="#domaines">Qui s'occupe de quoi</a></li>
         <li><a href="#coach">Matchs et convocations</a></li>
         <li><a href="#suivi">Inscriptions et licences</a></li>
         <li><a href="#demandes-familles">Demandes reçues</a></li>
@@ -66,7 +67,26 @@
     </div>
   </section>
 
-  <section class="bloc" id="coach" data-roles="coach" aria-labelledby="titre-coach">
+  <section class="bloc" id="domaines" data-roles="" aria-labelledby="titre-domaines">
+    <div class="wrap">
+      <div class="partie-domaines">
+      <p class="surtitre">Président · votre page, rangée comme vous voulez</p>
+      <h2 id="titre-domaines" data-mv="mots">Qui s'occupe de quoi</h2>
+      <p style="max-width:46em">Vous gardez un œil sur tout. Ce que vous laissez à un responsable quitte votre page et reste ici, à un clic, si vous voulez regarder.</p>
+      <ul class="decisions domaines" id="liste-domaines"></ul>
+      <p class="resultat" id="domaines-etat" role="status" aria-live="polite" hidden></p>
+      </div>
+
+      <h3 class="domaines-sous" id="titre-acces">Les accès</h3>
+      <p class="seul-gestion" style="max-width:46em">Le président vous a confié les accès : vous ajoutez ou retirez ceux des autres dirigeants, coachs et bénévoles. Ses propres accès restent à lui seul.</p>
+      <p class="seul-president" style="max-width:46em">Vous pouvez désigner une personne de confiance qui ajoute ou retire les accès des autres (un nouveau coach, un bénévole), sans pouvoir toucher aux vôtres.</p>
+      <ul class="decisions acces" id="liste-acces" aria-labelledby="titre-acces"></ul>
+      <p class="resultat" id="acces-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le club</b>Le président n'a pas à tout lire : les publications, par exemple, restent à la personne des réseaux, et il les retrouve ici le jour où il veut vérifier. Les noms sont des exemples.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="coach" data-domaine="equipes" data-roles="coach" aria-labelledby="titre-coach">
     <div class="wrap">
       <p class="surtitre" id="coach-sur">Coach · votre équipe</p>
       <h2 id="titre-coach">Mon équipe</h2>
@@ -148,7 +168,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="vie-equipe" data-roles="coach" aria-labelledby="titre-vie-equipe">
+  <section class="bloc" id="vie-equipe" data-domaine="equipes" data-roles="coach" aria-labelledby="titre-vie-equipe">
     <div class="wrap">
       <p class="surtitre" id="vie-sur">Coach · votre équipe</p>
       <h2 id="titre-vie-equipe" data-mv="mots">Écrire à l'équipe</h2>
@@ -177,7 +197,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="appel" data-roles="coach" aria-labelledby="titre-appel">
+  <section class="bloc" id="appel" data-domaine="equipes" data-roles="coach" aria-labelledby="titre-appel">
     <div class="wrap">
       <p class="surtitre">Coach · entraînements, effectif d'exemple <span class="repere idee">Idée, sur devis</span></p>
       <h2 id="titre-appel" data-mv="mots">Appel à l'entraînement</h2>
@@ -204,7 +224,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="suivi" data-roles="tresorier secretaire">
+  <section class="bloc" id="suivi" data-domaine="secretariat" data-roles="tresorier secretaire">
     <div class="wrap">
 
       <div class="note"><b>Pour le club</b>C'est la partie qui pourrait faire gagner le plus de temps. Chaque dirigeant aurait son propre accès, protégé par un mot de passe et par un code de confirmation. Les noms ci-dessous sont inventés pour la démonstration.</div>
@@ -244,7 +264,7 @@
     </div>
   </section>
 
-  <section class="bloc clair" id="demandes-familles" data-roles="tresorier secretaire coach communication" aria-labelledby="titre-demandes">
+  <section class="bloc clair" id="demandes-familles" data-domaine="secretariat" data-roles="tresorier secretaire coach communication" aria-labelledby="titre-demandes">
     <div class="wrap">
       <div class="acces-medias" data-roles="communication coach">
         <div>
@@ -266,7 +286,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="comptabilite" data-roles="tresorier" aria-labelledby="titre-compta">
+  <section class="bloc" id="comptabilite" data-domaine="argent" data-roles="tresorier" aria-labelledby="titre-compta">
     <div class="wrap deux" style="align-items:start">
       <div>
         <p class="surtitre">Trésorier · chiffres d'exemple <span class="repere idee">Idée, sur devis</span></p>
@@ -286,7 +306,7 @@
     <div class="wrap"><div class="note"><b>Pour le trésorier</b>Les paiements par carte, les chèques et les espèces cochés par un dirigeant seraient regroupés dans un seul fichier, au format du tableur du club. Les demandes d'attestation de paiement arriveraient dans sa boîte, ci-dessus.</div></div>
   </section>
 
-  <section class="bloc" id="changements" data-roles="secretaire" aria-labelledby="titre-changements">
+  <section class="bloc" id="changements" data-domaine="secretariat" data-roles="secretaire" aria-labelledby="titre-changements">
     <div class="wrap">
       <p class="surtitre">Salle et table de marque</p>
       <h2 id="titre-changements" data-mv="mots">Changements de matchs de la semaine</h2>
@@ -295,7 +315,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="documents" data-roles="secretaire" aria-labelledby="titre-documents">
+  <section class="bloc" id="documents" data-domaine="secretariat" data-roles="secretaire" aria-labelledby="titre-documents">
     <div class="wrap">
       <p class="surtitre">Secrétaire · documents d'exemple</p>
       <h2 id="titre-documents" data-mv="mots">Documents à préparer</h2>
@@ -309,7 +329,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="qui-peut-jouer" data-roles="secretaire" aria-labelledby="titre-qui-joue">
+  <section class="bloc" id="qui-peut-jouer" data-domaine="secretariat" data-roles="secretaire" aria-labelledby="titre-qui-joue">
     <div class="wrap">
       <p class="surtitre">Secrétaire · licences d'exemple</p>
       <h2 id="titre-qui-joue" data-mv="mots">Qui peut jouer</h2>
@@ -320,7 +340,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="materiel" data-roles="secretaire coach" aria-labelledby="titre-materiel">
+  <section class="bloc" id="materiel" data-domaine="equipes" data-roles="secretaire coach" aria-labelledby="titre-materiel">
     <div class="wrap">
       <p class="surtitre">Équipement · inventaire d'exemple <span class="repere idee">Idée, sur devis</span></p>
       <h2 id="titre-materiel" data-mv="mots">Maillots et matériel</h2>
@@ -332,7 +352,7 @@
     </div>
   </section>
 
-  <section class="bloc" data-roles="tresorier">
+  <section class="bloc" data-domaine="argent" data-roles="tresorier">
     <div class="wrap">
       <p class="surtitre">Commande groupée · exemple <span class="repere idee">Idée, sur devis</span></p>
       <h2 data-mv="mots">Tee-shirts U18F : les colis arrivent</h2>
@@ -351,7 +371,7 @@
     </div>
   </section>
 
-  <section class="bloc clair" id="table-marque" data-roles="communication">
+  <section class="bloc clair" id="table-marque" data-domaine="benevoles" data-roles="communication">
     <div class="wrap">
       <p class="surtitre">Bénévoles · noms d'exemple</p>
       <h2 data-mv="mots">Table de marque et bénévoles</h2>
@@ -390,7 +410,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="evenements" data-roles="secretaire tresorier" aria-labelledby="titre-evenements">
+  <section class="bloc" id="evenements" data-domaine="evenements" data-roles="secretaire tresorier" aria-labelledby="titre-evenements">
     <div class="wrap">
       <p class="surtitre">Événements et billetterie</p>
       <h2 id="titre-evenements" data-mv="mots">Les événements du club</h2>
@@ -425,7 +445,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="publications" data-roles="communication" aria-labelledby="titre-publications">
+  <section class="bloc" id="publications" data-domaine="publications" data-roles="communication" aria-labelledby="titre-publications">
     <div class="wrap">
       <p class="surtitre">Communication · publications d'exemple</p>
       <h2 id="titre-publications" data-mv="mots">Publications pour les réseaux</h2>
@@ -439,7 +459,7 @@
     </div>
   </section>
 
-  <section class="bloc" id="publications-matchs" data-roles="communication" aria-labelledby="titre-pub-matchs">
+  <section class="bloc" id="publications-matchs" data-domaine="publications" data-roles="communication" aria-labelledby="titre-pub-matchs">
     <div class="wrap">
       <p class="surtitre">Communication · à partir des scores</p>
       <h2 id="titre-pub-matchs" data-mv="mots">Publications des matchs</h2>
@@ -459,7 +479,7 @@
     </div>
   </section>
 
-  <section class="bloc" data-roles="tresorier secretaire stages">
+  <section class="bloc" data-domaine="evenements" data-roles="tresorier secretaire stages">
     <div class="wrap deux">
       <div data-roles="tresorier stages">
         <p class="surtitre">Stage des vacances · exemple de liste</p>
@@ -488,7 +508,7 @@
     <div class="wrap"><div class="note"><b>Pour le club</b>Deux tâches allégées : la liste du stage, et les chiffres des dossiers de subvention à refaire chaque année.</div></div>
   </section>
 
-  <section class="bloc" id="inscriptions-stage" data-roles="stages" aria-labelledby="titre-insc-stage">
+  <section class="bloc" id="inscriptions-stage" data-domaine="evenements" data-roles="stages" aria-labelledby="titre-insc-stage">
     <div class="wrap">
       <p class="surtitre">Stage d'octobre · inscriptions d'exemple</p>
       <h2 id="titre-insc-stage" data-mv="mots">Les inscriptions, au fil de l'eau</h2>
@@ -517,6 +537,7 @@
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
 <script src="js/roles.js"></script>
+<script src="js/domaines.js"></script>
 <script src="js/selection.js"></script>
 <script src="js/publications.js"></script>
 <script src="js/equipe.js"></script>

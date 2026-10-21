@@ -511,3 +511,11 @@ label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
 @media (max-width:700px){.aide-glisser{display:block}}
 /* Le texte caché des boutons (lecteurs d'écran) reste dans le tableau défilant. */
 .table-defile{position:relative}
+
+/* Qui s'occupe de quoi (président) et Les accès */
+.domaines > li.laisse{background:transparent}
+.domaines > li.laisse strong{color:var(--ink-soft)}
+.domaines-sous{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.6rem;margin:40px 0 8px}
+.seul-gestion{display:none}
+.vue-acces .partie-domaines,.vue-acces .seul-president{display:none}
+.vue-acces .seul-gestion{display:block}
