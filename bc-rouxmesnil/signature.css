@@ -142,6 +142,10 @@
 .echelle .barre{stroke:rgba(255,255,255,.2);stroke-width:4}
 .echelle .barre-v{stroke:var(--vif);stroke-width:6}
 .echelle .palier{fill:#080a09;stroke:rgba(255,255,255,.35);stroke-width:3}
+.echelle .palier.atteint{fill:var(--vif);stroke:var(--vif)}
+.echelle .onde{fill:none;stroke:var(--vif);stroke-width:3;opacity:0}
+.s-montee.suit .etages li{transition:opacity .5s ease,transform .5s ease}
+.s-montee.suit .etages li:not(.allume){opacity:.3;transform:translateX(-10px)}
 .echelle text{fill:#fff;font-family:"Barlow Condensed",sans-serif;font-style:italic;font-weight:700;font-size:26px;text-transform:uppercase}
 .echelle .petit{font-size:17px;fill:#c9cdca;font-style:normal;font-weight:600}
 
