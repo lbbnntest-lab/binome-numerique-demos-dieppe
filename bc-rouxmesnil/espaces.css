@@ -103,7 +103,7 @@ label.choisir{display:inline-block;margin:0;cursor:pointer}
 .media .boutons{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
 .media .boutons button{font:inherit;font-size:.9rem;font-weight:700;padding:6px 10px;border-radius:2px;cursor:pointer;border:0}
 .media .b-valider{background:var(--ballon);color:#fff}
-.media .b-valider:hover{background:var(--ballon-ink)}
+@media (hover:hover) and (pointer:fine){.media .b-valider:hover{background:var(--ballon-ink)}}
 .media .b-refuser{background:#fff;color:var(--manque);box-shadow:inset 0 0 0 2px var(--manque)}
 .media .b-reseaux{background:#fff;color:var(--club);box-shadow:inset 0 0 0 2px var(--club)}
 .media .b-reseaux[aria-pressed=true]{background:var(--club);color:#fff}
@@ -182,7 +182,7 @@ label.choisir{display:inline-block;margin:0;cursor:pointer}
 .progression i{display:block;height:100%;width:0;background:var(--vif)}
 .commandes{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0;align-items:center}
 .commandes .bouton.ligne{color:#fff;box-shadow:inset 0 0 0 2px #fff}
-.commandes .bouton.ligne:hover{background:rgba(255,255,255,.12)}
+@media (hover:hover) and (pointer:fine){.commandes .bouton.ligne:hover{background:rgba(255,255,255,.12)}}
 .formats{display:inline-flex;gap:0}
 .formats button{font:inherit;font-size:.92rem;padding:8px 12px;border:1px solid #fff;background:transparent;color:#fff;cursor:pointer}
 .formats button + button{border-left:0}
@@ -226,7 +226,7 @@ label.choisir{display:inline-block;margin:0;cursor:pointer}
 .roles-lib .etiquette-ex{margin-left:6px}
 .roles-boutons{display:flex;flex-wrap:wrap;gap:8px}
 .roles-boutons button{font:inherit;font-weight:600;font-size:.95rem;padding:8px 14px;border:2px solid var(--club);background:#fff;color:var(--club);cursor:pointer;border-radius:2px}
-.roles-boutons button:hover{background:#e6e9e4}
+@media (hover:hover) and (pointer:fine){.roles-boutons button:hover{background:#e6e9e4}}
 .roles-boutons button[aria-pressed=true]{background:var(--club);color:#fff}
 .roles-equipe .roles-boutons button{border-color:var(--ballon);color:var(--ballon-ink)}
 .roles-equipe .roles-boutons button[aria-pressed=true]{background:var(--ballon);color:#fff}
@@ -235,7 +235,8 @@ label.choisir{display:inline-block;margin:0;cursor:pointer}
 .aller-a .aller-lib{margin:0 6px 0 0;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;color:var(--ink)}
 .aller-a ul{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .aller-a a{display:inline-block;font-weight:600;font-size:.95rem;padding:8px 12px;border:2px solid var(--ballon);background:#fff;color:var(--ballon-ink);text-decoration:none;border-radius:2px}
-.aller-a a:hover,.aller-a a:focus-visible{background:var(--ballon);color:#fff}
+.aller-a a:focus-visible{background:var(--ballon);color:#fff}
+@media (hover:hover) and (pointer:fine){.aller-a a:hover{background:var(--ballon);color:#fff}}
 #a-decider,#coach,#suivi,#demandes-familles,#comptabilite,#table-marque,#evenements,#publications,#inscriptions-stage{scroll-margin-top:92px}
 .roles-regle{margin:12px 0 0;display:inline-block;background:#e3efe6;border-left:4px solid var(--ballon);padding:8px 12px;font-weight:600}
 .p-tete + .roles{margin-top:0}
@@ -317,6 +318,7 @@ input[type=number]{width:100%;font:inherit;padding:10px 12px;border:1px solid #b
 .pub-corps h4{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.25rem;line-height:1.15;margin:0 0 6px}
 .pub-type{margin:0 0 4px;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;color:var(--ballon-ink);font-weight:700;font-size:.95rem}
 .pub-corps textarea{min-height:170px;font-size:.96rem}
+@media (pointer:coarse){.pub-corps textarea{font-size:max(16px,.96rem)}}
 .pub-boutons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .pub-etat{margin:8px 0 0;font-weight:600;color:var(--ok)}
 .pub-etat:empty{display:none}
@@ -505,7 +507,8 @@ label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
 .licence-copie{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .num-licence{user-select:all;-webkit-user-select:all}
 .bouton-copier{font:inherit;font-size:.82rem;font-weight:700;padding:4px 10px;border:1.5px solid currentColor;border-radius:6px;background:transparent;color:var(--ballon);cursor:pointer;min-height:32px}
-.bouton-copier:hover,.bouton-copier:focus-visible{background:var(--ballon);color:#fff}
+.bouton-copier:focus-visible{background:var(--ballon);color:#fff}
+@media (hover:hover) and (pointer:fine){.bouton-copier:hover{background:var(--ballon);color:#fff}}
 .bouton-copier.copie-faite{background:var(--ballon);color:#fff}
 .aide-glisser{display:none;margin:0 0 8px}
 @media (max-width:700px){.aide-glisser{display:block}}

@@ -19,7 +19,7 @@
   --texte:"Source Sans 3",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--texte);font-size:17px;line-height:1.55}
 img,svg{max-width:100%;display:block}
 a{color:var(--club)}
@@ -53,7 +53,7 @@ body.explications .note{display:block}
 .menu{display:flex;flex-wrap:wrap;gap:4px 18px;list-style:none;margin:0;padding:0}
 .menu a{color:#fff;text-decoration:none;font-weight:600;padding:4px 0;border-bottom:2px solid transparent}
 .menu a[aria-current]{border-bottom-color:var(--ballon)}
-.menu a:hover{border-bottom-color:rgba(255,255,255,.5)}
+@media (hover:hover) and (pointer:fine){.menu a:hover{border-bottom-color:rgba(255,255,255,.5)}}
 
 /* Héros accueil */
 .heros{position:relative;background:var(--club-ink);color:#fff;overflow:hidden}
@@ -61,7 +61,7 @@ body.explications .note{display:block}
 .heros .wrap{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;padding-top:56px;padding-bottom:56px;align-items:end}
 .heros p.chapo{font-size:1.2rem;max-width:34em;color:#e4e9f2}
 .bouton{display:inline-block;background:var(--ballon);color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:3px;border:0;font:inherit;font-weight:700;cursor:pointer}
-.bouton:hover{background:var(--ballon-ink)}
+@media (hover:hover) and (pointer:fine){.bouton:hover{background:var(--ballon-ink)}}
 .bouton.clair{background:#fff;color:var(--club-ink)}
 .bouton.ligne{background:transparent;color:var(--club);box-shadow:inset 0 0 0 2px var(--club)}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
@@ -279,25 +279,46 @@ ol.suite li{margin:8px 0}
 .entete-insc{color:#fff;text-decoration:none;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--vif);padding-bottom:2px}
 .menu-btn{font:inherit;background:none;border:0;color:#fff;display:flex;align-items:center;gap:12px;cursor:pointer;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:1rem;padding:8px 0}
 .menu-traits{display:grid;gap:6px;width:28px}
-.menu-traits span{display:block;height:2px;background:#fff;transition:transform .35s ease}
+.menu-traits span{display:block;height:2px;background:#fff;transition:transform 200ms cubic-bezier(.23,1,.32,1)}
 .menu-ouvert .menu-traits span:first-child{transform:translateY(4px) rotate(45deg)}
 .menu-ouvert .menu-traits span:last-child{transform:translateY(-4px) rotate(-45deg)}
 .menu-ouvert body{overflow:hidden}
 /* Menu ouvert : l'en-tête est fixé en haut de l'écran (sur Android, le blocage du défilement casse « sticky »
    et l'en-tête retombait sous le bandeau de la maquette, au milieu du menu). */
 .menu-ouvert .entete.sig{position:fixed;top:0;left:0;right:0}
-.menu-plein{position:fixed;inset:0;top:0;z-index:-1;background:#080a09;color:#fff;clip-path:inset(0 0 100% 0);transition:clip-path .55s cubic-bezier(.77,0,.18,1);overflow-x:hidden;overflow-y:auto;padding-top:150px}
+.menu-plein{position:fixed;inset:0;top:0;z-index:-1;background:#080a09;color:#fff;clip-path:inset(0 0 100% 0);transition:clip-path 280ms cubic-bezier(.23,1,.32,1);overflow-x:hidden;overflow-y:auto;padding-top:150px}
 .menu-plein::before{content:"";position:absolute;right:-10%;top:0;width:45%;height:100%;background:var(--ballon);transform:skewX(-14deg);opacity:.18;pointer-events:none}
 .menu-plein.ouvert{clip-path:inset(0 0 0 0)}
 .menu-grille{display:grid;grid-template-columns:1.6fr .8fr;gap:40px;align-items:center;min-height:calc(100vh - 140px)}
 .menu-liens{list-style:none;margin:0;padding:0}
 .menu-liens li{overflow:hidden}
-.menu-liens a{display:flex;align-items:baseline;gap:16px;color:#fff;text-decoration:none;padding:4px 0;transform:translateY(110%);transition:transform .6s cubic-bezier(.2,.8,.2,1);transition-delay:calc(.18s + var(--i) * .04s)}
-.menu-plein.ouvert .menu-liens a{transform:none}
+.menu-liens a{display:flex;align-items:baseline;gap:16px;color:#fff;text-decoration:none;padding:4px 0;transform:translateY(110%);transition:transform 220ms cubic-bezier(.23,1,.32,1)}
+/* À l'ouverture, les lignes se décalent de 6 ms chacune (13 lignes : 72 ms au plus) ; à la fermeture, sans retard : même chemin, dans l'autre sens. */
+.menu-plein.ouvert .menu-liens a{transform:none;transition-delay:calc(var(--i) * 6ms)}
 .menu-liens .num{font-family:var(--titre);color:var(--vif);font-size:1rem;width:2em}
 .menu-liens .lib{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:clamp(1.9rem,5vw,3.6rem);line-height:1.02}
-.menu-liens a:hover .lib,.menu-liens a[aria-current] .lib{color:var(--vif)}
+.menu-liens a[aria-current] .lib{color:var(--vif)}
+@media (hover:hover) and (pointer:fine){.menu-liens a:hover .lib{color:var(--vif)}}
 .menu-infos{color:#c9cdca;border-left:2px solid var(--vif);padding-left:24px}
 .menu-infos img{width:120px;height:120px;margin-bottom:16px}
 @media (prefers-reduced-motion:reduce){.menu-plein,.menu-liens a{transition:none}}
 @media (max-width:820px){.menu-grille{grid-template-columns:1fr;align-items:start}.menu-infos{display:none}.entete-insc{display:none}.entete.sig .logo small{display:none}}
+
+/* ===== Finitions pour téléphone (22/10/2026) =====
+   Le survol est réservé aux souris et aux pavés tactiles (requête hover:hover + pointer:fine, posée règle par règle) ;
+   au doigt, le retour vient de l'appui (:active) ; pas de flash gris au toucher (voir html en tête de feuille). */
+a,button,[role="button"],input,select,textarea,label,summary,.flou-scene .joueuse{touch-action:manipulation}
+/* Appui long : le texte d'une commande ne se sélectionne pas ; le texte de contenu (adresses, horaires, numéros) reste copiable. */
+button,[role="button"],.bouton,.s-bouton,.s-annonce,.entete-insc,.fam-nav a,.aller-a a,.pres-tete nav a.pres-site,.menu-liens a,label.choisir,.flou-scene .joueuse{user-select:none;-webkit-user-select:none}
+/* Retour à l'appui : léger enfoncement. Les éléments qui portent déjà un transform (GSAP) n'en reçoivent pas : .s-annonce, voir plus bas. */
+@media (prefers-reduced-motion:no-preference){
+  button,[role="button"],.bouton,.s-bouton,.entete-insc,.fam-nav a,.aller-a a,.pres-tete nav a.pres-site,label.choisir{transition:transform 160ms cubic-bezier(.23,1,.32,1)}
+  button:active:not(:disabled),[role="button"]:active,.bouton:active:not(:disabled),.s-bouton:active,.entete-insc:active,.fam-nav a:active,.aller-a a:active,.pres-tete nav a.pres-site:active,label.choisir:active{transform:scale(.97)}
+}
+/* Éléments animés par GSAP (transform en ligne) ou par la feuille (menu) : le retour passe par la couleur. */
+.s-annonce:active{background:rgba(70,196,111,.2)}
+.menu-liens a:active .lib{color:var(--vif)}
+/* Champs : 16 px au minimum sur écran tactile, sinon le téléphone agrandit la page au toucher d'un champ. */
+@media (pointer:coarse){
+  body input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=range]):not([type=hidden]):not([type=color]),body select,body textarea{font-size:max(16px,1em)}
+}
