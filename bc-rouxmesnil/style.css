@@ -283,7 +283,10 @@ ol.suite li{margin:8px 0}
 .menu-ouvert .menu-traits span:first-child{transform:translateY(4px) rotate(45deg)}
 .menu-ouvert .menu-traits span:last-child{transform:translateY(-4px) rotate(-45deg)}
 .menu-ouvert body{overflow:hidden}
-.menu-plein{position:fixed;inset:0;top:0;z-index:-1;background:#080a09;color:#fff;clip-path:inset(0 0 100% 0);transition:clip-path .55s cubic-bezier(.77,0,.18,1);overflow:auto;padding-top:150px}
+/* Menu ouvert : l'en-tête est fixé en haut de l'écran (sur Android, le blocage du défilement casse « sticky »
+   et l'en-tête retombait sous le bandeau de la maquette, au milieu du menu). */
+.menu-ouvert .entete.sig{position:fixed;top:0;left:0;right:0}
+.menu-plein{position:fixed;inset:0;top:0;z-index:-1;background:#080a09;color:#fff;clip-path:inset(0 0 100% 0);transition:clip-path .55s cubic-bezier(.77,0,.18,1);overflow-x:hidden;overflow-y:auto;padding-top:150px}
 .menu-plein::before{content:"";position:absolute;right:-10%;top:0;width:45%;height:100%;background:var(--ballon);transform:skewX(-14deg);opacity:.18;pointer-events:none}
 .menu-plein.ouvert{clip-path:inset(0 0 0 0)}
 .menu-grille{display:grid;grid-template-columns:1.6fr .8fr;gap:40px;align-items:center;min-height:calc(100vh - 140px)}

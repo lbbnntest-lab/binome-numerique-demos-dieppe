@@ -68,6 +68,51 @@
     </div>
   </section>
 
+  <section class="bloc clair" id="floutage" data-roles="communication coach" aria-labelledby="titre-floutage">
+    <div class="wrap">
+      <p class="surtitre">Droit à l'image · démonstration <span class="repere idee">Idée, sur devis</span></p>
+      <h2 id="titre-floutage" data-mv="mots">Flouter les joueuses sans autorisation</h2>
+      <p style="max-width:46em">À côté du nom de chaque joueuse, le dirigeant note son équipe et son numéro de maillot. Sur chaque photo, le site chercherait les numéros lisibles et proposerait de flouter celles qui n'ont pas donné leur accord. Le dirigeant vérifie toujours la photo avant de la publier.</p>
+      <div class="deux flou-grille">
+        <div>
+          <svg class="flou-scene" viewBox="0 0 520 330" role="img" aria-labelledby="flou-desc">
+            <desc id="flou-desc">Photo dessinée d'un match des U18 féminines : quatre joueuses. Le résultat de la détection est écrit dans la liste à côté.</desc>
+            <defs><filter id="flou-filtre" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+            <rect width="520" height="330" fill="#c98f4e"/><rect y="250" width="520" height="80" fill="#b77d3f"/>
+            <path d="M0 262 H520" stroke="#f4efe6" stroke-width="4"/><path d="M380 330 Q420 270 520 262" fill="none" stroke="#f4efe6" stroke-width="4"/>
+            <g class="joueuse" data-num="4"><circle cx="90" cy="92" r="26" fill="#6b4a32"/><rect x="58" y="122" width="64" height="104" rx="12" fill="#1e7a3c"/><text x="90" y="186" text-anchor="middle">4</text></g>
+            <g class="joueuse" data-num="7"><circle cx="210" cy="84" r="26" fill="#e1b48f"/><rect x="178" y="114" width="64" height="104" rx="12" fill="#1e7a3c"/><text x="210" y="178" text-anchor="middle">7</text></g>
+            <g class="joueuse" data-num="12"><circle cx="330" cy="96" r="26" fill="#c99273"/><rect x="298" y="126" width="64" height="104" rx="12" fill="#1e7a3c"/><text x="330" y="190" text-anchor="middle">12</text></g>
+            <g class="joueuse" data-num="?"><circle cx="440" cy="88" r="26" fill="#8a5d3b"/><rect x="408" y="118" width="64" height="104" rx="12" fill="#1e7a3c"/><circle cx="440" cy="168" r="30" fill="#e06a1b"/><path d="M410 168 H470 M440 138 V198" stroke="#3a1a05" stroke-width="2"/></g>
+          </svg>
+          <div class="actions"><button type="button" class="bouton" id="flou-lancer">Lancer la détection</button> <button type="button" class="bouton ligne" id="flou-raz" hidden>Recommencer</button></div>
+          <p class="aide">Cliquez sur une joueuse pour ajouter ou retirer un flou à la main.</p>
+        </div>
+        <div>
+          <ul class="decisions flou-liste" id="flou-liste">
+            <li data-num="4"><div><strong>N° 4 · Léa</strong><span>U18 F · autorisation donnée <span class="etiquette-ex">exemple</span></span></div><span class="flou-etat">En attente</span></li>
+            <li data-num="7"><div><strong>N° 7 · Inès</strong><span>U18 F · pas d'autorisation <span class="etiquette-ex">exemple</span></span></div><span class="flou-etat">En attente</span></li>
+            <li data-num="12"><div><strong>N° 12 · Manon</strong><span>U18 F · autorisation donnée <span class="etiquette-ex">exemple</span></span></div><span class="flou-etat">En attente</span></li>
+            <li data-num="?"><div><strong>Numéro caché</strong><span>Le ballon masque le maillot</span></div><span class="flou-etat">En attente</span></li>
+          </ul>
+          <p class="resultat" id="flou-msg" role="status" aria-live="polite" hidden></p>
+        </div>
+      </div>
+      <div class="flou-limites">
+        <h3>Ce que l'outil ne saurait pas faire</h3>
+        <p>Il lit des chiffres sur les maillots, comme on lit une plaque d'immatriculation. Il ne reconnaît pas les visages : ce serait bien plus encadré pour des mineures. Il peut donc se tromper, ou ne rien voir :</p>
+        <ul>
+          <li>un numéro caché par un bras, le ballon ou une autre joueuse ;</li>
+          <li>une joueuse de dos dans une mêlée, trop loin, ou sur une photo floue ou sombre ;</li>
+          <li>deux joueuses qui ont échangé leur maillot, ou une chasuble d'entraînement sans numéro ;</li>
+          <li>les adversaires, les arbitres et le public, qui ne sont pas dans la liste du club : le dirigeant décide pour eux.</li>
+        </ul>
+        <p><strong>L'outil propose, il ne garantit rien</strong> : chaque photo reste vérifiée par un dirigeant avant d'être publiée. Avant toute promesse au club, il serait essayé sur de vraies photos de vos matchs, et son prix annoncé à part.</p>
+        <p><strong>À voir avec vous d'abord</strong>, car cela dépend de la façon dont le club fonctionne aujourd'hui : chaque joueuse garde-t-elle le même numéro toute la saison ? Comment les autorisations photo sont-elles recueillies, et par qui ? Qui prend et publie les photos des matchs ?</p>
+      </div>
+    </div>
+  </section>
+
   <section class="bloc s-nuit" id="resume" data-roles="communication coach" aria-labelledby="titre-resume">
     <div class="wrap">
       <p class="s-surtitre">Play-off élite U18 féminines · samedi 10 octobre <span class="repere idee">Option, prix annoncé avant toute mise en place</span></p>
@@ -162,6 +207,41 @@
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
 <script src="js/roles.js"></script>
+<script>
+/* Floutage (démonstration) : la détection lit les numéros visibles, floute ceux sans autorisation,
+   signale les numéros illisibles ; un clic sur une joueuse ajoute ou retire le flou à la main. Rien n'est envoyé. */
+(function () {
+  var lancer = document.getElementById('flou-lancer'); if (!lancer) return;
+  var raz = document.getElementById('flou-raz'), msg = document.getElementById('flou-msg');
+  var AUTORISEES = { '4': true, '12': true }, faite = false;
+  function ligne(n) { return document.querySelector('#flou-liste li[data-num="' + n + '"]'); }
+  function joueuse(n) { return document.querySelector('.flou-scene .joueuse[data-num="' + n + '"]'); }
+  function etat(n, cls, texte) {
+    var li = ligne(n); li.className = cls; li.querySelector('.flou-etat').textContent = texte;
+    var g = joueuse(n); g.classList.toggle('douteux', cls === 'douteux');
+    if (cls === 'floute') g.setAttribute('filter', 'url(#flou-filtre)'); else g.removeAttribute('filter');
+  }
+  function dire(t) { msg.textContent = t; msg.hidden = false; }
+  lancer.addEventListener('click', function () {
+    ['4', '7', '12'].forEach(function (n) { etat(n, AUTORISEES[n] ? 'ok' : 'floute', AUTORISEES[n] ? 'Autorisée, visible' : 'Floutée'); });
+    etat('?', 'douteux', 'À vérifier à la main');
+    faite = true; lancer.hidden = true; raz.hidden = false;
+    dire('Numéros lus : 4, 7 et 12. Inès (n° 7) est floutée. Un numéro est caché par le ballon : le dirigeant regarde cette joueuse et décide. La photo attend sa vérification avant toute publication.');
+  });
+  raz.addEventListener('click', function () {
+    ['4', '7', '12', '?'].forEach(function (n) { etat(n, '', 'En attente'); });
+    faite = false; lancer.hidden = false; raz.hidden = true; msg.hidden = true;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.flou-scene .joueuse'), function (g) {
+    g.addEventListener('click', function () {
+      var n = g.getAttribute('data-num'), floue = g.hasAttribute('filter');
+      etat(n, floue ? (n === '?' ? 'douteux' : 'ok') : 'floute', floue ? (n === '?' ? 'À vérifier à la main' : 'Visible (choix du dirigeant)') : 'Floutée à la main');
+      if (!faite) { lancer.hidden = true; raz.hidden = false; faite = true; }
+      dire(floue ? 'Flou retiré à la main par le dirigeant.' : 'Flou ajouté à la main par le dirigeant.');
+    });
+  });
+})();
+</script>
 <script>
 /* Médias reçus : exemples dessinés, regroupés par match. Valider / Refuser / Pour les réseaux sont simulés. */
 (function(){

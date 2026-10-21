@@ -519,3 +519,18 @@ label.case input{width:20px;height:20px;margin:0;accent-color:var(--ballon)}
 .seul-gestion{display:none}
 .vue-acces .partie-domaines,.vue-acces .seul-president{display:none}
 .vue-acces .seul-gestion{display:block}
+
+/* Floutage des joueuses sans autorisation (démonstration, page photos) */
+.flou-grille{align-items:start}
+.flou-scene{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.flou-scene text{fill:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:44px}
+.flou-scene .joueuse{cursor:pointer}
+.flou-scene .joueuse.douteux rect{stroke:#ffb020;stroke-width:5;stroke-dasharray:10 6}
+.flou-liste .flou-etat{font-weight:700;font-size:.95rem;color:var(--ink-soft)}
+.flou-liste li.ok .flou-etat{color:var(--club)}
+.flou-liste li.floute .flou-etat{color:#a8460f}
+.flou-liste li.douteux .flou-etat{color:#8a5a00}
+.flou-limites{margin-top:28px;padding:18px 22px;border:2px solid #8a6d1f;background:#fbf6e6;color:#3b3220;max-width:60em}
+.flou-limites h3{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.3rem;margin:0 0 6px;color:#5a4410}
+.flou-limites ul{margin:6px 0 10px;padding-left:1.2rem}
+.flou-limites p{margin:0 0 6px}
