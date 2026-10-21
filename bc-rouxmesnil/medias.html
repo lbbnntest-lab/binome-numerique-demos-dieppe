@@ -216,8 +216,14 @@
   var AUTORISEES = { '4': true, '12': true }, faite = false;
   function ligne(n) { return document.querySelector('#flou-liste li[data-num="' + n + '"]'); }
   function joueuse(n) { return document.querySelector('.flou-scene .joueuse[data-num="' + n + '"]'); }
+  var TEXTES = {}, VERIFIEES = {};
+  Array.prototype.forEach.call(document.querySelectorAll('#flou-liste li'), function (li) { TEXTES[li.getAttribute('data-num')] = li.querySelector('div span').innerHTML; });
   function etat(n, cls, texte) {
     var li = ligne(n); li.className = cls; li.querySelector('.flou-etat').textContent = texte;
+    var b = li.querySelector('[data-autorise]');
+    if (cls === 'floute' && n !== '?' && !VERIFIEES[n]) {
+      if (!b) { b = document.createElement('button'); b.type = 'button'; b.className = 'bouton ligne petit'; b.setAttribute('data-autorise', n); b.textContent = 'Elle a l’autorisation'; li.appendChild(b); }
+    } else if (b) b.parentNode.removeChild(b);
     var g = joueuse(n); g.classList.toggle('douteux', cls === 'douteux');
     if (cls === 'floute') g.setAttribute('filter', 'url(#flou-filtre)'); else g.removeAttribute('filter');
   }
@@ -228,7 +234,17 @@
     faite = true; lancer.hidden = true; raz.hidden = false;
     dire('Numéros lus : 4, 7 et 12. Inès (n° 7) est floutée. Un numéro est caché par le ballon : le dirigeant regarde cette joueuse et décide. La photo attend sa vérification avant toute publication.');
   });
+  document.getElementById('flou-liste').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-autorise]'); if (!b) return;
+    var n = b.getAttribute('data-autorise'), li = ligne(n), qui = window.BCRRole ? window.BCRRole.nomRole() : 'Le dirigeant';
+    VERIFIEES[n] = true; AUTORISEES[n] = true;
+    li.querySelector('div span').innerHTML = 'U18 F · autorisation vérifiée par : ' + qui + ' <span class="etiquette-ex">exemple</span>';
+    etat(n, 'ok', 'Visible, autorisation vérifiée');
+    dire(li.querySelector('strong').textContent + ' : autorisation vérifiée (par exemple une fiche papier signée). Le flou est retiré, et l’autorisation serait notée dans son dossier pour les prochaines photos.');
+  });
   raz.addEventListener('click', function () {
+    VERIFIEES = {}; AUTORISEES = { '4': true, '12': true };
+    Array.prototype.forEach.call(document.querySelectorAll('#flou-liste li'), function (li) { li.querySelector('div span').innerHTML = TEXTES[li.getAttribute('data-num')]; });
     ['4', '7', '12', '?'].forEach(function (n) { etat(n, '', 'En attente'); });
     faite = false; lancer.hidden = false; raz.hidden = true; msg.hidden = true;
   });
