@@ -318,6 +318,7 @@ input[type=number]{width:100%;font:inherit;padding:10px 12px;border:1px solid #b
 .pub-corps h4{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.25rem;line-height:1.15;margin:0 0 6px}
 .pub-type{margin:0 0 4px;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;color:var(--ballon-ink);font-weight:700;font-size:.95rem}
 .pub-corps textarea{min-height:170px;font-size:.96rem}
+@media (pointer:coarse){.pub-corps textarea{font-size:max(16px,.96rem)}}
 .pub-boutons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .pub-etat{margin:8px 0 0;font-weight:600;color:var(--ok)}
 .pub-etat:empty{display:none}
