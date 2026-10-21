@@ -48,7 +48,7 @@
 
   var entete = '<header class="entete sig"><div class="wrap">'
     + '<a class="logo" href="index.html">'+BLASON+'<span>Basket Club<br>de Rouxmesnil<small>Passion, esprit d\'équipe, respect</small></span></a>'
-    + '<div class="entete-actions"><a class="entete-insc" href="inscription.html">S\'inscrire</a>'
+    + '<div class="entete-actions"><a class="entete-insc" href="index.html#week-end">Venir au match</a>'
     + '<button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-plein"><span class="menu-libelle">Menu</span><span class="menu-traits" aria-hidden="true"><span></span><span></span></span></button></div>'
     + '</div>'
     + '<nav id="menu-plein" class="menu-plein" aria-label="Menu principal" hidden><div class="wrap menu-grille">'
