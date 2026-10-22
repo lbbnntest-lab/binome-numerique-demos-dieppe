@@ -83,7 +83,7 @@
   </section>
 
   <div class="s-bande" aria-hidden="true"><div class="piste">
-    <span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span>
+    <span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span>
   </div></div>
   <script>/* Octobre rose : bandeau rose en octobre ; le reste de l'année, vert du club et phrase retirée */
     if (new Date().getMonth() === 9) document.querySelector('.s-bande').classList.add('octobre-rose');</script>
@@ -414,9 +414,14 @@ window.BCRsceneFixe();
     var b = document.getElementById('ballon-montee'), barre = document.getElementById('barre-v');
     var saut = document.getElementById('ballon-saut'), tour = document.getElementById('ballon-tour');
     var etages = document.querySelectorAll('.etages li'), pos = { y: 400 };
-    var paliers = [360, 220, 80], depart = [400, 360, 220], atteint = [false, false, false], dribble = null;
+    var paliers = [360, 220, 80], depart = [400, 360, 220], atteint = [false, false, false], dribble = null, obsEchelle = null, echelleVue = true;
     var ondes = document.querySelectorAll('.echelle .onde'), ronds = document.querySelectorAll('.echelle .palier');
     if (grand) document.querySelector('.s-montee').classList.add('suit');
+    /* Le dribble du ballon (boucle infinie) dort quand l'échelle n'est pas à l'écran. */
+    if ('IntersectionObserver' in window) {
+      obsEchelle = new IntersectionObserver(function(es){ echelleVue = es[0].isIntersecting; if (dribble) dribble.paused(!echelleVue); });
+      obsEchelle.observe(document.querySelector('.echelle'));
+    }
     function arrivee(i){
       gsap.fromTo(ondes[i], { attr: { r: 14 }, opacity: 0.9 }, { attr: { r: 52 }, opacity: 0, duration: 0.8, ease: 'power2.out' });
       gsap.fromTo(ronds[i], { scale: 1.45 }, { scale: 1, svgOrigin: '70 ' + paliers[i], duration: 0.5, ease: 'back.out(3)' });
@@ -434,6 +439,7 @@ window.BCRsceneFixe();
             opacity: 0, svgOrigin: '70 80', duration: 1.3 + Math.random() * 0.5, ease: 'power2.out' });
         }
         if (!dribble) dribble = gsap.fromTo(saut, { y: 0 }, { y: -22, duration: 0.32, ease: 'power2.out', yoyo: true, repeat: -1, repeatDelay: 0.12, delay: 0.5 });
+        dribble.paused(!echelleVue);
       }
     }
     function maj(){
@@ -452,15 +458,35 @@ window.BCRsceneFixe();
         }
       });
     }
-    gsap.to(pos, { y: 80, ease: 'none', onUpdate: maj, scrollTrigger: grand
-      ? { trigger: '.s-montee', start: 'top top', end: '+=1100', scrub: 0.6, pin: true }
-      : { trigger: '.s-montee .echelle', start: 'top 85%', end: 'bottom 70%', scrub: 0.6 } });
+    /* N'épingler la montée que si la section tient dans l'écran avec l'en-tête collant ; sinon, mode non épinglé (celui du téléphone). */
+    var secMontee = document.querySelector('.s-montee'), entMontee = document.querySelector('.entete.sig');
+    function tient(){ return grand && secMontee.offsetHeight + (entMontee ? entMontee.offsetHeight : 0) <= window.innerHeight; }
+    var epingle = tient(), twMontee = null;
+    function creerMontee(){
+      twMontee = gsap.to(pos, { y: 80, ease: 'none', onUpdate: maj, scrollTrigger: epingle
+        ? { trigger: '.s-montee', start: 'top top', end: '+=1100', scrub: 0.6, pin: true }
+        : { trigger: '.s-montee .echelle', start: 'top 85%', end: 'bottom 70%', scrub: 0.6 } });
+    }
+    creerMontee();
     maj();
+    /* Au redimensionnement : si la hauteur franchit le seuil, la montée est recréée dans l'autre mode. */
+    var minuteurMontee = null;
+    function surTaille(){
+      clearTimeout(minuteurMontee);
+      minuteurMontee = setTimeout(function(){
+        var e = tient();
+        if (e === epingle) return;
+        epingle = e;
+        twMontee.scrollTrigger.kill(true); twMontee.kill();
+        pos.y = 400; creerMontee(); ScrollTrigger.refresh(); maj();
+      }, 200);
+    }
+    window.addEventListener('resize', surTaille);
     /* 4. Les arches en bois de la salle se dessinent pendant la lecture du texte. */
     gsap.fromTo('.arches .arc', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', stagger: 0.12,
       scrollTrigger: { trigger: '.s-manifeste', start: 'top 85%', end: 'bottom 40%', scrub: 0.5 } });
 
-    return function(){ if (veille) veille.disconnect(); if (temps) temps.textContent = 'Fin'; sc.textContent = '78'; adv.textContent = '57'; window.BCRsceneFixe(); };
+    return function(){ window.removeEventListener('resize', surTaille); clearTimeout(minuteurMontee); if (dribble) { dribble.kill(); dribble = null; } if (obsEchelle) obsEchelle.disconnect(); if (veille) veille.disconnect(); if (temps) temps.textContent = 'Fin'; sc.textContent = '78'; adv.textContent = '57'; window.BCRsceneFixe(); };
   });
 })();
 </script>

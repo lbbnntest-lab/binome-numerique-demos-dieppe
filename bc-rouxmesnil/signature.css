@@ -9,9 +9,9 @@
 .s-chapo{font-size:1.2rem;color:#d7dbd8;max-width:30em;margin:22px 0 0}
 .s-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
 .s-bouton{display:inline-flex;align-items:center;gap:10px;background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.1rem;padding:14px 22px;text-decoration:none;clip-path:polygon(0 0,100% 0,94% 100%,0 100%)}
-.s-bouton:hover{background:#fff}
+@media (hover:hover) and (pointer:fine){.s-bouton:hover{background:#fff}}
 .s-bouton.creux{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #fff;clip-path:none}
-.s-bouton.creux:hover{background:#fff;color:#080a09}
+@media (hover:hover) and (pointer:fine){.s-bouton.creux:hover{background:#fff;color:#080a09}}
 
 /* Scène du tir */
 .s-scene{position:relative}
@@ -32,7 +32,7 @@
 .s-scene .ombre{fill:#000}
 .s-scene .eclat path{fill:none;stroke:#ffe08a;stroke-width:5;stroke-linecap:round}.s-scene .eclat circle{fill:#ffe08a}
 .s-scene .s-pause{position:absolute;left:0;top:0;z-index:3;min-height:44px;min-width:44px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(8,10,9,.6);color:#fff;font:inherit;font-size:.75rem;font-weight:600;letter-spacing:.02em;cursor:pointer}
-.s-scene .s-pause:hover{background:rgba(8,10,9,.85)}
+@media (hover:hover) and (pointer:fine){.s-scene .s-pause:hover{background:rgba(8,10,9,.85)}}
 .s-scene .s-pause:focus-visible{outline:2px solid #46c46f;outline-offset:2px}
 .s-scene .vitesse path{fill:none;stroke:rgba(255,255,255,.8);stroke-width:3.5;stroke-linecap:round}
 .s-scene .poussiere ellipse{fill:rgba(236,222,192,.85)}
@@ -78,7 +78,7 @@
 
 /* Bande défilante des valeurs */
 .s-bande{background:var(--vif);color:#080a09;overflow:hidden;white-space:nowrap;border-top:2px solid #080a09;border-bottom:2px solid #080a09}
-.s-bande .piste{display:inline-flex;gap:48px;padding:12px 0;animation:defile 26s linear infinite}
+.s-bande .piste{display:inline-flex;gap:48px;padding:12px 0;animation:defile 78s linear infinite}
 .s-bande span{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:1.6rem;letter-spacing:.04em}
 .s-bande span::after{content:"";display:inline-block;width:14px;height:14px;background:#080a09;margin-left:48px;transform:rotate(45deg) translateY(-3px)}
 @keyframes defile{to{transform:translateX(-50%)}}
@@ -208,6 +208,8 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .chemin{--avance:1;position:relative;list-style:none;margin:0;padding:0 0 0 34px}
 .chemin::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:3px;background:var(--line)}
 .chemin::after{content:"";position:absolute;left:9px;top:8px;width:3px;height:calc((100% - 16px) * var(--avance));background:var(--ballon)}
+.chemin.avec-fil::after{display:none}
+.chemin-fil{position:absolute;left:9px;top:8px;width:3px;height:calc(100% - 16px);background:var(--ballon)}
 .chemin li{position:relative;margin:0 0 26px}
 .chemin li::before{content:"";position:absolute;left:-32px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--ballon);box-shadow:0 0 0 5px var(--ground)}
 .chemin li strong{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.4rem;display:block}
@@ -245,7 +247,7 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 @media (max-width:900px){.matchs li{grid-template-columns:1fr auto}.matchs .duel{grid-column:1/-1}}
 .s-annonce{display:inline-flex;align-items:center;gap:12px;margin-top:22px;color:#fff;text-decoration:none;border:1px solid rgba(70,196,111,.6);padding:8px 14px 8px 8px;font-weight:600}
 .s-annonce span{white-space:nowrap;background:var(--vif);color:#080a09;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;padding:2px 8px;letter-spacing:.05em}
-.s-annonce:hover{background:rgba(70,196,111,.12)}
+@media (hover:hover) and (pointer:fine){.s-annonce:hover{background:rgba(70,196,111,.12)}}
 
 /* Parcours match par match */
 .parcours .pm{background:#fff;border:1px solid var(--line);padding:18px 22px;margin:0 0 18px}

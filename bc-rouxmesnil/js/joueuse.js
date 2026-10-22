@@ -7,7 +7,8 @@
   function rad(a){ return a * Math.PI / 180; }
   function tourne(v, a){ var c = Math.cos(rad(a)), s = Math.sin(rad(a)); return [v[0]*c - v[1]*s, v[0]*s + v[1]*c]; }
   function plus(a, b){ return [a[0]+b[0], a[1]+b[1]]; }
-  function el(id){ return document.getElementById(id); }
+  var C = {};   /* cache des éléments du dessin ; refait si le dessin a été reconstruit (élément détaché) */
+  function el(id){ var e = C[id]; if (!e || !e.isConnected) e = C[id] = document.getElementById(id); return e; }
   function rot(id, a, x, y){ a = +a || 0; var e = el(id); if (e) e.setAttribute('transform', (x !== undefined ? 'translate('+x+' '+y+') ' : '') + 'rotate('+a.toFixed(2)+')'); }
 
   /* Hauteur des hanches pour que le pied le plus bas touche le sol (hors saut). */

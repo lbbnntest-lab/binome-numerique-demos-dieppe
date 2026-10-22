@@ -87,7 +87,7 @@
     mb.querySelector('.menu-libelle').textContent = o ? 'Fermer' : 'Menu';
     document.documentElement.classList.toggle('menu-ouvert', o);
     if (o) { mp.hidden = false; requestAnimationFrame(function(){ mp.classList.add('ouvert'); }); var p = mp.querySelector('a'); if (p) p.focus({preventScroll:true}); }
-    else { mp.classList.remove('ouvert'); setTimeout(function(){ if (mb.getAttribute('aria-expanded')==='false') mp.hidden = true; }, 450); }
+    else { mp.classList.remove('ouvert'); setTimeout(function(){ if (mb.getAttribute('aria-expanded')==='false') mp.hidden = true; }, 500); }
   }
   mb.addEventListener('click', function(){ ouvrirMenu(mb.getAttribute('aria-expanded')!=='true'); });
   document.addEventListener('keydown', function(e){

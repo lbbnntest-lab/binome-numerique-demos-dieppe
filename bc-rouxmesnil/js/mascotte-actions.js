@@ -93,7 +93,7 @@
     bouton.setAttribute('aria-label', "Mettre l'animation en pause");
     bouton.addEventListener('click', function(){
       enPause = !enPause;
-      if (courante) courante.paused(enPause);
+      if (courante) courante.paused(enPause || !visible);
       bouton.textContent = enPause ? 'Reprendre' : 'Pause';
       bouton.setAttribute('aria-label', enPause ? "Reprendre l'animation" : "Mettre l'animation en pause");
       if (!enPause && enAttente) relancer(enAttente);
@@ -101,8 +101,9 @@
     scene.appendChild(bouton);
     if ('IntersectionObserver' in window) new IntersectionObserver(function(es){
       visible = es[0].isIntersecting;
+      if (courante) courante.paused(enPause || !visible);   /* hors écran : l'action s'arrête là où elle est, et reprend au retour */
       if (visible && enAttente && !enPause) relancer(enAttente);
-    }).observe(scene);
+    }, { rootMargin: '120px 0px' }).observe(scene);
   }
 
   /* Scène fixe (visiteur qui demande moins de mouvement) : la mascotte de face, ballon sur le doigt. */
@@ -118,7 +119,7 @@
   function jouer(tl, A, suite){
     if (!suite && boucle) { boucle.kill(); boucle = null; }
     courante = tl; preparerControles(A);
-    if (enPause) tl.paused(true);
+    if (enPause || !visible) tl.paused(true);
     var nom = suite ? suivante() : choisir(); derniere = nom;
     /* Dans l'enchaînement, le tableau garde le score officiel (78-57) au lieu de recompter depuis zéro. */
     /* Le lancer franc commence déjà sur la ligne (ballon remis par l'arbitre) : pieds derrière la ligne (x 372). */

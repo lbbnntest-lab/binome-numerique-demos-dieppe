@@ -33,10 +33,27 @@
         b.setAttribute('transform', 'translate(70 ' + pos.y + ')'); barre.setAttribute('y2', pos.y);
         etages.forEach(function (li, i) { li.classList.toggle('allume', pos.y <= paliers[i] + 2); });
       };
-      gsap.to(pos, { y: 80, ease: 'none', onUpdate: maj, scrollTrigger: grand
-        ? { trigger: '.s-montee', start: 'top top', end: '+=1100', scrub: 0.6, pin: true }
-        : { trigger: '.s-montee .echelle', start: 'top 80%', end: 'bottom 30%', scrub: 0.6 } });
+      /* N'épingler que si la section tient dans l'écran avec l'en-tête collant ; sinon mode non épinglé. */
+      var sec = document.querySelector('.s-montee'), ent = document.querySelector('.entete.sig');
+      var tient = function () { return grand && sec.offsetHeight + (ent ? ent.offsetHeight : 0) <= window.innerHeight; };
+      var epingle = tient(), tw = null, minuteur = null;
+      var creer = function () {
+        tw = gsap.to(pos, { y: 80, ease: 'none', onUpdate: maj, scrollTrigger: epingle
+          ? { trigger: '.s-montee', start: 'top top', end: '+=1100', scrub: 0.6, pin: true }
+          : { trigger: '.s-montee .echelle', start: 'top 80%', end: 'bottom 30%', scrub: 0.6 } });
+      };
+      creer();
       maj();
+      var surTaille = function () {
+        clearTimeout(minuteur);
+        minuteur = setTimeout(function () {
+          var e = tient();
+          if (e === epingle) return;
+          epingle = e; tw.scrollTrigger.kill(true); tw.kill();
+          pos.y = 400; creer(); ScrollTrigger.refresh(); maj();
+        }, 200);
+      };
+      window.addEventListener('resize', surTaille);
     }
 
     /* Arches de la charpente dessinées pendant la lecture. */
@@ -47,8 +64,17 @@
     });
 
     /* Étapes reliées par un trait qui se trace au défilement. */
+    var fils = [];
     gsap.utils.toArray('.chemin').forEach(function (el) {
-      gsap.fromTo(el, { '--avance': 0 }, { '--avance': 1, ease: 'none', scrollTrigger: { trigger: el, start: 'top 75%', end: 'bottom 55%', scrub: 0.4 } });
+      var fil = document.createElement('span');
+      fil.className = 'chemin-fil'; fil.setAttribute('aria-hidden', 'true');
+      el.appendChild(fil); el.classList.add('avec-fil'); fils.push(fil);
+      gsap.fromTo(fil, { scaleY: 0 }, { scaleY: 1, transformOrigin: '50% 0%', ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 75%', end: 'bottom 55%', scrub: 0.4 } });
     });
+    return function () {
+      if (typeof surTaille === 'function') window.removeEventListener('resize', surTaille);
+      fils.forEach(function (f) { if (f.parentNode) { f.parentNode.classList.remove('avec-fil'); f.parentNode.removeChild(f); } });
+    };
   });
 })();
