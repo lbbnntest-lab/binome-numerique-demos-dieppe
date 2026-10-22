@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
 <title>Basket Club de Rouxmesnil | Maquette</title>
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
@@ -73,20 +74,23 @@
           <g id="poussiere" class="poussiere"><ellipse cx="-22" cy="400" rx="15" ry="7" opacity="0"/><ellipse cx="0" cy="402" rx="18" ry="8" opacity="0"/><ellipse cx="22" cy="400" rx="15" ry="7" opacity="0"/></g>
         </svg>
         <div class="tableau" role="img" aria-label="Play-off élite U18 féminines, 10 octobre : BCR 78, Alençon-Damigny 57">
-          <div class="eq"><img src="img/logo-bcr.jpg" alt=""><span>BCR</span><b id="sc-bcr">78</b></div>
+          <div class="eq"><img src="img/logo-bcr-160.webp" alt=""><span>BCR</span><b id="sc-bcr">78</b></div>
           <div class="temps"><small id="tab-temps">Fin</small><strong>U18F</strong></div>
-          <div class="eq"><img src="img/logos/alencon.png" alt="" style="background:#fff;border-radius:50%"><span>ADB</span><b id="sc-adv">57</b></div>
+          <div class="eq"><img src="img/logos/alencon.webp" alt="" style="background:#fff;border-radius:50%"><span>ADB</span><b id="sc-adv">57</b></div>
         </div>
         <p class="tableau-legende">Play-off élite U18 féminines · 10 octobre · score officiel FFBB</p>
       </div>
     </div>
   </section>
 
-  <div class="s-bande" aria-hidden="true"><div class="piste">
+  <div class="s-bande"><button type="button" class="bande-pause" id="bande-pause" aria-label="Mettre la bande défilante en pause">Pause</button><div class="piste" aria-hidden="true">
     <span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span><span>Passion</span><span>Esprit d'équipe</span><span>Respect</span><span class="bande-oct">Le BCR soutient Octobre rose</span>
   </div></div>
   <script>/* Octobre rose : bandeau rose en octobre ; le reste de l'année, vert du club et phrase retirée */
-    if (new Date().getMonth() === 9) document.querySelector('.s-bande').classList.add('octobre-rose');</script>
+    if (new Date().getMonth() === 9) document.querySelector('.s-bande').classList.add('octobre-rose');
+    (function(){ var b = document.getElementById('bande-pause'), bande = document.querySelector('.s-bande');
+      b.addEventListener('click', function(){ var p = bande.classList.toggle('en-pause');
+        b.textContent = p ? 'Reprendre' : 'Pause'; b.setAttribute('aria-label', p ? 'Reprendre la bande défilante' : 'Mettre la bande défilante en pause'); }); })();</script>
 
   <div class="wrap"><div class="note"><b>Pour le club</b>L'ouverture raconte le basket : le terrain se trace, le panier descend du plafond comme à la salle Alexandre-Cheruel, et la mascotte du BCR marque. Sa première action est tirée au hasard à chaque visite, puis elle enchaîne sans fin, jamais deux fois la même de suite : tir à 3 points de loin, tir après un pas en arrière, dunk à une main, dunk à deux mains suspendue au cercle et lancer franc. Elle fête chaque panier, ballon sur le doigt, et un bouton « Pause » arrête l'animation. Le tableau compte jusqu'au vrai score du play-off qui a qualifié les U18F pour l'élite régionale (78-57, FFBB), puis affiche « Fin ». Pour cette maquette, nous avons redessiné votre mascotte d'après la couverture du calendrier, en personnage articulé. Sur le futur site, elle serait animée à partir du dessin d'origine, avec l'accord du club et de son auteur. Les animations s'arrêtent d'elles-mêmes si le téléphone du visiteur demande moins de mouvement.</div></div>
 
@@ -172,10 +176,10 @@
         <p style="color:var(--ink-soft)">Scores publiés par le club et par la FFBB. <a href="equipes.html" style="color:var(--ballon-ink);font-weight:700">Toutes les équipes</a></p>
       </div>
       <div class="compteurs-sc">
-        <div><div class="cat">U18 F · élite · <span style="white-space:nowrap">10 oct.</span></div><div class="sc"><span data-compte="78">78</span><i>-</i><span data-compte="57">57</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR"><i>vs</i><img class="logo-eq clair" src="img/logos/alencon.png" alt="Alençon-Damigny"></div><div class="adv">contre Alençon-Damigny Basket</div></div>
-        <div><div class="cat">U21 M · RMU21 · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="71">71</span><i>-</i><span data-compte="70">70</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">OBS</span></div><div class="adv">contre Oissel Basket Seine</div></div>
-        <div><div class="cat">U18 · Département · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="52">52</span><i>-</i><span data-compte="22">22</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">USF</span></div><div class="adv">BCR 2, à l'extérieur, contre US Forges-les-Eaux</div></div>
-        <div><div class="cat">U13 F · DFU13 · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="47">47</span><i>-</i><span data-compte="19">19</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">SSB</span></div><div class="adv">contre Seventy Six Belleville</div></div>
+        <div><div class="cat">U18 F · élite · <span style="white-space:nowrap">10 oct.</span></div><div class="sc"><span data-compte="78">78</span><i>-</i><span data-compte="57">57</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/alencon.webp" alt="Alençon-Damigny"></div><div class="adv">contre Alençon-Damigny Basket</div></div>
+        <div><div class="cat">U21 M · RMU21 · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="71">71</span><i>-</i><span data-compte="70">70</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">OBS</span></div><div class="adv">contre Oissel Basket Seine</div></div>
+        <div><div class="cat">U18 · Département · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="52">52</span><i>-</i><span data-compte="22">22</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">USF</span></div><div class="adv">BCR 2, à l'extérieur, contre US Forges-les-Eaux</div></div>
+        <div><div class="cat">U13 F · DFU13 · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="47">47</span><i>-</i><span data-compte="19">19</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">SSB</span></div><div class="adv">contre Seventy Six Belleville</div></div>
       </div>
     </div>
   </section>
@@ -217,7 +221,7 @@
     <div class="wrap">
       <div class="s-entete-bloc"><h2 id="titre-part" data-mv="mots">Ils soutiennent le BCR</h2><a class="s-bouton" href="partenaires.html">Tous nos partenaires</a><a class="s-bouton creux" style="color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)" href="#part-msg" onclick="document.getElementById('part-msg').hidden=false">Devenir partenaire</a></div>
       <div class="logos" data-mv="suite">
-        <div class="nous"><span style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center"><img src="img/lbn.png" alt="" width="76" height="40">Le Binôme Numérique<small style="font-weight:400;font-size:.72rem">proposition de partenariat</small></span></div><div><img src="img/partenaires/commune-rouxmesnil.jpg" alt="Commune de Rouxmesnil-Bouteilles" loading="lazy"></div><div><img src="img/partenaires/auchan.jpg" alt="Auchan Dieppe" loading="lazy"></div><div><img src="img/partenaires/bigmat.jpg" alt="BigMat Roger" loading="lazy"></div><div><img src="img/partenaires/brico-depot.jpg" alt="Brico Dépôt Dieppe" loading="lazy"></div><div><img src="img/partenaires/carbon.jpg" alt="Carbon Decor · Carbon Meta" loading="lazy"></div><div><img src="img/partenaires/demare.jpg" alt="SAS Demare Luc" loading="lazy"></div><div><img src="img/partenaires/boulangerie-prieure.jpg" alt="Boulangerie du Prieuré" loading="lazy"></div>
+        <div class="nous"><span style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center"><img src="img/lbn-272.png" alt="" width="76" height="40">Le Binôme Numérique<small style="font-weight:400;font-size:.72rem">proposition de partenariat</small></span></div><div><img src="img/partenaires/commune-rouxmesnil.jpg" alt="Commune de Rouxmesnil-Bouteilles" loading="lazy"></div><div><img src="img/partenaires/auchan.jpg" alt="Auchan Dieppe" loading="lazy"></div><div><img src="img/partenaires/bigmat.jpg" alt="BigMat Roger" loading="lazy"></div><div><img src="img/partenaires/brico-depot.jpg" alt="Brico Dépôt Dieppe" loading="lazy"></div><div><img src="img/partenaires/carbon.jpg" alt="Carbon Decor · Carbon Meta" loading="lazy"></div><div><img src="img/partenaires/demare.jpg" alt="SAS Demare Luc" loading="lazy"></div><div><img src="img/partenaires/boulangerie-prieure.jpg" alt="Boulangerie du Prieuré" loading="lazy"></div>
       </div>
       <script>
       /* Partenaires de l'accueil : à chaque visite, 7 logos tirés au hasard parmi les 31 du calendrier 2026 ;
@@ -248,19 +252,19 @@
     {d:'2026-10-17T16:00', eq:'U21 masculins · régionale (RMU21)', adv:'SPN Vernon', sig:'SPN', dom:false},
     {d:'2026-10-18T08:45', eq:'Seniors féminines · départementale 2 (DF2)', adv:'Rouen Métropole Basket', sig:'RMB', dom:true},
     {d:'2026-10-18T10:30', eq:'Seniors féminines · départementale 3 (DF3)', adv:'Belbeuf', sig:'BEL', dom:true},
-    {d:'2026-11-07', eq:'U18 féminines · élite régionale (RFU18)', adv:'Cherbourg Basket Ball', logo:'cherbourg.png', dom:true},
-    {d:'2026-11-14', eq:'U18 féminines · élite régionale (RFU18)', adv:'Aplemont Le Havre Basket 2', logo:'aplemont.png', dom:false},
-    {d:'2026-11-21', eq:'U18 féminines · élite régionale (RFU18)', adv:'USO Mondeville Basket 2', logo:'mondeville.png', dom:true},
-    {d:'2026-11-28', eq:'U18 féminines · élite régionale (RFU18)', adv:'Élan sportif Carpiquet Basket', logo:'carpiquet.png', dom:false},
-    {d:'2026-12-05', eq:'U18 féminines · élite régionale (RFU18)', adv:'Club Basket d\'Ifs 1', logo:'ifs.png', dom:false}
+    {d:'2026-11-07', eq:'U18 féminines · élite régionale (RFU18)', adv:'Cherbourg Basket Ball', logo:'cherbourg.webp', dom:true},
+    {d:'2026-11-14', eq:'U18 féminines · élite régionale (RFU18)', adv:'Aplemont Le Havre Basket 2', logo:'aplemont.webp', dom:false},
+    {d:'2026-11-21', eq:'U18 féminines · élite régionale (RFU18)', adv:'USO Mondeville Basket 2', logo:'mondeville.webp', dom:true},
+    {d:'2026-11-28', eq:'U18 féminines · élite régionale (RFU18)', adv:'Élan sportif Carpiquet Basket', logo:'carpiquet.webp', dom:false},
+    {d:'2026-12-05', eq:'U18 féminines · élite régionale (RFU18)', adv:'Club Basket d\'Ifs 1', logo:'ifs.webp', dom:false}
   ];
   var J = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'], Mo = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  var maintenant = new Date(), BCR = '<img class="logo-eq" src="img/logo-bcr.jpg" alt="BCR">';
+  var maintenant = new Date(), BCR = '<img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR">';
   var avenir = MATCHS.filter(function(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T23:59'); return d.getTime() + 2*3600e3 > maintenant.getTime(); }).slice(0, 6);
   document.getElementById('matchs').innerHTML = avenir.map(function(m){
     var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00');
     var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h ' + m.d.slice(14,16) : 'horaire à venir';
-    var a = m.logo ? '<img class="logo-eq clair" src="img/logos/'+m.logo+'" alt="'+m.adv+'">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>';
+    var a = m.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+m.logo+'" alt="'+m.adv+'">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>';
     return '<li><span class="jour">'+J[d.getDay()]+' '+d.getDate()+' '+Mo[d.getMonth()]+'</span><span class="heure">'+h+'</span><span class="aff"><b>'+m.eq+'</b> contre '+m.adv+'</span><span class="duel">'+(m.dom ? BCR+'<i>vs</i>'+a : a+'<i>vs</i>'+BCR)+'</span><span class="lieu">'+(m.dom ? 'À domicile' : 'À l\'extérieur')+'</span></li>';
   }).join('');
   if (!avenir.length) document.getElementById('matchs').innerHTML = '<li><span class="aff">Le calendrier des prochains matchs sera publié ici dès que la fédération le fixe.</span></li>';

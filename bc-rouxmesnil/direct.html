@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 <title>Score en direct | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
@@ -30,10 +31,11 @@
   <section class="direct-zone" aria-labelledby="direct-lib">
     <div class="wrap">
       <div class="demo-live"><span><strong>Démonstration</strong> : ouvrez la table de marque dans un autre onglet, le score s'affiche ici en direct.</span><a href="table-de-marque.html" target="_blank" rel="noopener">Ouvrir la table de marque</a></div>
-      <p class="etat-direct" id="direct-etat"><span class="point" aria-hidden="true"></span><span>Pas de match en direct pour le moment</span></p>
+      <p class="etat-direct" id="direct-etat" role="status"><span class="point" aria-hidden="true"></span><span>Pas de match en direct pour le moment</span></p>
       <p class="match-lib" id="direct-lib"></p>
       <p class="maj-direct" id="direct-suivi" style="margin:-10px 0 16px;color:#c9cdca"></p>
       <div id="direct-tableau"></div>
+      <p class="visuellement-cache" id="direct-annonce" role="status"></p>
       <p class="maj-direct" id="direct-maj"></p>
       <div class="direct-actions">
         <a class="s-bouton" id="direct-fb" href="https://www.facebook.com/BCRouxmesnil" target="_blank" rel="noopener">Les directs sur la page Facebook du club</a>

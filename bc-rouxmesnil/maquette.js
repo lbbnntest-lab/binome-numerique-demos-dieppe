@@ -14,7 +14,7 @@
     + '</svg>';
   document.querySelectorAll('[data-terrain]').forEach(function(el){ el.insertAdjacentHTML('afterbegin', TERRAIN); });
 
-  var BLASON = '<img src="img/logo-bcr.jpg" alt="" width="54" height="54">';
+  var BLASON = '<img src="img/logo-bcr-160.webp" alt="" width="54" height="54">';
 
   var liens = [
     ['index.html','accueil','Le club'],
@@ -53,7 +53,7 @@
     + '</div>'
     + '<nav id="menu-plein" class="menu-plein" aria-label="Menu principal" hidden><div class="wrap menu-grille">'
     + '<ul class="menu-liens">'+menu+'</ul>'
-    + '<div class="menu-infos"><img src="img/logo-bcr.jpg" alt="" width="120" height="120"><p>Salle Alexandre-Cheruel<br>Rouxmesnil-Bouteilles</p><p>Passion, esprit d\'équipe, respect</p></div>'
+    + '<div class="menu-infos"><img src="img/logo-bcr-240.webp" alt="" width="120" height="120" loading="lazy"><p>Salle Alexandre-Cheruel<br>Rouxmesnil-Bouteilles</p><p>Passion, esprit d\'équipe, respect</p></div>'
     + '</div></nav></header>';
 
   var pied = '<footer class="pied"><div class="wrap">'
@@ -65,6 +65,7 @@
     + '</div></footer>';
 
   document.body.insertAdjacentHTML('afterbegin', bandeau + entete);
+  document.body.classList.add('haut-pose');   /* le contenu apparaît une fois le haut de page posé : rien ne saute (voir style.css) */
   // Remise à zéro de la démonstration : efface ce que la visite a saisi (convocations, demandes, scores…),
   // garde le mode présentation, puis recharge la page.
   var raz = document.getElementById('raz-demo');

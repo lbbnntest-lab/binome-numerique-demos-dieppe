@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 
 <title>Inscriptions | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
@@ -51,7 +52,7 @@
           <label class="choix"><input type="checkbox" id="st-licencie" checked> Mon enfant est licencié au BCR</label>
           <div class="resultat" id="st-prix" aria-live="polite"></div>
           <button type="button" class="bouton" id="st-payer">Payer et réserver (simulation)</button>
-          <p class="resultat" id="st-ok" hidden></p>
+          <p class="resultat" id="st-ok" role="status" hidden></p>
           <div class="note"><b>Pour le club</b>Les tarifs sont ceux de votre affiche. Aujourd'hui, les familles appellent le responsable des stages. Sur le futur site, la place serait réservée et payée en ligne, et le responsable recevrait la liste prête, jour par jour.</div>
         </form>
       </div>
@@ -90,11 +91,11 @@
           <h2 data-mv="mots">Le responsable légal</h2>
           <p>Pour un joueur mineur, c'est le parent qui reçoit les informations du club.</p>
           <label for="parent">Nom et prénom</label>
-          <input type="text" id="parent" value="Parent Exemple">
+          <input type="text" id="parent" value="Parent Exemple" autocomplete="name">
           <label for="email">Adresse email</label>
-          <input type="email" id="email" value="parent@exemple.fr">
+          <input type="email" id="email" value="parent@exemple.fr" autocomplete="email">
           <label for="tel">Téléphone</label>
-          <input type="tel" id="tel" value="06 00 00 00 00">
+          <input type="tel" id="tel" value="06 00 00 00 00" autocomplete="tel">
           <div class="note"><b>Pour le club</b>Les coordonnées des parents sont rangées au même endroit pour toute la saison : personne n'aurait à les recopier.</div>
         </div>
 
@@ -171,19 +172,28 @@
     var fois = parseInt(document.getElementById('fois').value,10);
     document.getElementById('echeances').textContent = fois === 3 ? 'Le montant est réparti en trois prélèvements.' : 'Un seul paiement.';
   }
-  function afficher(){
+  /* Chaque étape de la frise porte un texte caché « (terminée) » : l'état ne passe pas seulement par la couleur. */
+  frise.forEach(function(li){ var s = document.createElement('span'); s.className = 'visuellement-cache'; li.appendChild(s); });
+  var REDUIT = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function afficher(deplacer){
     etapes.forEach(function(e,i){ e.classList.toggle('visible', i===etape); });
-    frise.forEach(function(li,i){ li.className = i===etape ? 'active' : (i<etape ? 'faite' : ''); });
+    frise.forEach(function(li,i){
+      li.className = i===etape ? 'active' : (i<etape ? 'faite' : '');
+      if (i===etape) li.setAttribute('aria-current','step'); else li.removeAttribute('aria-current');
+      li.lastChild.textContent = i<etape ? ' (terminée)' : '';
+    });
     retour.style.visibility = (etape===0 || etape===4) ? 'hidden' : 'visible';
     suivant.textContent = etape===3 ? 'Payer (simulation)' : (etape===4 ? 'Recommencer' : 'Continuer');
     if(etape===3) majRecap();
+    /* Après « Continuer » ou « Retour », le focus va au titre de la nouvelle étape : le lecteur d'écran la lit. */
+    if(deplacer===true){ var h = etapes[etape].querySelector('h2'); if(h){ h.setAttribute('tabindex','-1'); h.focus({preventScroll:true}); } }
   }
   suivant.addEventListener('click', function(){
     etape = etape===4 ? 0 : etape+1;
-    afficher();
-    document.getElementById('frise').scrollIntoView({behavior:'smooth', block:'start'});
+    afficher(true);
+    document.getElementById('frise').scrollIntoView({behavior: REDUIT ? 'auto' : 'smooth', block:'start'});
   });
-  retour.addEventListener('click', function(){ if(etape>0){ etape--; afficher(); } });
+  retour.addEventListener('click', function(){ if(etape>0){ etape--; afficher(true); } });
   document.getElementById('fois').addEventListener('change', majRecap);
   afficher();
 
@@ -204,9 +214,10 @@
   }
   ['st-licencie','st-duree','st-jour'].forEach(function(id){ document.getElementById(id).addEventListener('change', prixStage); });
   document.getElementById('st-payer').addEventListener('click', function(){
-    var ok = document.getElementById('st-ok'); ok.hidden = false;
+    var ok = document.getElementById('st-ok'); ok.hidden = false; ok.textContent = '';
     var j = document.getElementById('st-jour'); 
-    ok.textContent = 'Simulation : place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '.';
+    /* la zone est visible d'abord, le texte arrive ensuite : la réservation est annoncée */
+    setTimeout(function(){ ok.textContent = 'Simulation : place réservée pour ' + (document.getElementById('st-prenom').value||'votre enfant') + ' : ' + j.options[j.selectedIndex].text + '.'; }, 60);
   });
   prixStage();
   if(location.hash==='#stage') montrer('stage');

@@ -1,0 +1,14 @@
+Polices hébergées sur le site (22/10/2026)
+
+Barlow Condensed (graisses 600 et 700, normal et italique), jeu de caractères latin.
+  Copyright The Barlow Project Authors (https://github.com/jpt/barlow).
+  Licence : SIL Open Font License, Version 1.1.
+
+Source Sans 3 (variable, graisses 400 à 700), jeu de caractères latin.
+  Copyright 2010-2023 Adobe (http://www.adobe.com/), avec le nom réservé « Source ».
+  Licence : SIL Open Font License, Version 1.1.
+
+Ces fichiers sont ceux que distribue Google Fonts (fonts.gstatic.com), repris sans modification.
+Texte complet de la licence : https://openfontlicense.org (SIL OFL 1.1).
+Les polices peuvent être utilisées, copiées et redistribuées librement, y compris pour un usage commercial ;
+elles ne peuvent pas être vendues seules.

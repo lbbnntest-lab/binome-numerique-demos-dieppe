@@ -45,8 +45,8 @@
   /* Week-ends proposés. 3-4 octobre : tous les scores sont publiés. 17-18 octobre : scores pas encore saisis. */
   var WEEKENDS = [
     { id: 'we-3-4', titre: 'Week-end des 3 et 4 octobre', matchs: [
-      { id: 'w1', equipe: 'U18 féminines', niv: 'Qualification pour la poule élite, 2e tour (poule C)', quand: 'Samedi 3 octobre, 15 h 30', lieu: 'à domicile', adv: 'Aplemont Le Havre Basket', logo: 'aplemont.png', bcr: 30, ad: 32, courte: true },
-      { id: 'w2', equipe: 'U18 féminines', niv: 'Qualification pour la poule élite, 2e tour (poule C)', quand: 'Samedi 3 octobre, 17 h', lieu: 'à domicile', adv: 'Cléon Basketball Academy', logo: 'cleon.png', bcr: 38, ad: 22 },
+      { id: 'w1', equipe: 'U18 féminines', niv: 'Qualification pour la poule élite, 2e tour (poule C)', quand: 'Samedi 3 octobre, 15 h 30', lieu: 'à domicile', adv: 'Aplemont Le Havre Basket', logo: 'aplemont.webp', bcr: 30, ad: 32, courte: true },
+      { id: 'w2', equipe: 'U18 féminines', niv: 'Qualification pour la poule élite, 2e tour (poule C)', quand: 'Samedi 3 octobre, 17 h', lieu: 'à domicile', adv: 'Cléon Basketball Academy', logo: 'cleon.webp', bcr: 38, ad: 22 },
       { id: 'w3', equipe: 'U21 masculins', niv: 'Région (RMU21)', quand: 'Week-end des 3 et 4 octobre', lieu: '', adv: 'Oissel Basket Seine', bcr: 71, ad: 70 },
       { id: 'w4', equipe: 'U18 département', niv: 'BCR 2', quand: 'Week-end des 3 et 4 octobre', lieu: 'à l\'extérieur', adv: 'US Forges-les-Eaux', bcr: 52, ad: 22 },
       { id: 'w5', equipe: 'U13 féminines', niv: 'Départementale (DFU13)', quand: 'Week-end des 3 et 4 octobre', lieu: '', adv: 'Seventy Six Belleville', bcr: 47, ad: 19 }
@@ -69,10 +69,10 @@
     var r = issue(m.bcr, m.ad, m.courte);
     return '<div class="pub-cadre"><div class="pub-visuel" role="img" aria-label="Visuel : ' + esc(m.equipe) + ', ' + r.toLowerCase() + ' ' + m.bcr + ' à ' + m.ad + ' contre ' + esc(m.adv) + '">'
       + '<span class="pv-biais" aria-hidden="true"></span>'
-      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr.jpg" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
+      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
       + '<p class="pv-equipe">' + esc(m.equipe) + '</p><p class="pv-niv">' + esc(m.niv) + '</p>'
       + '<p class="pv-issue' + (m.bcr > m.ad ? ' v' : '') + '">' + r + '</p>'
-      + '<div class="pv-score"><div><img class="pv-logo" src="img/logo-bcr.jpg" alt=""><span>BCR</span><b>' + m.bcr + '</b></div>'
+      + '<div class="pv-score"><div><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>BCR</span><b>' + m.bcr + '</b></div>'
       + '<div>' + logoAdv(m) + '<span>' + esc(m.adv) + '</span><b>' + m.ad + '</b></div></div>'
       + '<p class="pv-quand">' + esc(m.quand) + (m.lieu ? ' · ' + esc(m.lieu) : '') + '</p>'
       + '<p class="pv-partenaire">Emplacement partenaire</p></div></div>';
@@ -80,7 +80,7 @@
   function visuelGeneral(w) {
     return '<div class="pub-cadre"><div class="pub-visuel general" role="img" aria-label="Visuel : résultats du ' + esc(w.titre.toLowerCase()) + '">'
       + '<span class="pv-biais" aria-hidden="true"></span>'
-      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr.jpg" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
+      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
       + '<p class="pv-equipe">Les résultats</p><p class="pv-issue">' + esc(w.titre) + '</p>'
       + '<ul class="pv-liste">' + w.matchs.map(function (m) {
         return '<li><span><b>' + esc(m.equipe) + '</b><small>contre ' + esc(m.adv) + '</small></span><strong class="' + (m.bcr > m.ad ? 'v' : 'd') + '">' + m.bcr + '-' + m.ad + '</strong></li>';
@@ -180,7 +180,7 @@
   function visuelChangement(c) {
     return '<div class="pub-cadre"><div class="pub-visuel" role="img" aria-label="Visuel : ' + esc(c.equipe) + ', ' + esc(libelle(c)) + '">'
       + '<span class="pv-biais" aria-hidden="true"></span>'
-      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr.jpg" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
+      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
       + '<p class="pv-equipe">' + esc(c.equipe) + '</p><p class="pv-niv">' + esc(c.niv) + '</p>'
       + '<p class="pv-issue">' + esc(ETIQ[c.statut] || 'Changement') + '</p>'
       + '<p class="pv-quand">Match du ' + esc(dateFrCourte(c.date)) + '<br>contre ' + esc(c.adv || 'adversaire à compléter') + '</p>'

@@ -36,7 +36,7 @@
       return '<li class="' + (l ? 'laisse' : 'suivi') + '"><div><strong>' + d[1] + '</strong><span>'
         + (l ? 'Laissé ' + d[4] + '. ' : 'Responsable : ' + d[3] + '. ') + d[5] + ' <span class="etiquette-ex">exemple</span></span></div>'
         + '<div class="geste">'
-        + (l ? '<button type="button" class="bouton ligne petit" data-regarder="' + d[0] + '" aria-pressed="' + r + '">' + (r ? 'Ranger' : 'Regarder quand même') + '</button>'
+        + (l ? '<button type="button" class="bouton ligne petit" data-regarder="' + d[0] + '" aria-pressed="' + r + '">Regarder quand même</button>'
              + '<button type="button" class="bouton petit" data-suivre="' + d[0] + '">Le reprendre</button>'
            : '<a class="bouton ligne petit" href="#' + premier(d[0]) + '">Voir</a>'
              + '<button type="button" class="bouton ligne petit" data-laisser="' + d[0] + '">Je laisse ' + d[4] + '</button>')
@@ -51,7 +51,7 @@
       + PERSONNES.map(function (p) {
         var g = p[0] === gestionnaire;
         return '<li><div><strong>' + p[1] + '</strong><span>' + p[2] + (g ? ' · gère les accès des autres' : '') + ' <span class="etiquette-ex">exemple</span></span></div>'
-          + (pres ? '<div class="geste"><button type="button" class="bouton ' + (g ? 'petit' : 'ligne petit') + '" data-gere="' + p[0] + '" aria-pressed="' + g + '">'
+          + (pres ? '<div class="geste"><button type="button" class="bouton ' + (g ? 'petit' : 'ligne petit') + '" data-gere="' + p[0] + '">'
             + (g ? 'Retirer ce droit' : 'Lui confier les accès') + '</button></div>'
             : (p[0] === moi ? '' : '<div class="geste"><button type="button" class="bouton ligne petit" data-modifier="' + p[1] + '">Modifier son accès</button></div>'))
           + '</li>';
@@ -82,6 +82,12 @@
     if (window.ScrollTrigger) setTimeout(function () { window.ScrollTrigger.refresh(); }, 50);
   }
 
+  /* Les listes sont recréées à chaque choix : le focus revient au bouton concerné (ou, s'il n'existe plus, à son voisin de la même ligne). */
+  function refocaliser(conteneur, choix) {
+    for (var i = 0; i < choix.length; i++) { var b = conteneur.querySelector(choix[i]); if (b) { b.focus({ preventScroll: true }); return; } }
+    var p = conteneur.querySelector('button, a'); if (p) p.focus({ preventScroll: true });
+  }
+  var REDUIT = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   function nomDomaine(id) { for (var i = 0; i < DOMAINES.length; i++) if (DOMAINES[i][0] === id) return DOMAINES[i]; return null; }
 
   liste.addEventListener('click', function (e) {
@@ -89,24 +95,26 @@
     var id, d;
     if ((id = b.getAttribute('data-laisser'))) {
       d = nomDomaine(id); laisses.push(id); ecrire('bcr-domaines-laisses', laisses); appliquer();
+      refocaliser(liste, ['[data-regarder="' + id + '"]', '[data-suivre="' + id + '"]']);
       info('domaines-etat', '« ' + d[1] + ' » est laissé ' + d[4] + ' : ces blocs quittent votre page et restent ici.');
     } else if ((id = b.getAttribute('data-suivre'))) {
       d = nomDomaine(id); laisses = laisses.filter(function (x) { return x !== id; }); regardes = regardes.filter(function (x) { return x !== id; });
       ecrire('bcr-domaines-laisses', laisses); appliquer();
+      refocaliser(liste, ['[data-laisser="' + id + '"]']);
       info('domaines-etat', 'Vous suivez de nouveau « ' + d[1] + ' » : ses blocs sont revenus dans votre page.');
     } else if ((id = b.getAttribute('data-regarder'))) {
       d = nomDomaine(id);
-      if (regardes.indexOf(id) >= 0) { regardes = regardes.filter(function (x) { return x !== id; }); appliquer(); info('domaines-etat', '« ' + d[1] + ' » est de nouveau rangé.'); return; }
-      regardes.push(id); appliquer();
+      if (regardes.indexOf(id) >= 0) { regardes = regardes.filter(function (x) { return x !== id; }); appliquer(); refocaliser(liste, ['[data-regarder="' + id + '"]']); info('domaines-etat', '« ' + d[1] + ' » est de nouveau rangé.'); return; }
+      regardes.push(id); appliquer(); refocaliser(liste, ['[data-regarder="' + id + '"]']);
       info('domaines-etat', '« ' + d[1] + ' » est affiché pour cette visite, sans rien changer pour ' + d[3].split(',')[0] + '.');
-      var s = document.getElementById(premier(id)); if (s) s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var s = document.getElementById(premier(id)); if (s) s.scrollIntoView({ behavior: REDUIT ? 'auto' : 'smooth', block: 'start' });
     }
   });
   listeAcces.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     var id = b.getAttribute('data-gere');
     if (id) {
-      gestionnaire = gestionnaire === id ? '' : id; ecrire('bcr-gere-acces', gestionnaire); appliquer();
+      gestionnaire = gestionnaire === id ? '' : id; ecrire('bcr-gere-acces', gestionnaire); appliquer(); refocaliser(listeAcces, ['[data-gere="' + id + '"]']);
       var p = PERSONNES.filter(function (x) { return x[0] === id; })[0];
       info('acces-etat', gestionnaire ? p[1] + ' peut maintenant ajouter ou retirer les accès des autres. Vos propres accès restent à vous seul.' : p[1] + ' ne gère plus les accès : vous seul les modifiez.');
     } else if (b.hasAttribute('data-modifier')) {

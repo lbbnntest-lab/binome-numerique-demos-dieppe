@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 <title>Nos partenaires | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
@@ -63,7 +64,7 @@
         <li><div class="logo-part"><img src="img/partenaires/carbon.jpg" alt="" width="286" height="300" loading="lazy"></div><div class="marque">Carbon Decor · Carbon Meta</div><span class="sur-directs">Logo « Groupe Carbon » vu sur les directs du club</span></li>
         <li><div class="logo-part"><img src="img/partenaires/regates.jpg" alt="" width="270" height="300" loading="lazy"></div><div class="marque">Les Régates</div><p class="metier">Restaurant, bar · Pourville</p></li>
         <li><div class="logo-part"><img src="img/partenaires/feron.jpg" alt="" width="480" height="223" loading="lazy"></div><div class="marque">Boucherie charcuterie Feron</div><p class="metier">Boucherie, charcuterie · Dieppe (Janval)</p></li>
-        <li class="lbn"><div class="marque"><img src="img/lbn.png" alt="Le Binôme Numérique" width="96" height="51"></div><p class="metier">Le Binôme Numérique</p><p>Sites internet et outils numériques. Proposition de partenariat, à valider avec le club.</p></li>
+        <li class="lbn"><div class="marque"><img src="img/lbn-272.png" alt="Le Binôme Numérique" width="96" height="51"></div><p class="metier">Le Binôme Numérique</p><p>Sites internet et outils numériques. Proposition de partenariat, à valider avec le club.</p></li>
       </ul>
       <div class="note"><b>Pour le club</b>Chaque partenaire a ici son logo, son métier et sa ville ; un lien vers son site serait ajouté, et la liste mise à jour à chaque saison. Noms et logos viennent de votre calendrier 2026 ; les téléphones et adresses qui figuraient sur certains logos ont été retirés : nous n'en reprenons aucun sans votre accord.</div>
     </div>
@@ -79,7 +80,7 @@
         <li><div class="remise">Boisson offerte</div><strong>Une pizzeria <span class="etiquette-ex">exemple</span></strong><p>Pour une pizza à emporter, le soir des matchs à domicile.</p></li>
         <li><div class="remise">-5 %</div><strong>Un garage <span class="etiquette-ex">exemple</span></strong><p>Sur l'entretien du véhicule, pour les familles de licenciés.</p></li>
       </ul>
-      <div class="carte-licence"><img src="img/logo-bcr.jpg" alt="" width="52" height="52"><div><b>Licencié BCR · saison 2026-2027</b><span>Nom du licencié · catégorie <span class="etiquette-ex">exemple</span></span></div></div>
+      <div class="carte-licence"><img src="img/logo-bcr-160.webp" alt="" width="52" height="52"><div><b>Licencié BCR · saison 2026-2027</b><span>Nom du licencié · catégorie <span class="etiquette-ex">exemple</span></span></div></div>
       <div class="note"><b>Pour le club</b>Le licencié montrerait sa licence depuis son espace, sur son téléphone, chez le commerçant. Le partenaire proposerait lui-même son offre depuis son espace partenaire ; elle ne paraîtrait ici qu'après validation d'un dirigeant. Pour le commerçant, c'est une raison concrète de soutenir le club : des familles du secteur qui poussent sa porte.</div>
     </div>
   </section>
@@ -99,12 +100,12 @@
       <form class="form-plus" id="form-part" novalidate>
         <h3>Être recontacté par le club</h3>
         <p class="champ-aide" style="margin:0">Démonstration : rien n'est envoyé.</p>
-        <label for="pt-entreprise">Entreprise</label>
-        <input type="text" id="pt-entreprise" autocomplete="organization" maxlength="80">
+        <label for="pt-entreprise">Entreprise (obligatoire)</label>
+        <input type="text" id="pt-entreprise" autocomplete="organization" maxlength="80" required aria-required="true">
         <label for="pt-nom">Votre nom</label>
         <input type="text" id="pt-nom" autocomplete="name" maxlength="60">
-        <label for="pt-contact">Téléphone ou email</label>
-        <input type="text" id="pt-contact" autocomplete="email" maxlength="80">
+        <label for="pt-contact">Téléphone ou email (obligatoire)</label>
+        <input type="text" id="pt-contact" maxlength="80" required aria-required="true">
         <fieldset style="border:0;padding:0;margin:14px 0 0"><legend style="font-weight:600;margin-bottom:4px">Formules qui vous intéressent</legend>
           <label class="choix"><input type="checkbox" name="formule" value="Panneau à la salle"> Panneau à la salle</label>
           <label class="choix"><input type="checkbox" name="formule" value="Logo sur les directs et les visuels"> Logo sur les directs et les visuels</label>
@@ -112,6 +113,7 @@
         <label for="pt-message">Message (facultatif)</label>
         <textarea id="pt-message" maxlength="600"></textarea>
         <button type="submit" class="bouton">Envoyer ma demande (simulation)</button>
+        <p class="msg erreur" id="pt-erreur" role="alert"></p>
         <p class="msg" id="pt-msg" role="status" hidden></p>
       </form>
     </div>
@@ -126,6 +128,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/formulaires.js"></script>
 <script>
 (function(){
   /* Demande de partenariat : contrôlée puis simulée ; aucune donnée ne quitte la page. */
@@ -134,9 +137,8 @@
     e.preventDefault();
     var ent = document.getElementById('pt-entreprise').value.trim(), contact = document.getElementById('pt-contact').value.trim();
     var formules = Array.prototype.map.call(f.querySelectorAll('[name=formule]:checked'), function(c){ return c.value; });
-    msg.hidden = false;
-    if (!ent) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez le nom de votre entreprise.'; document.getElementById('pt-entreprise').focus(); return; }
-    if (contact.length < 6) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez un téléphone ou un email pour que le club vous rappelle.'; document.getElementById('pt-contact').focus(); return; }
+    if (!ent) { BCRForm.erreur(document.getElementById('pt-entreprise'), 'Indiquez le nom de votre entreprise.'); return; }
+    if (contact.length < 6) { BCRForm.erreur(document.getElementById('pt-contact'), 'Indiquez un téléphone ou un email pour que le club vous rappelle.'); return; }
     /* La demande rejoint la boîte « Demandes » de l'espace dirigeants (visite seulement). */
     var nom = document.getElementById('pt-nom').value.trim(), mot = document.getElementById('pt-message').value.trim();
     try {
@@ -145,8 +147,7 @@
         texte: (formules.length ? 'Intéressée par : ' + formules.join(', ').toLowerCase() + '. ' : '') + 'Joindre : ' + contact + '.' + (mot ? ' Message : ' + mot : '') });
       sessionStorage.setItem('bcr-demandes', JSON.stringify(l));
     } catch (e2) {}
-    msg.className = 'msg';
-    msg.textContent = 'Simulation : la demande de « ' + ent + ' » est envoyée au club' + (formules.length ? ' (' + formules.join(', ').toLowerCase() + ')' : '') + '. Elle arrive dans l\'espace dirigeants, rubrique « Demandes », où le président la voit. Rien n\'est envoyé dans cette maquette.';
+    BCRForm.ok(msg, 'Simulation : la demande de « ' + ent + ' » est envoyée au club' + (formules.length ? ' (' + formules.join(', ').toLowerCase() + ')' : '') + '. Elle arrive dans l\'espace dirigeants, rubrique « Demandes », où le président la voit. Rien n\'est envoyé dans cette maquette.');
   });
 })();
 </script>

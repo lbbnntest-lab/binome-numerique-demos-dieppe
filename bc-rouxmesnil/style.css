@@ -1,3 +1,17 @@
+/* Polices hébergées sur le site (22/10/2026) : Barlow Condensed (600, 700, normal et italique) et Source Sans 3
+   (variable, 400 à 700), sous licence SIL Open Font License 1.1 (https://openfontlicense.org), jeu de caractères latin.
+   Barlow Condensed : copyright The Barlow Project Authors (https://github.com/jpt/barlow).
+   Source Sans 3 : copyright Adobe (https://github.com/adobe-fonts/source-sans). Texte des licences : fonts/LICENCES.txt. */
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/barlow-condensed-600.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/barlow-condensed-700.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:italic;font-weight:600;font-display:swap;src:url(fonts/barlow-condensed-600-italic.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:italic;font-weight:700;font-display:swap;src:url(fonts/barlow-condensed-700-italic.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/source-sans-3.woff2) format("woff2")}
+/* Polices de repli aux mesures des vraies polices : le texte ne saute plus quand elles arrivent. */
+@font-face{font-family:"Barlow repli";font-style:normal;font-weight:600 700;src:local("Arial Bold"),local("Arial-BoldMT");size-adjust:66%;ascent-override:151.5%;descent-override:30.3%;line-gap-override:0%}
+@font-face{font-family:"Barlow repli";font-style:italic;font-weight:600 700;src:local("Arial Bold Italic"),local("Arial-BoldItalicMT");size-adjust:66%;ascent-override:151.5%;descent-override:30.3%;line-gap-override:0%}
+@font-face{font-family:"Source repli";font-style:normal;font-weight:400;src:local("Arial"),local("ArialMT");size-adjust:91.7%;ascent-override:111.7%;descent-override:43.6%;line-gap-override:0%}
+@font-face{font-family:"Source repli";font-style:normal;font-weight:600 700;src:local("Arial Bold"),local("Arial-BoldMT");size-adjust:90%;ascent-override:113.8%;descent-override:44.4%;line-gap-override:0%}
 :root{
   --club:#101412;
   --club-ink:#080a09;
@@ -15,9 +29,14 @@
   --manque:#a3262a;
   --note-bg:#fff4d6;
   --note-line:#d9a520;
-  --titre:"Barlow Condensed",system-ui,sans-serif;
-  --texte:"Source Sans 3",system-ui,sans-serif;
+  --titre:"Barlow Condensed","Barlow repli",system-ui,sans-serif;
+  --texte:"Source Sans 3","Source repli",system-ui,sans-serif;
 }
+/* Le bandeau et l'en-tête sont ajoutés par script (maquette.js, pres.js). Le contenu de la page reste invisible tant qu'ils ne sont pas posés,
+   pour que rien ne descende d'un coup ; sans script, ou si le script tarde plus de 3 s, tout s'affiche. */
+body[data-page]:not(.haut-pose) > main{visibility:hidden;animation:haut-voir 0s 3s forwards}
+@keyframes haut-voir{to{visibility:visible}}
+@media (scripting:none){body[data-page]:not(.haut-pose) > main{visibility:visible;animation:none}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--texte);font-size:17px;line-height:1.55}
@@ -216,7 +235,7 @@ ol.suite li{margin:8px 0}
 
 /* Habillage Signature : photo de la salle, coupe en biais, logo du club */
 .entete{border-bottom:3px solid var(--ballon)}
-.heros.photo-salle{background:linear-gradient(100deg,rgba(8,10,9,.94) 0%,rgba(8,10,9,.8) 48%,rgba(8,10,9,.5) 100%),url(img/salle-cheruel-vert.jpg) center 35%/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}
+.heros.photo-salle{background:linear-gradient(100deg,rgba(8,10,9,.94) 0%,rgba(8,10,9,.8) 48%,rgba(8,10,9,.5) 100%),url(img/salle-cheruel-vert.webp) center 35%/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}
 .heros.photo-salle .wrap{padding-bottom:84px}
 .heros .surtitre{color:var(--vif)}
 .heros h1 .vert{color:var(--vif)}

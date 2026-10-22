@@ -21,11 +21,11 @@
 
   /* Matchs à venir connus (calendrier FFBB des U18 féminines, poule élite ; horaires non fixés). */
   var MATCHS = [
-    { id: 'u18f-j1', d: '2026-11-07', eq: 'u18', equipe: 'U18 féminines élite', adv: 'Cherbourg Basket Ball', logo: 'cherbourg.png', dom: true },
-    { id: 'u18f-j2', d: '2026-11-14', eq: 'u18', equipe: 'U18 féminines élite', adv: 'Aplemont Le Havre Basket 2', logo: 'aplemont.png', dom: false },
-    { id: 'u18f-j3', d: '2026-11-21', eq: 'u18', equipe: 'U18 féminines élite', adv: 'USO Mondeville Basket 2', logo: 'mondeville.png', dom: true },
-    { id: 'u18f-j4', d: '2026-11-28', eq: 'u18', equipe: 'U18 féminines élite', adv: 'Élan sportif Carpiquet Basket', logo: 'carpiquet.png', dom: false },
-    { id: 'u18f-j5', d: '2026-12-05', eq: 'u18', equipe: 'U18 féminines élite', adv: "Club Basket d'Ifs 1", logo: 'ifs.png', dom: false }
+    { id: 'u18f-j1', d: '2026-11-07', eq: 'u18', equipe: 'U18 féminines élite', adv: 'Cherbourg Basket Ball', logo: 'cherbourg.webp', dom: true },
+    { id: 'u18f-j2', d: '2026-11-14', eq: 'u18', equipe: 'U18 féminines élite', adv: 'Aplemont Le Havre Basket 2', logo: 'aplemont.webp', dom: false },
+    { id: 'u18f-j3', d: '2026-11-21', eq: 'u18', equipe: 'U18 féminines élite', adv: 'USO Mondeville Basket 2', logo: 'mondeville.webp', dom: true },
+    { id: 'u18f-j4', d: '2026-11-28', eq: 'u18', equipe: 'U18 féminines élite', adv: 'Élan sportif Carpiquet Basket', logo: 'carpiquet.webp', dom: false },
+    { id: 'u18f-j5', d: '2026-12-05', eq: 'u18', equipe: 'U18 féminines élite', adv: "Club Basket d'Ifs 1", logo: 'ifs.webp', dom: false }
   ];
   var EQUIPES = { u13: 'U13 féminines', u15: 'U15 féminines', u18: 'U18 féminines élite', rf2: 'Seniors féminines RF2' };
   /* Comptes de démonstration (exemples) : sur le vrai site, ce serait la connexion à l'espace du club. */
@@ -80,7 +80,7 @@
       lib.textContent = s.matchLib || '';
       /* La page publique ne lit jamais le champ « marqueur » : le nom de la personne à la table reste réservé au club. */
       suivi.textContent = lieuLib(s) + ' · Score suivi par un membre du club';
-      var bcr = { nom: 'BCR', pts: +s.scoreBcr || 0, f: +s.fautesBcr || 0, logo: '<img src="img/logo-bcr.jpg" alt="">', k: 'bcr' };
+      var bcr = { nom: 'BCR', pts: +s.scoreBcr || 0, f: +s.fautesBcr || 0, logo: '<img src="img/logo-bcr-160.webp" alt="">', k: 'bcr' };
       var adv = { nom: s.adv || 'Adversaire', pts: +s.scoreAdv || 0, f: +s.fautesAdv || 0, logo: logoAdv(s), k: 'adv' };
       var g = s.dom === false ? adv : bcr, d = s.dom === false ? bcr : adv;
       var bloc = function (e, cote) {
@@ -90,12 +90,14 @@
       };
       zone.innerHTML = '<div class="tableau-direct" role="group" aria-label="Tableau de score">' + bloc(g, 'gauche')
         + '<div class="td-centre' + (s.termine ? ' fini' : '') + '"><small>' + (s.termine ? 'Score' : 'Période') + '</small><strong>' + (s.termine ? 'Final' : periodeLib(s.periode)) + '</strong></div>'
-        + bloc(d, 'droite') + '</div>'
-        + '<p class="visuellement-cache" aria-live="polite">' + esc('BCR ' + bcr.pts + ', ' + adv.nom + ' ' + adv.pts) + '</p>';
+        + bloc(d, 'droite') + '</div>';
+      /* L'annonce du score vit dans une zone fixe de la page (#direct-annonce, role="status") : seul son texte change, et le lecteur d'écran le lit. */
+      var annonce = document.getElementById('direct-annonce'), change = false;
       if (avant) ['bcr', 'adv'].forEach(function (k) {
         var v = k === 'bcr' ? bcr.pts : adv.pts;
-        if (v !== avant[k]) { var el = zone.querySelector('[data-pts="' + k + '"]'); if (el) el.classList.add('flash'); }
+        if (v !== avant[k]) { change = true; var el = zone.querySelector('[data-pts="' + k + '"]'); if (el) el.classList.add('flash'); }
       });
+      if (annonce && change) annonce.textContent = 'BCR ' + bcr.pts + ', ' + adv.nom + ' ' + adv.pts;
       avant = { bcr: bcr.pts, adv: adv.pts };
       var lien = /^https:\/\//.test(s.lienFacebook || '') ? s.lienFacebook : '';
       fb.href = lien || FB_CLUB;

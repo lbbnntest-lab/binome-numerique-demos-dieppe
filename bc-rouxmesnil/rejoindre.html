@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement);</script>
 <title>Rejoindre le club | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
@@ -47,11 +48,11 @@
       <form class="form-plus" id="form-rejoindre" novalidate>
         <h3>Je propose mon aide</h3>
         <p class="champ-aide" style="margin:0">Démonstration : rien n'est envoyé.</p>
-        <label for="rj-nom">Prénom et nom</label>
-        <input type="text" id="rj-nom" autocomplete="name" maxlength="60">
-        <label for="rj-contact">Téléphone ou email</label>
-        <input type="text" id="rj-contact" autocomplete="email" maxlength="80">
-        <fieldset style="border:0;padding:0;margin:14px 0 0"><legend style="font-weight:600;margin-bottom:4px">J'aimerais aider</legend>
+        <label for="rj-nom">Prénom et nom (obligatoire)</label>
+        <input type="text" id="rj-nom" autocomplete="name" maxlength="60" required aria-required="true">
+        <label for="rj-contact">Téléphone ou email (obligatoire)</label>
+        <input type="text" id="rj-contact" maxlength="80" required aria-required="true">
+        <fieldset style="border:0;padding:0;margin:14px 0 0"><legend style="font-weight:600;margin-bottom:4px">J'aimerais aider (au moins une réponse)</legend>
           <label class="choix"><input type="checkbox" name="aide" value="les jours de match"> Les jours de match</label>
           <label class="choix"><input type="checkbox" name="aide" value="à l'arbitrage"> À l'arbitrage</label>
           <label class="choix"><input type="checkbox" name="aide" value="à l'encadrement d'une équipe"> À l'encadrement d'une équipe</label>
@@ -65,6 +66,7 @@
         <label for="rj-message">Message (facultatif)</label>
         <textarea id="rj-message" maxlength="600"></textarea>
         <button type="submit" class="bouton">Envoyer ma proposition (simulation)</button>
+        <p class="msg erreur" id="rj-erreur" role="alert"></p>
         <p class="msg" id="rj-msg" role="status" hidden></p>
       </form>
     </div>
@@ -79,6 +81,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/formulaires.js"></script>
 <script>
 (function(){
   /* La journée d'arbitrage passée, le texte annonce la suivante sans inventer de date. */
@@ -92,18 +95,16 @@
     e.preventDefault();
     var nom = document.getElementById('rj-nom').value.trim(), contact = document.getElementById('rj-contact').value.trim();
     var aides = Array.prototype.map.call(f.querySelectorAll('[name="aide"]:checked'), function(c){ return c.value; });
-    msg.hidden = false;
-    if (nom.length < 2) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez votre prénom et votre nom.'; document.getElementById('rj-nom').focus(); return; }
-    if (contact.length < 6) { msg.className = 'msg erreur'; msg.textContent = 'Indiquez un téléphone ou un email pour que le bureau vous recontacte.'; document.getElementById('rj-contact').focus(); return; }
-    if (!aides.length) { msg.className = 'msg erreur'; msg.textContent = 'Cochez au moins une façon d\'aider.'; f.querySelector('[name="aide"]').focus(); return; }
+    if (nom.length < 2) { BCRForm.erreur(document.getElementById('rj-nom'), 'Indiquez votre prénom et votre nom.'); return; }
+    if (contact.length < 6) { BCRForm.erreur(document.getElementById('rj-contact'), 'Indiquez un téléphone ou un email pour que le bureau vous recontacte.'); return; }
+    if (!aides.length) { BCRForm.erreur(f.querySelector('[name="aide"]'), 'Cochez au moins une façon d\'aider.'); return; }
     var dispo = document.getElementById('rj-dispo').value, mot = document.getElementById('rj-message').value.trim();
     var l = lire();
     l.push({ famille: nom, enfant: 'Proposition d\'aide · ' + dispo.toLowerCase(), type: 'Rejoindre le club', date: 'aujourd\'hui',
       texte: 'Aimerait aider ' + aides.join(', ') + '. Contact : ' + contact + '.' + (mot ? ' Message : ' + mot : '') });
     try { sessionStorage.setItem('bcr-demandes', JSON.stringify(l)); } catch (e2) {}
-    msg.className = 'msg';
-    msg.textContent = 'Simulation : merci ' + nom.split(' ')[0] + ' ! Votre proposition arrive dans l\'espace dirigeants, rubrique « Demandes ». Rien n\'est envoyé dans cette maquette.';
     f.reset();
+    BCRForm.ok(msg, 'Simulation : merci ' + nom.split(' ')[0] + ' ! Votre proposition arrive dans l\'espace dirigeants, rubrique « Demandes ». Rien n\'est envoyé dans cette maquette.');
   });
 })();
 </script>

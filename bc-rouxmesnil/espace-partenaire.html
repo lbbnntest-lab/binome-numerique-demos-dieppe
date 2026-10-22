@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><link rel="icon" href="img/logo-bcr.jpg" type="image/jpeg">
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 <title>Espace partenaire | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
@@ -66,11 +67,12 @@
       </div>
       <form class="form-plus" id="form-offre" novalidate>
         <h3>Modifier l'offre</h3>
-        <label for="of-texte">Votre offre</label>
-        <input type="text" id="of-texte" maxlength="80" value="-10 % sur votre première commande">
+        <label for="of-texte">Votre offre (obligatoire)</label>
+        <input type="text" id="of-texte" maxlength="80" value="-10 % sur votre première commande" required aria-required="true">
         <label for="of-cond">Conditions</label>
         <textarea id="of-cond" maxlength="300">Sur présentation de la licence BCR.</textarea>
         <button type="submit" class="bouton">Proposer cette offre au club (simulation)</button>
+        <p class="msg erreur" id="of-erreur" role="alert"></p>
         <p class="msg" id="of-msg" role="status" hidden></p>
       </form>
     </div>
@@ -84,9 +86,9 @@
       <ul class="visuels">
         <li><div class="apercu" aria-hidden="true"><span class="mini-sc">BCR 0 · 0 ADV</span><span class="bloc-logo">Votre logo</span></div>
           <div class="infos"><strong>Votre logo sur les directs</strong><p>Le bandeau du tableau de score, tel qu'il passe à l'écran.</p><button type="button" class="bouton ligne" data-dl="Bandeau des directs">Télécharger (simulation)</button></div></li>
-        <li><div class="apercu" aria-hidden="true"><img src="img/logo-bcr.jpg" alt="" width="44" height="44"><span class="mini-sc">Score final</span><span class="bloc-logo">Votre logo</span></div>
+        <li><div class="apercu" aria-hidden="true"><img src="img/logo-bcr-160.webp" alt="" width="44" height="44"><span class="mini-sc">Score final</span><span class="bloc-logo">Votre logo</span></div>
           <div class="infos"><strong>Visuel de fin de match</strong><p>Le visuel publié après chaque match à domicile, avec votre logo.</p><button type="button" class="bouton ligne" data-dl="Visuel de fin de match">Télécharger (simulation)</button></div></li>
-        <li><div class="apercu clair" aria-hidden="true"><img src="img/logo-bcr.jpg" alt="" width="44" height="44"><span class="mini-sc">Partenaire du BCR</span><span>Saison 2026-2027</span></div>
+        <li><div class="apercu clair" aria-hidden="true"><img src="img/logo-bcr-160.webp" alt="" width="44" height="44"><span class="mini-sc">Partenaire du BCR</span><span>Saison 2026-2027</span></div>
           <div class="infos"><strong>Attestation de partenariat</strong><p>À afficher en vitrine ou à joindre à votre comptabilité.</p><button type="button" class="bouton ligne" data-dl="Attestation de partenariat">Télécharger (simulation)</button></div></li>
       </ul>
       <p class="msg" id="dl-msg" role="status" hidden></p>
@@ -100,6 +102,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/formulaires.js"></script>
 <script>
 (function(){
   /* Offre aux licenciés : la modification part « en attente de validation » (simulation, gardée pendant la visite). */
@@ -116,13 +119,11 @@
   document.getElementById('form-offre').addEventListener('submit', function(e){
     e.preventDefault();
     var t = document.getElementById('of-texte').value.trim(), c = document.getElementById('of-cond').value.trim();
-    msg.hidden = false;
-    if (t.length < 3) { msg.className = 'msg erreur'; msg.textContent = 'Écrivez votre offre en quelques mots.'; return; }
+    if (t.length < 3) { BCRForm.erreur(document.getElementById('of-texte'), 'Écrivez votre offre en quelques mots.'); return; }
     var n = { texte: t, cond: c, statut: 'attente' };
     try { sessionStorage.setItem(CLE, JSON.stringify(n)); } catch (er) {}
     montrer(n);
-    msg.className = 'msg';
-    msg.textContent = 'Simulation : offre transmise au club. Elle paraîtra sur le site après validation par un dirigeant ; en attendant, l\'offre en ligne reste celle du dessus.';
+    BCRForm.ok(msg, 'Simulation : offre transmise au club. Elle paraîtra sur le site après validation par un dirigeant ; en attendant, l\'offre en ligne reste celle du dessus.');
   });
   var dl = document.getElementById('dl-msg');
   Array.prototype.forEach.call(document.querySelectorAll('[data-dl]'), function(b){
