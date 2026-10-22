@@ -42,7 +42,7 @@
   try { if (expl) sessionStorage.setItem('bcr-expl', '1'); else expl = sessionStorage.getItem('bcr-expl') === '1'; } catch (e) {}
   var bandeau = '<div class="bandeau-maquette"><div class="wrap">'
     + (expl
-      ? '<span><strong>Présentation</strong> : les encadrés jaunes expliquent ce que chaque page apporterait au club. Matchs et résultats sont réels ; ce qui est marqué « exemple » sert à montrer une fonction.</span><span><button type="button" id="basculer-notes"></button> &nbsp;<button type="button" id="raz-demo">Remettre la démonstration à zéro</button> &nbsp;<a href="presentation/explications.html">Retour à la présentation</a></span>'
+      ? '<span><strong>Présentation</strong> : les encadrés jaunes expliquent ce que chaque page apporterait au club. Matchs et résultats sont réels ; ce qui est marqué « exemple » sert à montrer une fonction. Rien n’est enregistré ni envoyé.</span><span><button type="button" id="basculer-notes"></button> &nbsp;<button type="button" id="raz-demo">Remettre la démonstration à zéro</button> &nbsp;<a href="presentation/explications.html">Voir la présentation</a></span>'
       : '<span><strong>Maquette</strong> du futur site du Basket Club de Rouxmesnil, réalisée par Le Binôme Numérique. Matchs, résultats, stage et arbitrage : publiés par le club et la FFBB. Noms, chiffres, vidéos et articles marqués « exemple » servent à montrer les fonctions ; aucun paiement ni message n\'est envoyé.</span><span><a href="presentation/index.html">Voir la présentation</a></span>')
     + '</div></div>';
 
