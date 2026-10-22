@@ -7,7 +7,17 @@
    Format partagé (contrat des clés communes), plus deux champs ajoutés (lus seulement par la table de marque,
    jamais par la page publique : le nom du marqueur n'est visible que des membres connectés du club) :
    {matchLib, equipe, dom, adv, scoreBcr, scoreAdv, periode, chrono, fautesBcr, fautesAdv, lienFacebook, termine, maj,
-    marqueur:'famille B.', role:'parent'|'licencie'|'coach'|'dirigeant'}
+    marqueur:'famille B.', role:'parent'|'licencie'|'coach'|'dirigeant',
+    fautesJ:{bcr:{'7':2}, adv:{'12':1}}, journal:[{k:'bcr'|'adv', n:7|null, t:'pts'|'faute', v:2, p:2, h:<horodatage>}]}
+   Ajouts du 22/10 (score, fautes et numéros) :
+   - fautesBcr / fautesAdv ne changent pas de sens : fautes d'ÉQUIPE du quart-temps en cours (remises à zéro au passage
+     en QT 1 à 4 ; en prolongation elles continuent celles du QT 4). À partir de 5, l'équipe est « en pénalité ».
+   - fautesJ : fautes personnelles du match, par numéro (numéros seulement, jamais de nom : beaucoup de joueuses sont mineures).
+     Le journal ne garde que les 40 dernières actions ; fautesJ, lui, compte tout le match.
+   - journal : une entrée par panier ou faute (n = numéro facultatif, null si non indiqué ; k = équipe ; t = 'pts' ou 'faute' ;
+     v = points, 1 pour une faute ; p = période ; h = heure). « Annuler » restaure l'état complet précédent (pile), donc
+     compteurs, fautes personnelles et journal reviennent ensemble.
+   La page publique lit fautesBcr/fautesAdv et journal (numéros seulement) ; elle ne lit ni fautesJ ni marqueur.
    Adresse directe depuis l'espace licencié : table-de-marque.html?match=<id>&equipe=<u13|u15|u18|rf2>
    (facultatif : &adv=<nom adverse>&lieu=dom|ext pour un match qui n'est pas dans la liste).
    Sur le vrai site, la table enverrait le score par le serveur du club (temps réel) au lieu du stockage du navigateur. */
@@ -53,6 +63,12 @@
     var m = MATCHS.filter(function (x) { return x.adv === s.adv; })[0];
     return m ? '<img src="img/logos/' + m.logo + '" alt="" style="background:#fff">' : '<span class="sigle" aria-hidden="true">' + esc(sigle(s.adv)) + '</span>';
   }
+  function numOk(n) { n = parseInt(n, 10); return isFinite(n) && n >= 0 && n <= 99 ? n : null; }
+  function journalDe(s) { return Array.isArray(s && s.journal) ? s.journal : []; }
+  function ligneJournal(e, nomAdv) {
+    var n = numOk(e.n), v = +e.v || 1;
+    return periodeLib(e.p) + ' · ' + (e.k === 'bcr' ? 'BCR' : nomAdv) + (n !== null ? ' n° ' + n : '') + ' · ' + (e.t === 'faute' ? 'faute' : v + (v > 1 ? ' points' : ' point'));
+  }
   function heureFr(t) { var d = new Date(t); return d.getHours() + ' h ' + String(d.getMinutes()).padStart(2, '0'); }
 
   /* « Remettre la démonstration à zéro » (bandeau, mode présentation) : efface aussi le score en direct. */
@@ -73,7 +89,8 @@
         lib.textContent = 'Le tableau s\'affichera ici dès que la saisie commencera.'; suivi.textContent = '';
         zone.innerHTML = '<div class="sans-direct"><strong>En attente du prochain match</strong>Le score apparaîtra ici dès le premier panier saisi.</div>';
         fb.href = FB_CLUB; fb.textContent = 'Les directs sur la page Facebook du club';
-        majEl.textContent = ''; fin.hidden = true; avant = null; return;
+        majEl.textContent = ''; fin.hidden = true; avant = null;
+        var jz0 = document.getElementById('direct-journal'); if (jz0) jz0.hidden = true; return;
       }
       etat.className = 'etat-direct ' + (s.termine ? 'fini' : 'en-direct');
       etat.querySelector('span:last-child').textContent = s.termine ? 'Match terminé · score final' : 'En direct · ' + periodeLong(s.periode);
@@ -86,7 +103,7 @@
       var bloc = function (e, cote) {
         return '<div class="td-eq ' + cote + '" data-eq="' + e.k + '"><div class="haut">' + e.logo + '<span class="nom">' + esc(e.nom) + '</span></div>'
           + '<span class="pts" data-pts="' + e.k + '">' + e.pts + '</span>'
-          + (s.termine ? '' : '<span class="fautes">Fautes d\'équipe ' + e.f + '</span>') + '</div>';
+          + (s.termine ? '' : '<span class="fautes">Fautes du quart-temps ' + e.f + (e.f >= 5 ? ' <b class="penalite">Pénalité</b>' : '') + '</span>') + '</div>';
       };
       zone.innerHTML = '<div class="tableau-direct" role="group" aria-label="Tableau de score">' + bloc(g, 'gauche')
         + '<div class="td-centre' + (s.termine ? ' fini' : '') + '"><small>' + (s.termine ? 'Score' : 'Période') + '</small><strong>' + (s.termine ? 'Final' : periodeLib(s.periode)) + '</strong></div>'
@@ -99,6 +116,12 @@
       });
       if (annonce && change) annonce.textContent = 'BCR ' + bcr.pts + ', ' + adv.nom + ' ' + adv.pts;
       avant = { bcr: bcr.pts, adv: adv.pts };
+      var jr = journalDe(s).slice(-6).reverse(), jz = document.getElementById('direct-journal'), jl = document.getElementById('direct-journal-liste');
+      if (jz && jl) {
+        jz.hidden = !jr.length;
+        /* Numéros seulement : la page publique n'affiche jamais le nom d'une joueuse. */
+        jl.innerHTML = jr.map(function (e) { return '<li><span>' + esc(ligneJournal(e, 'Adversaire')) + '</span><time>' + esc(heureFr(e.h)) + '</time></li>'; }).join('');
+      }
       var lien = /^https:\/\//.test(s.lienFacebook || '') ? s.lienFacebook : '';
       fb.href = lien || FB_CLUB;
       fb.textContent = lien ? 'Regarder le direct sur Facebook' : 'La page Facebook du club';
@@ -169,7 +192,7 @@
     return { matchLib: m.equipe + ' ' + (m.dom ? 'contre ' : 'à ') + m.adv + ', ' + dateFr(m.d), equipe: m.equipe, dom: m.dom, adv: m.adv };
   }
   function nouveauMatch(s, lienFb, pers) {
-    s.scoreBcr = 0; s.scoreAdv = 0; s.periode = 1; s.chrono = null; s.fautesBcr = 0; s.fautesAdv = 0;
+    s.scoreBcr = 0; s.scoreAdv = 0; s.periode = 1; s.chrono = null; s.fautesBcr = 0; s.fautesAdv = 0; s.fautesJ = { bcr: {}, adv: {} }; s.journal = [];
     s.lienFacebook = lienFb; s.termine = false; s.marqueur = pers.nom; s.role = pers.role;
     return s;
   }
@@ -204,25 +227,83 @@
   $('tdm-compte').addEventListener('change', function () { if (moi()) { connecter(this.value); afficher(); } });
   $('tdm-deconnexion').addEventListener('click', function () { connecter(null); afficher(); });
 
-  function action(modif, texte) {
+  function action(modif, texte, fnTexte) {
     var s = lire(); if (!s || !peutSaisir(s)) { afficher(); return; }
     pile.push(JSON.stringify(s)); garderPile();
-    modif(s); ecrire(s); derniere(texte); afficher();
+    modif(s); ecrire(s); derniere(fnTexte ? fnTexte() : texte); afficher();
   }
   function peutSaisir(s) { var m = moi(); return !!m && actif(s) && marqueurEstMoi(s, m); }
   function derniere(t) { $('tdm-derniere').textContent = t ? 'Dernière action : ' + t : ''; }
   function nomAdv() { var s = lire(); return (s && s.adv) || 'adversaire'; }
 
+  /* Numéro de la joueuse (facultatif) : on touche le numéro, puis l'action. Le choix sert une seule fois, puis s'efface :
+     pas de numéro resté coché par erreur, et sans numéro l'action reste à un seul geste. Numéros d'exemple 4 à 15 pour le BCR
+     comme pour l'adversaire, plus « Autre » (0 à 99). Numéros seulement : aucun nom n'est saisi. */
+  var NUMS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  var choisi = { bcr: null, adv: null };
+  function eqNom(k) { return k === 'bcr' ? 'BCR' : nomAdv(); }
+  function fautesDe(s, k) { return (s && s.fautesJ && s.fautesJ[k]) || {}; }
+  function batirRang(k) {
+    var el = $('tdm-rang-' + k);
+    el.innerHTML = NUMS.map(function (n) {
+      return '<button type="button" class="tdm-num" data-n="' + n + '" aria-pressed="false"><span class="tdm-nn">' + n + '</span><span class="tdm-nf" aria-hidden="true"></span></button>';
+    }).join('') + '<button type="button" class="tdm-num tdm-large" data-n="sans" aria-pressed="true">Sans numéro</button>'
+      + '<button type="button" class="tdm-num tdm-large" data-n="autre" aria-pressed="false">Autre numéro</button>'
+      + '<div class="tdm-autre" id="tdm-autre-' + k + '" hidden><label for="tdm-autre-n-' + k + '">Numéro (0 à 99)</label><input type="text" id="tdm-autre-n-' + k + '" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off"></div>';
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-n]'); if (!b || b.disabled) return;
+      var v = b.getAttribute('data-n'), zone = $('tdm-autre-' + k), champ = $('tdm-autre-n-' + k);
+      if (v === 'sans') { choisi[k] = null; zone.hidden = true; champ.value = ''; }
+      else if (v === 'autre') {
+        zone.hidden = !zone.hidden;
+        if (zone.hidden) { choisi[k] = null; champ.value = ''; } else { choisi[k] = numOk(champ.value); champ.focus(); }
+      } else { var n = +v; choisi[k] = choisi[k] === n ? null : n; zone.hidden = true; champ.value = ''; }
+      majRang(lire());
+    });
+    $('tdm-autre-n-' + k).addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 2); choisi[k] = numOk(this.value); majRang(lire());
+    });
+  }
+  function majRang(s) {
+    ['bcr', 'adv'].forEach(function (k) {
+      var fj = fautesDe(s, k), c = choisi[k], zone = $('tdm-autre-' + k);
+      Array.prototype.forEach.call($('tdm-rang-' + k).querySelectorAll('button[data-n]'), function (b) {
+        var v = b.getAttribute('data-n');
+        if (v === 'sans') b.setAttribute('aria-pressed', String(c === null && zone.hidden));
+        else if (v === 'autre') b.setAttribute('aria-pressed', String(!zone.hidden));
+        else {
+          var n = +v, f = +fj[n] || 0, nf = b.querySelector('.tdm-nf');
+          b.setAttribute('aria-pressed', String(c === n));
+          b.setAttribute('aria-label', 'Numéro ' + n + (f ? ', ' + f + (f > 1 ? ' fautes' : ' faute') : ''));
+          b.className = 'tdm-num' + (f >= 5 ? ' sorti' : '');
+          var t = f ? String(f) : ''; if (nf.textContent !== t) nf.textContent = t;
+        }
+      });
+      $('tdm-sel-' + k).textContent = c === null ? 'Aucun numéro : l\'action sera enregistrée sans numéro.' : 'Numéro choisi : n° ' + c + '.';
+    });
+  }
+  function ajouter(s, k, t, v) {
+    var n = choisi[k]; choisi[k] = null; $('tdm-autre-' + k).hidden = true; $('tdm-autre-n-' + k).value = '';
+    var j = journalDe(s).slice(-39); s.journal = j;
+    j.push({ k: k, n: n, t: t, v: v, p: s.periode, h: Date.now() });
+    if (t === 'pts') { if (k === 'bcr') s.scoreBcr += v; else s.scoreAdv += v; return n === null ? '' : ' (n° ' + n + ')'; }
+    if (k === 'bcr') s.fautesBcr += 1; else s.fautesAdv += 1;
+    if (n === null) return '';
+    s.fautesJ = s.fautesJ || { bcr: {}, adv: {} }; s.fautesJ[k] = s.fautesJ[k] || {};
+    var f = s.fautesJ[k][n] = (+s.fautesJ[k][n] || 0) + 1;
+    return ' (n° ' + n + ', ' + f + (f > 1 ? ' fautes' : ' faute') + ')';
+  }
+  ['bcr', 'adv'].forEach(batirRang);
   Array.prototype.forEach.call(document.querySelectorAll('[data-pts]'), function (b) {
     b.addEventListener('click', function () {
-      var n = +b.getAttribute('data-pts'), k = b.getAttribute('data-eq');
-      action(function (s) { if (k === 'bcr') s.scoreBcr += n; else s.scoreAdv += n; }, '+' + n + ' ' + (k === 'bcr' ? 'BCR' : nomAdv()) + '.');
+      var n = +b.getAttribute('data-pts'), k = b.getAttribute('data-eq'), suite = '';
+      action(function (s) { suite = ajouter(s, k, 'pts', n); }, null, function () { return '+' + n + ' ' + eqNom(k) + suite + '.'; });
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-faute]'), function (b) {
     b.addEventListener('click', function () {
-      var k = b.getAttribute('data-faute');
-      action(function (s) { if (k === 'bcr') s.fautesBcr += 1; else s.fautesAdv += 1; }, 'faute d\'équipe ' + (k === 'bcr' ? 'BCR' : nomAdv()) + '.');
+      var k = b.getAttribute('data-faute'), suite = '';
+      action(function (s) { suite = ajouter(s, k, 'faute', 1); }, null, function () { return 'faute ' + eqNom(k) + suite + '.'; });
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-periode]'), function (b) {
@@ -279,8 +360,24 @@
     $('tdm-p-adv').textContent = s.scoreAdv;
     $('tdm-per').textContent = s.termine ? 'Final' : periodeLib(s.periode);
     $('tdm-h-adv').textContent = advNom;
-    $('tdm-f-bcr').textContent = 'Fautes d\'équipe : ' + s.fautesBcr;
-    $('tdm-f-adv').textContent = 'Fautes d\'équipe : ' + s.fautesAdv;
+    $('tdm-f-bcr').textContent = 'Fautes du quart-temps : ' + s.fautesBcr;
+    $('tdm-f-adv').textContent = 'Fautes du quart-temps : ' + s.fautesAdv;
+    $('tdm-pen-bcr').hidden = !(s.fautesBcr >= 5); $('tdm-pen-adv').hidden = !(s.fautesAdv >= 5);
+    majRang(s);
+    /* Alerte : tout numéro à 5 fautes ou plus est sorti (le texte ne change que si la liste change). */
+    var sorties = [];
+    ['bcr', 'adv'].forEach(function (k) {
+      var fj = fautesDe(s, k);
+      Object.keys(fj).map(Number).sort(function (a, b) { return a - b; }).forEach(function (n) { if (fj[n] >= 5) sorties.push((k === 'bcr' ? 'BCR' : advNom) + ' n° ' + n + ' : ' + fj[n] + ' fautes, sortie'); });
+    });
+    var al = $('tdm-alerte'), txt = sorties.join('|');
+    if (al.getAttribute('data-t') !== txt) {
+      al.setAttribute('data-t', txt);
+      al.innerHTML = sorties.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+    }
+    al.hidden = !sorties.length;
+    $('tdm-journal').innerHTML = journalDe(s).slice(-5).reverse().map(function (e) { return '<li><span>' + esc(ligneJournal(e, advNom)) + '</span><time>' + esc(heureFr(e.h)) + '</time></li>'; }).join('');
+    $('tdm-journal-bloc').hidden = !journalDe(s).length;
     Array.prototype.forEach.call(document.querySelectorAll('[data-periode]'), function (b) {
       var p = b.getAttribute('data-periode');
       b.setAttribute('aria-pressed', String(p === 'P' ? s.periode >= 5 : +p === s.periode));
@@ -294,7 +391,7 @@
     info.className = 'tdm-marqueur' + (ok ? ' moi' : '');
     rep.hidden = !(m && !ok && !s.termine && (m.role === 'coach' || m.role === 'dirigeant'));
     $('tdm-simuler2').hidden = !(ok && !s.termine);
-    Array.prototype.forEach.call(etape2.querySelectorAll('#tdm-jeu button, #tdm-fin, #tdm-lien-ok, #tdm-fb2'), function (b) { b.disabled = !ok; });
+    Array.prototype.forEach.call(etape2.querySelectorAll('#tdm-jeu button, #tdm-jeu input, #tdm-fin, #tdm-lien-ok, #tdm-fb2'), function (b) { b.disabled = !ok; });
     $('tdm-annuler').disabled = !ok || !pile.length;
     var jeu = $('tdm-jeu'), finZone = $('tdm-termine');
     jeu.hidden = !!s.termine; finZone.hidden = !s.termine;

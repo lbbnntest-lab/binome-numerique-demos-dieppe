@@ -92,27 +92,40 @@
             <button type="button" data-periode="4" aria-pressed="false">QT 4</button>
             <button type="button" data-periode="P" aria-pressed="false">Prol.</button>
           </div>
-          <div class="tdm-eq">
-            <h2>BCR <span id="tdm-f-bcr">Fautes d'équipe : 0</span></h2>
+          <div class="tdm-eq tdm-eq-bcr">
+            <h2>BCR <span id="tdm-f-bcr">Fautes du quart-temps : 0</span></h2>
+            <p class="tdm-pen" id="tdm-pen-bcr" hidden>Pénalité</p>
+            <p class="tdm-rang-lib" id="tdm-rang-lib-bcr">Numéro de la joueuse, facultatif <span class="etiquette-ex">exemple</span></p>
+            <div class="tdm-rang" id="tdm-rang-bcr" role="group" aria-labelledby="tdm-rang-lib-bcr"></div>
+            <p class="tdm-sel" id="tdm-sel-bcr" role="status"></p>
             <div class="tdm-btns">
               <button type="button" class="tdm-btn" data-pts="1" data-eq="bcr" aria-label="Un point pour le BCR">+1</button>
               <button type="button" class="tdm-btn" data-pts="2" data-eq="bcr" aria-label="Deux points pour le BCR">+2</button>
               <button type="button" class="tdm-btn" data-pts="3" data-eq="bcr" aria-label="Trois points pour le BCR">+3</button>
             </div>
-            <button type="button" class="tdm-faute" data-faute="bcr">Faute d'équipe BCR</button>
+            <button type="button" class="tdm-faute" data-faute="bcr">Faute BCR</button>
           </div>
-          <div class="tdm-eq">
-            <h2><span id="tdm-h-adv" style="font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.35rem;color:var(--ink);font-weight:700">Adversaire</span> <span id="tdm-f-adv">Fautes d'équipe : 0</span></h2>
+          <div class="tdm-eq tdm-eq-adv">
+            <h2><span id="tdm-h-adv" style="font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.35rem;color:var(--ink);font-weight:700">Adversaire</span> <span id="tdm-f-adv">Fautes du quart-temps : 0</span></h2>
+            <p class="tdm-pen" id="tdm-pen-adv" hidden>Pénalité</p>
+            <p class="tdm-rang-lib" id="tdm-rang-lib-adv">Numéro, facultatif <span class="etiquette-ex">exemple</span></p>
+            <div class="tdm-rang" id="tdm-rang-adv" role="group" aria-labelledby="tdm-rang-lib-adv"></div>
+            <p class="tdm-sel" id="tdm-sel-adv" role="status"></p>
             <div class="tdm-btns">
               <button type="button" class="tdm-btn adv" data-pts="1" data-eq="adv" aria-label="Un point pour l'adversaire">+1</button>
               <button type="button" class="tdm-btn adv" data-pts="2" data-eq="adv" aria-label="Deux points pour l'adversaire">+2</button>
               <button type="button" class="tdm-btn adv" data-pts="3" data-eq="adv" aria-label="Trois points pour l'adversaire">+3</button>
             </div>
-            <button type="button" class="tdm-faute" data-faute="adv">Faute d'équipe adverse</button>
+            <button type="button" class="tdm-faute" data-faute="adv">Faute adverse</button>
           </div>
         </div>
 
+        <div class="tdm-alerte" id="tdm-alerte" role="alert" hidden></div>
         <p class="tdm-derniere" id="tdm-derniere" role="status"></p>
+        <div class="tdm-journal-bloc" id="tdm-journal-bloc" hidden>
+          <h3>Dernières actions</h3>
+          <ol class="tdm-journal" id="tdm-journal"></ol>
+        </div>
         <div class="tdm-bas">
           <button type="button" class="tdm-annuler" id="tdm-annuler" disabled>Annuler la dernière action</button>
           <button type="button" class="tdm-fin" id="tdm-fin">Fin du match</button>
@@ -125,6 +138,7 @@
           <button type="button" class="bouton ligne" id="tdm-nouveau">Préparer un nouveau match</button>
         </div>
 
+        <p class="tdm-honnete">Ce score sert à suivre le match. Le score officiel reste celui de la feuille de marque de la fédération. Seuls les numéros sont saisis et affichés, jamais les noms.</p>
         <div class="tdm-lien" style="margin-top:18px">
           <label for="tdm-fb2">Lien du direct Facebook</label>
           <input type="url" id="tdm-fb2" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/...">

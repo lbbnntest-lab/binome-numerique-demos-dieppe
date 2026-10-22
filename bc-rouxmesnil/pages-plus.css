@@ -233,3 +233,46 @@ body[data-page=direct] .p-tete .s-titre,body[data-page=table-de-marque] .p-tete 
 /* Logos des partenaires (repris du calendrier 2026, téléphones et adresses retirés) */
 .mur .logo-part{height:92px;display:flex;align-items:center;margin-bottom:10px}
 .mur .logo-part img{max-height:92px;max-width:100%;width:auto;height:auto;object-fit:contain;border-radius:4px}
+
+/* ===== Score avec numéros et fautes (22/10) : règles préfixées tdm- / direct-journal / penalite ===== */
+.tdm-rang-lib{margin:0 0 8px;font-weight:600;font-size:.95rem}
+.tdm-rang{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.tdm-eq-bcr .lien-bouton,.tdm-etape .lien-bouton{min-height:44px;display:inline-flex;align-items:center}
+.tdm-num{position:relative;min-height:48px;padding:0 2px;font-family:var(--titre);font-weight:700;font-size:1.35rem;border:2px solid var(--club);background:#fff;color:var(--club);border-radius:4px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.tdm-num[aria-pressed=true]{background:var(--club);color:#fff}
+.tdm-num:active{background:var(--club);color:#fff}
+.tdm-num.sorti{border-color:var(--manque);color:var(--manque)}
+.tdm-num.sorti[aria-pressed=true]{background:var(--manque);color:#fff}
+.tdm-nf{position:absolute;top:1px;right:3px;font-family:var(--texte);font-size:.72rem;font-weight:700;line-height:1;color:var(--ink-soft)}
+.tdm-num[aria-pressed=true] .tdm-nf{color:#fff}
+.tdm-num.sorti .tdm-nf{color:var(--manque)}
+.tdm-num.sorti[aria-pressed=true] .tdm-nf{color:#fff}
+.tdm-large{grid-column:span 3;font-family:var(--texte);font-size:1rem}
+.tdm-autre{grid-column:1/-1}
+.tdm-autre[hidden]{display:none}
+.tdm-autre label{margin:6px 0 4px}
+.tdm-autre input{width:6.5em;font-size:1.25rem;min-height:48px;text-align:center;padding:6px;border:1px solid #b9b3a6;background:#fff;border-radius:2px}
+.tdm-sel{margin:8px 0 10px;font-size:.92rem;color:var(--ink-soft);min-height:1.4em}
+.tdm-pen{display:inline-block;margin:0 0 10px;padding:3px 10px;background:var(--manque);color:#fff;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.tdm-pen[hidden]{display:none}
+.tdm-alerte{position:sticky;bottom:8px;z-index:6;background:var(--manque);color:#fff;border:2px solid #fff;padding:10px 14px;margin:0 0 14px;font-weight:700;font-size:1.05rem}
+.tdm-alerte[hidden]{display:none}
+.tdm-alerte p{margin:2px 0}
+.tdm-journal-bloc{background:#fff;border:1px solid var(--line);padding:12px 14px;margin:0 0 14px}
+.tdm-journal-bloc[hidden]{display:none}
+.tdm-journal-bloc h3{font-size:1.1rem;margin:0 0 6px}
+.tdm-journal{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
+.tdm-journal li,.direct-journal li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--line)}
+.tdm-journal li:first-child{border-top:0}
+.tdm-journal time,.direct-journal time{color:var(--ink-soft);white-space:nowrap;font-size:.92rem}
+.tdm-honnete{font-size:.92rem;color:var(--ink-soft);margin:0 0 14px}
+.direct-journal{max-width:960px;margin:22px 0 0}
+.direct-journal[hidden]{display:none}
+.direct-journal h2{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.4rem;margin:0 0 6px;color:#fff}
+.direct-journal ol{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
+.direct-journal li{border-top:1px solid #2a302d;color:#e8ebe9}
+.direct-journal li:first-child{border-top:0}
+.direct-journal time{color:#9aa39e}
+.penalite{display:inline-block;margin-left:8px;padding:1px 8px;background:#e5383b;color:#fff;font-style:italic;letter-spacing:.06em}
+.direct-honnete{margin-top:10px}
+@media (max-width:600px){.tdm-large{font-size:.95rem}}
