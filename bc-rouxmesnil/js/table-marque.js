@@ -19,7 +19,7 @@
     { id: 'tm-2026-11-21-chrono', date: '2026-11-21', match: 'U18 féminines (RFU18) contre USO Mondeville Basket 2', poste: 'Chronométreur', pris: 'Thomas R.' }
   ];
   /* Personnes qui ont déjà tenu la table (noms d'exemple). */
-  var BENEVOLES = ['Sophie D.', 'Thomas R.', 'Julie M.', 'Nadia B.', 'Famille B.'];
+  var BENEVOLES = ['Sophie D.', 'Thomas R.', 'Julie M.', 'Nadia B.', 'Léa B.'];
   var SUGGESTIONS = ['Aide-marqueur', 'Opérateur des 24 secondes', 'Responsable de salle'];
 
   function postes() {

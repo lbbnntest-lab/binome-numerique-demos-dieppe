@@ -64,7 +64,9 @@
     { id: 'tm-2026-11-21-marqueur', date: '2026-11-21', match: 'U18 féminines (RFU18) contre USO Mondeville Basket 2', poste: 'Marqueur', pris: null },
     { id: 'tm-2026-11-21-chrono', date: '2026-11-21', match: 'U18 féminines (RFU18) contre USO Mondeville Basket 2', poste: 'Chronométreur', pris: 'Thomas R.' }
   ];
-  var NOM_FAMILLE = 'Famille B.';
+  /* La table de marque est tenue par des licenciés du club, jamais par les parents (fondateur, 22/10) : dans la famille B.,
+     c'est Léa (U15 F) qui prend un poste. Âge et formation demandés : à voir avec le club. */
+  var NOM_FAMILLE = 'Léa B.';
 
   /* ---------- Choix de l'affichage et textes qui en dépendent ---------- */
   function appliquer() {
@@ -315,8 +317,8 @@
         var autre = pris.filter(function (p) { return p.creneauId === c.id && p.nom !== NOM_FAMILLE; })[0];
         /* Poste tenu selon le planning du président (js/table-marque.js), sinon nom d'exemple. */
         var t = T ? T.tenu(c) : (c.pris ? { nom: c.pris } : null), tient = t && !moi && !autre ? t.nom : null;
-        var droite = tient ? (tient === NOM_FAMILLE ? '<span class="etat ok">Vous (' + NOM_FAMILLE + ')<small>placé par le président</small></span>' : '<span>' + esc(tient) + '</span>')
-          : moi ? '<span class="bv-moi"><span class="etat ok">Vous (' + NOM_FAMILLE + ')</span> <button type="button" class="retirer-ligne" data-bv-liberer="' + c.id + '">Libérer<span class="visuellement-cache"> le créneau ' + esc(c.poste) + ' du ' + esc(dateFr(d).toLowerCase()) + '</span></button></span>'
+        var droite = tient ? (tient === NOM_FAMILLE ? '<span class="etat ok">' + NOM_FAMILLE + ' (votre famille)<small>placée par le président</small></span>' : '<span>' + esc(tient) + '</span>')
+          : moi ? '<span class="bv-moi"><span class="etat ok">' + NOM_FAMILLE + ' (votre famille)</span> <button type="button" class="retirer-ligne" data-bv-liberer="' + c.id + '">Libérer<span class="visuellement-cache"> le créneau ' + esc(c.poste) + ' du ' + esc(dateFr(d).toLowerCase()) + '</span></button></span>'
           : autre ? '<span>' + esc(autre.nom) + '</span>'
           : '<span class="bv-libre"><span class="libre">À pourvoir</span> <button type="button" class="bouton petit" data-bv-prendre="' + c.id + '">Prendre ce créneau<span class="visuellement-cache"> : ' + esc(c.poste) + ', ' + esc(dateFr(d).toLowerCase()) + '</span></button></span>';
         return '<li data-creneau="' + c.id + '"><span>' + esc(c.poste) + '</span>' + droite + '</li>';
@@ -333,12 +335,12 @@
         if (window.BCRTable) window.BCRTable.oublierAffectation(id);
         lib = (window.BCRTable ? window.BCRTable.postes() : CRENEAUX).filter(function (c) { return c.id === id; })[0];
         rendreBenevoles();
-        etat.hidden = false; etat.textContent = 'Simulation : créneau pris (' + lib.poste.toLowerCase() + ', ' + dateFr(lib.date).toLowerCase() + '). Les dirigeants le verraient dans leur planning. Rien n\'est envoyé dans cette maquette.';
+        etat.hidden = false; etat.textContent = 'Simulation : Léa prend le créneau (' + lib.poste.toLowerCase() + ', ' + dateFr(lib.date).toLowerCase() + '). Les dirigeants le verraient dans leur planning. Rien n\'est envoyé dans cette maquette.';
         var bl = zone.querySelector('[data-bv-liberer="' + id + '"]'); if (bl) bl.focus();
       } else if ((id = b.getAttribute('data-bv-liberer'))) {
         ecrire('bcr-benevoles', lire('bcr-benevoles', []).filter(function (p) { return !(p.creneauId === id && p.nom === NOM_FAMILLE); }));
         rendreBenevoles();
-        etat.hidden = false; etat.textContent = 'Simulation : créneau libéré, il redevient « à pourvoir » pour les autres familles.';
+        etat.hidden = false; etat.textContent = 'Simulation : créneau libéré, il redevient « à pourvoir » pour les autres licenciés.';
         var bp = zone.querySelector('[data-bv-prendre="' + id + '"]'); if (bp) bp.focus();
       }
     });
