@@ -59,19 +59,52 @@
 
   /* ---------- Textes : uniquement des faits (équipe, niveau, adversaire, lieu, date, score, partenaire) ---------- */
   function ecartJeunes(m, r) { return m.jeune && Math.abs(r.bcr - r.ad) >= ECART_JEUNES; }
+  /* Contexte de chaque match, relevé FFBB du 30/10 (bilan AVANT le match, match suivant). Le texte en tient compte :
+     classement, série, écart, match suivant. Rien n'y est inventé ; aucun nom de joueur. */
+  var CONTEXTE = {
+    'dfu18-2026-10-31': { nous: 'nos U18 filles (équipe 2)', nousMaj: 'Nos U18 filles (équipe 2)', fem: true, v: 3, d: 0, choc: 'invaincues',
+      salle: 'à la salle Alexandre-Cheruel', suite: 'Prochain match samedi 7 novembre.' },
+    'rm3-2026-10-18': { nous: 'nos seniors garçons (régionale 3)', nousMaj: 'Nos seniors garçons (régionale 3)', fem: false, v: 3, d: 1, rangApres: '4e',
+      salle: 'à Pacy-Ménilles', suite: 'Prochain rendez-vous dimanche 8 novembre à 15 h, à la salle, contre Rouen Métropole.' }
+  };
+  /* « Merci à … » avec le bon article devant le nom du partenaire. */
+  function merci(nom) {
+    if (/^Commune de /.test(nom)) return 'Merci à la commune de ' + nom.slice(11) + ', partenaire du club.';
+    if (/^Les /.test(nom)) return 'Merci aux ' + nom.slice(4) + ', partenaire du club.';
+    if (/^Le /.test(nom)) return 'Merci au ' + nom.slice(3) + ', partenaire du club.';
+    return 'Merci à ' + nom + ', partenaire du club.';
+  }
+  function bilanApres(c, gagne) {
+    var v = c.v + (gagne ? 1 : 0), n = c.v + c.d + 1, L = ['', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'];
+    var nl = L[n] || String(n);
+    return v === n ? nl + ' matchs, ' + nl + ' victoires' : (v === 1 ? 'première' : ['', '', 'deuxième', 'troisième', 'quatrième', 'cinquième', 'sixième', 'septième', 'huitième', 'neuvième'][v] || v + 'e') + ' victoire en ' + nl + ' matchs';
+  }
   function textePhrases(m, r) {
-    var p = r.part >= 0 ? PART[r.part] : null, iss = issue(r.bcr, r.ad).toLowerCase();
-    var score = ecartJeunes(m, r) ? '' : ' ' + r.bcr + '-' + r.ad;
-    var f1 = m.equipe + ' (' + m.code + '), ' + m.court + ' ' + m.lieu + ' : ' + iss + score + ' contre ' + m.adv + '.';
-    var fin = r.bcr > r.ad ? 'Bravo à l\'équipe !' : r.bcr === r.ad ? 'Bravo à l\'équipe pour ce match.' : 'On reste derrière l\'équipe pour la suite.';
-    var f2 = fin + (p ? ' Merci à notre partenaire : ' + p[1] + '.' : '') + (ecartJeunes(m, r) ? ' Le score est sur le site du club.' : '');
-    return f1 + '\n' + f2;
+    var p = r.part >= 0 ? PART[r.part] : null, c = CONTEXTE[m.id] || { nous: 'l\'équipe', nousMaj: m.equipe, fem: false, v: 0, d: 0, salle: m.lieu, suite: '' };
+    var e = r.bcr - r.ad, adv = m.adv.replace(/^(US|AS|BC|CEP|ES) /, ''), s = r.bcr + ' à ' + r.ad, inv = r.bcr + '-' + r.ad;
+    var t;
+    if (e > 0) {
+      var serie = bilanApres(c, true);
+      if (ecartJeunes(m, r)) t = 'Belle victoire pour ' + c.nous + ' face à ' + adv + ' ' + c.salle + ' : ' + serie + '.';
+      else if (c.choc && c.v > 0 && c.d === 0) t = 'Le choc des ' + c.choc + ' est pour nous' + (e <= 5 ? ', au bout du suspense' : '') + ' ! ' + c.nousMaj + ' battent ' + adv + ' ' + s + ' ' + c.salle + ' et restent sans défaite : ' + serie + '.';
+      else if (r.bcr >= 100) t = 'Plus de 100 points ' + c.salle + ' ! ' + c.nousMaj + ' s\'imposent ' + s + ' : ' + serie + (c.rangApres ? ', l\'équipe est ' + c.rangApres + ' de sa poule' : '') + '.';
+      else if (e <= 5) t = 'Victoire au bout du suspense pour ' + c.nous + ', ' + s + ' face à ' + adv + ' ' + c.salle + ' : ' + serie + '.';
+      else if (e >= 20 && !m.jeune) t = 'Large victoire pour ' + c.nous + ' contre ' + adv + ', ' + s + ' ' + c.salle + ' : ' + serie + '.';
+      else t = c.nousMaj + ' s\'imposent ' + s + ' face à ' + adv + ' ' + c.salle + ' : ' + serie + '.';
+    } else if (e < 0) {
+      if (ecartJeunes(m, r)) t = 'Match difficile pour ' + c.nous + ' face à ' + adv + '. On garde la tête haute et on se remet au travail.';
+      else if (c.d === 0 && c.v > 0) t = 'Première défaite de la saison pour ' + c.nous + ', face à ' + adv + ' (' + inv + ')' + (c.choc ? ' dans le match au sommet de la poule' : '') + '. ' + (c.fem ? 'Elles restent' : 'Ils restent') + ' dans le haut du classement.';
+      else if (e >= -5) t = 'Défaite de peu pour ' + c.nous + ' face à ' + adv + ' (' + inv + '). Rien n\'est perdu pour la suite.';
+      else t = 'Défaite pour ' + c.nous + ' face à ' + adv + ' (' + inv + '). On se remet au travail pour le prochain match.';
+    } else t = 'Match nul entre ' + c.nous + ' et ' + adv + ', ' + r.bcr + ' partout.';
+    return t + (c.suite ? '\n' + c.suite : '') + (p ? '\n' + merci(p[1]) : '');
   }
   function texteWeekend(r) {
-    var v = WEEKEND.lignes.filter(function (l) { return l.bcr > l.ad; }).length, d = WEEKEND.lignes.length - v, p = r.part >= 0 ? PART[r.part] : null;
-    return 'Résultats connus du week-end des ' + WEEKEND.dates + ' pour le Basket Club de Rouxmesnil : sur ces ' + WEEKEND.lignes.length + ' résultats, ' + v + (v > 1 ? ' victoires' : ' victoire') + ' et ' + d + (d > 1 ? ' défaites' : ' défaite') + '.\n'
-      + WEEKEND.lignes.map(function (l) { return l.equipe + ' (' + l.code + ') : ' + issue(l.bcr, l.ad).toLowerCase() + ' ' + l.bcr + '-' + l.ad + ' contre ' + l.adv + '.'; }).join('\n')
-      + (p ? '\nMerci à notre partenaire : ' + p[1] + '.' : '');
+    var v = WEEKEND.lignes.filter(function (l) { return l.bcr > l.ad; }).length, n = WEEKEND.lignes.length, p = r.part >= 0 ? PART[r.part] : null;
+    return 'Le week-end des ' + WEEKEND.dates + ' en résultats : ' + v + ' victoire' + (v > 1 ? 's' : '') + ' en ' + n + ' matchs pour le club.\n'
+      + WEEKEND.lignes.map(function (l) { var e = l.bcr - l.ad; return '- ' + l.equipe.replace('féminines', 'filles').replace('masculins', 'garçons') + ' : ' + (e > 0 ? (e >= 20 && !l.jeune ? 'large victoire ' : 'victoire ') + l.bcr + '-' + l.ad + ' contre ' : 'défaite ' + l.bcr + '-' + l.ad + ' contre ') + l.adv; }).join('\n')
+      + '\nBravo à toutes les équipes, et rendez-vous le week-end prochain.'
+      + (p ? '\n' + merci(p[1]) : '');
   }
 
   /* ---------- Visuels (cartes HTML aux couleurs du club ; styles de espaces.css et exemples.css) ---------- */
