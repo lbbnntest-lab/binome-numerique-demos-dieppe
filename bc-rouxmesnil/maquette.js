@@ -27,6 +27,7 @@
     ['dirigeants.html','dirigeants','Espace dirigeants'],
     ['medias.html','medias','Photos et vidéos du club'],
     ['evenements.html','evenements','Événements'],
+    ['vie-du-club.html','vie-du-club','Vie du club'],
     ['rejoindre.html','rejoindre','Rejoindre le club'],
     ['direct.html','direct','Score en direct'],
     ['partenaires.html','partenaires','Nos partenaires']
@@ -58,7 +59,7 @@
 
   var pied = '<footer class="pied"><div class="wrap">'
     + '<div><h3>Basket Club de Rouxmesnil</h3><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles ; ancien gymnase Lefebvre quand deux matchs ont lieu en même temps.</p></div>'
-    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="partenaires.html">Nos partenaires</a><br><a href="rejoindre.html">Rejoindre le club</a></p></div>'
+    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="vie-du-club.html">Vie du club</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="partenaires.html">Nos partenaires</a><br><a href="rejoindre.html">Rejoindre le club</a></p></div>'
     + '<div><h3>Contact</h3><p>Adresse email du club (à compléter)<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span>Mentions légales et confidentialité : à rédiger avec le club</span>'
     + '<span class="signe-lbn">Maquette réalisée par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a></span></div>'

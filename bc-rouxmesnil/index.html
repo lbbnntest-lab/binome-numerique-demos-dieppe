@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="exemples.css">
 </head>
 <body data-page="accueil">
 
@@ -211,6 +212,9 @@
           <a class="s-bouton" href="rejoindre.html">Proposer mon aide</a>
         </article>
       </div>
+      <div class="dernier-article" id="dernier-article" aria-live="polite"></div>
+      <p style="margin-top:14px"><a href="vie-du-club.html" style="color:var(--ballon-ink);font-weight:700">Tous les articles de la vie du club</a></p>
+      <div class="note"><b>Pour le club</b>Le dernier article publié par un dirigeant, depuis son téléphone, s'affiche ici dès sa publication, avec un lien vers la page Vie du club.</div>
       <div class="note"><b>Pour le club</b>Aujourd'hui, un stage se réserve par téléphone. Sur le futur site, il se réserverait et se paierait en ligne (deuxième étape de la proposition), avec la liste des inscrits par jour et par catégorie.</div>
     </div>
   </section>
@@ -295,6 +299,7 @@
 <script src="js/mascotte.js"></script>
 <script src="js/mascotte-actions.js"></script>
 <script src="js/jour-de-match.js"></script>
+<script src="js/articles.js"></script>
 <script>
 window.BCRsceneFixe = function(){
   var J = window.Joueuse; if (!J) return;

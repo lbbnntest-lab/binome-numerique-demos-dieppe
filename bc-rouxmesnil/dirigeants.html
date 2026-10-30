@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
 <link rel="stylesheet" href="espaces.css">
+<link rel="stylesheet" href="exemples.css">
 </head>
 <body data-page="dirigeants">
 
@@ -44,7 +45,9 @@
         <li><a href="#comptabilite">Comptabilité</a></li>
         <li><a href="#table-marque">Table de marque et bénévoles</a></li>
         <li><a href="#evenements">Événements</a></li>
+        <li><a href="#score-final">Score automatique</a></li>
         <li><a href="#publications">Publications</a></li>
+        <li><a href="#publier-article">Publier un article</a></li>
         <li><a href="#inscriptions-stage">Stage</a></li>
       </ul></nav>
       <div class="note"><b>Pour le club</b>Chaque dirigeant ne verrait que ce qui concerne son rôle : moins d'erreurs, et des données personnelles mieux protégées. Les rôles se régleraient avec le bureau. Ici, le choix du rôle sert seulement à la démonstration.</div>
@@ -446,6 +449,34 @@
     </div>
   </section>
 
+  <section class="bloc" id="score-final" data-roles="communication" aria-labelledby="titre-score-final">
+    <div class="wrap">
+      <p class="surtitre">Communication · démonstration</p>
+      <h2 id="titre-score-final" data-mv="mots">Le score arrive tout seul</h2>
+      <div class="sf-honnete">
+        <p>Personne ne tape le score : le résultat est celui de la feuille de marque, tel que la fédération le publie. Nous le reprenons si la fédération en donne l'accord, que le club lui demande, une fois par jour au plus.</p>
+        <p>Sans cet accord, un bénévole tape le score en dix secondes (solution de secours, plus bas) et tout le reste se prépare de la même façon. Ici, un bouton de démonstration simule l'arrivée du résultat.</p>
+      </div>
+      <div id="sf-liste"></div>
+      <p class="visuellement-cache" id="sf-annonce" role="status" aria-live="polite"></p>
+      <div class="note"><b>Pour le club</b>Le résultat officiel arriverait sans que personne ne le tape, si la fédération en donne l'accord. Le site, le visuel et le texte seraient prêts ; un dirigeant n'aurait plus qu'à publier. Ici, tout est simulé.</div>
+      <div class="note"><b>Les partenaires</b>Le logo d'un seul partenaire figure sur chaque visuel, chacun à son tour, et chaque apparition est comptée : de quoi nourrir le bilan de saison de l'espace partenaire.</div>
+      <div class="note"><b>Les jeunes</b>Les visuels portent le nom de l'équipe et le score, jamais le nom ni la photo d'un enfant. Chez les jeunes, un grand écart n'est pas mis en avant.</div>
+
+      <details class="sf-secours" id="sf-secours">
+        <summary>Solution de secours : un bénévole tape le score</summary>
+        <p class="aide">À utiliser si la fédération ne donne pas son accord à la reprise automatique. Le visuel et les phrases se préparent ensuite de la même façon. Pour une autre équipe : rôle Coach, rubrique « Mon équipe ».</p>
+        <form class="score-form" id="sf-secours-form" novalidate><fieldset><legend>Fin de match : saisir le score final<span class="visuellement-cache"> U18 féminines (DFU18) contre US Bacqueville</span></legend>
+          <p class="aide" style="margin:0 0 6px">U18 féminines (DFU18), équipe 2, contre US Bacqueville, samedi 31 octobre.</p>
+          <div class="score-champs"><div><label for="sf-sb">BCR</label><input id="sf-sb" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="b" aria-describedby="sf-se"></div>
+          <span class="score-tiret" aria-hidden="true">-</span>
+          <div><label for="sf-sa">Adversaire</label><input id="sf-sa" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="a" aria-describedby="sf-se"></div>
+          <button type="submit" class="bouton petit">Enregistrer le score</button></div>
+          <p class="erreur" id="sf-se" role="alert"></p></fieldset></form>
+      </details>
+    </div>
+  </section>
+
   <section class="bloc" id="publications" data-domaine="publications" data-roles="communication" aria-labelledby="titre-publications">
     <div class="wrap">
       <p class="surtitre">Communication · publications d'exemple</p>
@@ -468,7 +499,7 @@
 
       <h3>Fin de match</h3>
       <div id="pub-fin-match"></div>
-      <div class="note"><b>À chaque fin de match</b>Dès que le score est saisi par le coach, ou repris de la FFBB si la ligue est d'accord, la publication du match serait prête. La personne des réseaux la relit et la valide.</div>
+      <div class="note"><b>À chaque fin de match</b>Le score est repris des résultats de la fédération si elle est d'accord (voir « Le score arrive tout seul »), sinon saisi par le coach en dix secondes. La publication du match est alors prête ; la personne des réseaux la relit et la valide.</div>
 
       <h3 style="margin-top:32px">Publications du week-end</h3>
       <div class="filtres" role="group" aria-label="Choisir le week-end" id="we-choix"></div>
@@ -477,6 +508,42 @@
       <p class="visuellement-cache" id="we-annonce" role="status" aria-live="polite"></p>
       <div id="we-pubs"></div>
       <div class="note"><b>Pour la personne des réseaux</b>Quand tous les scores du week-end sont là, la personne des réseaux est prévenue et trouve les textes préparés à relire. Rien ne se publie sans sa validation. Une publication directe sur la page du club pourrait suivre.</div>
+    </div>
+  </section>
+
+  <section class="bloc" id="publier-article" data-roles="communication" aria-labelledby="titre-publier-article">
+    <div class="wrap">
+      <p class="surtitre">Communication · depuis le téléphone</p>
+      <h2 id="titre-publier-article" data-mv="mots">Publier un article sur la vie du club</h2>
+      <p class="chapo-bloc">Une photo (facultative) et trois lignes. Un texte propre est proposé, vous le corrigez si vous voulez, puis vous publiez : l'article paraît tout de suite sur le site.</p>
+      <div class="regle-pub"><p><strong>Qui publie :</strong> seules les personnes autorisées par le président. Une photo d'enfant n'est publiée qu'avec l'accord de ses parents, et le nom d'un enfant ne s'écrit pas : n'en mettez aucun dans vos lignes.</p></div>
+      <form class="fiche pa-form" id="pa-form" novalidate aria-labelledby="pa-titre-form">
+        <h3 id="pa-titre-form">Mon article</h3>
+        <label for="pa-photo">Photo (facultatif)</label>
+        <input type="file" id="pa-photo" accept="image/*" aria-describedby="pa-photo-aide">
+        <p class="aide" id="pa-photo-aide">Dans cette démonstration, la photo reste sur votre appareil.</p>
+        <div class="pa-apercu" id="pa-apercu" hidden><img alt="Aperçu de la photo choisie" width="96" height="96"><button type="button" class="bouton ligne petit" id="pa-retirer-photo">Retirer la photo</button></div>
+        <div id="pa-accord-bloc" hidden><label class="case"><input type="checkbox" id="pa-accord"> Les personnes reconnaissables sur la photo, ou leurs parents pour un enfant, ont donné leur accord.</label></div>
+        <label for="pa-l1">Ligne 1 : ce qui s'est passé</label>
+        <input type="text" id="pa-l1" maxlength="160" autocomplete="off" aria-describedby="pa-aide-l">
+        <label for="pa-l2">Ligne 2 : quand et où</label>
+        <input type="text" id="pa-l2" maxlength="160" autocomplete="off" aria-describedby="pa-aide-l">
+        <label for="pa-l3">Ligne 3 : un merci ou une invitation (facultatif)</label>
+        <input type="text" id="pa-l3" maxlength="160" autocomplete="off" aria-describedby="pa-aide-l">
+        <p class="aide" id="pa-aide-l">Des phrases courtes, 160 caractères au plus par ligne.</p>
+        <p class="erreur" id="pa-erreur" role="alert"></p>
+        <div class="actions"><button type="submit" class="bouton">Préparer le texte</button></div>
+      </form>
+      <div class="pa-propose" id="pa-propose" hidden>
+        <h3>Texte proposé <span class="etiquette-ex">préparé à partir de vos lignes</span></h3>
+        <label for="pa-titre">Titre</label>
+        <input type="text" id="pa-titre" maxlength="100" autocomplete="off">
+        <label for="pa-corps">Texte (modifiable)</label>
+        <textarea id="pa-corps" maxlength="2000" rows="8"></textarea>
+        <div class="actions"><button type="button" class="bouton" id="pa-publier" disabled>Publier sur le site</button><button type="button" class="bouton ligne" id="pa-modifier">Modifier mes lignes</button></div>
+      </div>
+      <p class="resultat" id="pa-etat" role="status" aria-live="polite" hidden></p>
+      <div class="note"><b>Pour le club</b>Un dirigeant publie un article depuis son téléphone, directement sur le site, sans passer par Facebook. Les personnes autorisées par le président publient seules ; une proposition d'un parent passe d'abord par elles.</div>
     </div>
   </section>
 
@@ -541,6 +608,8 @@
 <script src="js/domaines.js"></script>
 <script src="js/selection.js"></script>
 <script src="js/publications.js"></script>
+<script src="js/score-auto.js"></script>
+<script src="js/articles.js"></script>
 <script src="js/equipe.js"></script>
 <script>
 (function(){

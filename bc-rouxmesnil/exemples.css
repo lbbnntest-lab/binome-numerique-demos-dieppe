@@ -1,0 +1,146 @@
+/* Exemples pour le bureau du club (30/10/2026) : score qui arrive tout seul, publication d'un article, page « Vie du club »,
+   partenaire du mois, page de présentation au bureau. Chargé après style.css, signature.css et (selon la page) espaces.css ou pages-plus.css.
+   Mêmes variables et mêmes composants que le reste de la maquette ; aucun effet décoratif (règle 7ter). */
+
+.etiquette-ex{white-space:nowrap}
+
+/* ---------- Espace dirigeants : le score arrive tout seul ---------- */
+#sf-liste{display:grid;gap:22px;margin-top:18px}
+.sf-honnete{max-width:46em;border-left:4px solid var(--club);background:var(--surface);padding:12px 16px;margin:0 0 6px}
+.sf-honnete p{margin:0}
+.sf-honnete p + p{margin-top:6px}
+.sf-match{background:var(--surface);border:1px solid var(--line);padding:20px;min-width:0}
+.sf-tete{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 16px;margin-bottom:12px}
+.sf-tete > div{min-width:0;flex:1 1 320px}
+.sf-tete h3{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.45rem;line-height:1.15;margin:0;overflow-wrap:anywhere}
+.sf-tete .etat.pastille{align-self:flex-start}
+.sf-reglage{border:1px solid var(--line);background:#f7f8f5;padding:10px 14px;margin:0 0 12px}
+.sf-reglage summary{font-weight:700;cursor:pointer;min-height:32px;display:flex;align-items:center}
+.sf-reglage summary:focus-visible{outline:3px solid var(--ballon);outline-offset:2px}
+.sf-attente .actions{margin-top:12px;align-items:center}
+.sf-etapes{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:6px}
+.sf-etapes li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.sf-etapes .etat.pastille{flex:none;min-width:5.6em;text-align:center}
+.sf-site{border:1px solid var(--line);background:#f7f8f5;padding:12px 14px;margin:0 0 14px}
+.sf-site-t{margin:0 0 6px;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--ballon-ink)}
+.sf-site dl{margin:0;display:grid;gap:8px}
+.sf-site dt{font-weight:700;font-size:.9rem;color:var(--ink-soft)}
+.sf-site dd{margin:0;overflow-wrap:anywhere}
+.sf-site strong{white-space:nowrap}
+.sf-part{margin-top:10px}
+.sf-resultat .pub{margin-bottom:0}
+.sf-resultat .pub-boutons .bouton:not(.petit){font-size:1.05rem}
+.sf-secours{margin-top:22px;border:1px solid var(--line);background:var(--surface);padding:6px 16px}
+.sf-secours summary{font-weight:700;cursor:pointer;padding:10px 0;min-height:44px;display:flex;align-items:center}
+.sf-secours summary:focus-visible{outline:3px solid var(--ballon);outline-offset:2px}
+.sf-secours[open] summary{border-bottom:1px solid var(--line);margin-bottom:8px}
+.sf-secours .score-form{margin-top:4px}
+
+/* Logo d'UN partenaire à tour de rôle sur le visuel : cartouche blanc (logos sur fond clair) */
+.pv-part{margin:auto 0 0;display:flex;align-items:center;gap:3cqw;padding-top:3cqw;border-top:.5cqw solid rgba(255,255,255,.22)}
+.pub-visuel.general .pv-part{margin-top:5cqw}
+.pv-part > span:first-child{flex:1 1 auto;min-width:0;font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;font-size:3.6cqw;line-height:1.15;color:#c9cdca}
+.pv-part-logo{flex:none;width:36cqw;height:17cqw;background:#fff;padding:1.6cqw 2.4cqw;display:flex;align-items:center;justify-content:center}
+.pv-part-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.pv-score > div{min-width:0}
+.pv-score b{min-width:0}
+
+/* ---------- Publier un article ---------- */
+.regle-pub{max-width:46em;border-left:4px solid var(--club);background:var(--surface);padding:12px 16px;margin:0 0 18px}
+.regle-pub p{margin:0}
+.pa-form{max-width:640px}
+.pa-form input[type=file]{display:block;width:100%;font:inherit;padding:10px 0}
+.pa-form input[type=text]{min-height:48px}
+.pa-apercu{display:flex;align-items:center;gap:14px;margin:8px 0 0}
+.pa-apercu[hidden]{display:none}
+.pa-apercu img{width:96px;height:96px;object-fit:cover;border:1px solid var(--line);background:#e1e4de}
+.pa-propose{margin-top:22px;border-top:2px solid var(--club);padding-top:4px;max-width:640px}
+.pa-propose[hidden]{display:none}
+.pa-propose textarea{min-height:200px}
+#pa-etat{margin-top:16px;max-width:640px}
+#pa-etat[hidden]{display:none}
+#pa-etat:focus-visible{outline:3px solid var(--ballon);outline-offset:2px}
+@media (pointer:coarse){.pa-form input[type=text],.pa-propose input[type=text],.pa-propose textarea,.sf-reglage input{font-size:max(16px,1rem)}}
+
+/* ---------- Page « Vie du club » et accueil ---------- */
+.arts{display:grid;gap:28px;max-width:760px}
+.art{background:var(--surface);border:1px solid var(--line);padding:26px;min-width:0}
+.art:target{outline:3px solid var(--ballon);outline-offset:3px}
+.art-meta{margin:0 0 6px;color:var(--ink-soft);font-weight:600;font-size:.95rem}
+.art-etiq{display:inline-block;margin-left:6px;font-size:.78rem;font-weight:700;color:#a8460f;border:1px solid #a8460f;padding:1px 6px}
+.art h2,.art h3{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.08;margin:0 0 14px;overflow-wrap:anywhere;text-wrap:balance}
+.art-photo{margin:0 0 16px}
+.art-photo img{display:block;width:100%;height:auto;max-height:380px;object-fit:cover}
+.art-corps{max-width:40em}
+.art-corps p{margin:0 0 12px;overflow-wrap:anywhere;text-wrap:pretty}
+.art-corps p:last-child{margin-bottom:0}
+.dernier-article{margin-top:28px;max-width:760px;background:#fff;border:1px solid var(--line);padding:24px 26px;color:var(--ink)}
+.dernier-article .art-meta{margin:0 0 6px}
+.dernier-article h3{font-size:1.7rem;margin:0 0 8px;overflow-wrap:anywhere}
+.dernier-article p{margin:0 0 14px;max-width:38em;overflow-wrap:anywhere}
+.dernier-article .s-bouton.creux{color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+
+/* ---------- Partenaire du mois ---------- */
+.pdm{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:0;background:#fff;border:1px solid var(--line);border-top:2px solid var(--club)}
+.pdm-logo{display:flex;align-items:center;justify-content:center;padding:28px;border-right:1px solid var(--line);min-height:200px}
+.pdm-logo img{max-width:100%;max-height:150px;width:auto;height:auto;object-fit:contain}
+.pdm-texte{padding:26px;min-width:0}
+.pdm-texte h3{font-size:clamp(1.8rem,4vw,2.5rem);margin:0 0 6px;text-transform:uppercase;font-style:italic;overflow-wrap:anywhere}
+.pdm-faits{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:4px}
+.pdm-faits li{font-weight:600}
+.pdm-mot{border:1px dashed #b9b3a6;background:#f7f8f5;padding:12px 16px;max-width:40em}
+.pdm-mot strong{display:block;font-family:var(--titre);text-transform:uppercase;letter-spacing:.05em;font-size:.95rem;color:var(--ballon-ink)}
+.pdm-mot p{margin:4px 0 0;color:var(--ink-soft)}
+@media (max-width:700px){.pdm{grid-template-columns:1fr}.pdm-logo{border-right:0;border-bottom:1px solid var(--line);min-height:0;padding:20px}}
+
+/* ---------- Page de présentation au bureau ---------- */
+.b-chiffres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:2px solid var(--club);border-left:1px solid var(--line);background:#fff;margin:0 0 18px}
+.b-chiffres > div{padding:22px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.b-chiffres b{display:block;font-family:var(--titre);font-style:italic;font-weight:700;font-size:clamp(3rem,8vw,4.6rem);line-height:1;color:var(--ballon-ink)}
+.b-chiffres span{display:block;margin-top:4px;font-weight:600}
+.b-source{font-size:.9rem;color:var(--ink-soft);margin:0 0 6px}
+.b-question{max-width:44em;border-left:4px solid var(--ballon);background:#fff;padding:12px 16px;margin:14px 0 0;font-weight:600}
+.b-demos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.b-demos li{background:#fff;border:1px solid var(--line);border-top:3px solid var(--club);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.b-demos .n{font-family:var(--titre);font-style:italic;font-weight:700;font-size:2.2rem;line-height:1;color:var(--ballon)}
+.b-demos h3{margin:0;font-size:1.35rem;text-transform:uppercase;font-style:italic}
+.b-demos p{margin:0;color:var(--ink-soft)}
+.b-demos .liens{margin-top:auto;padding-top:8px;display:grid;gap:6px}
+.b-demos a{font-weight:700;color:var(--ballon-ink)}
+.b-secours{max-width:46em;margin-top:16px;border-left:4px solid var(--club);background:#fff;padding:12px 16px}
+.b-secours p{margin:0}
+.b-table-ct{overflow-x:auto;background:#fff;border:1px solid var(--line)}
+.b-temps{width:100%;border-collapse:collapse;min-width:640px}
+.b-temps th,.b-temps td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.b-temps thead th{font-family:var(--titre);text-transform:uppercase;letter-spacing:.05em;font-size:.95rem;color:var(--ink-soft);background:#f7f8f5}
+.b-temps tbody th{font-weight:600}
+.b-temps td small,.b-temps th small{display:block;color:var(--ink-soft);font-weight:400}
+.b-temps input[type=number]{width:96px;max-width:100%;min-height:44px;font:inherit;padding:8px 10px;border:1px solid #b9b3a6;background:#fff;border-radius:2px}
+.b-temps input[type=number]:focus-visible{outline:3px solid var(--ballon);outline-offset:2px}
+@media (pointer:coarse){.b-temps input[type=number]{font-size:max(16px,1rem)}}
+.b-temps tfoot th,.b-temps tfoot td{font-weight:700;background:#f7f8f5}
+.b-temps .cadre-tx{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.b-estim{display:inline-block;font-size:.78rem;font-weight:700;color:#a8460f;border:1px solid #a8460f;padding:1px 6px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.b-total{margin:16px 0 0;max-width:46em;font-weight:600}
+.b-donnees{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.b-donnees > div{background:#fff;border:1px solid var(--line);padding:20px;min-width:0}
+.b-donnees h3{margin:0 0 6px;font-size:1.3rem;text-transform:uppercase;font-style:italic}
+.b-donnees p{margin:0;overflow-wrap:anywhere}
+.b-donnees p + p{margin-top:8px}
+.b-suite{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.b-suite > div{background:#fff;border:1px solid var(--line);padding:20px}
+.b-suite h3{margin:0 0 8px;font-size:1.3rem;text-transform:uppercase;font-style:italic}
+.b-suite ul{margin:0;padding-left:1.1em}
+.b-suite li{margin:0 0 6px}
+.b-maquette{max-width:46em;background:#fff4d6;color:#3b3220;border-left:4px solid #d9a520;padding:12px 16px;margin:18px 0 0}
+.b-maquette p{margin:0}
+
+@media (max-width:820px){
+  .b-chiffres,.b-demos,.b-donnees,.b-suite{grid-template-columns:1fr}
+  .sf-match{padding:14px}
+  .art{padding:18px}
+}
+@media (max-width:480px){
+  .sf-etapes li{flex-wrap:wrap}
+  .pdm-texte{padding:18px}
+}

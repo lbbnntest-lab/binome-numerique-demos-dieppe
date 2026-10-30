@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><link rel="icon" href="img/favicon-64.png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
+<title>La vie du club | Basket Club de Rouxmesnil | Maquette</title>
+<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="mouvement.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signature.css">
+<link rel="stylesheet" href="pages-plus.css">
+<link rel="stylesheet" href="exemples.css">
+</head>
+<body data-page="vie-du-club">
+
+<main>
+  <section class="p-tete s-nuit" aria-labelledby="titre-page">
+    <span class="p-filigrane" aria-hidden="true">Vie</span>
+    <div class="wrap">
+      <p class="s-surtitre">Les nouvelles du BCR</p>
+      <h1 id="titre-page" class="s-titre">La vie du <span class="vert">club</span></h1>
+      <p class="s-chapo">Ce qui se passe au club en dehors des scores : journées d'initiation, stages, rencontres. Les articles sont publiés par les dirigeants du club.</p>
+    </div>
+  </section>
+
+  <section class="bloc" aria-labelledby="titre-articles">
+    <div class="wrap">
+      <h2 id="titre-articles" class="visuellement-cache">Les articles</h2>
+      <div class="arts" id="vie-articles" aria-live="polite"><p>Chargement des articles…</p></div>
+      <p style="margin-top:24px;max-width:46em"><a class="lien-fort" href="evenements.html">Les rendez-vous à venir : stages, arbitrage, événements</a></p>
+      <div class="note"><b>Pour le club</b>Un dirigeant publie un article depuis son téléphone : une photo (facultative) et trois lignes, un texte propre lui est proposé. L'article paraît ici et sur l'accueil, <a href="dirigeants.html?explications&amp;demo=article#role=communication">à essayer dans l'espace dirigeants</a>.</div>
+      <div class="note"><b>Qui publie, et les enfants</b>Seules les personnes autorisées par le président publient. Une photo d'enfant n'est publiée qu'avec l'accord de ses parents, et le nom d'un enfant n'est pas écrit.</div>
+    </div>
+  </section>
+</main>
+
+<script src="maquette.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/mouvement.js"></script>
+<script src="js/pages.js"></script>
+<script src="js/articles.js"></script>
+</body>
+</html>
