@@ -503,14 +503,10 @@
       <div id="pub-fin-match"></div>
       <div class="note"><b>À chaque fin de match</b>Le score est repris des résultats de la fédération si elle est d'accord (voir « Le score arrive tout seul »), sinon saisi par le coach en dix secondes. La publication du match est alors prête ; la personne des réseaux la relit et la valide.</div>
 
-      <h3 style="margin-top:32px">Publications du week-end</h3>
-      <div class="filtres" role="group" aria-label="Choisir le week-end" id="we-choix"></div>
-      <p id="we-etat" class="we-etat"></p>
-      <button type="button" class="bouton gros" id="we-preparer">Le week-end est terminé : préparer les publications</button>
-      <p class="visuellement-cache" id="we-annonce" role="status" aria-live="polite"></p>
-      <div id="we-pubs"></div>
-      <div class="note"><b>Pour la personne des réseaux</b>Quand tous les scores du week-end sont là, la personne des réseaux est prévenue et trouve les textes préparés à relire. Rien ne se publie sans sa validation. Ensuite, au choix : publication directe sur la page du club, ou visuel et texte à publier soi-même.</div>
-    </div>
+      <h3 style="margin-top:32px" id="titre-pub-we">Publications du week-end</h3>
+      <p class="chapo-bloc">Le texte et les affiches se préparent tout seuls à partir du calendrier du club et de la date du jour : le week-end qui vient, puis le week-end écoulé. Rien ne part sans votre validation.</p>
+      <div id="rdv-zone" aria-labelledby="titre-pub-we"></div>
+      <div class="note"><b>Pour la personne des réseaux</b>Le texte est écrit dans le style des publications du club et reste modifiable. Les affiches se téléchargent en images prêtes pour Facebook. La personne des réseaux relit, corrige si besoin, puis publie elle-même : au choix, publication directe sur la page du club, ou images et texte à publier soi-même.</div>
   </section>
 
   <section class="bloc" id="publier-article" data-roles="communication" aria-labelledby="titre-publier-article">
@@ -628,6 +624,8 @@
 <script src="js/publications.js"></script>
 <script src="js/export-facebook.js"></script>
 <script src="js/donnees-ffbb.js"></script>
+<script src="js/salles-ffbb.js"></script>
+<script src="js/rendez-vous.js"></script>
 <script src="js/score-auto.js"></script>
 <script src="js/articles.js"></script>
 <script src="js/merci-partenaires.js"></script>

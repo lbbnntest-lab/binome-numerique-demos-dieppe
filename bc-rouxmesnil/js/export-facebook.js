@@ -214,8 +214,248 @@
     ctx.fillStyle = C.gris; ctx.font = texte(36); ctx.fillText(s.pied || 'L’article complet est sur le site du club', M, 1010);
   }
 
+  /* ---------- Affiches portrait 1080 x 1350 (rendez-vous et résultats du week-end) ----------
+     Une seule mise en page (liste de primitives : rectangles, ronds, logos, textes, emblèmes) peinte de deux façons :
+     en SVG dans la page (aperçu à l'écran) et sur un canvas (fichier PNG). L'aperçu et le fichier ne peuvent donc pas différer.
+     Description d'une affiche (spec.type = 'affiche') :
+       modele : 'couverture' | 'jour' | 'resultats' ; mode : 'rdv' | 'res' (couverture) ; theme : { fond, accent, nom, emb } ;
+       titre ; dates ; lieu ('dom' | 'ext') ; salleDom ; suite ; resume ; compte : { dom, ext } ou { v, n } ; alt ;
+       lignes : [{ heure, jourCourt, code, adv, sig, logo, salle, lieuTxt, bcr, ad, v }].
+     Aucun émoji sur les affiches. */
+  var HP = 1350;
+  var EMBLEMES = {
+    ruban: { remp: [], trait: ['M34 95 C45 68 51 57 60 43 C71 27 71 9 53 7 C37 5 33 20 43 36 C51 50 58 66 67 95'], lw: 9 },
+    moustache: { remp: ['M50 44 C44 33 30 29 16 36 C7 41 2 50 3 60 C11 53 21 51 31 53 C40 55 46 54 50 50 C54 54 60 55 69 53 C79 51 89 53 97 60 C98 50 93 41 84 36 C70 29 56 33 50 44 Z'], trait: [], lw: 0 },
+    ballon: { remp: [], trait: ['M6 50 A44 44 0 1 0 94 50 A44 44 0 1 0 6 50 Z', 'M50 6 V94', 'M6 50 H94', 'M19 17 C37 35 37 65 19 83', 'M81 17 C63 35 63 65 81 83'], lw: 4 }
+  };
+  var CA = { fond: '#0b0e0c', haut: '#12171a', gris: '#c9cdca', clair: '#d7dbd8' };
+  var mesureCtx = null;
+  function mesure() { if (!mesureCtx) mesureCtx = document.createElement('canvas').getContext('2d'); return mesureCtx; }
+  function mettreEnPage(s) {
+    return polices().then(function () {
+      var th = s.theme, P = [], mc = mesure(), LOGO = 'img/logo-bcr-160.webp';
+      function R(x, y, w, h, f) { P.push({ k: 'rect', x: x, y: y, w: w, h: h, f: f }); }
+      function T(t, x, y, taille, o) { o = o || {}; P.push({ k: 'txt', t: t, x: x, y: y, taille: taille, f: o.f || 't', it: !!o.it, gras: !!o.gras, c: o.c || '#fff', al: o.al || 'left', ls: o.ls || 0 }); }
+      /* Texte sur une ligne, à la plus grande taille qui tient dans la largeur (sinon points de suspension) ; rend la taille retenue. */
+      function TT(t, x, y, tmax, tmin, largeur, o) {
+        o = o || {};
+        var fonte = o.f === 'x' ? function (z) { return texte(z, o.gras); } : function (z) { return titre(z, o.it); };
+        espacement(mc, o.ls || 0);
+        var r = ajuster(mc, String(t), fonte, tmax, tmin, largeur);
+        var z = parseFloat(mc.font.match(/(\d+(?:\.\d+)?)px/)[1]);
+        espacement(mc, 0);
+        T(r, x, y, z, o); return z;
+      }
+      function logo(src, sig, cx, cy, r) { P.push({ k: 'logo', src: src || '', sig: sig || '', cx: cx, cy: cy, r: r }); }
+      function emb(type, x, y, t, c) { P.push({ k: 'emb', type: type, x: x, y: y, t: t, c: c }); }
+      function pied() {
+        R(0, 1240, W, 110, th.fond);
+        TT('ALLEZ LE BCR !', W / 2, 1316, 76, 40, W - 2 * M, { it: true, al: 'center', ls: 3 });
+      }
+      /* Coupe un texte en lignes : aux espaces et après les traits d'union (« Mesnil-Franqueville-Boos »). */
+      function casser(t, largeur) {
+        var mots = String(t).replace(/\s+/g, ' ').trim().split(' '), lignes = [], cur = '';
+        mots.forEach(function (mot) {
+          var morceaux = mot.match(/[^-]+-?|-/g) || [mot];
+          morceaux.forEach(function (mc2, k) {
+            var essai = cur + (k === 0 && cur ? ' ' : '') + mc2;
+            if (cur && mc.measureText(essai).width > largeur) { lignes.push(cur.replace(/\s+$/, '')); cur = mc2; } else cur = essai;
+          });
+        });
+        if (cur) lignes.push(cur);
+        return lignes;
+      }
+      /* Texte sur au plus maxL lignes, à la plus grande taille qui tient dans largeur x hauteur ; sinon points de suspension. */
+      function blocT(t, fonte, tmax, tmin, largeur, hauteur, inter, maxL) {
+        var z = tmax, lignes;
+        for (;;) {
+          mc.font = fonte(z); lignes = casser(t, largeur);
+          var large = lignes.some(function (x) { return mc.measureText(x).width > largeur + 0.5; });
+          if ((lignes.length * z * inter <= hauteur && lignes.length <= maxL && !large) || z <= tmin) break;
+          z -= 1;
+        }
+        var haut = Math.max(1, Math.min(maxL, Math.floor(hauteur / (z * inter))));
+        if (lignes.length > haut) {
+          lignes = lignes.slice(0, haut);
+          var d = lignes[haut - 1];
+          while (d.length > 1 && mc.measureText(d + '…').width > largeur) d = d.slice(0, -1);
+          lignes[haut - 1] = d.replace(/[\s.,;:-]+$/, '') + '…';
+        }
+        lignes = lignes.map(function (x) {
+          while (x.length > 1 && mc.measureText(x).width > largeur) x = x.slice(0, -2) + '…';
+          return x;
+        });
+        return { taille: z, lignes: lignes, pas: z * inter };
+      }
+      /* Bloc de textes (1 à 2 lignes chacun) centré verticalement sur cy. */
+      function blocCentre(items, x, cy, largeur) {
+        var tot = 0, bl = items.map(function (it) {
+          var b = blocT(it.t, it.titre ? function (z) { return titre(z, true); } : function (z) { return texte(z, it.gras); }, it.tmax, it.tmin, largeur, it.h, it.titre ? 1.0 : 1.08, it.lignes || 2);
+          tot += b.lignes.length * b.pas; return b;
+        });
+        var y = cy - tot / 2;
+        bl.forEach(function (b, i) {
+          b.lignes.forEach(function (ln, k) {
+            var o = items[i].titre ? { f: 't', it: true, c: items[i].c, ls: 1, al: items[i].al } : { f: 'x', gras: items[i].gras, c: items[i].c, al: items[i].al };
+            T(ln, items[i].x !== undefined ? items[i].x : x, y + b.taille * (items[i].titre ? .8 : .85) + k * b.pas, b.taille, o);
+          });
+          y += b.lignes.length * b.pas;
+        });
+      }
+      function cheminLogo(f) { return f ? (f.indexOf('/') >= 0 ? f : 'img/logos/' + f) : ''; }
+      function fond(i, y, h) {
+        R(M, y, W - 2 * M, h, i % 2 ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.09)');
+        R(M, y, 184, h, th.fond);
+      }
+      function rangeeRdv(l, i, y, rh) {
+        var h = rh - 10, cy = y + h / 2, r = Math.min(44, Math.floor(h * .34));
+        fond(i, y, h);
+        var ts = Math.min(l.heure ? 80 : 60, Math.floor(h * .5));
+        TT(l.heure || l.jourCourt, M + 92, cy + ts * .34, ts, 24, 164, { it: true, al: 'center', ls: 1 });
+        var fc = Math.min(66, Math.floor(h * .42));
+        if (/ /.test(l.code)) blocCentre([{ t: l.code, titre: true, c: '#fff', tmax: fc, tmin: 22, h: h * .86 }], 268, cy, 200);
+        else TT(l.code, 268, cy + fc * .34, fc, 24, 204, { it: true, ls: 1 });
+        logo(LOGO, 'BCR', 528, cy, r);
+        T('VS', 596, cy + 8, 26, { c: CA.gris, al: 'center', ls: 1 });
+        logo(cheminLogo(l.logo), l.sig, 664, cy, r);
+        var amax = Math.min(38, Math.floor(h * .27)), smax = Math.min(26, Math.floor(h * .19));
+        var items = [{ t: l.adv, gras: true, c: '#fff', tmax: amax, tmin: 17, h: h * (l.salle ? .5 : .8) }];
+        if (l.salle) items.push({ t: l.salle, gras: false, c: CA.gris, tmax: smax, tmin: 14, h: h * .36 });
+        blocCentre(items, 726, cy, W - M - 14 - 726);
+      }
+      function rangeeRes(l, i, y, rh) {
+        var h = rh - 10, cy = y + h / 2, r = Math.min(44, Math.floor(h * .34));
+        fond(i, y, h);
+        var fc = Math.min(62, Math.floor(h * .42));
+        if (/ /.test(l.code)) blocCentre([{ t: l.code, titre: true, c: '#fff', tmax: fc, tmin: 20, h: h * .86, al: 'center', x: M + 92 }], M + 92, cy, 164);
+        else TT(l.code, M + 92, cy + fc * .34, fc, 20, 164, { it: true, al: 'center', ls: 1 });
+        logo(LOGO, 'BCR', 320, cy, r);
+        var ss = Math.min(70, Math.floor(h * .5)), tot = ss * .7 + 8 + 16, top = cy - tot / 2;
+        TT(l.bcr + ' - ' + l.ad, 492, top + ss * .7, ss, 30, 150, { it: true, al: 'center', c: l.v === true ? th.accent : '#fff' });
+        T(l.v === true ? 'VICTOIRE' : l.v === false ? 'DÉFAITE' : '', 492, top + ss * .7 + 8 + 18, 22, { c: CA.gris, al: 'center', ls: 3 });
+        logo(cheminLogo(l.logo), l.sig, 664, cy, r);
+        var amax = Math.min(38, Math.floor(h * .27));
+        var items = [{ t: l.adv, gras: true, c: '#fff', tmax: amax, tmin: 17, h: h * .52 }];
+        if (l.lieuTxt) items.push({ t: l.lieuTxt, gras: false, c: CA.gris, tmax: 24, tmin: 14, h: h * .3, lignes: 1 });
+        blocCentre(items, 726, cy, W - M - 14 - 726);
+      }
+
+      R(0, 0, W, HP, CA.fond);
+      if (s.modele === 'couverture') {
+        R(0, 0, W, 300, th.fond);
+        logo(LOGO, 'BCR', M + 106, 150, 100);
+        T('BASKET CLUB', 300, 138, 84, { it: true, ls: 4 });
+        T('DE ROUXMESNIL', 300, 232, 84, { it: true, ls: 4 });
+        TT(s.mode === 'res' ? 'RÉSULTATS' : 'RENDEZ-VOUS', M, 520, 196, 80, W - 2 * M, { it: true, ls: 1 });
+        TT('DU WEEK-END', M, 700, 196, 80, W - 2 * M, { it: true, ls: 1 });
+        R(0, 750, W, 150, th.fond);
+        TT(maj(s.dates), W / 2, 845, 92, 36, W - 2 * M, { it: true, al: 'center', ls: 1 });
+        emb(th.emb, M, 950, 280, th.accent);
+        var x = 420, c = s.compte || {}, ls = [];
+        if (th.nom) TT(maj(th.nom), x, 1040, 84, 40, W - M - x, { it: true, c: th.accent, ls: 1 });
+        if (s.mode === 'res') {
+          ls.push(c.v + (c.v > 1 ? ' VICTOIRES' : ' VICTOIRE'));
+          ls.push('SUR ' + c.n + (c.n > 1 ? ' MATCHS' : ' MATCH'));
+        } else {
+          if (c.dom) ls.push(c.dom + (c.dom > 1 ? ' MATCHS' : ' MATCH') + ' À DOMICILE');
+          if (c.ext) ls.push(c.ext + (c.ext > 1 ? ' MATCHS' : ' MATCH') + ' À L\'EXTÉRIEUR');
+        }
+        var y2 = th.nom ? 1124 : 1080;
+        ls.forEach(function (t, k) { TT(t, x, y2 + k * 68, 58, 28, W - M - x, { it: true, ls: 1 }); });
+        pied();
+      } else {
+        R(0, 0, W, 230, th.fond);
+        logo(LOGO, 'BCR', M + 82, 115, 78);
+        var xt = M + 2 * 78 + 36;
+        T('BASKET CLUB DE ROUXMESNIL', xt, 84, 36, { ls: 4, c: 'rgba(255,255,255,.92)' });
+        TT(maj(s.titre), xt, 186, 112, 52, W - M - xt, { it: true, ls: 1 });
+        R(0, 230, W, 120, CA.haut);
+        var pill = s.modele === 'resultats' ? 'RÉSULTATS' : s.lieu === 'dom' ? 'À DOMICILE' : 'À L\'EXTÉRIEUR';
+        if (s.suite) pill += ' · ' + s.suite;
+        TT(pill, M, 312, 68, 40, 430, { it: true, c: th.accent, ls: 2 });
+        if (s.modele === 'resultats') { if (s.resume) TT(s.resume, W - M, 306, 40, 22, W - 2 * M - 450, { al: 'right', c: CA.clair, it: true, ls: 1 }); }
+        else if (s.lieu === 'dom' && s.salleDom) TT(s.salleDom, W - M, 304, 34, 18, W - 2 * M - 450, { f: 'x', al: 'right', c: CA.clair });
+        var n = s.lignes.length, top = 372, bas = 1218, rh = Math.min(190, Math.floor((bas - top) / Math.max(1, n))), dec = Math.floor(((bas - top) - n * rh) / 2);
+        s.lignes.forEach(function (l, i) { (s.modele === 'resultats' ? rangeeRes : rangeeRdv)(l, i, top + dec + i * rh, rh); });
+        pied();
+      }
+      return { prims: P, largeur: W, hauteur: HP, alt: s.alt || '' };
+    });
+  }
+  function svgAffiche(mep, pref) {
+    var o = [], defs = [], n = 0;
+    var FT = 'font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif" font-weight="700"', FX = 'font-family="Source Sans 3, Arial, sans-serif"';
+    mep.prims.forEach(function (p) {
+      if (p.k === 'rect') o.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" fill="' + p.f + '"/>');
+      else if (p.k === 'logo') {
+        var id = pref + 'c' + (n++);
+        o.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '" fill="' + (p.src ? '#000' : '#1c2320') + '"' + (p.src ? '' : ' stroke="#3a443f" stroke-width="4"') + '/>');
+        if (p.src) {
+          defs.push('<clipPath id="' + id + '"><circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '"/></clipPath>');
+          o.push('<image href="' + esc(p.src) + '" x="' + (p.cx - p.r) + '" y="' + (p.cy - p.r) + '" width="' + 2 * p.r + '" height="' + 2 * p.r + '" preserveAspectRatio="xMidYMid meet" clip-path="url(#' + id + ')"/>');
+        } else {
+          o.push('<text x="' + p.cx + '" y="' + (p.cy + p.r * .26) + '" text-anchor="middle" fill="#fff" font-size="' + Math.round(p.r * .78) + '" ' + FT + '>' + esc(maj(p.sig)) + '</text>');
+        }
+      } else if (p.k === 'txt') {
+        if (!p.t) return;
+        o.push('<text x="' + p.x + '" y="' + Math.round(p.y * 10) / 10 + '" font-size="' + p.taille + '" fill="' + p.c + '" text-anchor="' + (p.al === 'center' ? 'middle' : p.al === 'right' ? 'end' : 'start') + '" '
+          + (p.f === 't' ? FT + (p.it ? ' font-style="italic"' : '') : FX + (p.gras ? ' font-weight="700"' : '')) + (p.ls ? ' letter-spacing="' + p.ls + '"' : '') + '>' + esc(p.t) + '</text>');
+      } else if (p.k === 'emb') {
+        var d = EMBLEMES[p.type]; if (!d) return;
+        o.push('<g transform="translate(' + p.x + ' ' + p.y + ') scale(' + p.t / 100 + ')">'
+          + d.remp.map(function (v) { return '<path d="' + v + '" fill="' + p.c + '"/>'; }).join('')
+          + d.trait.map(function (v) { return '<path d="' + v + '" fill="none" stroke="' + p.c + '" stroke-width="' + d.lw + '" stroke-linecap="round" stroke-linejoin="round"/>'; }).join('') + '</g>');
+      }
+    });
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + mep.largeur + ' ' + mep.hauteur + '" role="img" aria-label="' + esc(mep.alt) + '" focusable="false"><defs>' + defs.join('') + '</defs>' + o.join('') + '</svg>';
+  }
+  function peindreAffiche(ctx, mep, ims) {
+    mep.prims.forEach(function (p) {
+      if (p.k === 'rect') { ctx.fillStyle = p.f; ctx.fillRect(p.x, p.y, p.w, p.h); }
+      else if (p.k === 'logo') {
+        var im = p.src ? ims[p.src] : null;
+        if (im) logoRond(ctx, im, p.cx, p.cy, p.r);
+        else {
+          rond(ctx, p.cx, p.cy, p.r, p.src ? '#000' : '#1c2320', p.src ? null : '#3a443f');
+          if (!p.src) { ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = titre(Math.round(p.r * .78)); espacement(ctx, 0); ctx.fillText(maj(p.sig), p.cx, p.cy + p.r * .26); ctx.textAlign = 'left'; }
+        }
+      } else if (p.k === 'txt') {
+        if (!p.t) return;
+        ctx.font = p.f === 't' ? titre(p.taille, p.it) : texte(p.taille, p.gras);
+        ctx.fillStyle = p.c; ctx.textAlign = p.al; espacement(ctx, p.ls);
+        ctx.fillText(p.t, p.x + (p.al === 'center' && p.ls ? p.ls / 2 : 0), p.y);
+        espacement(ctx, 0); ctx.textAlign = 'left';
+      } else if (p.k === 'emb') {
+        var d = EMBLEMES[p.type]; if (!d) return;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.scale(p.t / 100, p.t / 100);
+        d.remp.forEach(function (v) { ctx.fillStyle = p.c; ctx.fill(new Path2D(v)); });
+        d.trait.forEach(function (v) { ctx.strokeStyle = p.c; ctx.lineWidth = d.lw; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke(new Path2D(v)); });
+        ctx.restore();
+      }
+    });
+  }
+  function dessinerAffiche(spec) {
+    return mettreEnPage(spec).then(function (mep) {
+      var srcs = []; mep.prims.forEach(function (p) { if (p.k === 'logo' && p.src && srcs.indexOf(p.src) < 0) srcs.push(p.src); });
+      return Promise.all(srcs.map(function (x) { return image(x); })).then(function (r) {
+        var ims = {}; srcs.forEach(function (x, i) { ims[x] = r[i]; });
+        var cv = document.createElement('canvas'); cv.width = W; cv.height = HP;
+        var ctx = cv.getContext('2d'); ctx.textBaseline = 'alphabetic';
+        peindreAffiche(ctx, mep, ims);
+        api.dernier = { canvas: cv, spec: spec };
+        return cv;
+      });
+    });
+  }
+  api.affiches = {
+    largeur: W, hauteur: HP, emblemes: EMBLEMES,
+    miseEnPage: mettreEnPage,
+    svg: function (spec, pref) { return mettreEnPage(spec).then(function (mep) { return svgAffiche(mep, pref || 'aff'); }); }
+  };
+
   /* spec -> canvas */
   function dessiner(spec) {
+    if (spec.type === 'affiche') return dessinerAffiche(spec);
     return polices().then(function () {
       var jobs = [image('img/logo-bcr-160.webp'), Promise.all((spec.parts || []).map(function (p) { return image(p); })),
         image(spec.cartouche || ''), image(spec.photo || '')];

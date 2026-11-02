@@ -1,7 +1,6 @@
 /* Publications des matchs (rôle Communication et bénévoles, et Président). Lié uniquement depuis dirigeants.html.
    - « Fin de match » : une publication par score saisi par le coach pendant la visite (sessionStorage « bcr-scores »).
-   - « Publications du week-end » : un récapitulatif et une publication par match, pour un week-end dont tous les
-     scores sont connus (3-4 octobre : affiches du club et FFBB, voir faits_verifies_bcr.md).
+   - Les publications du week-end (rendez-vous et résultats) sont préparées par js/rendez-vous.js, qui réutilise les cartes d'ici (BCRPub.carte).
    Les textes ne reprennent que l'équipe, le niveau, l'adversaire, le lieu quand il est connu, la date et le score.
    Rien n'est publié ni envoyé : Valider et Publier sont simulés, Publier reste inactif tant que le texte n'est pas validé. */
 (function () {
@@ -42,25 +41,6 @@
     return t.charAt(0).toUpperCase() + t.slice(1);
   }
 
-  /* Week-ends proposés. 3-4 octobre : tous les scores sont publiés. 17-18 octobre : scores pas encore saisis. */
-  var WEEKENDS = [
-    { id: 'we-3-4', titre: 'Week-end des 3 et 4 octobre', matchs: [
-      { id: 'w1', equipe: 'U18 féminines', niv: 'Qualification pour la poule élite, 2e tour (poule C)', quand: 'Samedi 3 octobre, 15 h 30', lieu: 'à domicile', adv: 'Aplemont Le Havre Basket', logo: 'aplemont.webp', bcr: 30, ad: 32, courte: true },
-      { id: 'w2', equipe: 'U18 féminines', niv: 'Qualification pour la poule élite, 2e tour (poule C)', quand: 'Samedi 3 octobre, 17 h', lieu: 'à domicile', adv: 'Cléon Basketball Academy', logo: 'cleon.webp', bcr: 38, ad: 22 },
-      { id: 'w3', equipe: 'U21 masculins', niv: 'Région (RMU21)', quand: 'Week-end des 3 et 4 octobre', lieu: '', adv: 'Oissel Basket Seine', bcr: 71, ad: 70 },
-      { id: 'w4', equipe: 'U18 département', niv: 'BCR 2', quand: 'Week-end des 3 et 4 octobre', lieu: 'à l\'extérieur', adv: 'US Forges-les-Eaux', bcr: 52, ad: 22 },
-      { id: 'w5', equipe: 'U13 féminines', niv: 'Départementale (DFU13)', quand: 'Week-end des 3 et 4 octobre', lieu: '', adv: 'Seventy Six Belleville', bcr: 47, ad: 19 }
-    ] },
-    { id: 'we-17-18', titre: 'Week-end des 17 et 18 octobre', matchs: [
-      { cle: 'u13|2026-10-17', equipe: 'U13 féminines (DFU13)', adv: 'CEP Saint-Nicolas-d\'Aliermont' },
-      { cle: 'u15|2026-10-17', equipe: 'U15 féminines (DFU15)', adv: 'BC Offranville' },
-      { equipe: 'U18 féminines (DFU18)', adv: 'CEP Saint-Nicolas-d\'Aliermont' },
-      { equipe: 'U21 masculins (RMU21)', adv: 'SPN Vernon' },
-      { equipe: 'Seniors féminines (DF2)', adv: 'Rouen Métropole Basket' },
-      { equipe: 'Seniors féminines (DF3)', adv: 'Belbeuf' }
-    ] }
-  ];
-
   /* ---------- Visuels (cartes HTML aux couleurs du club) ---------- */
   function logoAdv(m) {
     return m.logo ? '<img class="pv-logo clair" src="img/logos/' + m.logo + '" alt="">' : '<span class="pv-sigle" aria-hidden="true">' + esc(sigle(m.adv)) + '</span>';
@@ -75,16 +55,6 @@
       + '<div class="pv-score"><div><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>BCR</span><b>' + m.bcr + '</b></div>'
       + '<div>' + logoAdv(m) + '<span>' + esc(m.adv) + '</span><b>' + m.ad + '</b></div></div>'
       + '<p class="pv-quand">' + esc(m.quand) + (m.lieu ? ' · ' + esc(m.lieu) : '') + '</p>'
-      + '<p class="pv-partenaire">Emplacement partenaire</p></div></div>';
-  }
-  function visuelGeneral(w) {
-    return '<div class="pub-cadre"><div class="pub-visuel general" role="img" aria-label="Visuel : résultats du ' + esc(w.titre.toLowerCase()) + '">'
-      + '<span class="pv-biais" aria-hidden="true"></span>'
-      + '<div class="pv-tete"><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>Basket Club<br>de Rouxmesnil</span></div>'
-      + '<p class="pv-equipe">Les résultats</p><p class="pv-issue">' + esc(w.titre) + '</p>'
-      + '<ul class="pv-liste">' + w.matchs.map(function (m) {
-        return '<li><span><b>' + esc(m.equipe) + '</b><small>contre ' + esc(m.adv) + '</small></span><strong class="' + (m.bcr > m.ad ? 'v' : 'd') + '">' + m.bcr + '-' + m.ad + '</strong></li>';
-      }).join('') + '</ul>'
       + '<p class="pv-partenaire">Emplacement partenaire</p></div></div>';
   }
 
@@ -102,12 +72,6 @@
     var fin = m.bcr > m.ad ? 'Bravo à l\'équipe !' : m.bcr === m.ad ? 'Bravo à l\'équipe pour ce match.' : 'On reste derrière l\'équipe pour la suite.';
     return premiereLigne(m.equipe, m.niv) + '\n' + phrase + '\n' + fin + '\n\nBasket Club de Rouxmesnil';
   }
-  function texteGeneral(w) {
-    var v = w.matchs.filter(function (m) { return m.bcr > m.ad; }).length, d = w.matchs.length - v;
-    return w.titre + ' au Basket Club de Rouxmesnil : ' + v + (v > 1 ? ' victoires' : ' victoire') + ' et ' + d + (d > 1 ? ' défaites.' : ' défaite.') + '\n\n'
-      + w.matchs.map(function (m) { return m.equipe + ' : ' + issue(m.bcr, m.ad, m.courte).toLowerCase() + ' ' + m.bcr + '-' + m.ad + ' contre ' + m.adv + (m.lieu ? ' (' + m.lieu + ')' : '') + '.'; }).join('\n')
-      + '\n\nBravo à toutes et à tous, et merci aux bénévoles et aux partenaires du club.\nPassion, esprit d\'équipe, respect, Rouxmesnil.';
-  }
 
   /* ---------- Carte de publication : texte modifiable, Copier, Valider, Publier ---------- */
   var etats = lire('bcr-pub-etat', {}), textes = {};
@@ -118,13 +82,14 @@
       + p.visuel
       + '<div class="pub-corps"><p class="pub-type">' + esc(p.type) + '</p><h4 id="pub-' + id + '-t">' + esc(p.titre) + '</h4>'
       + '<label for="pub-' + id + '-txt">Texte proposé (modifiable)</label>'
-      + '<textarea id="pub-' + id + '-txt" rows="7" data-texte>' + esc(t) + '</textarea>'
+      + '<textarea id="pub-' + id + '-txt" rows="' + (p.lignes || 7) + '" data-texte>' + esc(t) + '</textarea>'
       + '<div class="pub-boutons"><button type="button" class="bouton ligne petit" data-copier>Copier le texte</button>'
       + '<button type="button" class="bouton petit" data-valider' + (st.valide ? ' hidden' : '') + '>Valider</button>'
       + '<button type="button" class="bouton petit" data-publier aria-describedby="pub-' + id + '-aide"' + (st.valide && !st.publie ? '' : ' disabled') + '>Publier sur Facebook et Instagram</button></div>'
       + '<p class="aide" id="pub-' + id + '-aide">' + (st.publie ? 'Publication programmée (simulation).' : st.valide ? 'Validée : la publication est possible.' : 'Publier se débloque après validation.') + '</p>'
       + '<p class="pub-etat" role="status" aria-live="polite"></p></div></article>';
   }
+  window.BCRPub.carte = carte;
   function annoncer(art, t) { art.querySelector('.pub-etat').textContent = t; }
   function majCarte(art) {
     var id = art.getAttribute('data-pub'), st = etats[id] || {};
@@ -199,38 +164,5 @@
     }).join('') : (ch.length ? '' : '<p class="vide-filtre">Aucun score saisi pour le moment. Dès qu\'un coach saisirait le score final d\'un match, sa publication apparaîtrait ici.</p>'));
   }
   ['bcr:score', 'bcr:changement'].forEach(function (t) { document.addEventListener(t, function () { afficherFinMatch(); if (window.BCRRole && BCRRole.majPastilles) BCRRole.majPastilles(); }); });
-
-  /* ---------- Week-end ---------- */
-  var choix = 'we-3-4', btn = document.getElementById('we-preparer'), etat = document.getElementById('we-etat'), zone = document.getElementById('we-pubs');
-  var boutons = document.getElementById('we-choix');
-  boutons.innerHTML = WEEKENDS.map(function (w) { return '<button type="button" data-we="' + w.id + '" aria-pressed="false">' + w.titre + '</button>'; }).join('');
-  function majWeekend() {
-    var w = WEEKENDS.filter(function (x) { return x.id === choix; })[0];
-    boutons.querySelectorAll('[data-we]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-we') === choix)); });
-    var scores = lire('bcr-scores', []), complet = w.matchs.every(function (m) { return typeof m.bcr === 'number'; });
-    if (complet) {
-      etat.innerHTML = '<span class="etat ok">Tous les scores sont connus</span> : ' + w.matchs.length + ' matchs (affiches du club et FFBB).';
-      btn.disabled = false;
-    } else {
-      var n = w.matchs.filter(function (m) { return m.cle && scores.some(function (s) { return s.id === m.cle; }); }).length;
-      etat.innerHTML = '<span class="etat attente">Scores pas encore saisis</span> : ' + n + ' sur ' + w.matchs.length + '. Le bouton se débloquerait quand tous les scores seraient là.'
-        + '<ul class="we-attente">' + w.matchs.map(function (m) { return '<li>' + esc(m.equipe) + ' contre ' + esc(m.adv) + '</li>'; }).join('') + '</ul>';
-      btn.disabled = true;
-    }
-    zone.innerHTML = '';
-  }
-  boutons.addEventListener('click', function (e) { var b = e.target.closest('[data-we]'); if (!b) return; choix = b.getAttribute('data-we'); majWeekend(); });
-  btn.addEventListener('click', function () {
-    var w = WEEKENDS.filter(function (x) { return x.id === choix; })[0];
-    if (!w.matchs.every(function (m) { return typeof m.bcr === 'number'; })) return;
-    zone.innerHTML = '<h4 class="we-sous-titre">Publication générale</h4>'
-      + carte({ id: w.id + '-general', type: 'Publication générale · récapitulatif', titre: w.titre, visuel: visuelGeneral(w), texte: texteGeneral(w) })
-      + '<h4 class="we-sous-titre">Une publication par match, dans l\'ordre du week-end</h4>'
-      + (w.id === 'we-3-4' ? '<p class="aide" style="margin:-4px 0 12px">Les deux matchs des U18 féminines sont datés (samedi 3 octobre) ; pour les autres, seul le week-end est connu.</p>' : '')
-      + w.matchs.map(function (m) { return carte({ id: w.id + '-' + m.id, type: 'Publication du match', titre: m.equipe + ' contre ' + m.adv, visuel: visuelMatch(m), texte: texteMatch(m) }); }).join('');
-    document.getElementById('we-annonce').textContent = 'Publications préparées : 1 publication générale et ' + w.matchs.length + ' publications de match, à relire et valider.';
-    var t = zone.querySelector('h4'); t.setAttribute('tabindex', '-1'); t.focus();
-  });
   afficherFinMatch();
-  majWeekend();
 })();

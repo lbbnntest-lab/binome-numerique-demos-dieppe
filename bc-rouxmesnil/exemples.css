@@ -210,3 +210,21 @@
 /* Article publié avec le logo du partenaire : logo entier sur fond blanc, jamais rogné ni agrandi */
 .art-logo img{object-fit:contain;max-height:200px;background:#fff;padding:14px;border:1px solid var(--line);width:auto;max-width:100%}
 @media (pointer:coarse){.exp-groupe .bouton,.mp-pub .pub-boutons .bouton{min-height:44px}}
+/* Publications du week-end : texte Facebook et affiches 1080 x 1350 (js/rendez-vous.js) */
+.rdv-bloc{margin:0 0 34px}
+.rdv-bloc .we-sous-titre{margin-top:18px}
+.rdv-quand{margin:0 0 14px}
+.rdv-source{margin:0}
+.rdv-bloc .pub-corps textarea{min-height:420px;line-height:1.45}
+.aff-cadre{max-width:300px}
+.aff-fig{width:100%;aspect-ratio:1080/1350;background:#0b0e0c;line-height:0}
+.aff-fig svg{display:block;width:100%;height:auto}
+.aff-un{margin-top:10px}
+.rdv-affiches-t{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.15rem;margin:22px 0 12px}
+.rdv-nb{font-family:var(--texte);font-style:normal;text-transform:none;font-size:.95rem;font-weight:400;color:var(--ink-soft)}
+.aff-liste{list-style:none;margin:0 0 6px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
+.aff-liste li{min-width:0}
+.aff-leg{margin:8px 0 0;font-weight:700}
+.rdv-dl{margin:0 0 20px}
+@media (max-width:640px){.aff-cadre{max-width:340px}.aff-liste{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}}
+@media (pointer:coarse){.aff-un,.rdv-dl .bouton{min-height:44px}}
