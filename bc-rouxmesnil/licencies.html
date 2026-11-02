@@ -8,7 +8,7 @@
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 
 <title>Espace licenciés | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
@@ -35,7 +35,7 @@
         </div>
         <p class="visuellement-cache" id="fam-enfant-etat" role="status" aria-live="polite"></p>
       </div>
-      <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et le stage viennent des publications du club.</p>
+      <p class="demo-ex"><strong>Démonstration</strong> : les noms, chiffres et créneaux de cet espace sont des exemples pour montrer la fonction. Seuls les matchs et les résultats viennent de la FFBB.</p>
     </div>
   </section>
   <section class="notifs-barre" aria-label="Notifications">
@@ -83,7 +83,6 @@
         <li><a href="#covoiturage">Covoiturage</a></li>
         <li><a href="#benevoles">Bénévoles</a></li>
         <li><a href="#urgence">Contacts d'urgence</a></li>
-        <li><a href="#avantages">Avantages</a></li>
         <li><a href="#demandes">Demandes au bureau</a></li>
         <li><a href="#partage">Photos et vidéos</a></li>
       </ul>
@@ -99,10 +98,10 @@
         <div>
           <div class="fiche">
             <h3>Dernier match</h3>
-            <ul class="fam-lignes" id="fam-dernier"><li><strong>Samedi 17 octobre, 16 h</strong> · U15 féminines contre BC Offranville, à domicile</li></ul>
+            <ul class="fam-lignes" id="fam-dernier"></ul>
             <p><a href="https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080" target="_blank" rel="noopener">Score officiel sur la FFBB</a></p>
             <h3 style="margin-top:18px">Prochain match</h3>
-            <div id="prochain-match">Date à reprendre du calendrier FFBB.</div>
+            <div id="prochain-match"></div>
           </div>
 
           <div class="fiche" style="margin-top:20px" id="score-direct">
@@ -257,7 +256,7 @@
       <p class="chapo-bloc">La table de marque des matchs à domicile est tenue par des licenciés du club. Un licencié de votre famille prend un créneau à pourvoir : les dirigeants le voient dans leur planning. Les parents peuvent aider autrement, par exemple en saisissant le score en direct.</p>
       <p class="resultat" id="bv-etat" role="status" aria-live="polite" hidden></p>
       <div class="planning" id="bv-creneaux"></div>
-      <p class="aide" style="margin-top:12px">Matchs à domicile de l'élite régionale U18 féminines, horaires à fixer. Postes et noms : exemples.</p>
+      <p class="aide" style="margin-top:12px">Les prochains matchs à domicile, avec les horaires de la FFBB. Postes et noms : exemples.</p>
       <div class="note"><b>Pour le club</b>Les dirigeants publieraient les créneaux de table à pourvoir, et chaque licencié prendrait le sien, sans appels un par un. L'âge et la formation demandés restent à voir avec le club. Ici, rien n'est envoyé.</div>
     </div>
   </section>
@@ -288,21 +287,6 @@
         </div>
       </div>
       <div class="note"><b>Option à valider avec le club</b>Seulement deux numéros de parents, déjà donnés à l'inscription, visibles du coach le jour du match. Aucune information de santé. La famille peut les modifier, et le club peut ne pas proposer cette rubrique.</div>
-    </div>
-  </section>
-
-  <section class="bloc" id="avantages" aria-labelledby="titre-avantages">
-    <div class="wrap">
-      <p class="surtitre">Partenaires du club</p>
-      <h2 id="titre-avantages" data-mv="mots">Vos avantages chez les partenaires du club</h2>
-      <p class="chapo-bloc">Des offres réservées aux licenciés et à leur famille, sur présentation de cet espace en magasin. La liste serait fixée avec les partenaires du club.</p>
-      <ul class="fiche fam-avantages">
-        <li><div><p class="fam-av-qui">Commerce partenaire (exemple) · équipement sportif</p><p class="fam-av-offre">10 % sur les chaussures et les ballons de basket</p></div><span class="etiquette-ex">exemple</span></li>
-        <li><div><p class="fam-av-qui">Commerce partenaire (exemple) · restauration</p><p class="fam-av-offre">Un dessert offert pour une formule achetée, le soir des matchs à domicile</p></div><span class="etiquette-ex">exemple</span></li>
-        <li><div><p class="fam-av-qui">Commerce partenaire (exemple) · garage</p><p class="fam-av-offre">Contrôle des pneus offert avant les déplacements de la saison</p></div><span class="etiquette-ex">exemple</span></li>
-      </ul>
-      <p style="margin-top:16px"><a href="partenaires.html">Voir les partenaires du club</a></p>
-      <div class="note"><b>Pour le club</b>Ces avantages donneraient aux commerçants une raison de plus de soutenir le club. Le licencié montrerait son espace sur son téléphone en magasin. Les offres ci-dessus sont des exemples, sans commerce réel.</div>
     </div>
   </section>
 
@@ -348,8 +332,8 @@
           <h3>Nouvel envoi</h3>
           <label for="md-match">Match</label>
           <select id="md-match" name="match">
-            <option value="u15">Samedi 17 octobre · U15 F contre BC Offranville (match de Léa)</option>
-            <option value="u13">Samedi 17 octobre · U13 F contre CEP Saint-Nicolas-d'Aliermont</option>
+            <option value="u15">U15 F</option>
+            <option value="u13">U13 F</option>
             <option value="u18">Samedi 10 octobre · U18 F, play-off élite contre Alençon-Damigny Basket</option>
           </select>
 
@@ -372,7 +356,7 @@
         <div class="fiche">
           <h3>Mes envois</h3>
           <ul class="envois" id="md-envois">
-            <li><span class="nom">3 photos · U13 F contre CEP Saint-Nicolas-d'Aliermont <span class="etiquette-ex">exemple</span></span><span class="etat ok">Validées par le bureau</span></li>
+            <li><span class="nom"><span id="md-envoi-ex">3 photos · U13 F</span> <span class="etiquette-ex">exemple</span></span><span class="etat ok">Validées par le bureau</span></li>
           </ul>
           <p class="aide">Rien n'est publié tant qu'un dirigeant n'a pas validé l'envoi et vérifié les autorisations photo des joueurs mineurs.</p>
         </div>
@@ -390,6 +374,7 @@
 <script>/* Stage d'octobre : retiré de l'espace une fois passé. */ document.querySelectorAll("[data-fin]").forEach(function(e){ if (new Date(e.getAttribute("data-fin")) < new Date()) e.remove(); });</script>
 <script src="js/selection.js"></script>
 <script src="js/table-marque.js"></script>
+<script src="js/donnees-ffbb.js"></script>
 <script src="js/famille.js"></script>
 <script>
 /* Demandes au bureau et partage de photos et vidéos : tout est simulé, rien ne quitte l'appareil.
@@ -402,9 +387,11 @@
   function aujourdhui(){ try { return new Date().toLocaleDateString('fr-FR', {day:'numeric', month:'long'}); } catch (e) { return 'aujourd\'hui'; } }
 
   /* ---------- Demandes ---------- */
+  /* Dates des exemples : relatives à la date du jour (celle de la visite, ou ?aujourdhui=AAAA-MM-JJ). */
+  function jourEx(n){ return window.BCRFam ? BCRFam.jourCourt(n) : ''; }
   var EXEMPLES = [
-    { type:'Question sur la licence', date:'15 octobre', texte:'La licence de Léa apparaît comme faite : faut-il encore faire quelque chose sur le site de la fédération ?', etat:'attente', ex:true },
-    { type:'Attestation de paiement', date:'2 octobre', texte:'Bonjour, pourriez-vous préparer l\'attestation de paiement de la cotisation pour mon comité d\'entreprise ?', etat:'traitee', ex:true,
+    { type:'Question sur la licence', date:jourEx(-4), texte:'La licence de Léa apparaît comme faite : faut-il encore faire quelque chose sur le site de la fédération ?', etat:'attente', ex:true },
+    { type:'Attestation de paiement', date:jourEx(-12), texte:'Bonjour, pourriez-vous préparer l\'attestation de paiement de la cotisation pour mon comité d\'entreprise ?', etat:'traitee', ex:true,
       reponse:'L\'attestation est disponible dans vos documents, en haut de cette page.' }
   ];
   var liste = document.getElementById('mes-demandes');
@@ -580,9 +567,10 @@
   function prochainMatch(){
     var pm = document.getElementById('prochain-match'), vs = F.visibles();
     var lignes = vs.map(function(e){
-      var m = F.prochainMatch(e), i = m.lib.indexOf(' · ');
-      if (m.aCompleter || i < 0) return '<li>' + F.tag(e) + 'Date à reprendre du calendrier FFBB.</li>';
-      return '<li>' + F.tag(e) + '<strong>' + esc(m.lib.slice(0, i)) + '</strong>' + esc(m.lib.slice(i)) + (m.exemple ? '' : ' · ajouté par le coach') + '</li>';
+      var m = F.prochainMatch(e), i = m ? m.lib.indexOf(' · ') : -1;
+      if (!m) return '<li>' + F.tag(e) + 'Plus de match au calendrier de cette équipe.</li>';
+      if (i < 0) return '<li>' + F.tag(e) + '<strong>' + esc(m.lib) + '</strong>' + (m.ajoute ? ' · ajouté par le coach' : '') + '</li>';
+      return '<li>' + F.tag(e) + '<strong>' + esc(m.lib.slice(0, i)) + '</strong>' + esc(m.lib.slice(i)) + (m.ajoute ? ' · ajouté par le coach' : '') + '</li>';
     });
     pm.innerHTML = '<ul class="fam-lignes">' + lignes.join('') + '</ul><p>' + (F.tous()
       ? 'Quand un coach sélectionne l\'un de vos enfants, la convocation s\'affiche en haut de cette page, avec les boutons de réponse.'
@@ -592,7 +580,9 @@
 
   /* Convocations : celles où un coach a sélectionné un enfant affiché pendant la visite. */
   var LIB = { confirme:'Présence confirmée', absente:'Absence signalée' };
-  function intitule(c){ return S.dateFr(c.date) + ' · ' + c.equipeNom + ' contre ' + (c.adv || 'adversaire à compléter') + (c.lieu ? ', ' + c.lieu : ''); }
+  function intitule(c){ return S.dateFr(c.date) + ' · ' + c.equipeNom + (F.adversaire(c) ? ' contre ' + F.adversaire(c) : '') + (c.lieu ? ', ' + c.lieu : ''); }
+  /* « du samedi 7 novembre contre X », sans « contre » quand l'adversaire n'est pas renseigné. */
+  function duMatch(c){ return 'du ' + S.dateFr(c.date).toLowerCase() + (F.adversaire(c) ? ' contre ' + F.adversaire(c) : ''); }
   function miennes(){ var vs = F.visibles(); return S.convocations().filter(function(c){ return vs.indexOf(F.enfantDe(c)) >= 0; }); }
   function convocations(){
     var r = S.reponses();
@@ -608,7 +598,7 @@
     if (!der) return;
     var e = F.enfantDe(der);
     alerte.setAttribute('data-id', der.id);
-    document.getElementById('convoc-titre').textContent = e.prenom + ' est sélectionné' + e.accord + ' pour le match du ' + S.dateFr(der.date).toLowerCase() + ' contre ' + (der.adv || 'un adversaire à compléter') + ' ; confirmez sa présence';
+    document.getElementById('convoc-titre').textContent = e.prenom + ' est sélectionné' + e.accord + ' pour le match ' + duMatch(der) + ' ; confirmez sa présence';
     document.getElementById('convoc-detail').textContent = der.equipeNom + (der.lieu ? ' · ' + der.lieu : '') + (der.rdv ? ' · rendez-vous : ' + der.rdv : ' · heure de rendez-vous précisée par le coach');
     var rep = r[der.id], ch = S.changement(der.id), fin = ch && (ch.statut === 'annule' || ch.statut === 'forfait');
     var pc = document.getElementById('convoc-chg');
@@ -648,8 +638,7 @@
   function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   var EXEMPLES = [
     { id:'n-commande', quand:'', texte:'Votre commande est arrivée : le tee-shirt U18F est prêt à retirer à la salle.', ex:true },
-    { id:'n-stage', quand:'', texte:'Stage des vacances : lundi 19 (U11), mardi 20 (U13), jeudi 22 octobre (U15), de 10 h à 16 h 30.', ex:true },
-    { id:'n-attestation', quand:'2 octobre', texte:'Le bureau a répondu : l\'attestation de paiement est dans vos documents.', ex:true, lu:true }
+    { id:'n-attestation', quand:(window.BCRFam ? BCRFam.jourCourt(-10) : ''), texte:'Le bureau a répondu : l\'attestation de paiement est dans vos documents.', ex:true, lu:true }
   ];
   var cloche = document.getElementById('cloche'), panneau = document.getElementById('notifs-panneau'), ul = document.getElementById('notifs-liste');
   function toutes(){
@@ -657,7 +646,7 @@
     var r = S.reponses();
     var conv = S.convocations().filter(function(c){ return F.enfantDe(c); }).reverse().map(function(c){
       var e = F.enfantDe(c);
-      return { id:'convoc-' + c.id, quand:'Aujourd\'hui', texte:'Convocation : ' + e.prenom + ' est sélectionné' + e.accord + ' pour le match du ' + S.dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'un adversaire à compléter') + '.' + (r[c.id] ? '' : ' Confirmez sa présence.'), lien:'#convoc-alerte', enfant:e.id };
+      return { id:'convoc-' + c.id, quand:'Aujourd\'hui', texte:'Convocation : ' + e.prenom + ' est sélectionné' + e.accord + ' pour le match du ' + S.dateFr(c.date).toLowerCase() + (F.adversaire(c) ? ' contre ' + F.adversaire(c) : '') + '.' + (r[c.id] ? '' : ' Confirmez sa présence.'), lien:'#convoc-alerte', enfant:e.id };
     });
     /* Avis de changement (report, annulation, horaire, salle, forfait, autre) pour les matchs où un enfant est convoqué. */
     var chg = S.convocations().filter(function(c){ return F.enfantDe(c) && S.changement(c.id); }).reverse().map(function(c){

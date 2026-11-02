@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 <title>Espace partenaire | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
@@ -24,7 +24,7 @@
       <p class="s-surtitre">Accès réservé aux partenaires du club</p>
       <h1 id="titre-page" class="s-titre">Votre <span class="vert">visibilité</span></h1>
       <p class="demo-ex"><strong>Démonstration</strong> : espace d'une « Entreprise partenaire (exemple) ». Tous les chiffres de cette page sont des chiffres d'exemple.</p>
-      <p class="s-chapo">Où votre logo est apparu cette saison, combien de personnes l'ont vu, votre offre aux licenciés et vos visuels.</p>
+      <p class="s-chapo">Où votre logo est apparu cette saison, combien de personnes l'ont vu et vos visuels.</p>
     </div>
   </section>
 
@@ -56,28 +56,6 @@
     </div>
   </section>
 
-  <section class="bloc clair" aria-labelledby="titre-offre">
-    <div class="wrap deux-col">
-      <div>
-        <p class="surtitre">Avantage licenciés</p>
-        <h2 id="titre-offre">Votre offre aux licenciés</h2>
-        <div class="offre-actuelle" id="offre-en-ligne"><b>-10 % sur votre première commande</b><span>Sur présentation de la licence BCR. <span class="etiquette-ex">exemple</span></span><br><span class="statut ok">En ligne</span></div>
-        <div class="offre-actuelle" id="offre-proposee" hidden></div>
-        <p class="chapo-bloc">Votre offre paraît sur la page « Nos partenaires » et dans l'espace des licenciés. Toute modification est relue par un dirigeant du club avant d'être publiée.</p>
-      </div>
-      <form class="form-plus" id="form-offre" novalidate>
-        <h3>Modifier l'offre</h3>
-        <label for="of-texte">Votre offre (obligatoire)</label>
-        <input type="text" id="of-texte" maxlength="80" value="-10 % sur votre première commande" required aria-required="true">
-        <label for="of-cond">Conditions</label>
-        <textarea id="of-cond" maxlength="300">Sur présentation de la licence BCR.</textarea>
-        <button type="submit" class="bouton">Proposer cette offre au club (simulation)</button>
-        <p class="msg erreur" id="of-erreur" role="alert"></p>
-        <p class="msg" id="of-msg" role="status" hidden></p>
-      </form>
-    </div>
-  </section>
-
   <section class="bloc" aria-labelledby="titre-visuels">
     <div class="wrap">
       <p class="surtitre">Pour votre communication</p>
@@ -105,26 +83,6 @@
 <script src="js/formulaires.js"></script>
 <script>
 (function(){
-  /* Offre aux licenciés : la modification part « en attente de validation » (simulation, gardée pendant la visite). */
-  var CLE = 'bcr-partenaire-offre';
-  var prop = document.getElementById('offre-proposee'), msg = document.getElementById('of-msg');
-  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-  function montrer(o){
-    if (!o) { prop.hidden = true; return; }
-    prop.hidden = false;
-    prop.innerHTML = '<b>' + esc(o.texte) + '</b><span>' + esc(o.cond) + '</span><br><span class="statut attente">En attente de validation par le club</span>';
-  }
-  var o = null; try { o = JSON.parse(sessionStorage.getItem(CLE) || 'null'); } catch (e) {}
-  if (o && o.texte) { montrer(o); document.getElementById('of-texte').value = o.texte; document.getElementById('of-cond').value = o.cond || ''; }
-  document.getElementById('form-offre').addEventListener('submit', function(e){
-    e.preventDefault();
-    var t = document.getElementById('of-texte').value.trim(), c = document.getElementById('of-cond').value.trim();
-    if (t.length < 3) { BCRForm.erreur(document.getElementById('of-texte'), 'Écrivez votre offre en quelques mots.'); return; }
-    var n = { texte: t, cond: c, statut: 'attente' };
-    try { sessionStorage.setItem(CLE, JSON.stringify(n)); } catch (er) {}
-    montrer(n);
-    BCRForm.ok(msg, 'Simulation : offre transmise au club. Elle paraîtra sur le site après validation par un dirigeant ; en attendant, l\'offre en ligne reste celle du dessus.');
-  });
   var dl = document.getElementById('dl-msg');
   Array.prototype.forEach.call(document.querySelectorAll('[data-dl]'), function(b){
     b.addEventListener('click', function(){

@@ -158,7 +158,7 @@
           <h2 id="titre-venir" data-mv="mots">Venir à la salle</h2>
           <p class="venir-adresse"><b>Salle Alexandre-Cheruel</b><br>Rue des Salines, Rouxmesnil-Bouteilles</p>
           <p>Quand deux matchs ont lieu en même temps, l'un se joue à l'ancien gymnase Lefebvre : le lieu serait indiqué sur chaque match.</p>
-          <p class="aide-venir">Stationnement et accès : à compléter avec le club.</p>
+          <p class="aide-venir">Gymnase Alexandre-Cheruel, 1200 rue des Salines, Rouxmesnil-Bouteilles.</p>
         </div>
         <div class="venir-actions">
           <a class="s-bouton" href="https://www.openstreetmap.org/search?query=rue%20des%20Salines%2C%20Rouxmesnil-Bouteilles" target="_blank" rel="noopener">Itinéraire (OpenStreetMap)</a>
@@ -184,15 +184,7 @@
       <script>
       /* Démonstration (espace dirigeants, « Le score arrive tout seul ») : le résultat reçu pendant la visite s'ajoute en tête
          des résultats récents, comme sur la page de l'équipe (même clé de l'onglet). */
-      (function(){
-        try {
-          var r = JSON.parse(sessionStorage.getItem('bcr-score-auto') || '{}')['dfu18-2026-10-31'], z = document.getElementById('resultats-recents');
-          if (!r || typeof r.bcr !== 'number' || !z) return;
-          var sc = r.masque ? '<span>' + (r.bcr > r.ad ? 'Victoire' : r.bcr < r.ad ? 'Défaite' : 'Nul') + '</span>' : '<span>' + r.bcr + '</span><i>-</i><span>' + r.ad + '</span>';
-          z.insertAdjacentHTML('afterbegin', '<div class="recu"><div class="cat">U18 F · DFU18 · <span style="white-space:nowrap">31 oct.</span></div><div class="sc">' + sc + '</div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">USB</span></div><div class="adv">BCR 2, à domicile, contre US Bacqueville<br><span class="etiquette-ex" style="margin:4px 0 0;white-space:normal">reçu pendant la démonstration</span></div></div>');
-          z.removeChild(z.lastElementChild);
-        } catch (e) {}
-      })();
+      /* Les résultats récents sont recalculés plus bas à partir des données de la FFBB (js/donnees-ffbb.js) et de la date du jour. */
       </script>
     </div>
   </section>
@@ -257,6 +249,7 @@
   </section>
 </main>
 
+<script src="js/donnees-ffbb.js"></script>
 <script>
 (function(){
   /* Matchs publiés par le club (affiches « Rendez-vous du week-end » des 17-18 octobre), matchs à domicile du week-end des
@@ -286,12 +279,45 @@
   ];
   var J = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'], Mo = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   var maintenant = new Date(), BCR = '<img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR">';
+  /* Données officielles de la FFBB (js/donnees-ffbb.js) : prochains matchs et résultats récents selon la date du jour. */
+  var F = window.BCR_FFBB && window.BCR_FFBB.equipes;
+  var LIB = { rm3:['Seniors masculins · régionale 3 (RM3)','Seniors M · RM3'], prm:['Seniors masculins · pré-régionale (PRM)','Seniors M · PRM'], dm3:['Seniors masculins · départementale 3 (DM3)','Seniors M · DM3'], dm6:['Seniors masculins · départementale 6 (DM6)','Seniors M · DM6'],
+    rf2:['Seniors féminines · régionale 2 (RF2)','Seniors F · RF2'], df2:['Seniors féminines · départementale 2 (DF2)','Seniors F · DF2'], df3:['Seniors féminines · départementale 3 (DF3)','Seniors F · DF3'], u21:['U21 masculins · régionale (RMU21)','U21 M'],
+    u18f1:['U18 féminines · élite régionale (RFU18)','U18 F · élite'], dfu18:['U18 féminines · départementale (DFU18)','U18 F · DFU18'], dmu18a:['U18 masculins · équipe 1','U18 M · éq. 1'], dmu18b:['U18 masculins · équipe 2','U18 M · éq. 2'], dmu18c:['U18 masculins · équipe 3','U18 M · éq. 3'],
+    u15f:['U15 féminines (DFU15)','U15 F'], dmu15a:['U15 masculins · équipe 1','U15 M · éq. 1'], dmu15b:['U15 masculins · équipe 2','U15 M · éq. 2'], u13f:['U13 féminines (DFU13)','U13 F'], dmu13:['U13 masculins','U13 M'], u11:['U11 mixte','U11'] };
+  var JEUNE = /^(u|d[fm]u)/;
+  if (F) {
+    var tous = [], joues = [], vus = {};
+    Object.keys(F).forEach(function(id){ (F[id].matchs || []).forEach(function(m){
+      if (m.adv === 'Exempt' || !LIB[id]) return;
+      var x = {id:id, d:m.d, eq:LIB[id][0], court:LIB[id][1], adv:m.adv, sig:m.sig, logo:m.logo, dom:m.dom, s:m.s};
+      if (m.s) joues.push(x); else { var k = m.d.slice(0,10) + m.adv + (m.dom ? id : ''); if (/Rouxmesnil/.test(m.adv)) { if (vus[m.d.slice(0,10)+'derby']) return; vus[m.d.slice(0,10)+'derby'] = 1; } tous.push(x); }
+    }); });
+    MATCHS = tous;
+    /* Résultats récents : les quatre derniers, plus ceux reçus pendant la démonstration (espace dirigeants). */
+    var recus = {}; try { recus = JSON.parse(sessionStorage.getItem('bcr-score-auto') || '{}'); } catch (e) {}
+    Object.keys(recus).forEach(function(cle){
+      var k = /^([a-z0-9]+)-(\d{4}-\d{2}-\d{2})$/.exec(cle), r = recus[cle]; if (!k || !r || typeof r.bcr !== 'number' || !F[k[1]]) return;
+      var m = (F[k[1]].matchs || []).filter(function(x){ return x.d.slice(0,10) === k[2]; })[0]; if (!m || !LIB[k[1]]) return;
+      joues = joues.filter(function(x){ return !(x.id === k[1] && x.d.slice(0,10) === k[2]); });
+      tous = tous.filter(function(x){ return !(x.id === k[1] && x.d.slice(0,10) === k[2]); }); MATCHS = tous;
+      joues.push({id:k[1], d:m.d, court:LIB[k[1]][1], adv:m.adv, sig:m.sig, logo:m.logo, dom:m.dom, s:[r.bcr, r.ad], recu:true});
+    });
+    joues.sort(function(a, b){ return a.recu !== b.recu ? (a.recu ? 1 : -1) : (a.d < b.d ? -1 : a.d > b.d ? 1 : 0); });
+    var z = document.getElementById('resultats-recents'), MC = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+    if (z && joues.length) z.innerHTML = joues.slice(-4).reverse().map(function(x){
+      var d = new Date(x.d.slice(0,10) + 'T12:00'), e = x.s[0] - x.s[1], cache = JEUNE.test(x.id) && Math.abs(e) >= 30;
+      var sc = cache ? '<span>' + (e > 0 ? 'Victoire' : 'Défaite') + '</span>' : '<span>' + x.s[0] + '</span><i>-</i><span>' + x.s[1] + '</span>';
+      var a = x.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+x.logo+'" alt="">' : '<span class="logo-adv" aria-hidden="true">'+x.sig+'</span>';
+      return '<div' + (x.recu ? ' class="recu"' : '') + '><div class="cat">' + x.court + ' · <span style="white-space:nowrap">' + d.getDate() + ' ' + MC[d.getMonth()] + '</span></div><div class="sc">' + sc + '</div><div class="duel">' + BCR + '<i>vs</i>' + a + '</div><div class="adv">' + (x.dom ? 'À domicile' : 'À l\'extérieur') + ', contre ' + x.adv + (x.recu ? '<br><span class="etiquette-ex" style="margin:4px 0 0;white-space:normal">reçu pendant la démonstration</span>' : '') + '</div></div>';
+    }).join('');
+  }
   function cle(m){ return m.d.length > 10 ? m.d : m.d + 'T23:00'; }   /* horaire non fixé : en fin de journée */
   var avenir = MATCHS.filter(function(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T23:59'); return d.getTime() + 2*3600e3 > maintenant.getTime(); })
     .sort(function(a, b){ return cle(a) < cle(b) ? -1 : cle(a) > cle(b) ? 1 : 0; }).slice(0, 10);
   document.getElementById('matchs').innerHTML = avenir.map(function(m){
     var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00');
-    var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h ' + m.d.slice(14,16) : 'horaire à venir';
+    var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h ' + m.d.slice(14,16) : '';
     var a = m.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+m.logo+'" alt="'+m.adv+'">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>';
     return '<li><span class="jour">'+J[d.getDay()]+' '+d.getDate()+' '+Mo[d.getMonth()]+'</span><span class="heure">'+h+'</span><span class="aff"><b>'+m.eq+'</b> contre '+m.adv+'</span><span class="duel">'+(m.dom ? BCR+'<i>vs</i>'+a : a+'<i>vs</i>'+BCR)+'</span><span class="lieu">'+(m.dom ? 'À domicile' : 'À l\'extérieur')+'</span></li>';
   }).join('');
@@ -311,12 +337,12 @@
   /* Carte « La vie du club » : le prochain match à domicile. */
   var vp = document.getElementById('vie-prochain'), dm = avenir.filter(function(m){ return m.dom; })[0];
   if (vp && dm) {
-    var dd = new Date(dm.d.length > 10 ? dm.d : dm.d + 'T12:00'), hh = dm.d.length > 10 ? dm.d.slice(11,13).replace(/^0/,'') + ' h ' + dm.d.slice(14,16) : 'horaire à venir';
-    vp.innerHTML = '<span class="gros-num" aria-hidden="true">' + dd.getDate() + '</span><h3>Prochain match à la salle</h3><p>' + J[dd.getDay()] + ' ' + dd.getDate() + ' ' + Mo[dd.getMonth()] + ', ' + hh + ' : ' + dm.eq + ' contre ' + dm.adv + '.</p><a class="s-bouton creux" href="#week-end">Voir les prochains matchs</a>';
+    var dd = new Date(dm.d.length > 10 ? dm.d : dm.d + 'T12:00'), hh = dm.d.length > 10 ? dm.d.slice(11,13).replace(/^0/,'') + ' h ' + dm.d.slice(14,16) : '';
+    vp.innerHTML = '<span class="gros-num" aria-hidden="true">' + dd.getDate() + '</span><h3>Prochain match à la salle</h3><p>' + J[dd.getDay()] + ' ' + dd.getDate() + ' ' + Mo[dd.getMonth()] + (hh ? ', ' + hh : '') + ' : ' + dm.eq + ' contre ' + dm.adv + '.</p><a class="s-bouton creux" href="#week-end">Voir les prochains matchs</a>';
   }
 })();
 </script>
-<script>document.querySelectorAll(".vie-carte[data-fin]").forEach(function(c){ if (new Date(c.getAttribute("data-fin")) < new Date()) { c.querySelector("h3").insertAdjacentHTML("beforebegin", "<p class=\"surtitre\">" + c.getAttribute("data-passe") + "</p>"); var b = c.querySelector(".s-bouton"); if (b) b.remove(); } });</script>
+<script>document.querySelectorAll(".vie-carte[data-fin]").forEach(function(c){ if (new Date(c.getAttribute("data-fin")) < new Date()) { c.classList.add("est-passe"); c.querySelector("h3").insertAdjacentHTML("beforebegin", "<span class=\"badge-passe\">Événement passé</span>"); var b = c.querySelector(".s-bouton"); if (b) b.remove(); } });</script>
 <script src="maquette.js"></script>
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>

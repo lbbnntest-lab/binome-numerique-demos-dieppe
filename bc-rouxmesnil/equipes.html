@@ -7,13 +7,16 @@
 <meta name="theme-color" content="#080a09">
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 <title>Équipes et résultats | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="signature.css">
 <style>
+.saison-plus{margin-top:6px}.saison-plus>summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(--ballon,#1f7a3f)}
+.classement td:nth-child(n+3),.classement th:nth-child(n+3){text-align:center}
+@media (max-width:480px){.classement .cl-diff{display:none}.classement .cl-eq .logo-eq,.classement .cl-eq .logo-adv{display:none}}
 #fiche{min-height:1000px}/* place réservée : le pied de page ne saute pas quand la fiche s'affiche */
 .cats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
 .cats button,.eqs button{font:inherit;cursor:pointer;border:2px solid var(--club);background:#fff;color:var(--club);padding:8px 14px;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
@@ -74,6 +77,7 @@
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/mouvement.js"></script>
 <script src="js/pages.js"></script>
+<script src="js/donnees-ffbb.js"></script>
 <script>
 (function(){
   /* Toutes les données viennent des affiches du club (page Facebook), de la FFBB (captures du fondateur)
@@ -138,6 +142,24 @@
       res:[{dl:'Date sur la FFBB', adv:'Offranville', sig:'OFF', s:'44 - 13', v:true, txt:'À l\'extérieur'}]},
     {id:'u11', cat:'U11', nom:'U11 mixte', niv:'Départementale', code:'', engage:'Poule A · Basket Club de Rouxmesnil', avenir:[], res:[]}
   ];
+  /* Données officielles de la FFBB (js/donnees-ffbb.js) : calendrier complet, résultats et classement de chaque équipe. */
+  var FF = (window.BCR_FFBB && window.BCR_FFBB.equipes) || {};
+  var auj = new Date(); auj.setHours(0,0,0,0);
+  EQUIPES.forEach(function(e){
+    var D = FF[e.id]; if (!D) return;
+    if (D.matchs.length) {
+      var av = [], re = [];
+      D.matchs.forEach(function(m){
+        if (m.adv === 'Exempt') return;
+        var x = {d:m.d, adv:m.adv, sig:m.sig, logo:m.logo, dom:m.dom};
+        if (m.s) { x.d = m.d.slice(0,10); x.s = m.s[0]+' - '+m.s[1]; x.v = m.s[0] > m.s[1] ? true : (m.s[0] < m.s[1] ? false : undefined); x.txt = m.dom ? 'À domicile' : "À l'extérieur"; re.unshift(x); }
+        else if (new Date(m.d.slice(0,10)+'T23:59') >= auj) av.push(x);
+      });
+      e.avenir = av; e.res = re;
+    } else if (e.id === 'u18f1') e.res = [];
+    if (D.cl.length) e.cl = D.cl;
+    e.classement = null; e.releveFF = window.BCR_FFBB.releve;
+  });
   /* Un match passé quitte « Prochains matchs » et rejoint les résultats, avec renvoi au score officiel. */
   var now = Date.now();
   EQUIPES.forEach(function(e){
@@ -150,11 +172,17 @@
   });
   /* Démonstration (espace dirigeants, « Le score arrive tout seul ») : le résultat reçu pendant la visite apparaît tout de suite sur la page de l'équipe. */
   try {
-    var recu = JSON.parse(sessionStorage.getItem('bcr-score-auto') || '{}')['dfu18-2026-10-31'];
-    if (recu && typeof recu.bcr === 'number') EQUIPES.forEach(function(e){ if (e.id === 'dfu18') {
-      e.avenir = e.avenir.filter(function(m){ return m.d.slice(0,10) !== '2026-10-31'; }); e.res = e.res.filter(function(m){ return m.d !== '2026-10-31'; });
-      e.res.unshift({d:'2026-10-31', adv:'US Bacqueville', sig:'USB', s: recu.bcr + ' - ' + recu.ad, v: recu.bcr > recu.ad ? true : (recu.bcr < recu.ad ? false : undefined), txt:'Résultat reçu (démonstration)'});
-    } });
+    var recus = JSON.parse(sessionStorage.getItem('bcr-score-auto') || '{}');
+    Object.keys(recus).forEach(function(cle){
+      var k = /^([a-z0-9]+)-(\d{4}-\d{2}-\d{2})$/.exec(cle), recu = recus[cle];
+      if (!k || !recu || typeof recu.bcr !== 'number') return;
+      EQUIPES.forEach(function(e){ if (e.id !== k[1]) return;
+        var j = k[2], m = e.avenir.filter(function(x){ return x.d.slice(0,10) === j; })[0] || e.res.filter(function(x){ return x.d.slice(0,10) === j; })[0];
+        if (!m) return;
+        e.avenir = e.avenir.filter(function(x){ return x.d.slice(0,10) !== j; }); e.res = e.res.filter(function(x){ return x.d.slice(0,10) !== j; });
+        e.res.unshift({d:j, adv:m.adv, sig:m.sig, logo:m.logo, s: recu.bcr + ' - ' + recu.ad, v: recu.bcr > recu.ad ? true : (recu.bcr < recu.ad ? false : undefined), txt:'Résultat reçu (démonstration)'});
+      });
+    });
   } catch (x) {}
   var CATS = []; EQUIPES.forEach(function(e){ if (CATS.indexOf(e.cat) < 0) CATS.push(e.cat); });
   var FFBB_CLUB = 'https://competitions.ffbb.com/ligues/nor/comites/0076/clubs/nor0076080';
@@ -163,7 +191,7 @@
   function adv(m){ return m.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+m.logo+'" alt="">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>'; }
   var JOURS = ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'], MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
   function dateFr(s){ var d = new Date(s.length > 10 ? s : s + 'T12:00'); return JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()]; }
-  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h '+s.slice(14,16) : 'horaire à venir'; }
+  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h '+s.slice(14,16) : ''; }
   function libelle(e){ return e.nom+' · '+e.niv; }
 
   function afficherCats(){
@@ -181,18 +209,24 @@
   function afficherFiche(){
     var e = EQUIPES.filter(function(x){ return x.id===eqCourante; })[0];
     var lien = e.ffbb || FFBB_CLUB;
-    var avenir = e.avenir.length ? e.avenir.map(function(m){
+    function ligneAv(m){
       return '<div class="ligne-m"><span class="d">'+dateFr(m.d)+'<small>'+heure(m.d)+'</small></span><span class="m"><span class="duel">'+(m.dom?LOGO+'<i>vs</i>'+adv(m):adv(m)+'<i>vs</i>'+LOGO)+'</span><span>'+m.adv+'<br><span class="lieu">'+(m.dom?'À domicile':'À l\'extérieur')+'</span></span></span></div>';
-    }).join('') : '<p class="vide">Le calendrier de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la page FFBB du club</a> ; sur le futur site, il serait repris ici.</p>';
+    }
+    var avenir = e.avenir.length ? e.avenir.slice(0,5).map(ligneAv).join('')
+      + (e.avenir.length > 5 ? '<details class="saison-plus"><summary>Toute la saison : '+(e.avenir.length-5)+' autres matchs</summary>'+e.avenir.slice(5).map(ligneAv).join('')+'</details>' : '')
+      : '<p class="vide">Le calendrier de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la page FFBB du club</a>.</p>';
     var res = e.res.length ? e.res.map(function(m){
       return '<div class="ligne-m"><span class="d">'+(m.dl||dateFr(m.d))+'</span><span class="m"><span class="duel">'+(m.sans?LOGO:LOGO+'<i>vs</i>'+adv(m))+'</span><span>'+m.adv+(m.txt?'<br><span class="lieu">'+(m.txt==='Score officiel sur la FFBB'?'<a href="'+lien+'" target="_blank" rel="noopener">Score officiel sur la FFBB</a>':m.txt)+'</span>':'')+'</span></span><span class="r'+(m.v===true?' v':(m.v===false?' d':''))+'">'+m.s+'</span></div>';
     }).join('') : '<p class="vide">Pas de résultat publié par le club pour cette équipe ; les scores sont sur <a href="'+lien+'" target="_blank" rel="noopener">la FFBB</a>.</p>';
-    var cl = e.classement ? '<h3>Classement</h3><p class="vide" style="margin:-6px 0 8px">'+e.classement.titre+' (FFBB)</p><table class="classement"><tr><th>#</th><th>Équipe</th><th>V</th><th>D</th><th>Pts</th></tr>'
+    var cl = e.cl ? '<h3>Classement</h3><p class="vide" style="margin:-6px 0 8px">Classement officiel de la FFBB, relevé le '+e.releveFF+'</p><div class="table-defile"><table class="classement"><tr><th>#</th><th>Équipe</th><th title="Matchs joués">J</th><th title="Victoires">V</th><th title="Défaites">D</th><th class="cl-diff" title="Écart de points">+/-</th><th>Pts</th></tr>'
+        + e.cl.map(function(c){ return '<tr'+(c[7]?' class="nous"':'')+'><td>'+c[0]+'</td><td><span class="cl-eq">'+(c[7]?LOGO:(c[8]?'<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+c[8]+'" alt="">':'<span class="logo-adv" aria-hidden="true">'+c[1].replace(/[^A-ZÉÈ0-9]/g,'').slice(0,3)+'</span>'))+c[1]+'</span></td><td>'+c[3]+'</td><td>'+c[4]+'</td><td>'+c[5]+'</td><td class="cl-diff">'+(c[6]>0?'+':'')+c[6]+'</td><td><strong>'+c[2]+'</strong></td></tr>'; }).join('') + '</table></div>'
+      : (e.id === 'u18f1' ? '<h3>Classement</h3><p class="vide">Le classement de la poule élite démarre avec la première journée, le samedi 7 novembre.</p>' : null);
+    if (cl === null) cl = e.classement ? '<h3>Classement</h3><p class="vide" style="margin:-6px 0 8px">'+e.classement.titre+' (FFBB)</p><table class="classement"><tr><th>#</th><th>Équipe</th><th>V</th><th>D</th><th>Pts</th></tr>'
         + e.classement.lignes.map(function(c,k){ return '<tr'+(c[1]===''?' class="nous"':'')+'><td>'+(k+1)+'</td><td><span class="cl-eq">'+(c[1]?'<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+c[1]+'" alt="">':LOGO)+c[0]+'</span></td><td>'+c[2]+'</td><td>'+c[3]+'</td><td><strong>'+c[4]+'</strong></td></tr>'; }).join('') + '</table>'
       : '<h3>Classement</h3>'+(e.rang?'<p style="margin:0 0 8px"><strong>'+e.rang+'</strong> <span class="vide">(FFBB, relevé du '+(e.releve||'30 octobre')+')</span></p>':'')+'<p class="vide">Le classement complet de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la FFBB</a>. Sur le futur site, il serait affiché ici et mis à jour après chaque journée.</p>';
     document.getElementById('fiche').innerHTML =
       '<div class="fiche-eq">'
-      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+(e.code?' · '+e.code:'')+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'<div style="color:#c9cdca">Entraînements et coachs : à compléter avec le club</div></div>'
+      + '<div class="bandeau-eq"><div><div class="niv">'+e.cat+(e.code?' · '+e.code:'')+'</div><h2>'+libelle(e)+'</h2>'+(e.engage?'<div style="color:#c9cdca">Engagée à la FFBB : '+e.engage+'</div>':'')+'</div>'
       + '<div class="suivre">'+(e.avenir.length?'<button type="button" class="s-bouton" id="agenda">Ajouter à mon agenda</button>':'')+'<button type="button" class="s-bouton creux" id="suivre">Suivre cette équipe</button>'+(e.lien?'<a class="s-bouton creux" href="'+e.lien+'">Leur saison</a>':'')+'<a class="s-bouton creux" href="'+lien+'" target="_blank" rel="noopener">Page FFBB</a></div>'
       + '<span class="gros" aria-hidden="true">'+(e.code||e.cat.split(' ')[0])+'</span></div>'
       + '<div class="bloc-eq"><h3>Prochains matchs</h3>'+avenir+'<h3 style="margin-top:22px">Résultats</h3>'+res+'</div>'

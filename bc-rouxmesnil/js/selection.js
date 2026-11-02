@@ -24,7 +24,7 @@
   ];
   function amicauxExemple(equipe) {
     return AMICAUX.filter(function (m) { return m.equipe === equipe; }).map(function (m) {
-      return { equipe: m.equipe, date: prochainSamedi(m.decalage), heure: m.heure, dom: m.dom, adv: 'une équipe à confirmer', ex: true };
+      return { equipe: m.equipe, date: prochainSamedi(m.decalage), heure: m.heure, dom: m.dom, adv: 'un club voisin', ex: true };
     });
   }
   /* Événement d'exemple de la billetterie : « Tournoi des jeunes (exemple) », publié, dans trois samedis. Il est écrit dans
@@ -72,7 +72,7 @@
     avisChangement: function (c) {
       var h = function (x) { return x ? x.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ') : ''; };
       var m = 'Le match' + (c.amical ? ' amical' : '') + ' du ' + dateFr(c.date).toLowerCase() + ' contre ' + (c.adv || 'l\'adversaire');
-      var p = c.statut === 'reporte' ? m + (c.nouvelleDate ? ' est reporté au ' + dateFr(c.nouvelleDate).toLowerCase() + (c.nouvelleHeure ? ', ' + h(c.nouvelleHeure) : '') + '.' : ' est reporté ; la nouvelle date reste à fixer.')
+      var p = c.statut === 'reporte' ? m + (c.nouvelleDate ? ' est reporté au ' + dateFr(c.nouvelleDate).toLowerCase() + (c.nouvelleHeure ? ', ' + h(c.nouvelleHeure) : '') + '.' : ' est reporté ; la nouvelle date sera annoncée ici.')
         : c.statut === 'annule' ? m + ' est annulé.'
         : c.statut === 'forfait' ? m + ' n\'aura pas lieu (forfait).'
         : c.statut === 'horaire' ? m + ' change d\'horaire : début à ' + h(c.nouvelleHeure) + '.'

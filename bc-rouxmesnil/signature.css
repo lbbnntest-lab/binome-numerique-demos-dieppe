@@ -206,7 +206,7 @@
 }
 
 /* En-tête des pages intérieures */
-.p-tete{position:relative;overflow:hidden;background:linear-gradient(100deg,rgba(8,10,9,.95) 0%,rgba(8,10,9,.86) 55%,rgba(8,10,9,.7) 100%),url(img/salle-cheruel-vert.webp) center 35%/cover no-repeat #080a09;clip-path:polygon(0 0,100% 0,100% calc(100% - 40px),0 100%)}
+.p-tete{position:relative;overflow:hidden;background:linear-gradient(100deg,rgba(8,10,9,.95) 0%,rgba(8,10,9,.86) 55%,rgba(8,10,9,.7) 100%),url(img/salle-tribunes.webp) center 72%/cover no-repeat #080a09;clip-path:polygon(0 0,100% 0,100% calc(100% - 40px),0 100%)}
 .p-tete .wrap{position:relative;padding-top:72px;padding-bottom:104px}
 .p-tete .s-titre{font-size:clamp(2.8rem,7vw,6.2rem);max-width:12em}
 .p-tete .s-chapo{max-width:38em}

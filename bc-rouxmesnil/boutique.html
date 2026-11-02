@@ -8,7 +8,7 @@
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 
 <title>Boutique | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
@@ -243,7 +243,8 @@
 /* Stage d'octobre : une fois terminé, la carte est marquée « Passé » et ne propose plus de réserver (même mécanisme que l'accueil). */
 document.querySelectorAll('.produit[data-fin]').forEach(function(c){
   if (new Date(c.getAttribute('data-fin')) >= new Date()) return;
-  c.querySelector('h3').insertAdjacentHTML('beforebegin', '<p class="surtitre">' + c.getAttribute('data-passe') + '</p>');
+  c.classList.add('est-passe');
+  c.querySelector('h3').insertAdjacentHTML('beforebegin', '<span class="badge-passe">Événement passé</span>');
   var p = c.querySelector('.prix'); if (p) p.remove();
   var b = c.querySelector('.actions'); if (b) b.innerHTML = '<p>Les dates du prochain stage seraient publiées ici par le club.</p>';
 });

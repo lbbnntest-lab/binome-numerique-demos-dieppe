@@ -8,8 +8,9 @@
      bcr-benevoles [{creneauId, nom}]                                                   écrite ici (lue par l'espace dirigeants)
    Clés propres à cette page : bcr-enfant ('tous' ou l'enfant affiché), bcr-urgence ({lea:{tel1, tel2}, elsa:…, tom:…}),
    bcr-indispos-elsa et bcr-indispos-tom (celles de Léa restent dans bcr-indispos).
-   Tom (U13 masculins, DMU13) n'a pas d'espace coach dans la maquette : son équipe a le code « u13m », et tout ce qui
-   le concerne est un exemple ou reste « à compléter ». */
+   Tom (U13 masculins, DMU13) n'a pas d'espace coach dans la maquette : son équipe a le code « u13m ».
+   Les matchs et les résultats viennent de js/donnees-ffbb.js (relevé de la FFBB), à charger avant ce fichier : chaque enfant
+   porte l'identifiant de son équipe dans ces données (champ « ffbb »). Paramètre de test facultatif : ?aujourdhui=AAAA-MM-JJ. */
 (function () {
   'use strict';
   var S = window.BCRSel;
@@ -17,17 +18,26 @@
   function ecrire(cle, v) { try { sessionStorage.setItem(cle, JSON.stringify(v)); } catch (e) {} }
   function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function dateFr(iso) { return S ? S.dateFr(iso) : iso; }
-  function auj() { return S ? S.aujourdhui() : new Date().toISOString().slice(0, 10); }
+  /* Date du jour (AAAA-MM-JJ) ; ?aujourdhui=AAAA-MM-JJ permet de tester une autre date. */
+  var AUJ_TEST = (function () {
+    var m = /[?&]aujourdhui=(\d{4}-\d{2}-\d{2})/.exec(window.location.search);
+    return m && !isNaN(new Date(m[1] + 'T12:00')) ? m[1] : '';
+  })();
+  function auj() { return AUJ_TEST || (S ? S.aujourdhui() : new Date().toISOString().slice(0, 10)); }
+  function plusJours(iso, n) {
+    var d = new Date(iso + 'T12:00'); d.setDate(d.getDate() + n);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  /* « 28 octobre » : la date du jour décalée de n jours (dates des éléments d'exemple, toujours récentes). */
+  function jourCourt(n) { return S ? S.dateFr(plusJours(auj(), n), true) : plusJours(auj(), n); }
+  var FF = (window.BCR_FFBB && window.BCR_FFBB.equipes) || {};
   function $(id) { return document.getElementById(id); }
 
   /* ---------- Les enfants de la famille B. (exemple) ---------- */
   var ENFANTS = [
-    { id: 'lea', prenom: 'Léa', nom: 'Léa B.', initiale: 'L', accord: 'e', equipe: 'u15', lib: 'U15 féminines, départementale (DFU15)', court: 'U15 F', ex: false, coach: true,
-      dernier: '<strong>Samedi 17 octobre, 16 h</strong> · U15 féminines contre BC Offranville, à domicile' },
-    { id: 'elsa', prenom: 'Elsa', nom: 'Elsa B.', initiale: 'E', accord: 'e', equipe: 'u13', lib: 'U13 féminines, départementale (DFU13)', court: 'U13 F', ex: true, coach: true,
-      dernier: '<strong>Samedi 17 octobre, 14 h</strong> · U13 féminines contre CEP Saint-Nicolas-d\'Aliermont, à domicile' },
-    { id: 'tom', prenom: 'Tom', nom: 'Tom B.', initiale: 'T', accord: '', equipe: 'u13m', lib: 'U13 masculins, départementale 4, poule A (DMU13)', court: 'U13 M', ex: true, coach: false,
-      dernier: 'Aucun résultat relevé pour cette équipe : à compléter' }
+    { id: 'lea', prenom: 'Léa', nom: 'Léa B.', initiale: 'L', accord: 'e', equipe: 'u15', ffbb: 'u15f', nomEq: 'U15 féminines', lib: 'U15 féminines, départementale (DFU15)', court: 'U15 F', ex: false, coach: true },
+    { id: 'elsa', prenom: 'Elsa', nom: 'Elsa B.', initiale: 'E', accord: 'e', equipe: 'u13', ffbb: 'u13f', nomEq: 'U13 féminines', lib: 'U13 féminines, départementale (DFU13)', court: 'U13 F', ex: true, coach: true },
+    { id: 'tom', prenom: 'Tom', nom: 'Tom B.', initiale: 'T', accord: '', equipe: 'u13m', ffbb: 'dmu13', nomEq: 'U13 masculins', lib: 'U13 masculins, départementale 4, poule A (DMU13)', court: 'U13 M', ex: true, coach: false }
   ];
   function parId(id) { for (var i = 0; i < ENFANTS.length; i++) if (ENFANTS[i].id === id) return ENFANTS[i]; return null; }
   var mode = lire('bcr-enfant', 'tous');
@@ -47,22 +57,36 @@
 
   /* Annonce d'exemple de chaque équipe (jamais écrite dans bcr-annonces). */
   var ANNONCES_EX = {
-    u15: { id: 'ann-ex-u15', equipe: 'u15', texte: 'Pour chaque match, prévoyez une gourde et soyez là à l\'heure du rendez-vous indiquée dans la convocation. Merci à tous !', date: '2026-10-14', auteur: 'Coach U15', ex: true },
-    u13: { id: 'ann-ex-u13', equipe: 'u13', texte: 'Pensez à indiquer dans votre espace les jours d\'absence des vacances : cela m\'aide à préparer les prochains matchs.', date: '2026-10-15', auteur: 'Coach U13', ex: true },
-    u13m: { id: 'ann-ex-u13m', equipe: 'u13m', texte: 'Merci de répondre aux convocations avant le jeudi soir : cela me laisse le temps de compléter l\'équipe si besoin.', date: '2026-10-13', auteur: 'Coach U13 M', ex: true }
+    u15: { id: 'ann-ex-u15', equipe: 'u15', texte: 'Pour chaque match, prévoyez une gourde et soyez là à l\'heure du rendez-vous indiquée dans la convocation. Merci à tous !', date: plusJours(auj(), -3), auteur: 'Coach U15', ex: true },
+    u13: { id: 'ann-ex-u13', equipe: 'u13', texte: 'Pensez à indiquer dans votre espace les jours d\'absence des vacances : cela m\'aide à préparer les prochains matchs.', date: plusJours(auj(), -4), auteur: 'Coach U13', ex: true },
+    u13m: { id: 'ann-ex-u13m', equipe: 'u13m', texte: 'Merci de répondre aux convocations avant le jeudi soir : cela me laisse le temps de trouver un remplaçant si besoin.', date: plusJours(auj(), -5), auteur: 'Coach U13 M', ex: true }
   };
   /* Offre de covoiturage d'exemple de chaque équipe : elle n'est écrite dans bcr-covoit qu'à la première réservation. */
   var COVOIT_EX = {
     u15: { conducteur: 'Parent de Camille T.', places: 3, depart: 'Parking de la salle Alexandre-Cheruel', reservations: ['Lina P.'] },
     u13: { conducteur: 'Parent de Zoé D.', places: 3, depart: 'Parking de la salle Alexandre-Cheruel', reservations: [] }
   };
-  /* Créneaux de table de marque d'exemple, sur les vrais matchs à domicile à venir (élite régionale U18 F, horaires non fixés).
+  /* Créneaux de table de marque d'exemple, sur les vrais matchs à domicile à venir (week-end des 7 et 8 novembre, horaires de la FFBB).
      Les identifiants sont ceux que l'espace dirigeants lit dans bcr-benevoles (data-creneau). */
   var CRENEAUX = [
-    { id: 'tm-2026-11-07-marqueur', date: '2026-11-07', match: 'U18 féminines (RFU18) contre Cherbourg Basket Ball', poste: 'Marqueur', pris: 'Sophie D.' },
-    { id: 'tm-2026-11-07-chrono', date: '2026-11-07', match: 'U18 féminines (RFU18) contre Cherbourg Basket Ball', poste: 'Chronométreur', pris: null },
-    { id: 'tm-2026-11-21-marqueur', date: '2026-11-21', match: 'U18 féminines (RFU18) contre USO Mondeville Basket 2', poste: 'Marqueur', pris: null },
-    { id: 'tm-2026-11-21-chrono', date: '2026-11-21', match: 'U18 féminines (RFU18) contre USO Mondeville Basket 2', poste: 'Chronométreur', pris: 'Thomas R.' }
+    { id: 'tm-2026-11-07-dmu15-marqueur', date: '2026-11-07', heure: '13:30', match: 'U15 masculins (équipe 1) contre BC Offranville 2', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-07-dmu15-chrono', date: '2026-11-07', heure: '13:30', match: 'U15 masculins (équipe 1) contre BC Offranville 2', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-07-dfu13-marqueur', date: '2026-11-07', heure: '14:00', match: 'U13 féminines contre AS Dieppe', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-07-dfu13-chrono', date: '2026-11-07', heure: '14:00', match: 'U13 féminines contre AS Dieppe', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-07-rfu18-marqueur', date: '2026-11-07', heure: '15:15', match: 'U18 féminines (élite régionale) contre Cherbourg', poste: 'Marqueur', pris: 'Sophie D.' },
+    { id: 'tm-2026-11-07-rfu18-chrono', date: '2026-11-07', heure: '15:15', match: 'U18 féminines (élite régionale) contre Cherbourg', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-07-dfu15-marqueur', date: '2026-11-07', heure: '17:00', match: 'U15 féminines contre US Bacqueville', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-07-dfu15-chrono', date: '2026-11-07', heure: '17:00', match: 'U15 féminines contre US Bacqueville', poste: 'Chronométreur', pris: 'Nadia B.' },
+    { id: 'tm-2026-11-08-dm6-marqueur', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (D6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-dm6-chrono', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (D6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-prm-marqueur', date: '2026-11-08', heure: '09:45', match: 'Seniors masculins (pré-régionale) contre AS Couronne', poste: 'Marqueur', pris: 'Thomas R.' },
+    { id: 'tm-2026-11-08-prm-chrono', date: '2026-11-08', heure: '09:45', match: 'Seniors masculins (pré-régionale) contre AS Couronne', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-dm3-marqueur', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (D3) contre CBPQ', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-dm3-chrono', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (D3) contre CBPQ', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-rm3-marqueur', date: '2026-11-08', heure: '14:00', match: 'Seniors masculins (régionale 3) contre Rouen Métropole 5', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-rm3-chrono', date: '2026-11-08', heure: '14:00', match: 'Seniors masculins (régionale 3) contre Rouen Métropole 5', poste: 'Chronométreur', pris: 'Thomas R.' },
+    { id: 'tm-2026-11-08-rf2-marqueur', date: '2026-11-08', heure: '16:00', match: 'Seniors féminines (régionale 2) contre Évreux AC', poste: 'Marqueur', pris: 'Julie M.' },
+    { id: 'tm-2026-11-08-rf2-chrono', date: '2026-11-08', heure: '16:00', match: 'Seniors féminines (régionale 2) contre Évreux AC', poste: 'Chronométreur', pris: null }
   ];
   /* La table de marque est tenue par des licenciés du club, jamais par les parents (fondateur, 22/10) : dans la famille B.,
      c'est Léa (U15 F) qui prend un poste. Âge et formation demandés : à voir avec le club. */
@@ -86,7 +110,7 @@
     if (l) l.innerHTML = vs.map(function (x) {
       return '<li>' + (t ? '<span class="fam-pastille fam-p-' + x.id + '" aria-hidden="true">' + x.initiale + '</span>' : '') + esc(x.prenom) + ' · ' + esc(x.lib) + ' · saison 2026-2027' + (x.ex ? ' <span class="etiquette-ex">exemple</span>' : '') + '</li>';
     }).join('');
-    var d = $('fam-dernier'); if (d) d.innerHTML = vs.map(function (x) { return '<li>' + tag(x) + x.dernier + '</li>'; }).join('');
+    var d = $('fam-dernier'); if (d) d.innerHTML = vs.map(function (x) { return '<li>' + tag(x) + dernierLib(x) + '</li>'; }).join('');
     document.querySelectorAll('.fam-enfants [data-choisir]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-choisir') === mode)); });
     /* Listes « Pour quel enfant » : en vue famille, le parent choisit ; sinon l'enfant affiché. */
     document.querySelectorAll('select[data-pour-enfant]').forEach(function (s) {
@@ -100,7 +124,9 @@
     var sel = $('md-match');
     if (sel) {
       Array.prototype.forEach.call(sel.options, function (o) {
-        var base = o.getAttribute('data-base') || o.text.replace(/ \(match d[e'] ?[^)]*\)$/, '');
+        /* Match de l'équipe de l'enfant : le dernier match joué, d'après les données de la FFBB. */
+        var ef = ENFANTS.filter(function (x) { return x.equipe === o.value && x.ffbb; })[0], dm = ef && dernierDe(ef);
+        var base = ef ? (dm ? dateFr(dm.date) + ' · ' + ef.court + ' contre ' + dm.adv : ef.court) : (o.getAttribute('data-base') || o.text.replace(/ \(match d[e'] ?[^)]*\)$/, ''));
         o.setAttribute('data-base', base);
         var qui = vs.filter(function (x) { return x.equipe === o.value; }).map(function (x) { return x.prenom; });
         o.text = base + (qui.length ? ' (match ' + de(liste(qui)) + ')' : '');
@@ -108,6 +134,9 @@
       var cible = t ? 'u15' : e.equipe;
       if (sel.querySelector('option[value="' + cible + '"]')) sel.value = cible;
     }
+    /* Exemple d'envoi déjà validé : le dernier match d'Elsa. */
+    var xe = $('md-envoi-ex'), de2 = dernierDe(parId('elsa'));
+    if (xe) xe.textContent = '3 photos · U13 F' + (de2 ? ' contre ' + de2.adv : '');
   }
   function choisir(id, sansAnnonce) {
     if (id !== 'tous' && !parId(id)) return;
@@ -151,26 +180,45 @@
     return r.sort(function (a, b) { return a.date < b.date ? 1 : -1; });
   }
 
-  /* ---------- Matchs à venir ---------- */
+  /* ---------- Matchs à venir et derniers résultats (relevé de la FFBB, js/donnees-ffbb.js) ---------- */
   function annule(id) { var c = S && S.changement(id); return !!(c && (c.statut === 'annule' || c.statut === 'forfait')); }
   function heureFr(h) { return h ? ', ' + h.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ') : ''; }
-  /* Matchs à venir de l'équipe d'un enfant : amicaux ajoutés par le coach, matchs des convocations ; sinon le prochain
-     match, à compléter (aucun match à venir n'est publié pour ces équipes). Identifiant : celui des convocations
-     (« u15|AAAA-MM-JJ » ou « u15|AAAA-MM-JJ|am… »). exterieurSeul : pour le covoiturage. */
+  /* Calendrier de l'équipe d'un enfant d'après la FFBB, du plus ancien au plus récent. Identifiant : celui des
+     convocations du coach (« u15|AAAA-MM-JJ »). Pas d'heure dans la donnée : l'horaire n'est pas fixé, on n'affiche que le jour.
+     s = [score du BCR, score de l'adversaire]. */
+  function ffMatchs(e) {
+    var eq = e && FF[e.ffbb]; if (!eq) return [];
+    return eq.matchs.map(function (m) {
+      var d = m.d.slice(0, 10);
+      return { id: e.equipe + '|' + d, date: d, heure: m.d.length > 10 ? m.d.slice(11, 16) : '', adv: m.adv, dom: !!m.dom, s: m.s || null };
+    }).sort(function (x, y) { return x.date < y.date ? -1 : x.date > y.date ? 1 : 0; });
+  }
+  /* Dernier match joué, avec son résultat (les matchs passés dont le score n'est pas relevé sont laissés de côté). */
+  function dernierDe(e) {
+    var a = auj(), l = ffMatchs(e).filter(function (m) { return m.s && m.date <= a; });
+    return l.length ? l[l.length - 1] : null;
+  }
+  function resultatFr(m) { var p = m.s[0], q = m.s[1]; return (p > q ? 'victoire ' : p < q ? 'défaite ' : 'match nul ') + p + ' à ' + q; }
+  function dernierLib(e) {
+    var m = dernierDe(e);
+    if (!m) return 'Pas encore de match joué cette saison.';
+    return '<strong>' + esc(dateFr(m.date) + heureFr(m.heure)) + '</strong> · ' + esc(e.nomEq) + ' contre ' + esc(m.adv) + ', '
+      + (m.dom ? 'à domicile' : 'à l\'extérieur') + ' · ' + resultatFr(m);
+  }
+  /* Matchs à venir de l'équipe d'un enfant : matchs de la FFBB, matchs amicaux ajoutés par le coach, matchs des convocations.
+     La liste peut être vide (fin de saison). exterieurSeul : pour le covoiturage. */
   function matchsAVenir(e, exterieurSeul) {
     var a = auj(), l = [], vus = {};
-    /* Match amical d'exemple de l'équipe : le même que dans l'espace du coach (js/selection.js), pour que chaque enfant
-       ait un prochain match. Même identifiant que la convocation du coach, donc jamais en double. */
-    (S ? S.amicauxExemple(e.equipe) : []).forEach(function (m) {
-      var id = e.equipe + '|' + m.date; if ((exterieurSeul && m.dom) || annule(id)) return;
-      vus[id] = 1;
-      l.push({ id: id, date: m.date, adv: m.adv, dom: m.dom, exemple: true, lib: dateFr(m.date) + heureFr(m.heure) + ' · match amical (exemple) contre ' + m.adv + ', ' + (m.dom ? 'à domicile' : 'à l\'extérieur') });
+    ffMatchs(e).forEach(function (m) {
+      if (m.date < a || (m.date === a && m.s) || (exterieurSeul && m.dom) || annule(m.id)) return;
+      vus[m.id] = 1;
+      l.push({ id: m.id, date: m.date, adv: m.adv, dom: m.dom, lib: dateFr(m.date) + heureFr(m.heure) + ' · contre ' + m.adv + ', ' + (m.dom ? 'à domicile' : 'à l\'extérieur') });
     });
     (S ? S.lire('bcr-amicaux', []) : []).forEach(function (m) {
       if (m.equipe !== e.equipe || !m.date || m.date < a || (exterieurSeul && m.dom)) return;
       var id = e.equipe + '|' + m.date + '|' + m.id; if (annule(id)) return;
       vus[id] = 1;
-      l.push({ id: id, date: m.date, adv: m.adv, dom: !!m.dom, lib: dateFr(m.date) + heureFr(m.heure) + ' · match amical contre ' + m.adv + ', '
+      l.push({ id: id, date: m.date, adv: m.adv, dom: !!m.dom, ajoute: true, lib: dateFr(m.date) + heureFr(m.heure) + ' · match amical contre ' + m.adv + ', '
         + (exterieurSeul ? (m.lieu && !/ext[ée]rieur/.test(m.lieu) ? m.lieu : 'à l\'extérieur') : (m.lieu || (m.dom ? 'à domicile' : 'à l\'extérieur'))) });
     });
     (S ? S.convocations() : []).forEach(function (c) {
@@ -178,11 +226,9 @@
       var dom = !c.lieu || /domicile/i.test(c.lieu);
       if (exterieurSeul && (dom || c.joueuses.indexOf(e.nom) < 0)) return;
       vus[c.id] = 1;
-      l.push({ id: c.id, date: c.date, adv: c.adv || '', dom: dom, lib: dateFr(c.date) + ' · contre ' + (c.adv || 'adversaire à compléter') + (c.lieu ? ', ' + c.lieu : '') });
+      l.push({ id: c.id, date: c.date, adv: c.adv || '', dom: dom, ajoute: true, lib: dateFr(c.date) + (c.adv ? ' · contre ' + c.adv : '') + (c.lieu ? (c.adv ? ', ' : ' · ') + c.lieu : '') });
     });
-    l.sort(function (x, y) { return x.date < y.date ? -1 : 1; });
-    if (!l.length) l.push({ id: e.equipe + '|a-completer', date: '', aCompleter: true,
-      lib: exterieurSeul ? 'Prochain match à l\'extérieur · date et adversaire à compléter par le coach' : 'Prochain match · date et adversaire à compléter par le coach' });
+    l.sort(function (x, y) { return x.date < y.date ? -1 : x.date > y.date ? 1 : 0; });
     return l;
   }
 
@@ -191,7 +237,9 @@
     var ul = $('fam-direct'); if (!ul) return;
     var h = [];
     visibles().forEach(function (e) {
-      matchsAVenir(e).forEach(function (m) {
+      var ms = matchsAVenir(e).slice(0, 1);
+      if (!ms.length) h.push('<li>' + (tous() ? '<p class="fam-tag-ligne">' + etiquette(e) + '</p>' : '') + '<p class="dm-texte">Plus de match au calendrier de cette équipe.</p></li>');
+      ms.forEach(function (m) {
         var q = 'match=' + encodeURIComponent(m.id) + '&amp;equipe=' + encodeURIComponent(e.equipe)
           + (m.adv ? '&amp;adv=' + encodeURIComponent(m.adv.replace(/ \(.*\)$/, '')) + '&amp;lieu=' + (m.dom ? 'dom' : 'ext') : '');
         h.push('<li>' + (tous() ? '<p class="fam-tag-ligne">' + etiquette(e) + '</p>' : '') + '<p class="dm-texte"><strong>' + esc(m.lib) + '</strong></p><div class="actions fam-direct-actions">'
@@ -207,14 +255,14 @@
   function conducteurDe(e) { return 'Parent ' + de(e.nom); }
   function estMienne(o) { return ENFANTS.some(function (e) { return o.conducteur === conducteurDe(e); }); }
   function exempleDe(e, m) {
-    var x = COVOIT_EX[e.equipe]; if (!x) return null;
+    var x = COVOIT_EX[e.equipe]; if (!x || !m) return null;
     /* Format commun de bcr-covoit ; l'offre d'exemple se reconnaît à son identifiant « cv-ex-… ». */
     return { id: 'cv-ex-' + e.equipe, matchId: m.id, matchLib: m.lib, date: m.date, equipe: e.equipe, conducteur: x.conducteur, places: x.places, depart: x.depart, reservations: x.reservations.slice() };
   }
   var suppr = null;
   /* Matchs à l'extérieur d'un enfant, avec les offres de son équipe (y compris pour un match retiré depuis). */
   function covoitDe(e) {
-    var ms = matchsAVenir(e, true), toutes = offres().filter(function (o) { return o.equipe === e.equipe; });
+    var ms = matchsAVenir(e, true).slice(0, 2), toutes = offres().filter(function (o) { return o.equipe === e.equipe; });
     toutes.forEach(function (o) { if (!ms.some(function (m) { return m.id === o.matchId; })) ms.push({ id: o.matchId, date: o.date, lib: o.matchLib, ancien: true }); });
     if (!toutes.some(function (o) { return o.id === 'cv-ex-' + e.equipe; })) { var ex = exempleDe(e, ms[0]); if (ex) toutes.push(ex); }
     return { ms: ms, toutes: toutes };
@@ -246,7 +294,7 @@
           + '</div>');
       });
     });
-    zone.innerHTML = h.join('');
+    zone.innerHTML = h.join('') || '<p class="aide">Aucun match à l\'extérieur à venir pour le moment.</p>';
     var sel = $('cv-match'), avant = sel.value;
     sel.innerHTML = options.join('');
     if (Array.prototype.some.call(sel.options, function (o) { return o.value === avant; })) sel.value = avant;
@@ -293,6 +341,7 @@
       err.textContent = '';
       /* Le match choisi indique l'enfant (et donc l'équipe) concerné. */
       var v = (sel.value || '').split('§'), e = parId(v[0]) || visibles()[0], m = trouverMatch(e, v[1]);
+      if (!m) { err.textContent = 'Il n\'y a pas de match à l\'extérieur à venir pour proposer des places.'; etat.hidden = true; return; }
       var l = offres();
       var o = { id: 'cv' + Date.now(), matchId: m.id, matchLib: m.lib, date: m.date, equipe: e.equipe, conducteur: conducteurDe(e), places: n, depart: dep.value.trim(), reservations: [] };
       l.push(o); ecrire('bcr-covoit', l);
@@ -308,11 +357,16 @@
     var zone = $('bv-creneaux'); if (!zone) return;
     var pris = lire('bcr-benevoles', []), a = auj(), T = window.BCRTable, liste = T ? T.postes() : CRENEAUX;
     var dates = [];
-    liste.forEach(function (c) { if (c.date >= a && dates.indexOf(c.date) < 0) dates.push(c.date); });
-    dates.sort();
-    zone.innerHTML = dates.map(function (d) {
-      var cs = liste.filter(function (c) { return c.date === d; });
-      return '<div class="creneau"><h3>' + esc(dateFr(d)) + ' · horaire à fixer<br>' + esc(cs[0].match) + '</h3><p class="bv-ex"><span class="etiquette-ex">exemple</span> postes et noms</p><ul>' + cs.map(function (c) {
+    /* Un bloc par match (même jour, même rencontre), dans l'ordre des horaires. */
+    function cle(c) { return c.date + '|' + c.match; }
+    function heureDe(cs) { var h = cs.filter(function (c) { return c.heure; })[0]; return h ? h.heure : ''; }
+    liste.forEach(function (c) { if (c.date >= a && dates.indexOf(cle(c)) < 0) dates.push(cle(c)); });
+    dates.sort(function (x, y) {
+      return (x.slice(0, 10) + (heureDe(liste.filter(function (c) { return cle(c) === x; })) || '99')).localeCompare(y.slice(0, 10) + (heureDe(liste.filter(function (c) { return cle(c) === y; })) || '99'));
+    });
+    zone.innerHTML = dates.map(function (k) {
+      var cs = liste.filter(function (c) { return cle(c) === k; }), d = cs[0].date, h = heureDe(cs);
+      return '<div class="creneau"><h3>' + esc(dateFr(d)) + (h ? ' · ' + esc(h.slice(0, 2).replace(/^0/, '') + ' h ' + h.slice(3, 5)) : '') + '<br>' + esc(cs[0].match) + '</h3><p class="bv-ex"><span class="etiquette-ex">exemple</span> postes et noms</p><ul>' + cs.map(function (c) {
         var moi = pris.some(function (p) { return p.creneauId === c.id && p.nom === NOM_FAMILLE; });
         var autre = pris.filter(function (p) { return p.creneauId === c.id && p.nom !== NOM_FAMILLE; })[0];
         /* Poste tenu selon le planning du président (js/table-marque.js), sinon nom d'exemple. */
@@ -401,7 +455,18 @@
     de: de,
     tag: tag,
     enfantChoisi: enfantChoisi,
+    /* Prochain match de l'équipe de l'enfant, ou undefined s'il n'y en a plus au calendrier. */
     prochainMatch: function (e) { return matchsAVenir(e)[0]; },
+    aujourdhui: auj,
+    /* Adversaire d'une convocation : celui que le coach a saisi, sinon celui du calendrier de la FFBB (même équipe, même date). */
+    adversaire: function (c) {
+      if (c.adv) return c.adv;
+      var e = ENFANTS.filter(function (x) { return x.equipe === c.equipe; })[0];
+      var m = ffMatchs(e).filter(function (x) { return x.date === c.date; })[0];
+      return m ? m.adv : '';
+    },
+    /* « 28 octobre », n jours avant (n négatif) ou après la date du jour : dates des éléments d'exemple. */
+    jourCourt: jourCourt,
     surChangement: function (f) { abonnes.push(f); },
     notifsAnnonces: notifsAnnonces,
     /* Libellé « enfant » d'une demande au bureau. */

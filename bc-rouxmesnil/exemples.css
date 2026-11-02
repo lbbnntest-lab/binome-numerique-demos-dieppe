@@ -153,3 +153,17 @@
 .plus-articles > summary::-webkit-details-marker{display:none}
 .plus-articles[open] > summary{margin-bottom:22px}
 .produit .visuel.sans-photo{min-height:170px}
+
+/* ---------- Score automatique : groupes de cartes, trois logos de partenaires par visuel ---------- */
+.sf-groupe{display:grid;gap:12px;min-width:0}
+.sf-groupe + .sf-groupe{margin-top:14px}
+.sf-groupe-t{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.7rem;line-height:1.1;margin:0;overflow-wrap:anywhere;border-bottom:3px solid var(--club);padding-bottom:6px}
+.sf-groupe-p{margin:0;max-width:62em}
+.sf-cartes{display:grid;gap:22px;min-width:0}
+.sf-tete h4{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.45rem;line-height:1.15;margin:0;overflow-wrap:anywhere}
+#sf-date{margin:12px 0 0;max-width:62em}
+.pv-part3{flex-direction:column;align-items:stretch;gap:2.2cqw}
+.pv-part3 > span:first-child{flex:none}
+.pv-logos{display:flex;gap:2.2cqw;min-width:0}
+.pv-logos .pv-part-logo{flex:1 1 0;min-width:0;width:auto;height:14cqw;padding:1.2cqw 1.6cqw}
+@media (max-width:480px){.sf-groupe-t{font-size:1.35rem}.sf-tete h4{font-size:1.25rem}}

@@ -20,7 +20,7 @@
   var REEL = {
     id: 'arbitrage', reel: true, date: '2026-10-21',
     titre: 'Une journée d\'initiation à l\'arbitrage à la salle Alexandre-Cheruel',
-    image: 'img/salle-cheruel-vert.webp', imageAlt: 'La salle Alexandre-Cheruel, à Rouxmesnil-Bouteilles',
+    image: 'img/salle-tribunes.webp', imageAlt: 'Le terrain de la salle Alexandre-Cheruel, à Rouxmesnil-Bouteilles',
     corps: 'Le mercredi 21 octobre, de 10 h à 16 h 30, la salle Alexandre-Cheruel accueillait une journée d\'initiation à l\'arbitrage.\n\n'
       + 'Elle était proposée par la Ligue de Normandie et le comité de Seine-Maritime, et accueillie par le Basket Club de Rouxmesnil.\n\n'
       + 'Elle s\'adressait aux licenciés de U13 à seniors, filles et garçons, et elle était ouverte aux autres clubs.'
@@ -58,16 +58,17 @@
   var form = document.getElementById('pa-form');
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
-  var l1 = $('pa-l1'), l2 = $('pa-l2'), l3 = $('pa-l3'), fichier = $('pa-photo'), accord = $('pa-accord'), accordBloc = $('pa-accord-bloc');
+  /* l1 : le récit (obligatoire) ; l2 : quand et où ; l4 : un moment fort ; l3 : un merci ou une invitation (facultatifs). */
+  var l1 = $('pa-l1'), l2 = $('pa-l2'), l3 = $('pa-l3'), l4 = $('pa-l4'), fichier = $('pa-photo'), accord = $('pa-accord'), accordBloc = $('pa-accord-bloc');
   var erreur = $('pa-erreur'), apercu = $('pa-apercu'), propose = $('pa-propose'), titre = $('pa-titre'), corps = $('pa-corps'), etat = $('pa-etat'), btnPublier = $('pa-publier');
   var photo = '';
   function annoncer(t) { etat.hidden = false; etat.textContent = ''; setTimeout(function () { etat.textContent = t; }, 60); }
   function marquerFaux(champs, msg) {
-    [l1, l2, l3, fichier, accord, titre, corps].forEach(function (c) { c.removeAttribute('aria-invalid'); });
+    [l1, l2, l3, l4, fichier, accord, titre, corps].forEach(function (c) { c.removeAttribute('aria-invalid'); });
     champs.forEach(function (c) { c.setAttribute('aria-invalid', 'true'); });
     erreur.textContent = msg; if (champs[0]) champs[0].focus();
   }
-  function effacerErreur() { erreur.textContent = ''; [l1, l2, l3, fichier, accord, titre, corps].forEach(function (c) { c.removeAttribute('aria-invalid'); }); }
+  function effacerErreur() { erreur.textContent = ''; [l1, l2, l3, l4, fichier, accord, titre, corps].forEach(function (c) { c.removeAttribute('aria-invalid'); }); }
 
   /* Texte propre à partir des lignes saisies : majuscule, point final, espaces nettoyés. Rien n'est ajouté qui ne soit dans les lignes. */
   function phrase(t) {
@@ -84,12 +85,12 @@
      des trois lignes ; ici rien n'est envoyé, donc le texte de ces exemples est déjà rédigé comme le fera l'outil. Si une ligne est
      modifiée, on revient au texte simple ci-dessous. */
   var EXEMPLES = {
-    stage: { l1: 'Stage des vacances d\'octobre pour les U11, les U13 et les U15', l2: 'Lundi 19, mardi 20 et jeudi 22 octobre, de 10 h à 16 h 30, pique-nique le midi et goûter offert', l3: 'Merci aux coachs et aux bénévoles',
+    stage: { l1: 'Trois journées de stage pendant les vacances d\'octobre, une pour les U11, une pour les U13 et une pour les U15. Du basket toute la journée, pique-nique le midi et goûter offert.', l2: 'Lundi 19, mardi 20 et jeudi 22 octobre, de 10 h à 16 h 30', l4: '', l3: 'Merci aux coachs et aux bénévoles',
       titre: 'Trois journées de stage pendant les vacances d\'octobre',
       corps: 'Pendant les vacances d\'octobre, le club proposait trois journées de stage : le lundi 19 pour les U11, le mardi 20 pour les U13 et le jeudi 22 pour les U15, de 10 h à 16 h 30.\n\n'
         + 'Une journée entière de basket, avec le pique-nique le midi et le goûter offert en fin de journée.\n\n'
         + 'Merci aux coachs et aux bénévoles. Le prochain stage sera annoncé ici, sur la page Vie du club.' },
-    movember: { l1: 'En novembre, le club porte la moustache pour Movember', l2: 'Tournoi masculin des U18 aux seniors, vendredi 20 novembre à 19 h, gymnase Alexandre-Cheruel', l3: 'Animations, vente de t-shirts, restauration sur place : venez nombreux',
+    movember: { l1: 'En novembre, le club porte la moustache pour Movember, le mois de la santé des hommes. Le logo du club arbore le ruban bleu.', l2: 'Tournoi masculin des U18 aux seniors, vendredi 20 novembre à partir de 19 h, gymnase Alexandre-Cheruel', l4: 'Animations, vente de t-shirts et restauration sur place', l3: 'Venez nombreux encourager les joueurs',
       titre: 'Movember : le BCR porte la moustache avec panache',
       corps: 'En novembre, le Basket Club de Rouxmesnil se mobilise pour Movember, le mois consacré à la santé des hommes : le club porte la moustache, et son logo arbore le ruban bleu.\n\n'
         + 'Temps fort du mois : un tournoi masculin, des U18 aux seniors, le vendredi 20 novembre à partir de 19 h au gymnase Alexandre-Cheruel. Au programme : animations, vente de t-shirts et d\'objets aux couleurs du club, et restauration sur place.\n\n'
@@ -99,30 +100,35 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-exemple]'), function (b) {
     b.addEventListener('click', function () {
       var ex = EXEMPLES[b.getAttribute('data-exemple')]; if (!ex) return;
-      exempleEnCours = ex; l1.value = ex.l1; l2.value = ex.l2; l3.value = ex.l3; effacerErreur(); sauverBrouillon(false); l1.focus();
+      exempleEnCours = ex; l1.value = ex.l1; l2.value = ex.l2; l3.value = ex.l3; l4.value = ex.l4 || ''; effacerErreur(); sauverBrouillon(false); l1.focus();
     });
   });
   function minusc(t) { return t ? t.charAt(0).toLowerCase() + t.slice(1) : t; }
+  /* Le récit, découpé en phrases propres ; le titre vient de sa première phrase. */
+  function recit(t) { return t.replace(/\s+/g, ' ').trim().split(/(?<=[.!?…])\s+/).map(phrase).filter(Boolean).join(' '); }
   function preparer() {
     var ex = exempleEnCours;
-    if (ex && l1.value === ex.l1 && l2.value === ex.l2 && l3.value === ex.l3) { titre.value = ex.titre; corps.value = ex.corps; }
+    if (ex && l1.value === ex.l1 && l2.value === ex.l2 && l3.value === ex.l3 && l4.value === (ex.l4 || '')) { titre.value = ex.titre; corps.value = ex.corps; }
     else {
-      var a = l1.value.replace(/\s+/g, ' ').trim().replace(/[.!?…]+$/, ''), b = l2.value.replace(/\s+/g, ' ').trim();
-      titre.value = titreDe(l1.value);
-      corps.value = phrase(a + ' : ' + minusc(b)) + (l3.value.trim() ? '\n\n' + phrase(l3.value) : '') + '\n\nToute la vie du club est à retrouver sur cette page.';
+      var r = recit(l1.value), premiere = r.split(/(?<=[.!?…])\s/)[0] || r;
+      titre.value = titreDe(premiere);
+      corps.value = (l2.value.trim() ? phrase(l2.value) + ' ' : '') + r
+        + (l4.value.trim() ? '\n\n' + phrase(l4.value) : '')
+        + (l3.value.trim() ? '\n\n' + phrase(l3.value) : '')
+        + '\n\nToute la vie du club est à retrouver sur cette page.';
     }
     propose.hidden = false; btnPublier.disabled = false;
     sauverBrouillon(true);
   }
   function sauverBrouillon(propose_) {
-    ecrire('bcr-article-brouillon', { l1: l1.value, l2: l2.value, l3: l3.value, titre: titre.value, corps: corps.value, propose: !!propose_ });
+    ecrire('bcr-article-brouillon', { l1: l1.value, l2: l2.value, l3: l3.value, l4: l4.value, titre: titre.value, corps: corps.value, propose: !!propose_ });
   }
   var br = lire('bcr-article-brouillon', null);
   if (br) {
-    l1.value = br.l1 || ''; l2.value = br.l2 || ''; l3.value = br.l3 || '';
+    l1.value = br.l1 || ''; l2.value = br.l2 || ''; l3.value = br.l3 || ''; l4.value = br.l4 || '';
     if (br.propose) { titre.value = br.titre || ''; corps.value = br.corps || ''; propose.hidden = false; btnPublier.disabled = false; }
   }
-  [l1, l2, l3, titre, corps].forEach(function (c) { c.addEventListener('input', function () { sauverBrouillon(!propose.hidden); }); });
+  [l1, l2, l3, l4, titre, corps].forEach(function (c) { c.addEventListener('input', function () { sauverBrouillon(!propose.hidden); }); });
 
   /* Photo : réduite dans la page (largeur 900 px au plus), jamais envoyée. */
   function majAccord() { accordBloc.hidden = !photo; if (!photo) accord.checked = false; }
@@ -150,9 +156,7 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault(); effacerErreur();
-    if (!l1.value.trim() && !l2.value.trim()) { marquerFaux([l1, l2], 'Écrivez au moins les deux premières lignes : ce qui s\'est passé, puis quand et où.'); return; }
-    if (!l1.value.trim()) { marquerFaux([l1], 'Écrivez la première ligne : ce qui s\'est passé.'); return; }
-    if (!l2.value.trim()) { marquerFaux([l2], 'Écrivez la deuxième ligne : quand et où.'); return; }
+    if (l1.value.trim().length < 10) { marquerFaux([l1], 'Racontez en quelques mots ce qui s\'est passé : c\'est la base de l\'article.'); return; }
     if (photo && !accord.checked) { marquerFaux([accord], 'Cochez l\'accord des personnes photographiées (ou de leurs parents) pour joindre la photo, ou retirez la photo.'); return; }
     preparer();
     annoncer('Texte proposé. Relisez-le, corrigez-le si vous voulez, puis publiez.');
@@ -175,7 +179,7 @@
       l.pop(); btnPublier.disabled = false;
       marquerFaux([titre], 'L\'article n\'a pas pu être gardé par cet appareil (la démonstration en a besoin). Rien n\'est publié ; essayez dans un onglet normal.'); return;
     }
-    l1.value = ''; l2.value = ''; l3.value = ''; fichier.value = ''; photo = ''; apercu.hidden = true; majAccord();
+    l1.value = ''; l2.value = ''; l3.value = ''; l4.value = ''; fichier.value = ''; photo = ''; apercu.hidden = true; majAccord();
     propose.hidden = true; ecrire('bcr-article-brouillon', null);
     etat.hidden = false; etat.textContent = '';
     setTimeout(function () {

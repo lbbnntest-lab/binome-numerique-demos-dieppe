@@ -8,7 +8,7 @@
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 
 <title>Espace dirigeants | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
@@ -143,7 +143,7 @@
           </div>
         </div>
         <div class="sel-barre">
-          <div><label for="sel-max">Nombre maximum de joueuses (à fixer par le coach)</label><input type="number" id="sel-max" min="1" max="20" value="12" inputmode="numeric"></div>
+          <div><label for="sel-max">Nombre maximum de joueuses (choisi par le coach)</label><input type="number" id="sel-max" min="1" max="20" value="12" inputmode="numeric"></div>
           <p class="sel-compteur" id="sel-compteur" aria-live="polite"></p>
         </div>
         <ul class="sel-liste" id="sel-liste"></ul>
@@ -295,7 +295,7 @@
       <div>
         <p class="surtitre">Trésorier · chiffres d'exemple <span class="repere idee">Idée, sur devis</span></p>
         <h2 id="titre-compta" data-mv="mots">Pour la comptabilité</h2>
-        <p>Les encaissements de la saison, prêts pour le tableur du club ou l'expert-comptable. Les montants des cotisations dépendraient de vos tarifs, à compléter avec vous.</p>
+        <p>Les encaissements de la saison, prêts pour le tableur du club ou l'expert-comptable. Les montants suivent les tarifs fixés par le club.</p>
         <div class="actions"><button type="button" class="bouton" id="export-compta">Exporter pour la comptabilité</button></div>
         <p class="resultat" id="export-etat" role="status" aria-live="polite" hidden></p>
       </div>
@@ -380,7 +380,7 @@
       <p class="surtitre">Bénévoles · noms d'exemple</p>
       <h2 data-mv="mots">Table de marque et bénévoles</h2>
       <h3 class="planning-titre">Prochains matchs à domicile <span class="etiquette-ex">noms d'exemple</span></h3>
-      <p class="aide" data-roles="">Le président place lui-même une personne sur chaque poste, ajoute un poste si le match le demande, et voit tout de suite ce qui manque. Une famille peut aussi prendre un poste libre depuis son espace.</p>
+      <p class="aide" data-roles="">Le président, ou une personne qu'il autorise, coche parmi les licenciés inscrits qui tient chaque poste, ajoute un poste si le match le demande, et voit tout de suite ce qui manque. Un licencié inscrit peut aussi prendre un poste libre depuis son espace.</p>
       <div class="planning" id="tm-planning" data-mv="suite"></div>
       <div class="tm-manque" id="tm-manque" role="status" aria-live="polite"></div>
       <div class="actions"><button type="button" class="bouton" id="tm-appel">Préparer un appel pour les postes libres</button></div>
@@ -455,19 +455,20 @@
       <h2 id="titre-score-final" data-mv="mots">Le score arrive tout seul</h2>
       <div class="sf-honnete">
         <p>Personne ne tape le score : le résultat est celui de la feuille de marque, tel que la fédération le publie. Nous le reprenons si la fédération en donne l'accord, que le club lui demande, une fois par jour au plus.</p>
-        <p>Sans cet accord, un bénévole tape le score en dix secondes (solution de secours, plus bas) et tout le reste se prépare de la même façon. Ici, un bouton de démonstration simule l'arrivée du résultat réel, publié par la fédération.</p>
+        <p>Sans cet accord, un bénévole tape le score en dix secondes (solution de secours, plus bas) et tout le reste se prépare de la même façon. Ici, un bouton de démonstration simule l'arrivée du score : pour les matchs déjà joués, c'est le résultat réel publié par la fédération ; pour ceux de ce week-end, c'est le score que vous réglez avant de cliquer.</p>
       </div>
+      <p class="aide" id="sf-date"></p>
       <div id="sf-liste"></div>
       <p class="visuellement-cache" id="sf-annonce" role="status" aria-live="polite"></p>
       <div class="note"><b>Pour le club</b>Le résultat officiel arriverait sans que personne ne le tape, si la fédération en donne l'accord. Le site, le visuel et le texte seraient prêts ; un dirigeant n'aurait plus qu'à publier. Ici, tout est simulé.</div>
-      <div class="note"><b>Les partenaires</b>Le logo d'un seul partenaire figure sur chaque visuel, chacun à son tour, et chaque apparition est comptée : de quoi nourrir le bilan de saison de l'espace partenaire.</div>
+      <div class="note"><b>Les partenaires</b>Les logos de trois partenaires figurent sur chaque visuel, à tour de rôle, et chaque apparition est comptée : de quoi nourrir le bilan de saison de l'espace partenaire.</div>
       <div class="note"><b>Les jeunes</b>Les visuels portent le nom de l'équipe et le score, jamais le nom ni la photo d'un enfant. Chez les jeunes, un grand écart n'est pas mis en avant.</div>
 
       <details class="sf-secours" id="sf-secours">
         <summary>Solution de secours : un bénévole tape le score</summary>
         <p class="aide">À utiliser si la fédération ne donne pas son accord à la reprise automatique. Le visuel et les phrases se préparent ensuite de la même façon. Pour une autre équipe : rôle Coach, rubrique « Mon équipe ».</p>
-        <form class="score-form" id="sf-secours-form" novalidate><fieldset><legend>Fin de match : saisir le score final<span class="visuellement-cache"> U18 féminines (DFU18) contre US Bacqueville</span></legend>
-          <p class="aide" style="margin:0 0 6px">U18 féminines (DFU18), équipe 2, contre US Bacqueville, samedi 31 octobre.</p>
+        <form class="score-form" id="sf-secours-form" novalidate><fieldset><legend>Fin de match : saisir le score final<span class="visuellement-cache" id="sf-sec-leg"></span></legend>
+          <p class="aide" id="sf-sec-aide" style="margin:0 0 6px"></p>
           <div class="score-champs"><div><label for="sf-sb">BCR</label><input id="sf-sb" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="b" aria-describedby="sf-se"></div>
           <span class="score-tiret" aria-hidden="true">-</span>
           <div><label for="sf-sa">Adversaire</label><input id="sf-sa" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="a" aria-describedby="sf-se"></div>
@@ -525,13 +526,17 @@
         <p class="aide" id="pa-photo-aide">Dans cette démonstration, la photo reste sur votre appareil.</p>
         <div class="pa-apercu" id="pa-apercu" hidden><img alt="Aperçu de la photo choisie" width="96" height="96"><button type="button" class="bouton ligne petit" id="pa-retirer-photo">Retirer la photo</button></div>
         <div id="pa-accord-bloc" hidden><label class="case"><input type="checkbox" id="pa-accord"> Les personnes reconnaissables sur la photo, ou leurs parents pour un enfant, ont donné leur accord.</label></div>
-        <label for="pa-l1">Ligne 1 : ce qui s'est passé</label>
-        <input type="text" id="pa-l1" maxlength="160" autocomplete="off" aria-describedby="pa-aide-l">
-        <label for="pa-l2">Ligne 2 : quand et où</label>
-        <input type="text" id="pa-l2" maxlength="160" autocomplete="off" aria-describedby="pa-aide-l">
-        <label for="pa-l3">Ligne 3 : un merci ou une invitation (facultatif)</label>
-        <input type="text" id="pa-l3" maxlength="160" autocomplete="off" aria-describedby="pa-aide-l">
-        <p class="aide" id="pa-aide-l">Des phrases courtes, 160 caractères au plus par ligne.</p>
+        <label for="pa-l1">Racontez ce qui s'est passé</label>
+        <textarea id="pa-l1" rows="5" maxlength="1200" aria-describedby="pa-aide-l"></textarea>
+        <p class="aide" id="pa-aide-l">Quelques phrases, comme vous le raconteriez. Sur téléphone, le micro du clavier permet de dicter. N'écrivez le nom d'aucun enfant.</p>
+        <fieldset class="pa-guide"><legend>Pour un article plus riche (facultatif)</legend>
+          <label for="pa-l2">Quand et où ?</label>
+          <input type="text" id="pa-l2" maxlength="160" autocomplete="off">
+          <label for="pa-l4">Un moment fort, un chiffre ?</label>
+          <input type="text" id="pa-l4" maxlength="200" autocomplete="off">
+          <label for="pa-l3">Un merci ou une invitation ?</label>
+          <input type="text" id="pa-l3" maxlength="200" autocomplete="off">
+        </fieldset>
         <p class="erreur" id="pa-erreur" role="alert"></p>
         <div class="actions"><button type="submit" class="bouton">Préparer le texte</button></div>
       </form>
@@ -580,7 +585,7 @@
   <section class="bloc" id="inscriptions-stage" data-domaine="evenements" data-roles="stages" aria-labelledby="titre-insc-stage">
     <div class="wrap">
       <p class="surtitre">Stage d'octobre · inscriptions d'exemple</p>
-      <h2 id="titre-insc-stage" data-mv="mots">Les inscriptions, au fil de l'eau</h2>
+      <h2 id="titre-insc-stage" data-mv="mots">Les inscriptions au stage</h2>
       <p style="max-width:44em">Stage de 10 h à 16 h 30, pique-nique à prévoir, goûter offert jusqu'à 17 h. Tarifs de l'affiche : licencié BCR 6 € la journée, 3 € la demi-journée ; non licencié 10 €, 5 €.</p>
       <div class="table-defile">
         <table class="suivi" style="min-width:560px">
@@ -609,6 +614,7 @@
 <script src="js/domaines.js"></script>
 <script src="js/selection.js"></script>
 <script src="js/publications.js"></script>
+<script src="js/donnees-ffbb.js"></script>
 <script src="js/score-auto.js"></script>
 <script src="js/articles.js"></script>
 <script src="js/equipe.js"></script>
@@ -859,6 +865,28 @@
       effectif:['Julie V.','Claire P.','Marion S.','Aurélie D.','Sonia L.','Élodie R.','Sandra M.','Céline T.','Audrey B.','Laetitia G.','Nathalie F.','Virginie C.'],
       indispos:[{nom:'Sonia L.', du:S.prochainSamedi(), au:S.prochainSamedi(1), motif:'Examen'}], sansRep:['Virginie C.'] }
   };
+  /* Vrais matchs (js/donnees-ffbb.js) : prochains matchs et dernier résultat de chaque équipe, selon la date du jour.
+     Chez les jeunes, un écart de 30 points ou plus n'est pas affiché. */
+  (function(){
+    var F = window.BCR_FFBB && window.BCR_FFBB.equipes; if (!F) return;
+    var MAP = {u13:'u13f', u15:'u15f', u18:'u18f1', rf2:'rf2'}, JEUNES = {u13:1, u15:1, u18:1};
+    var MOISF = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    var auj = S.aujourdhui();
+    Object.keys(MAP).forEach(function(k){
+      var D = F[MAP[k]], e = EQUIPES[k]; if (!D || !e || !D.matchs.length) return;
+      var av = [], joues = [];
+      D.matchs.forEach(function(m){
+        if (m.adv === 'Exempt') return;
+        if (m.s) joues.push(m); else if (m.d.slice(0,10) >= auj) av.push({d:m.d, txt:'contre ' + m.adv, adv:m.adv, dom:m.dom});
+      });
+      e.avenir = av.slice(0, 4); delete e.suivant; delete e.advSuivant;
+      if (joues.length) {
+        var l = joues[joues.length-1], dd = new Date(l.d.slice(0,10) + 'T12:00'), g = l.s[0] > l.s[1];
+        var cache = JEUNES[k] && Math.abs(l.s[0] - l.s[1]) >= 30;
+        e.dernier = dd.getDate() + ' ' + MOISF[dd.getMonth()] + ' : ' + (g ? 'victoire' : 'défaite') + (cache ? '' : ' ' + l.s[0] + '-' + l.s[1]) + ' contre ' + l.adv;
+      }
+    });
+  })();
   function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function dateFr(iso){
     var d = new Date(iso.length > 10 ? iso : iso + 'T12:00');

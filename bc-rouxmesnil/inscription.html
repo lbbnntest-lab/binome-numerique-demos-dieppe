@@ -8,7 +8,7 @@
 <script>(function(d){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mv-actif");setTimeout(function(){if(!window.gsap)d.classList.remove("mv-actif")},4000)}})(document.documentElement)</script>
 
 <title>Inscriptions | Basket Club de Rouxmesnil | Maquette</title>
-<link rel="preload" href="img/salle-cheruel-vert.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/salle-tribunes.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mouvement.css">
@@ -23,7 +23,7 @@
     <div class="wrap">
       <p class="s-surtitre">Saison 2026-2027</p>
       <h1 id="titre-page" class="s-titre">S'inscrire au club</h1>
-      <p class="s-chapo">Comptez quelques minutes. À la fin, le club vous envoie le lien de la licence fédérale à compléter en ligne.</p>
+      <p class="s-chapo">Comptez quelques minutes. À la fin, le club vous envoie le lien de la licence fédérale, à remplir en ligne.</p>
     </div>
   </section>
   <section class="bloc">
@@ -147,7 +147,11 @@
   if (!libres) {
     sel.disabled = true;
     var b = document.getElementById('st-payer'); if (b) b.disabled = true;
-    var ok = document.getElementById('st-ok'); if (ok) { ok.hidden = false; ok.textContent = 'Le stage des vacances d\'octobre est terminé. Les dates du prochain stage seraient publiées ici par le club.'; }
+    var prix = document.getElementById('st-prix'); if (prix) prix.hidden = true;
+    if (b) b.hidden = true;
+    var form = document.getElementById('stage'); form.classList.add('est-passe');
+    form.insertAdjacentHTML('beforebegin', '<div class="fin-evenement" role="status"><span class="badge-passe">Événement passé</span><strong>Stage des vacances d\'octobre : terminé</strong>Il a eu lieu les 19, 20 et 22 octobre. Les dates du prochain stage seront publiées ici par le club.</div>');
+    var onglet = document.querySelector('[data-vue="stage"]'); if (onglet) onglet.textContent = 'Stage d\'octobre (passé)';
   }
 })();
 </script>

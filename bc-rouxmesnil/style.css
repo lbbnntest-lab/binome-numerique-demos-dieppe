@@ -235,7 +235,7 @@ ol.suite li{margin:8px 0}
 
 /* Habillage Signature : photo de la salle, coupe en biais, logo du club */
 .entete{border-bottom:3px solid var(--ballon)}
-.heros.photo-salle{background:linear-gradient(100deg,rgba(8,10,9,.94) 0%,rgba(8,10,9,.8) 48%,rgba(8,10,9,.5) 100%),url(img/salle-cheruel-vert.webp) center 35%/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}
+.heros.photo-salle{background:linear-gradient(100deg,rgba(8,10,9,.94) 0%,rgba(8,10,9,.8) 48%,rgba(8,10,9,.5) 100%),url(img/salle-tribunes.webp) center 72%/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%)}
 .heros.photo-salle .wrap{padding-bottom:84px}
 .heros .surtitre{color:var(--vif)}
 .heros h1 .vert{color:var(--vif)}
@@ -343,3 +343,27 @@ button,[role="button"],.bouton,.s-bouton,.s-annonce,.entete-insc,.fam-nav a,.all
 @media (pointer:coarse){
   body input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=range]):not([type=hidden]):not([type=color]),body select,body textarea{font-size:max(16px,1em)}
 }
+
+/* Événement passé : carte grisée et étiquette nette, mise à jour toute seule à la date de fin */
+.est-passe{filter:grayscale(1);opacity:.6}
+.est-passe .s-bouton,.est-passe .bouton{pointer-events:none}
+.badge-passe{display:inline-block;background:#4b504d;color:#fff;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;padding:3px 10px;margin:0 0 8px}
+.fin-evenement{border-left:6px solid #4b504d;background:#eceeed;color:#1d211f;padding:14px 16px;margin:0 0 18px}
+.fin-evenement strong{display:block;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;margin-bottom:4px}
+
+/* Table de marque : licenciés inscrits et cases à cocher par poste */
+.tm-inscrits{grid-column:1/-1;background:#fff;border:1px solid var(--line);padding:14px 16px;margin-bottom:6px}
+.tm-inscrits h3{margin:0 0 8px;font-size:1.05rem}
+.tm-inscrits ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px 14px}
+.tm-inscrits li{display:flex;flex-direction:column;font-size:.92rem;line-height:1.3}
+.tm-inscrits li span{color:#5b605d;font-size:.85rem}
+.tm-coches{border:0;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tm-coche{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:6px 10px;font-size:.9rem;cursor:pointer;background:#fff}
+.tm-coche:has(input:checked){border-color:#1f7a3f;background:#e3efe6;font-weight:700}
+.tm-coche input{margin:0;accent-color:#1f7a3f}
+.tm-aucun{color:#5b605d}
+
+/* Article : récit libre, puis questions d'aide facultatives */
+#pa-l1{width:100%;min-height:8em;font:inherit;padding:10px;border:1px solid var(--line);resize:vertical}
+.pa-guide{border:1px dashed var(--line);padding:10px 14px 4px;margin:14px 0 6px}
+.pa-guide legend{font-weight:700;padding:0 6px;font-size:.92rem}

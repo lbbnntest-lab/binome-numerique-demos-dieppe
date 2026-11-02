@@ -30,27 +30,41 @@
   function rendreBenevoles() {
     var zone = document.getElementById('tm-planning'); if (!zone || !T) return;
     var liste = avenir(), dates = [];
-    liste.forEach(function (c) { if (dates.indexOf(c.date) < 0) dates.push(c.date); });
-    dates.sort();
-    zone.innerHTML = dates.map(function (d) {
-      var cs = liste.filter(function (c) { return c.date === d; }), match = cs[0].match;
-      return '<div class="creneau tm-match"><h3>' + esc(dateFr(d)) + ' · horaire à fixer<br>' + esc(match) + '</h3><ul>' + cs.map(function (c) {
-        var t = T.tenu(c), noms = T.BENEVOLES.slice();
-        if (t && noms.indexOf(t.nom) < 0) noms.push(t.nom);
-        var choix = '<select data-tm-poste="' + esc(c.id) + '" aria-label="' + esc(c.poste + ', ' + dateFr(d).toLowerCase()) + '">'
-          + '<option value="">À pourvoir</option>' + noms.map(function (n) { return '<option' + (t && t.nom === n ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join('') + '</select>';
+    /* Un bloc par match (même jour, même rencontre), dans l'ordre des horaires. */
+    function cle(c) { return c.date + '|' + c.match; }
+    function heureDe(cs) { var h = cs.filter(function (c) { return c.heure; })[0]; return h ? h.heure : ''; }
+    function heureFr(h) { return h ? ' · ' + h.slice(0, 2).replace(/^0/, '') + ' h ' + h.slice(3, 5) : ''; }
+    liste.forEach(function (c) { if (dates.indexOf(cle(c)) < 0) dates.push(cle(c)); });
+    dates.sort(function (a, b) {
+      var ca = liste.filter(function (c) { return cle(c) === a; }), cb = liste.filter(function (c) { return cle(c) === b; });
+      return (a.slice(0, 10) + (heureDe(ca) || '99')).localeCompare(b.slice(0, 10) + (heureDe(cb) || '99'));
+    });
+    var tous = T.INSCRITS || T.BENEVOLES.map(function (n) { return { nom: n, equipe: '', postes: [] }; });
+    var roster = '<div class="tm-inscrits"><h3>Licenciés inscrits pour tenir la table <span class="etiquette-ex">noms d\'exemple</span></h3><ul>'
+      + tous.map(function (p) { return '<li><b>' + esc(p.nom) + '</b><span>' + esc(p.equipe) + (p.postes.length ? ' · ' + esc(p.postes.join(', ').toLowerCase()) : '') + '</span></li>'; }).join('')
+      + '</ul><p class="aide">Le président, ou une personne qu\'il autorise, coche qui tient chaque poste.</p></div>';
+    zone.innerHTML = roster + dates.map(function (k) {
+      var cs = liste.filter(function (c) { return cle(c) === k; }), match = cs[0].match, d = cs[0].date;
+      return '<div class="creneau tm-match"><h3>' + esc(dateFr(d)) + esc(heureFr(heureDe(cs))) + '<br>' + esc(match) + '</h3><ul>' + cs.map(function (c) {
+        var t = T.tenu(c), gens = tous.filter(function (p) { return !T.peutTenir || T.peutTenir(p, c.poste); }).map(function (p) { return p.nom; });
+        if (t && gens.indexOf(t.nom) < 0) gens.push(t.nom);
+        var nomGroupe = 'tm-r-' + c.id;
+        var choix = '<fieldset class="tm-coches"><legend class="visuellement-cache">' + esc(c.poste + ', ' + dateFr(d).toLowerCase()) + '</legend>'
+          + gens.map(function (n) { return '<label class="tm-coche"><input type="radio" name="' + esc(nomGroupe) + '" data-tm-poste="' + esc(c.id) + '" value="' + esc(n) + '"' + (t && t.nom === n ? ' checked' : '') + '> ' + esc(n) + '</label>'; }).join('')
+          + '<label class="tm-coche tm-aucun"><input type="radio" name="' + esc(nomGroupe) + '" data-tm-poste="' + esc(c.id) + '" value=""' + (t ? '' : ' checked') + '> À pourvoir</label></fieldset>';
         var info = t && t.source === 'famille' ? '<small class="tm-source">réservé depuis l\'espace des familles</small>' : '';
         var retirer = c.ajoute ? '<button type="button" class="retirer-ligne" data-tm-retirer="' + esc(c.id) + '">Retirer<span class="visuellement-cache"> le poste ' + esc(c.poste) + '</span></button>' : '';
         return '<li data-creneau="' + esc(c.id) + '" class="' + (t ? 'tm-pourvu' : 'tm-libre') + '"><span>' + esc(c.poste) + (t ? '' : ' <span class="libre">à pourvoir</span>') + info + '</span><span class="tm-choix">' + choix + retirer + '</span></li>';
       }).join('') + '</ul>'
-        + '<form class="tm-ajout" data-tm-date="' + esc(d) + '" data-tm-match="' + esc(match) + '"><label class="visuellement-cache" for="tm-n-' + esc(d) + '">Nouveau poste pour ce match</label>'
-        + '<input id="tm-n-' + esc(d) + '" list="tm-suggestions" placeholder="Nouveau poste" maxlength="40" autocomplete="off"><button type="submit" class="bouton ligne petit">Ajouter</button></form></div>';
+        + '<form class="tm-ajout" data-tm-date="' + esc(d) + '" data-tm-match="' + esc(match) + '"><label class="visuellement-cache" for="tm-n-' + esc(cs[0].id) + '">Nouveau poste pour ce match</label>'
+        + '<input id="tm-n-' + esc(cs[0].id) + '" list="tm-suggestions" placeholder="Nouveau poste" maxlength="40" autocomplete="off"><button type="submit" class="bouton ligne petit">Ajouter</button></form></div>';
     }).join('') + '<datalist id="tm-suggestions">' + T.SUGGESTIONS.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>';
     /* Ce qui manque, match par match. */
     var manque = [];
-    dates.forEach(function (d) {
-      var l = liste.filter(function (c) { return c.date === d && !T.tenu(c); }).map(function (c) { return c.poste.toLowerCase(); });
-      if (l.length) manque.push('<li><b>' + esc(dateFr(d)) + '</b> : ' + esc(l.join(', ')) + '</li>');
+    dates.forEach(function (k) {
+      var cs = liste.filter(function (c) { return cle(c) === k; });
+      var l = cs.filter(function (c) { return !T.tenu(c); }).map(function (c) { return c.poste.toLowerCase(); });
+      if (l.length) manque.push('<li><b>' + esc(dateFr(cs[0].date)) + esc(heureFr(heureDe(cs))) + '</b>, ' + esc(cs[0].match) + ' : ' + esc(l.join(', ')) + '</li>');
     });
     var nb = liste.filter(function (c) { return !T.tenu(c); }).length;
     var m = document.getElementById('tm-manque');

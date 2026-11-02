@@ -280,7 +280,7 @@
     function rendreMateriel() {
       var l = MATERIEL.filter(visibleMat), prets = l.filter(function (m) { return etatMat(m).confie; });
       document.getElementById('mat-alerte').innerHTML = prets.length
-        ? '<strong>À rendre en fin de saison</strong><span>' + prets.length + (prets.length > 1 ? ' articles sont prêtés' : ' article est prêté') + ' : ' + prets.map(function (m) { return esc(m.lib) + ' (' + esc(etatMat(m).confie) + ')'; }).join(', ') + '. Date de fin de saison à fixer par le club.</span>'
+        ? '<strong>À rendre en fin de saison</strong><span>' + prets.length + (prets.length > 1 ? ' articles sont prêtés' : ' article est prêté') + ' : ' + prets.map(function (m) { return esc(m.lib) + ' (' + esc(etatMat(m).confie) + ')'; }).join(', ') + '. Retour en fin de saison.</span>'
         : '<strong>Tout est rendu</strong><span>Aucun article prêté en ce moment.</span>';
       document.getElementById('mat-rappel').hidden = !prets.length;
       document.getElementById('mat-liste').innerHTML = l.map(function (m) {
