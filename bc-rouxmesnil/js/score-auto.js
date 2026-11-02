@@ -1,9 +1,9 @@
 /* Espace dirigeants, bloc « Le score arrive tout seul » (démonstration). Lié uniquement depuis dirigeants.html.
    - Personne ne tape le score : le résultat officiel (celui de la feuille de marque, publié par la fédération) « arrive ».
-     Le bouton de démonstration simule cette arrivée ; le score à montrer se règle avant de cliquer (champ vide par défaut).
-   - Dès l'arrivée : score « sur le site » (aperçu), visuel de fin de match avec le logo d'UN partenaire à tour de rôle,
-     deux phrases. Il reste un seul geste : « Publier sur Facebook » (simulé).
-   - Le dimanche soir : visuel « Résultats du week-end » préparé de la même façon (trois résultats réels déjà joués).
+     Le bouton de démonstration simule cette arrivée, avec le résultat officiel réel du match (rien à taper).
+   - Dès l'arrivée : score sur le site (page de l'équipe et accueil, qui lisent la clé « bcr-score-auto »), visuel de fin de
+     match avec le logo d'UN partenaire à tour de rôle, texte prêt. Il reste un seul geste : « Publier sur Facebook » (simulé).
+   - Le dimanche soir : visuel « Résultats du week-end » préparé de la même façon (résultats réels du dernier week-end).
    - Solution de secours : si la fédération ne donne pas son accord, un bénévole tape le score (même formulaire que « Fin de match »).
    Données : donnees_ffbb_30-10.md et faits_verifies_bcr.md (Binome-Numerique/docs/strategie/partenariat_bc_rouxmesnil/).
    Rien n'est envoyé ni publié. Clés de l'onglet (sessionStorage) toutes préfixées « bcr- » : « Remettre la démonstration à zéro » les efface. */
@@ -16,19 +16,20 @@
   /* Les 31 partenaires du calendrier 2026 (même liste, même ordre que partenaires.html ; Le Binôme Numérique n'en fait pas partie). */
   var PART = [["commune-rouxmesnil","Commune de Rouxmesnil-Bouteilles"],["mekabulle","Mekabulle"],["chaumont","Michael Chaumont"],["demare","SAS Demare Luc"],["proxi","Proxi Super"],["salon-m","Le salon M"],["stadium","Sport Solidaire Stadium"],["abrafer","Abrafer"],["diamant","SAS Diamant Fermetures"],["auchan","Auchan Dieppe"],["ligny-gaspary","Ligny-Gaspary Immobilier"],["dequesne","SAS Dequesne"],["trianon","Le Trianon"],["atelier","L'atelier"],["bigmat","BigMat Roger"],["wlc","WLC Automobiles"],["art-mony","Art Mony Pub"],["ongles","Les Ongles en Gel in A."],["hysope","Hysope Fleurs"],["leader","Leader actual emploi"],["bayeux","EURL Bayeux Maçonnerie"],["boulangerie-prieure","Boulangerie du Prieuré"],["etria","Etria"],["eph","EPH publicité"],["bistrot-barrieres","Bistrot des Barrières"],["franck-provost","Franck Provost"],["brico-depot","Brico Dépôt"],["samp","SAMP Services"],["carbon","Carbon Decor · Carbon Meta"],["regates","Les Régates"],["feron","Boucherie charcuterie Feron"]];
 
-  /* Matchs de la démonstration. Le premier est le vrai match du samedi 31 octobre : le score se règle à la main avant de cliquer.
-     Le second est déjà joué (FFBB, relevé du 30/10) : son score est connu. */
+  /* Matchs de la démonstration, tous déjà joués : leur résultat officiel est connu (FFBB), rien à régler avant de cliquer.
+     Le premier est le match du samedi 31 octobre (relevé du 1/11 : 51-31, 14 h 30, gymnase Alexandre-Cheruel). */
   var MATCHS = [
-    { id: 'dfu18-2026-10-31', equipe: 'U18 féminines', code: 'DFU18', niv: 'Départementale, équipe 2', adv: 'US Bacqueville', lieu: 'à domicile',
-      quand: 'Samedi 31 octobre, 15 h 30', court: 'samedi 31 octobre', jeune: true, page: 'equipes.html#dfu18', reel: null, lib: 'Match réel : samedi 31 octobre' },
+    { id: 'dfu18-2026-10-31', equipe: 'U18 féminines', code: 'DFU18', niv: 'Départementale, équipe 2', adv: 'US Bacqueville', sig: 'USB', lieu: 'à domicile',
+      quand: 'Samedi 31 octobre, 14 h 30', court: 'samedi 31 octobre', jeune: true, page: 'equipes.html#dfu18', reel: [51, 31], releve: '1er novembre', lib: 'Match réel : samedi 31 octobre' },
     { id: 'rm3-2026-10-18', equipe: 'Seniors masculins', code: 'RM3', niv: 'Régionale 3', adv: 'Pacy-Ménilles', lieu: 'à l\'extérieur',
-      quand: 'Dimanche 18 octobre', court: 'dimanche 18 octobre', jeune: false, reel: [117, 88], lib: 'Match déjà joué : dimanche 18 octobre' }
+      quand: 'Dimanche 18 octobre', court: 'dimanche 18 octobre', jeune: false, reel: [117, 88], releve: '30 octobre', lib: 'Match déjà joué : dimanche 18 octobre' }
   ];
-  /* Les seuls résultats datés et chiffrés du week-end des 17 et 18 octobre dans le relevé FFBB du 30/10. */
-  var WEEKEND = { dates: '17 et 18 octobre', lignes: [
-    { equipe: 'U15 féminines', code: 'DFU15', adv: 'BC Offranville', bcr: 42, ad: 27, jeune: true },
-    { equipe: 'Seniors masculins', code: 'RM3', adv: 'Pacy-Ménilles', bcr: 117, ad: 88, jeune: false },
-    { equipe: 'Seniors féminines', code: 'RF2', adv: 'Sainte-Marie', bcr: 34, ad: 41, jeune: false } ] };
+  /* Les résultats du week-end des 31 octobre et 1er novembre publiés par la FFBB (relevé du 1/11). Le texte ne parle pas du total
+     du club : seulement de ces résultats. Chez les jeunes, un écart de 30 points ou plus n'est pas affiché (U13 F). */
+  var WEEKEND = { dates: '31 octobre et 1er novembre', lignes: [
+    { equipe: 'U18 féminines', code: 'DFU18', adv: 'US Bacqueville', bcr: 51, ad: 31, jeune: true },
+    { equipe: 'U15 féminines', code: 'DFU15', adv: 'Eawy Basket Saint-Saëns', bcr: 61, ad: 37, jeune: true },
+    { equipe: 'U13 féminines', code: 'DFU13', adv: 'Luneray', bcr: 60, ad: 7, jeune: true } ] };
   var ECART_JEUNES = 30;
 
   function lire(c, d) { try { var v = sessionStorage.getItem(c); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
@@ -62,10 +63,10 @@
   /* Contexte de chaque match, relevé FFBB du 30/10 (bilan AVANT le match, match suivant). Le texte en tient compte :
      classement, série, écart, match suivant. Rien n'y est inventé ; aucun nom de joueur. */
   var CONTEXTE = {
-    'dfu18-2026-10-31': { nous: 'nos U18 filles (équipe 2)', nousMaj: 'Nos U18 filles (équipe 2)', fem: true, v: 3, d: 0, choc: 'invaincues',
+    'dfu18-2026-10-31': { nous: 'nos U18 filles (équipe 2)', nousMaj: 'Nos U18 filles (équipe 2)', fem: true, v: 3, d: 0, choc: 'invaincues', tete: true,
       salle: 'à la salle Alexandre-Cheruel', suite: 'Prochain match samedi 7 novembre.' },
     'rm3-2026-10-18': { nous: 'nos seniors garçons (régionale 3)', nousMaj: 'Nos seniors garçons (régionale 3)', fem: false, v: 3, d: 1, rangApres: '4e',
-      salle: 'à Pacy-Ménilles', suite: 'Prochain rendez-vous dimanche 8 novembre à 15 h, à la salle, contre Rouen Métropole.' }
+      salle: 'à Pacy-Ménilles', suite: 'Prochain rendez-vous dimanche 8 novembre à 14 h, à la salle, contre Rouen Métropole.' }
   };
   /* « Merci à … » avec le bon article devant le nom du partenaire. */
   function merci(nom) {
@@ -86,7 +87,7 @@
     if (e > 0) {
       var serie = bilanApres(c, true);
       if (ecartJeunes(m, r)) t = 'Belle victoire pour ' + c.nous + ' face à ' + adv + ' ' + c.salle + ' : ' + serie + '.';
-      else if (c.choc && c.v > 0 && c.d === 0) t = 'Le choc des ' + c.choc + ' est pour nous' + (e <= 5 ? ', au bout du suspense' : '') + ' ! ' + c.nousMaj + ' battent ' + adv + ' ' + s + ' ' + c.salle + ' et restent sans défaite : ' + serie + '.';
+      else if (c.choc && c.v > 0 && c.d === 0) t = 'Le choc des ' + c.choc + ' est pour nous' + (e <= 5 ? ', au bout du suspense' : '') + ' ! ' + c.nousMaj + ' battent ' + adv + ' ' + s + ' ' + c.salle + ' et restent sans défaite : ' + serie + (c.tete ? ', et ' + (c.fem ? 'seules' : 'seuls') + ' en tête de la poule' : '') + '.';
       else if (r.bcr >= 100) t = 'Plus de 100 points ' + c.salle + ' ! ' + c.nousMaj + ' s\'imposent ' + s + ' : ' + serie + (c.rangApres ? ', l\'équipe est ' + c.rangApres + ' de sa poule' : '') + '.';
       else if (e <= 5) t = 'Victoire au bout du suspense pour ' + c.nous + ', ' + s + ' face à ' + adv + ' ' + c.salle + ' : ' + serie + '.';
       else if (e >= 20 && !m.jeune) t = 'Large victoire pour ' + c.nous + ' contre ' + adv + ', ' + s + ' ' + c.salle + ' : ' + serie + '.';
@@ -99,11 +100,13 @@
     } else t = 'Match nul entre ' + c.nous + ' et ' + adv + ', ' + r.bcr + ' partout.';
     return t + (c.suite ? '\n' + c.suite : '') + (p ? '\n' + merci(p[1]) : '');
   }
+  /* Chez les jeunes, un écart de 30 points ou plus : l'issue seulement, sans le score (visuel et texte). */
+  function ligneMasquee(l) { return l.jeune && Math.abs(l.bcr - l.ad) >= ECART_JEUNES; }
   function texteWeekend(r) {
-    var v = WEEKEND.lignes.filter(function (l) { return l.bcr > l.ad; }).length, n = WEEKEND.lignes.length, p = r.part >= 0 ? PART[r.part] : null;
-    return 'Le week-end des ' + WEEKEND.dates + ' en résultats : ' + v + ' victoire' + (v > 1 ? 's' : '') + ' en ' + n + ' matchs pour le club.\n'
-      + WEEKEND.lignes.map(function (l) { var e = l.bcr - l.ad; return '- ' + l.equipe.replace('féminines', 'filles').replace('masculins', 'garçons') + ' : ' + (e > 0 ? (e >= 20 && !l.jeune ? 'large victoire ' : 'victoire ') + l.bcr + '-' + l.ad + ' contre ' : 'défaite ' + l.bcr + '-' + l.ad + ' contre ') + l.adv; }).join('\n')
-      + '\nBravo à toutes les équipes, et rendez-vous le week-end prochain.'
+    var p = r.part >= 0 ? PART[r.part] : null;
+    return 'Le week-end des ' + WEEKEND.dates + ' en résultats :\n'
+      + WEEKEND.lignes.map(function (l) { var e = l.bcr - l.ad, sc = ligneMasquee(l) ? '' : l.bcr + '-' + l.ad + ' '; return '- ' + l.equipe.replace('féminines', 'filles').replace('masculins', 'garçons') + ' : ' + (e > 0 ? (e >= 20 && !l.jeune ? 'large victoire ' : 'victoire ') + sc + 'contre ' : 'défaite ' + sc + 'contre ') + l.adv; }).join('\n')
+      + '\nBravo à nos équipes, et rendez-vous le week-end prochain.'
       + (p ? '\n' + merci(p[1]) : '');
   }
 
@@ -121,7 +124,7 @@
       + '<p class="pv-equipe">' + esc(m.equipe) + '</p><p class="pv-niv">' + esc(m.niv + ' (' + m.code + ')') + '</p>'
       + '<p class="pv-issue' + (r.bcr > r.ad ? ' v' : '') + '">' + iss + '</p>'
       + '<div class="pv-score"><div><img class="pv-logo" src="img/logo-bcr-160.webp" alt=""><span>BCR</span>' + (r.masque ? '' : '<b>' + r.bcr + '</b>') + '</div>'
-      + '<div><span class="pv-sigle" aria-hidden="true">' + esc(sigle(m.adv)) + '</span><span>' + esc(m.adv) + '</span>' + (r.masque ? '' : '<b>' + r.ad + '</b>') + '</div></div>'
+      + '<div><span class="pv-sigle" aria-hidden="true">' + esc(m.sig || sigle(m.adv)) + '</span><span>' + esc(m.adv) + '</span>' + (r.masque ? '' : '<b>' + r.ad + '</b>') + '</div></div>'
       + '<p class="pv-quand">' + esc(m.quand) + ' · ' + esc(m.lieu) + (r.masque ? '<br>Le score est sur le site du club' : '') + '</p>'
       + emplacement(r) + '</div></div>';
   }
@@ -130,7 +133,7 @@
     return '<div class="pub-cadre" data-visuel><div class="pub-visuel general" role="img" aria-label="Visuel : résultats du week-end des ' + WEEKEND.dates + ', ' + WEEKEND.lignes.length + ' résultats' + (p ? ', avec le soutien de ' + esc(p[1]) : '') + '">' + tete()
       + '<p class="pv-equipe">Résultats du week-end</p><p class="pv-issue">' + WEEKEND.dates + '</p>'
       + '<ul class="pv-liste">' + WEEKEND.lignes.map(function (l) {
-        return '<li><span><b>' + esc(l.equipe) + '</b><small>contre ' + esc(l.adv) + '</small></span><strong class="' + (l.bcr > l.ad ? 'v' : 'd') + '">' + l.bcr + '-' + l.ad + '</strong></li>';
+        return '<li><span><b>' + esc(l.equipe) + '</b><small>contre ' + esc(l.adv) + '</small></span><strong class="' + (l.bcr > l.ad ? 'v' : 'd') + '">' + (ligneMasquee(l) ? issue(l.bcr, l.ad) : l.bcr + '-' + l.ad) + '</strong></li>';
       }).join('') + '</ul>' + emplacement(r) + '</div></div>';
   }
 
@@ -148,13 +151,13 @@
           + '<div class="score-champs"><div><label for="sf-b-' + f + '">BCR</label><input id="sf-b-' + f + '" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="b" aria-describedby="sf-' + f + '-aide sf-e-' + f + '"></div>'
           + '<span class="score-tiret" aria-hidden="true">-</span>'
           + '<div><label for="sf-a-' + f + '">' + esc(m.adv) + '</label><input id="sf-a-' + f + '" type="text" inputmode="numeric" autocomplete="off" maxlength="3" data-sc="a" aria-describedby="sf-' + f + '-aide sf-e-' + f + '"></div></div></details>'
-        : '<p class="aide">Ce match est déjà joué : le résultat officiel de la fédération (relevé du 30 octobre) est connu, rien à régler. <span class="etiquette-ex">résultat réel</span></p>')
+        : '<p class="aide">Ce match est déjà joué : le résultat officiel de la fédération (relevé du ' + esc(m.releve) + ') est connu, rien à régler. <span class="etiquette-ex">résultat réel</span></p>')
       + '<p class="erreur" id="sf-e-' + f + '" role="alert"></p>'
       + '<div class="actions"><button type="button" class="bouton" data-arrivee="' + esc(m.id) + '">Montrer l\'arrivée du score officiel</button> <span class="etiquette-ex">démonstration</span></div></div>';
   }
   function attenteWeekend() {
     return entete('sf-we-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + WEEKEND.dates, '<span class="etat pastille attente">Dimanche soir, en attente</span>')
-      + '<div class="sf-attente"><p class="aide">Exemple avec trois résultats réels déjà joués (relevé FFBB du 30 octobre) ; chaque dimanche, toutes les équipes dont le résultat est connu y seraient. <span class="etiquette-ex">démonstration</span></p>'
+      + '<div class="sf-attente"><p class="aide">Exemple avec les trois résultats réels publiés par la FFBB pour ce week-end (relevé du 1er novembre) ; chaque dimanche, toutes les équipes dont le résultat est connu y seraient. <span class="etiquette-ex">démonstration</span></p>'
       + '<div class="actions"><button type="button" class="bouton" data-arrivee="we">Montrer le dimanche soir</button></div></div>';
   }
 
@@ -184,12 +187,12 @@
       return entete('sf-we-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + WEEKEND.dates, '<span class="etat pastille ok">Préparé tout seul</span>')
         + '<div class="sf-resultat">' + etapes(['Résultats du week-end rassemblés', 'Visuel et texte préparés'], r.publie)
         + '<div class="pub">' + visuelWeekend(r) + '<div class="pub-corps">' + apercuWeekend()
-        + corpsPublication(id, f, r, '', 'Exemple avec trois résultats réels déjà joués (relevé FFBB du 30 octobre).') + '</div></div></div>';
+        + corpsPublication(id, f, r, '', 'Exemple avec les trois résultats réels publiés par la FFBB pour ce week-end (relevé du 1er novembre). Chez les jeunes, un écart de 30 points ou plus n\'est pas affiché.') + '</div></div></div>';
     }
     var m = MATCHS.filter(function (x) { return x.id === id; })[0];
     var secours = r.source === 'saisi';
     return entete('sf-' + f + '-t', m.lib + ' · ' + m.equipe + ' (' + m.code + ')', m.adv + ', ' + m.quand.toLowerCase() + ', ' + m.lieu, '<span class="etat pastille ok">' + (secours ? 'Score tapé par un bénévole' : 'Préparé tout seul') + '</span>')
-      + '<div class="sf-resultat">' + etapes([secours ? 'Score tapé par un bénévole (solution de secours)' : 'Résultat officiel reçu : BCR ' + r.bcr + ' - ' + r.ad, 'Score sur le site', 'Visuel et deux phrases préparés'], r.publie)
+      + '<div class="sf-resultat">' + etapes([secours ? 'Score tapé par un bénévole (solution de secours)' : 'Résultat officiel reçu : BCR ' + r.bcr + ' - ' + r.ad, 'Score sur le site (page de l\'équipe et accueil)', 'Visuel et texte préparés'], r.publie)
       + (r.bcr === r.ad ? '<p class="avertissement" role="status">Les deux scores sont égaux : au basket, c\'est rare. Vérifiez avec la feuille de marque avant de publier.</p>' : '')
       + '<div class="pub">' + visuelMatch(m, r) + '<div class="pub-corps">' + apercuSite(m, r)
       + corpsPublication(id, f, r, ecartJeunes(m, r) ? '<label class="choix"><input type="checkbox" data-montrer-score' + (r.masque ? '' : ' checked') + (r.publie ? ' disabled' : '') + '> Montrer le score sur le visuel</label><p class="aide">Écart important chez les jeunes : par prudence, le score n\'est pas mis en avant sur le visuel ni dans le texte ; vous pouvez le montrer.</p>' : '', '') + '</div></div></div>';
@@ -201,7 +204,7 @@
       + '<div class="pub-boutons"><button type="button" class="bouton" data-publier="' + esc(id) + '"' + (r.publie ? ' disabled' : '') + '>' + (r.publie ? 'Publié (simulation)' : 'Publier sur Facebook') + '</button>'
       + '<button type="button" class="bouton ligne petit" data-rejouer="' + esc(id) + '">Rejouer la démonstration</button></div>'
       + '<p class="aide">Un dirigeant relit et publie : rien ne part sans ce geste, et c\'est ce que nous conseillons pour les réseaux. Le bureau peut aussi choisir de publier sans validation les seuls visuels de score, qui ne portent aucun nom ni aucune photo.</p>'
-      + '<p class="pub-etat" role="status" aria-live="polite">' + (r.publie ? 'Simulation : publication faite. Rien n\'a été envoyé : sur le vrai site, elle partirait sur la page Facebook du club.' : '') + '</p>';
+      + '<p class="pub-etat" role="status" aria-live="polite">' + (r.publie ? 'Simulation : publication faite. Rien n\'a été envoyé. Sur le vrai site, deux façons au choix du club : publier directement sur la page Facebook du club, ou télécharger le visuel et copier le texte pour le publier soi-même.' : '') + '</p>';
   }
 
   function carte(id) {
@@ -211,10 +214,19 @@
     return attend ? attenteMatch(m) : resultat(id);
   }
   function emplacementCarte(id) { return document.getElementById('sf-carte-' + idSur(id)); }
+  /* À l'arrivée du résultat : le focus va au titre de la carte (lecteur d'écran), et l'écran montre le visuel en entier,
+     sous l'en-tête fixe, sans que l'assistance ait à faire défiler. */
   function dessiner(id, focus) {
     var el = emplacementCarte(id); if (!el) return;
     el.innerHTML = carte(id);
-    if (focus) { var t = el.querySelector('h3'); if (t) { t.setAttribute('tabindex', '-1'); t.focus(); } }
+    if (focus) {
+      var t = el.querySelector('h3'); if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); }
+      var v = el.querySelector('.pub') || t;
+      if (v) {
+        var doux = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+        window.scrollTo({ top: Math.max(0, v.getBoundingClientRect().top + window.pageYOffset - 104), behavior: doux ? 'smooth' : 'auto' });
+      }
+    }
   }
 
   /* ---------- Contrôle des deux nombres ---------- */
@@ -238,7 +250,7 @@
       recs[id] = r; sauver(); enCours[id] = false;
       dessiner(id, true);
       annoncer(id === 'we' ? 'Le visuel des résultats du week-end est prêt, avec son texte. Il ne reste qu\'à le publier.'
-        : (source === 'saisi' ? 'Score enregistré' : 'Résultat officiel reçu') + ' : BCR ' + bcr + ' - ' + ad + '. Le site est à jour, le visuel et les deux phrases sont prêts. Il ne reste qu\'à publier.');
+        : (source === 'saisi' ? 'Score enregistré' : 'Résultat officiel reçu') + ' : BCR ' + bcr + ' - ' + ad + '. Le site est à jour, le visuel et le texte sont prêts. Il ne reste qu\'à publier.');
     }, 700);
   }
 
@@ -276,6 +288,8 @@
     if (b.hasAttribute('data-rejouer')) {
       var rid = b.getAttribute('data-rejouer'), ancien = recs[rid];
       if (ancien && ancien.publie && ancien.part >= 0 && rot.app[ancien.part]) rot.app[ancien.part] -= 1;
+      /* Rejouer redonne le même partenaire au prochain passage (si c'était le dernier attribué) : la répétition ne décale pas la rotation. */
+      if (ancien && ancien.part >= 0 && rot.next === ancien.part + 1) rot.next = ancien.part;
       delete recs[rid]; sauver(); dessiner(rid, false);
       var bt = emplacementCarte(rid).querySelector('[data-arrivee]'); if (bt) bt.focus();
       annoncer('Démonstration remise en attente.');

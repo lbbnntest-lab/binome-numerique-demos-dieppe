@@ -84,15 +84,15 @@
      des trois lignes ; ici rien n'est envoyé, donc le texte de ces exemples est déjà rédigé comme le fera l'outil. Si une ligne est
      modifiée, on revient au texte simple ci-dessous. */
   var EXEMPLES = {
-    stage: { l1: 'Stage des vacances d\'octobre pour les U11, les U13 et les U15', l2: 'Lundi 19, mardi 20 et jeudi 22 octobre, de 10 h à 16 h 30', l3: 'Merci aux coachs et aux bénévoles',
+    stage: { l1: 'Stage des vacances d\'octobre pour les U11, les U13 et les U15', l2: 'Lundi 19, mardi 20 et jeudi 22 octobre, de 10 h à 16 h 30, pique-nique le midi et goûter offert', l3: 'Merci aux coachs et aux bénévoles',
       titre: 'Trois journées de stage pendant les vacances d\'octobre',
-      corps: 'Pendant les vacances d\'octobre, le club a ouvert ses portes pour trois journées de stage : le lundi 19 pour les U11, le mardi 20 pour les U13 et le jeudi 22 pour les U15, de 10 h à 16 h 30.\n\n'
+      corps: 'Pendant les vacances d\'octobre, le club proposait trois journées de stage : le lundi 19 pour les U11, le mardi 20 pour les U13 et le jeudi 22 pour les U15, de 10 h à 16 h 30.\n\n'
         + 'Une journée entière de basket, avec le pique-nique le midi et le goûter offert en fin de journée.\n\n'
-        + 'Merci aux coachs et aux bénévoles qui ont rendu ces journées possibles. Le prochain stage sera annoncé ici, sur la page Vie du club.' },
-    rose: { l1: 'Le club soutient Octobre rose', l2: 'Tout le mois d\'octobre, le logo du club passe en rose', l3: 'Merci à toutes celles et ceux qui portent le rose avec nous',
-      titre: 'En octobre, le BCR voit la vie en rose',
-      corps: 'Tout le mois d\'octobre, le Basket Club de Rouxmesnil soutient Octobre rose, la campagne de sensibilisation au dépistage du cancer du sein : le logo du club passe en rose.\n\n'
-        + 'Merci à toutes celles et ceux qui portent le rose avec nous, à la salle comme en dehors.' }
+        + 'Merci aux coachs et aux bénévoles. Le prochain stage sera annoncé ici, sur la page Vie du club.' },
+    rose: { l1: 'Le club a soutenu Octobre rose', l2: 'Tout le mois d\'octobre, le logo du club est passé en rose', l3: 'Merci à toutes celles et ceux qui ont porté le rose avec nous',
+      titre: 'En octobre, le BCR a vu la vie en rose',
+      corps: 'Tout le mois d\'octobre, le Basket Club de Rouxmesnil a soutenu Octobre rose, la campagne de sensibilisation au dépistage du cancer du sein : le logo du club est passé en rose.\n\n'
+        + 'Merci à toutes celles et ceux qui ont porté le rose avec nous, à la salle comme en dehors.' }
   };
   var exempleEnCours = null;
   Array.prototype.forEach.call(document.querySelectorAll('[data-exemple]'), function (b) {

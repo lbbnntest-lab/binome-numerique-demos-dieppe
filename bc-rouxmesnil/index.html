@@ -143,7 +143,7 @@
     <div class="wrap">
       <div class="s-entete-bloc">
         <h2 id="titre-we" data-mv="mots">Les prochains matchs</h2>
-        <p>Calendrier FFBB des U18 féminines élite. Les matchs des autres équipes : <a href="equipes.html" style="color:var(--vif)">Équipes et résultats</a>.</p>
+        <p>Les matchs à la salle (calendrier FFBB) et ceux des U18 féminines élite. Les matchs des autres équipes : <a href="equipes.html" style="color:var(--vif)">Équipes et résultats</a>.</p>
       </div>
       <ul class="matchs" id="matchs"></ul>
       <div class="note"><b>Pour le club</b>Les matchs de vos affiches s'affichent ici puis disparaissent une fois joués. Sur le futur site, ils viendraient du calendrier officiel pour toutes les équipes, si la ligue et la fédération sont d'accord.</div>
@@ -155,12 +155,12 @@
       <div class="venir-grille">
         <div>
           <h2 id="titre-venir" data-mv="mots">Venir à la salle</h2>
-          <p class="venir-adresse"><b>Salle Alexandre-Cheruel</b><br>Rue du Champ de Courses, Rouxmesnil-Bouteilles</p>
+          <p class="venir-adresse"><b>Salle Alexandre-Cheruel</b><br>Rue des Salines, Rouxmesnil-Bouteilles</p>
           <p>Quand deux matchs ont lieu en même temps, l'un se joue à l'ancien gymnase Lefebvre : le lieu serait indiqué sur chaque match.</p>
           <p class="aide-venir">Stationnement et accès : à compléter avec le club.</p>
         </div>
         <div class="venir-actions">
-          <a class="s-bouton" href="https://www.openstreetmap.org/search?query=rue%20du%20Champ%20de%20Courses%2C%20Rouxmesnil-Bouteilles" target="_blank" rel="noopener">Itinéraire (OpenStreetMap)</a>
+          <a class="s-bouton" href="https://www.openstreetmap.org/search?query=rue%20des%20Salines%2C%20Rouxmesnil-Bouteilles" target="_blank" rel="noopener">Itinéraire (OpenStreetMap)</a>
           <a class="s-bouton creux" href="equipes.html">Voir tous les matchs</a>
         </div>
       </div>
@@ -174,12 +174,25 @@
         <h2 id="titre-res" data-mv="mots">Résultats récents</h2>
         <p style="color:var(--ink-soft)">Scores publiés par le club et par la FFBB. <a href="equipes.html" style="color:var(--ballon-ink);font-weight:700">Toutes les équipes</a></p>
       </div>
-      <div class="compteurs-sc">
+      <div class="compteurs-sc" id="resultats-recents">
+        <div><div class="cat">Seniors M · RM3 · <span style="white-space:nowrap">18 oct.</span></div><div class="sc"><span data-compte="117">117</span><i>-</i><span data-compte="88">88</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">PM</span></div><div class="adv">à l'extérieur, contre Pacy-Ménilles</div></div>
+        <div><div class="cat">U15 F · DFU15 · <span style="white-space:nowrap">17 oct.</span></div><div class="sc"><span data-compte="42">42</span><i>-</i><span data-compte="27">27</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">BCO</span></div><div class="adv">à domicile, contre BC Offranville</div></div>
+        <div><div class="cat">Seniors M · PRM · <span style="white-space:nowrap">11 oct.</span></div><div class="sc"><span data-compte="107">107</span><i>-</i><span data-compte="58">58</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">USL</span></div><div class="adv">BCR 2, contre US Lillebonne</div></div>
         <div><div class="cat">U18 F · élite · <span style="white-space:nowrap">10 oct.</span></div><div class="sc"><span data-compte="78">78</span><i>-</i><span data-compte="57">57</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/alencon.webp" alt="Alençon-Damigny"></div><div class="adv">contre Alençon-Damigny Basket</div></div>
-        <div><div class="cat">U21 M · RMU21 · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="71">71</span><i>-</i><span data-compte="70">70</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">OBS</span></div><div class="adv">contre Oissel Basket Seine</div></div>
-        <div><div class="cat">U18 · Département · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="52">52</span><i>-</i><span data-compte="22">22</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">USF</span></div><div class="adv">BCR 2, à l'extérieur, contre US Forges-les-Eaux</div></div>
-        <div><div class="cat">U13 F · DFU13 · <span style="white-space:nowrap">3-4 oct.</span></div><div class="sc"><span data-compte="47">47</span><i>-</i><span data-compte="19">19</span></div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">SSB</span></div><div class="adv">contre Seventy Six Belleville</div></div>
       </div>
+      <script>
+      /* Démonstration (espace dirigeants, « Le score arrive tout seul ») : le résultat reçu pendant la visite s'ajoute en tête
+         des résultats récents, comme sur la page de l'équipe (même clé de l'onglet). */
+      (function(){
+        try {
+          var r = JSON.parse(sessionStorage.getItem('bcr-score-auto') || '{}')['dfu18-2026-10-31'], z = document.getElementById('resultats-recents');
+          if (!r || typeof r.bcr !== 'number' || !z) return;
+          var sc = r.masque ? '<span>' + (r.bcr > r.ad ? 'Victoire' : r.bcr < r.ad ? 'Défaite' : 'Nul') + '</span>' : '<span>' + r.bcr + '</span><i>-</i><span>' + r.ad + '</span>';
+          z.insertAdjacentHTML('afterbegin', '<div class="recu"><div class="cat">U18 F · DFU18 · <span style="white-space:nowrap">31 oct.</span></div><div class="sc">' + sc + '</div><div class="duel"><img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR"><i>vs</i><span class="logo-adv" aria-hidden="true">USB</span></div><div class="adv">BCR 2, à domicile, contre US Bacqueville<br><span class="etiquette-ex" style="margin:4px 0 0;white-space:normal">reçu pendant la démonstration</span></div></div>');
+          z.removeChild(z.lastElementChild);
+        } catch (e) {}
+      })();
+      </script>
     </div>
   </section>
 
@@ -245,8 +258,9 @@
 
 <script>
 (function(){
-  /* Matchs publiés par le club (affiches « Rendez-vous du week-end » des 17-18 octobre) et calendrier FFBB des U18F élite.
-     Un match passé disparaît ; heure absente = horaire non encore fixé par la FFBB. */
+  /* Matchs publiés par le club (affiches « Rendez-vous du week-end » des 17-18 octobre), matchs à domicile du week-end des
+     7-8 novembre (FFBB, relevé du 1/11, heures lues une fois la page de la FFBB entièrement chargée) et calendrier FFBB des U18F élite. Un match passé disparaît ; la liste suit l'ordre
+     des dates ; heure absente = horaire non encore fixé par la FFBB. */
   var MATCHS = [
     {d:'2026-10-17T14:00', eq:'U13 féminines (DFU13)', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:true},
     {d:'2026-10-17T14:00', eq:'U18 féminines · départementale (DFU18)', adv:'CEP Saint-Nicolas-d\'Aliermont', sig:'CEP', dom:false},
@@ -254,7 +268,16 @@
     {d:'2026-10-17T16:00', eq:'U21 masculins · régionale (RMU21)', adv:'SPN Vernon', sig:'SPN', dom:false},
     {d:'2026-10-18T08:45', eq:'Seniors féminines · départementale 2 (DF2)', adv:'Rouen Métropole Basket', sig:'RMB', dom:true},
     {d:'2026-10-18T10:30', eq:'Seniors féminines · départementale 3 (DF3)', adv:'Belbeuf', sig:'BEL', dom:true},
-    {d:'2026-11-07', eq:'U18 féminines · élite régionale (RFU18)', adv:'Cherbourg Basket Ball', logo:'cherbourg.webp', dom:true},
+    {d:'2026-11-07T13:30', eq:'U15 masculins · équipe 1 (DMU15)', adv:'Offranville 2', sig:'OFF', dom:true},
+    {d:'2026-11-07T14:00', eq:'U13 féminines (DFU13)', adv:'Dieppe', sig:'DIE', dom:true},
+    {d:'2026-11-07T15:15', eq:'U18 féminines · élite régionale (RFU18)', adv:'Cherbourg Basket Ball', logo:'cherbourg.webp', dom:true},
+    {d:'2026-11-07T17:00', eq:'U15 féminines (DFU15)', adv:'Bacqueville', sig:'BAC', dom:true},
+    {d:'2026-11-07', eq:'U18 masculins · équipe 3', adv:'l\'équipe 1 (derby du club)', sig:'BCR', dom:true},
+    {d:'2026-11-08T08:00', eq:'Seniors masculins · départementale 6 (DM6)', adv:'Saint-Nicolas', sig:'SN', dom:true},
+    {d:'2026-11-08T09:45', eq:'Seniors masculins · pré-régionale (PRM)', adv:'Couronne', sig:'COU', dom:true},
+    {d:'2026-11-08T11:15', eq:'Seniors masculins · départementale 3 (DM3)', adv:'CBPQ', sig:'CBP', dom:true},
+    {d:'2026-11-08T14:00', eq:'Seniors masculins · régionale 3 (RM3)', adv:'Rouen Métropole 5', sig:'RM5', dom:true},
+    {d:'2026-11-08T16:00', eq:'Seniors féminines · régionale 2 (RF2)', adv:'Évreux', sig:'EVX', dom:true},
     {d:'2026-11-14', eq:'U18 féminines · élite régionale (RFU18)', adv:'Aplemont Le Havre Basket 2', logo:'aplemont.webp', dom:false},
     {d:'2026-11-21', eq:'U18 féminines · élite régionale (RFU18)', adv:'USO Mondeville Basket 2', logo:'mondeville.webp', dom:true},
     {d:'2026-11-28', eq:'U18 féminines · élite régionale (RFU18)', adv:'Élan sportif Carpiquet Basket', logo:'carpiquet.webp', dom:false},
@@ -262,7 +285,9 @@
   ];
   var J = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'], Mo = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   var maintenant = new Date(), BCR = '<img class="logo-eq" src="img/logo-bcr-160.webp" alt="BCR">';
-  var avenir = MATCHS.filter(function(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T23:59'); return d.getTime() + 2*3600e3 > maintenant.getTime(); }).slice(0, 6);
+  function cle(m){ return m.d.length > 10 ? m.d : m.d + 'T23:00'; }   /* horaire non fixé : en fin de journée */
+  var avenir = MATCHS.filter(function(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T23:59'); return d.getTime() + 2*3600e3 > maintenant.getTime(); })
+    .sort(function(a, b){ return cle(a) < cle(b) ? -1 : cle(a) > cle(b) ? 1 : 0; }).slice(0, 10);
   document.getElementById('matchs').innerHTML = avenir.map(function(m){
     var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00');
     var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h ' + m.d.slice(14,16) : 'horaire à venir';
