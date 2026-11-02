@@ -37,6 +37,7 @@
       + (a.reel ? ' <span class="art-etiq">Texte préparé d\'après l\'annonce du club, à relire par le club</span>' : ' <span class="art-etiq">Publié pendant la démonstration</span>') + '</p>'
       + '<h' + h + ' id="art-' + esc(a.id) + '-t">' + esc(a.titre) + '</h' + h + '>'
       + (a.photo ? '<figure class="art-photo"><img src="' + a.photo + '" alt="Photo jointe à l\'article"></figure>'
+        : a.logo ? '<figure class="art-photo art-logo"><img src="' + esc(a.logo) + '" alt="' + esc(a.logoAlt || '') + '" loading="lazy"></figure>'
         : a.image ? '<figure class="art-photo"><img src="' + esc(a.image) + '" alt="' + esc(a.imageAlt || '') + '" loading="lazy"></figure>' : '')
       + '<div class="art-corps">' + paragraphes(a.corps) + '</div></article>';
   }
@@ -164,6 +165,28 @@
   });
   $('pa-modifier').addEventListener('click', function () { propose.hidden = true; btnPublier.disabled = true; sauverBrouillon(false); l1.focus(); });
 
+  /* ---------- Export pour Facebook (js/export-facebook.js) : image carrée et texte, pour le texte proposé puis pour l'article publié ---------- */
+  var dernierPublie = null, apres = document.createElement('div');
+  etat.parentNode.insertBefore(apres, etat.nextSibling);
+  function dateCourte(iso) {
+    var d = new Date(iso + 'T12:00'); return isNaN(d) ? '' : d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  if (window.BCRExport) {
+    var expBloc = document.createElement('div'); expBloc.className = 'pa-export';
+    expBloc.innerHTML = window.BCRExport.boutons('article', 'brouillon'); propose.appendChild(expBloc);
+    window.BCRExport.enregistrer('article', function (id) {
+      if (id === 'publie') {
+        if (!dernierPublie) return null;
+        return { spec: { type: 'article', titre: dernierPublie.titre, date: dateCourte(dernierPublie.date), photo: dernierPublie.photo || '' },
+          fichier: 'bcr-article-' + dernierPublie.date + '-' + titreDe(dernierPublie.titre).slice(0, 30), texte: dernierPublie.titre + '\n\n' + dernierPublie.corps };
+      }
+      var t = titre.value.trim(), c = corps.value.trim();
+      if (!t || !c) return { erreur: 'Le titre ou le texte est vide : écrivez-les avant de les préparer pour Facebook.' };
+      if (photo && !accord.checked) return { erreur: 'Cochez l’accord des personnes photographiées (ou de leurs parents) pour joindre la photo, ou retirez la photo.' };
+      return { spec: { type: 'article', titre: t, date: dateCourte(aujourdhui()), photo: photo }, fichier: 'bcr-article-' + aujourdhui() + '-' + titreDe(t).slice(0, 30), texte: t + '\n\n' + c };
+    });
+  }
+
   btnPublier.addEventListener('click', function () {
     effacerErreur();
     if (!titre.value.trim()) { marquerFaux([titre], 'Le titre est vide : écrivez-le avant de publier.'); return; }
@@ -179,6 +202,8 @@
       l.pop(); btnPublier.disabled = false;
       marquerFaux([titre], 'L\'article n\'a pas pu être gardé par cet appareil (la démonstration en a besoin). Rien n\'est publié ; essayez dans un onglet normal.'); return;
     }
+    dernierPublie = art;
+    apres.innerHTML = window.BCRExport ? '<div class="pa-apres"><p class="aide">Pour cet article, si vous le publiez aussi sur Facebook :</p>' + window.BCRExport.boutons('article', 'publie') + '</div>' : '';
     l1.value = ''; l2.value = ''; l3.value = ''; l4.value = ''; fichier.value = ''; photo = ''; apercu.hidden = true; majAccord();
     propose.hidden = true; ecrire('bcr-article-brouillon', null);
     etat.hidden = false; etat.textContent = '';

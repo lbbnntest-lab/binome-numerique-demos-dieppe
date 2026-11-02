@@ -311,6 +311,38 @@
       var a = x.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+x.logo+'" alt="">' : '<span class="logo-adv" aria-hidden="true">'+x.sig+'</span>';
       return '<div' + (x.recu ? ' class="recu"' : '') + '><div class="cat">' + x.court + ' · <span style="white-space:nowrap">' + d.getDate() + ' ' + MC[d.getMonth()] + '</span></div><div class="sc">' + sc + '</div><div class="duel">' + BCR + '<i>vs</i>' + a + '</div><div class="adv">' + (x.dom ? 'À domicile' : 'À l\'extérieur') + ', contre ' + x.adv + (x.recu ? '<br><span class="etiquette-ex" style="margin:4px 0 0;white-space:normal">reçu pendant la démonstration</span>' : '') + '</div></div>';
     }).join('');
+    /* Tableau d'affichage de l'accueil : une victoire récente (les 30 derniers jours, sinon les dernières connues), différente
+       à chaque visite ; jamais une défaite, jamais un grand écart chez les jeunes. La mascotte compte jusqu'à ce score. */
+    /* Seulement la dernière victoire de chaque équipe : dès qu'une équipe gagne à nouveau, sa victoire précédente disparaît. */
+    var derniere = {};
+    joues.filter(function(x){ return x.s[0] > x.s[1]; }).forEach(function(x){ if (!derniere[x.id] || x.d > derniere[x.id].d) derniere[x.id] = x; });
+    var vict = Object.keys(derniere).map(function(k){ return derniere[k]; })
+      .filter(function(x){ return !(JEUNE.test(x.id) && x.s[0] - x.s[1] >= 30); })
+      .sort(function(a, b){ return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+    var limite = new Date(maintenant.getTime() - 30 * 864e5).toISOString().slice(0, 10);
+    var recentes = vict.filter(function(x){ return x.d.slice(0,10) >= limite; });
+    var choix = recentes.length ? recentes : vict.slice(0, 6);
+    if (choix.length) {
+      var n = 0; try { n = (parseInt(localStorage.getItem('bcr-tableau'), 10) || 0) + 1; localStorage.setItem('bcr-tableau', n); } catch (e) {}
+      var v = choix[n % choix.length], dv = new Date(v.d.slice(0,10) + 'T12:00');
+      var CAT = { rm3:'Seniors M', prm:'Seniors M', dm3:'Seniors M', dm6:'Seniors M', rf2:'Seniors F', df2:'Seniors F', df3:'Seniors F', u21:'U21 M', u18f1:'U18 F', dfu18:'U18 F', dmu18a:'U18 M', dmu18b:'U18 M', dmu18c:'U18 M', u15f:'U15 F', dmu15a:'U15 M', dmu15b:'U15 M', u13f:'U13 F', dmu13:'U13 M', u11:'U11' };
+      window.BCR_TABLEAU = { bcr: v.s[0], ad: v.s[1], phase: 'Match' };
+      var tb = document.querySelector('.tableau');
+      if (tb) {
+        tb.setAttribute('aria-label', LIB[v.id][0] + ', ' + dv.getDate() + ' ' + Mo[dv.getMonth()] + ' : BCR ' + v.s[0] + ', ' + v.adv + ' ' + v.s[1]);
+        document.getElementById('sc-bcr').textContent = v.s[0]; document.getElementById('sc-adv').textContent = v.s[1];
+        var st = tb.querySelector('.temps strong'); if (st) st.textContent = CAT[v.id] || '';
+        var eqA = tb.querySelectorAll('.eq')[1];
+        if (eqA) {
+          eqA.querySelector('span').textContent = (v.sig || '').slice(0, 4);
+          var im = eqA.querySelector('img');
+          if (v.logo) { im.src = 'img/logos/' + v.logo; im.style.display = ''; }
+          else { im.style.display = 'none'; }
+        }
+        var lg = document.querySelector('.tableau-legende');
+        if (lg) lg.textContent = LIB[v.id][0] + ' · ' + J[dv.getDay()].toLowerCase() + ' ' + dv.getDate() + ' ' + Mo[dv.getMonth()] + ' · ' + (v.dom ? 'à domicile' : 'à l\'extérieur') + ', contre ' + v.adv + ' · score officiel FFBB';
+      }
+    }
   }
   function cle(m){ return m.d.length > 10 ? m.d : m.d + 'T23:00'; }   /* horaire non fixé : en fin de journée */
   var avenir = MATCHS.filter(function(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T23:59'); return d.getTime() + 2*3600e3 > maintenant.getTime(); })
@@ -380,6 +412,7 @@ window.BCRsceneFixe();
     var ballon = document.getElementById('j-ballon'), rotB = document.getElementById('j-ballon-r');
     var bOmbre = document.getElementById('b-ombre'), filet = document.getElementById('filet');
     var sc = document.getElementById('sc-bcr'), adv = document.getElementById('sc-adv');
+    var TB = window.BCR_TABLEAU || { bcr: 78, ad: 57, phase: 'Play-off' };   /* victoire choisie plus haut (données FFBB) */
     var pose = Object.assign({ saut: 0, pointeA: 0, pointeB: 0 }, P.garde), etat = { s: 0, a: 0, d: 0, v: 0, tour: 0 };
     var CERCLE = [520, 101], SOL_B = J.SOL - 12, mode = 'main', depart = null, ctrl = null;
     function placer(x, y){ ballon.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')'); }
@@ -400,7 +433,7 @@ window.BCRsceneFixe();
        Il lit seulement le texte des deux scores : aucun fichier de la mascotte n'est touché. Sans animation, « Fin » reste. */
     var temps = document.getElementById('tab-temps'), veille = null;
     if (temps) {
-      var majTemps = function(){ temps.textContent = (sc.textContent === '78' && adv.textContent === '57') ? 'Fin' : 'Play-off'; };
+      var majTemps = function(){ temps.textContent = (sc.textContent === String(TB.bcr) && adv.textContent === String(TB.ad)) ? 'Fin' : (TB.phase || 'Match'); };
       majTemps();
       veille = new MutationObserver(majTemps);
       [sc, adv].forEach(function(n){ veille.observe(n, { childList: true, characterData: true, subtree: true }); });
@@ -418,7 +451,7 @@ window.BCRsceneFixe();
     /* Avec la mascotte : une action tirée au hasard puis la fête du panier (js/mascotte-actions.js). */
     if (window.MascotteActions) window.MascotteActions.jouer(tl, { ballon: ballon, rotB: rotB, bOmbre: bOmbre, filet: filet, sc: sc, adv: adv });
     else {
-    tl.to(etat, { s: 75, a: 57, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
+    tl.to(etat, { s: Math.max(0, TB.bcr - 3), a: TB.ad, duration: 2.2, ease: 'power1.out', onUpdate: compte }, 1.0);
     /* Deux dribbles en avançant : le ballon descend au sol pendant que la main pousse, puis remonte. */
     tl.call(function(){ mode = 'dribble'; }, null, 1.0);
     [1.0, 1.62].forEach(function(t0){
@@ -448,7 +481,7 @@ window.BCRsceneFixe();
       .to(ballon, { attr: { transform: 'translate(520 150)' }, duration: 0.2, ease: 'none' }, 4.39)
       .fromTo(filet, { scaleY: 1 }, { scaleY: 1.18, svgOrigin: '520 104', duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.out' }, 4.42)
       .fromTo('.cercle-av', { stroke: '#ff6a1a' }, { stroke: '#ffd2a8', duration: 0.12, yoyo: true, repeat: 1 }, 4.4)
-      .to(etat, { s: 78, duration: 0.3, ease: 'none', onUpdate: compte }, 4.45)
+      .to(etat, { s: TB.bcr, duration: 0.3, ease: 'none', onUpdate: compte }, 4.45)
       .fromTo('.tableau', { boxShadow: '0 18px 40px rgba(0,0,0,.45)' }, { boxShadow: '0 0 0 3px #46c46f, 0 18px 40px rgba(0,0,0,.45)', duration: 0.25, yoyo: true, repeat: 1 }, 4.45)
       .to(ballon, { attr: { transform: 'translate(522 ' + SOL_B + ')' }, duration: 0.42, ease: 'power2.in' }, 4.59)
       .to(bOmbre, { opacity: 0.45, duration: 0.42 }, 4.59)

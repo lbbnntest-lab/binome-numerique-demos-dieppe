@@ -167,3 +167,46 @@
 .pv-logos{display:flex;gap:2.2cqw;min-width:0}
 .pv-logos .pv-part-logo{flex:1 1 0;min-width:0;width:auto;height:14cqw;padding:1.2cqw 1.6cqw}
 @media (max-width:480px){.sf-groupe-t{font-size:1.35rem}.sf-tete h4{font-size:1.25rem}}
+
+/* ---------- Export pour Facebook : image téléchargée, texte copié ---------- */
+.exp-groupe{margin-top:14px;padding:12px 14px;border:1px solid var(--line);background:#f7f8f5}
+.exp-consigne{margin:0 0 8px;font-weight:600}
+.exp-groupe .pub-boutons{margin-top:0}
+.exp-etat{margin-top:8px;font-weight:600;color:var(--ok)}
+.exp-etat:empty{display:none}
+.exp-manuel{display:block;width:100%;margin-top:8px;font:inherit;font-weight:400;color:var(--ink)}
+.exp-groupe .bouton[aria-busy=true]{cursor:progress}
+.pa-export{margin-top:18px}
+.pa-apres{margin-top:12px;max-width:640px}
+
+/* ---------- Article « Merci à notre partenaire » ---------- */
+.mp-rythme{margin:0 0 22px}
+.mp-lib{margin:0 0 8px;font-family:var(--titre);text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--ballon-ink)}
+.mp-rythme .filtres{margin-bottom:6px}
+.mp-rythme .filtres button{min-height:44px;padding:8px 16px;font-weight:700}
+.mp-statut{margin:0 0 14px;font-weight:700}
+.mp-courant h3,#mp-prochains-t{font-family:var(--titre);font-style:italic;text-transform:uppercase;font-size:1.45rem;margin:0 0 6px}
+#mp-prochains-t{margin-top:30px}
+.mp-pub .pub-cadre{max-width:340px}
+.mp-apercu{width:100%;aspect-ratio:1/1;background:#080a09;line-height:0}
+.mp-apercu canvas{display:block;width:100%;height:auto}
+.mp-qui{margin:0 0 10px}
+.mp-pub .pub-corps input[type=text]{min-height:48px}
+.mp-pub .pub-corps textarea{min-height:200px}
+@media (pointer:coarse){.mp-pub .pub-corps input[type=text],.mp-pub .pub-corps textarea{font-size:max(16px,1rem)}}
+#mp-etat:focus-visible{outline:3px solid var(--ballon);outline-offset:2px}
+#mp-etat[hidden]{display:none}
+.mp-prochains{list-style:none;margin:0;padding:0;display:grid;gap:0;max-width:760px;background:var(--surface);border:1px solid var(--line)}
+.mp-prochains li{display:grid;grid-template-columns:minmax(0,11em) 64px minmax(0,1fr) auto;gap:6px 16px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+.mp-prochains li:last-child{border-bottom:0}
+.mp-date{font-weight:700}
+.mp-logo{display:flex;align-items:center;justify-content:center;width:64px;height:40px;background:#fff;border:1px solid var(--line)}
+.mp-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.mp-nom{min-width:0;overflow-wrap:anywhere}
+.mp-nom small{display:block;color:var(--ink-soft)}
+.mp-prochains .etat.pastille{color:var(--ink-soft)}
+.mp-prochains .etat.pastille.attente{color:var(--attente)}
+@media (max-width:640px){.mp-prochains li{grid-template-columns:64px minmax(0,1fr)}.mp-date{grid-column:1 / -1}.mp-prochains .etat.pastille{grid-column:1 / -1;justify-self:start;white-space:normal}}
+/* Article publié avec le logo du partenaire : logo entier sur fond blanc, jamais rogné ni agrandi */
+.art-logo img{object-fit:contain;max-height:200px;background:#fff;padding:14px;border:1px solid var(--line);width:auto;max-width:100%}
+@media (pointer:coarse){.exp-groupe .bouton,.mp-pub .pub-boutons .bouton{min-height:44px}}

@@ -162,11 +162,23 @@
   var CE = chercherCeWeekend(), DEJA = chercherDejaJoue();
   var CARTES_CE = CE ? CE.liste.map(function (x) { return faireMatch(x, CE.proche ? 'Ce week-end' : 'Prochain week-end', false); }) : [];
   var CARTES_DEJA = DEJA ? DEJA.cartes.map(function (x) { return faireMatch(x, 'Déjà joué', true); }) : [];
-  var WE = null;
+  var WE = null, WE2 = null;
   if (DEJA) {
     WE = { id: 'we-' + DEJA.sam, dates: datesWE(DEJA.sam), lignes: DEJA.lignes.map(function (x) {
       return { equipe: x.e.liste, adv: x.adv, bcr: x.s[0], ad: x.s[1], jeune: !!x.e.jeune, nul: false };
     }) };
+  }
+  /* Récapitulatif de « Ce week-end » : il se remplit avec les scores arrivés pendant la démonstration, dans l'ordre des cartes. */
+  if (CE) WE2 = { id: 'we-' + CE.sam, dates: datesWE(CE.sam), direct: true };
+  function lignesCE() {
+    return CARTES_CE.filter(function (m) { return recs[m.id] && typeof recs[m.id].bcr === 'number'; }).map(function (m) {
+      var r = recs[m.id]; return { equipe: m.e.liste, adv: m.adv, bcr: r.bcr, ad: r.ad, jeune: !!m.e.jeune, nul: false };
+    });
+  }
+  function estWE(id) { return !!((WE && id === WE.id) || (WE2 && id === WE2.id)); }
+  function weDe(id) {
+    if (WE && id === WE.id) return WE;
+    return { id: WE2.id, dates: WE2.dates, direct: true, lignes: lignesCE() };
   }
 
   /* ---------- Mémoire de l'onglet ---------- */
@@ -262,10 +274,10 @@
   }
   /* Chez les jeunes, un écart de 30 points ou plus : l'issue seulement, sans le score (visuel et texte). */
   function ligneMasquee(l) { return l.jeune && Math.abs(l.bcr - l.ad) >= ECART_JEUNES; }
-  function texteWeekend(r) {
+  function texteWeekend(r, w) {
     var me = merci(r.parts);
-    return 'Le week-end des ' + WE.dates + ' en résultats :\n'
-      + WE.lignes.map(function (l) { var e = l.bcr - l.ad, sc = ligneMasquee(l) ? '' : l.bcr + '-' + l.ad + ' '; return '- ' + l.equipe + ' : ' + (e > 0 ? (e >= 20 && !l.jeune ? 'large victoire ' : 'victoire ') + sc + 'contre ' : e === 0 ? 'match nul ' + sc + 'contre ' : 'défaite ' + sc + 'contre ') + l.adv; }).join('\n')
+    return 'Le week-end des ' + w.dates + ' en résultats :\n'
+      + w.lignes.map(function (l) { var e = l.bcr - l.ad, sc = ligneMasquee(l) ? '' : l.bcr + '-' + l.ad + ' '; return '- ' + l.equipe + ' : ' + (e > 0 ? (e >= 20 && !l.jeune ? 'large victoire ' : 'victoire ') + sc + 'contre ' : e === 0 ? 'match nul ' + sc + 'contre ' : 'défaite ' + sc + 'contre ') + l.adv; }).join('\n')
       + '\nBravo à nos équipes, et rendez-vous le week-end prochain.'
       + (me ? '\n' + me : '');
   }
@@ -289,10 +301,10 @@
       + '<p class="pv-quand">' + esc(m.quand) + ' · ' + esc(m.lieu) + (r.masque ? '<br>Le score est sur le site du club' : '') + '</p>'
       + emplacement(r) + '</div></div>';
   }
-  function visuelWeekend(r) {
-    return '<div class="pub-cadre" data-visuel><div class="pub-visuel general" role="img" aria-label="Visuel : résultats du week-end des ' + WE.dates + ', ' + WE.lignes.length + ' résultat' + (WE.lignes.length > 1 ? 's' : '') + (r.parts.length ? ', avec le soutien de ' + esc(noms(r.parts)) : '') + '">' + tete()
-      + '<p class="pv-equipe">Résultats du week-end</p><p class="pv-issue">' + WE.dates + '</p>'
-      + '<ul class="pv-liste">' + WE.lignes.map(function (l) {
+  function visuelWeekend(r, w) {
+    return '<div class="pub-cadre" data-visuel><div class="pub-visuel general" role="img" aria-label="Visuel : résultats du week-end des ' + w.dates + ', ' + w.lignes.length + ' résultat' + (w.lignes.length > 1 ? 's' : '') + (r.parts.length ? ', avec le soutien de ' + esc(noms(r.parts)) : '') + '">' + tete()
+      + '<p class="pv-equipe">Résultats du week-end</p><p class="pv-issue">' + w.dates + '</p>'
+      + '<ul class="pv-liste">' + w.lignes.map(function (l) {
         return '<li><span><b>' + esc(l.equipe) + '</b><small>contre ' + esc(l.adv) + '</small></span><strong class="' + (l.bcr > l.ad ? 'v' : 'd') + '">' + (ligneMasquee(l) ? issue(l.bcr, l.ad) : l.bcr + '-' + l.ad) + '</strong></li>';
       }).join('') + '</ul>' + emplacement(r) + '</div></div>';
   }
@@ -316,11 +328,14 @@
       + '<p class="erreur" id="sf-e-' + f + '" role="alert"></p>'
       + '<div class="actions"><button type="button" class="bouton" data-arrivee="' + esc(m.id) + '">Montrer l\'arrivée du score officiel</button> <span class="etiquette-ex">démonstration</span></div></div>';
   }
-  function attenteWeekend() {
-    var n = WE.lignes.length;
-    return entete('sf-' + idSur(WE.id) + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + WE.dates, '<span class="etat pastille attente">Dimanche soir, en attente</span>')
-      + '<div class="sf-attente"><p class="aide">' + (n > 1 ? 'Les ' + n + ' résultats publiés' : 'Le résultat publié') + ' par la FFBB pour ce week-end-là (relevé du ' + esc(D.releve || '') + ') ; chaque dimanche, toutes les équipes dont le résultat est connu y seraient. <span class="etiquette-ex">démonstration</span></p>'
-      + '<div class="actions"><button type="button" class="bouton" data-arrivee="' + esc(WE.id) + '">Montrer le dimanche soir</button></div></div>';
+  function attenteWeekend(w) {
+    var n = w.lignes.length;
+    var aide = w.direct
+      ? (n ? n + (n > 1 ? ' scores reçus' : ' score reçu') + ' sur les ' + CARTES_CE.length + ' matchs ci-dessus : le visuel les réunit tous.' : 'Il se remplit avec les scores reçus dans les cartes ci-dessus : faites arriver au moins un score.')
+      : (n > 1 ? 'Les ' + n + ' résultats publiés' : 'Le résultat publié') + ' par la FFBB pour ce week-end-là (relevé du ' + esc(D.releve || '') + ') ; chaque dimanche, toutes les équipes dont le résultat est connu y seraient.';
+    return entete('sf-' + idSur(w.id) + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille attente">Dimanche soir, en attente</span>')
+      + '<div class="sf-attente"><p class="aide">' + aide + ' <span class="etiquette-ex">démonstration</span></p>'
+      + '<div class="actions"><button type="button" class="bouton" data-arrivee="' + esc(w.id) + '"' + (n ? '' : ' disabled') + '>Montrer le dimanche soir</button></div></div>';
   }
 
   function apercuSite(m, r) {
@@ -344,11 +359,12 @@
   }
   function resultat(id) {
     var r = recs[id], f = idSur(id);
-    if (WE && id === WE.id) {
-      return entete('sf-' + f + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + WE.dates, '<span class="etat pastille ok">Préparé tout seul</span>')
+    if (estWE(id)) {
+      var w = weDe(id);
+      return entete('sf-' + f + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille ok">Préparé tout seul</span>')
         + '<div class="sf-resultat">' + etapes(['Résultats du week-end rassemblés', 'Visuel et texte préparés'], r.publie)
-        + '<div class="pub">' + visuelWeekend(r) + '<div class="pub-corps">' + apercuWeekend()
-        + corpsPublication(id, f, r, '', 'Exemple avec les ' + WE.lignes.length + ' résultats réels publiés par la FFBB pour ce week-end (relevé du ' + (D.releve || '') + '). Chez les jeunes, un écart de 30 points ou plus n\'est pas affiché.') + '</div></div></div>';
+        + '<div class="pub">' + visuelWeekend(r, w) + '<div class="pub-corps">' + apercuWeekend()
+        + corpsPublication(id, f, r, '', (w.direct ? 'Les ' + w.lignes.length + ' scores reçus pendant la démonstration ; un score reçu ensuite s\'ajoute tout seul tant que le visuel n\'est pas publié.' : 'Exemple avec les ' + w.lignes.length + ' résultats réels publiés par la FFBB pour ce week-end (relevé du ' + (D.releve || '') + ').') + ' Chez les jeunes, un écart de 30 points ou plus n\'est pas affiché.') + '</div></div></div>';
     }
     var m = M[id];
     var secours = r.source === 'saisi';
@@ -360,17 +376,18 @@
   }
   function corpsPublication(id, f, r, extra, note) {
     return '<label for="sf-txt-' + f + '">Texte prêt (modifiable)</label>'
-      + '<textarea id="sf-txt-' + f + '" rows="' + (WE && id === WE.id ? Math.min(14, WE.lignes.length + 5) : 5) + '" data-texte' + (r.publie ? ' readonly' : '') + '>' + esc(r.texte) + '</textarea>'
+      + '<textarea id="sf-txt-' + f + '" rows="' + (estWE(id) ? Math.min(16, weDe(id).lignes.length + 5) : 5) + '" data-texte' + (r.publie ? ' readonly' : '') + '>' + esc(r.texte) + '</textarea>'
       + extra + partenaireInfo(r) + (note ? '<p class="aide">' + esc(note) + '</p>' : '')
       + '<div class="pub-boutons"><button type="button" class="bouton" data-publier="' + esc(id) + '"' + (r.publie ? ' disabled' : '') + '>' + (r.publie ? 'Publié (simulation)' : 'Publier sur Facebook') + '</button>'
       + '<button type="button" class="bouton ligne petit" data-rejouer="' + esc(id) + '">Rejouer la démonstration</button></div>'
+      + (window.BCRExport ? window.BCRExport.boutons('score', id) : '')
       + '<p class="aide">Un dirigeant relit et publie : rien ne part sans ce geste, et c\'est ce que nous conseillons pour les réseaux. Le bureau peut aussi choisir de publier sans validation les seuls visuels de score, qui ne portent aucun nom ni aucune photo.</p>'
       + '<p class="pub-etat" role="status" aria-live="polite">' + (r.publie ? 'Simulation : publication faite. Rien n\'a été envoyé. Sur le vrai site, deux façons au choix du club : publier directement sur la page Facebook du club, ou télécharger le visuel et copier le texte pour le publier soi-même.' : '') + '</p>';
   }
 
   function carte(id) {
     var attend = !recs[id];
-    if (WE && id === WE.id) return attend ? attenteWeekend() : resultat(id);
+    if (estWE(id)) return attend ? attenteWeekend(weDe(id)) : resultat(id);
     return attend ? attenteMatch(M[id]) : resultat(id);
   }
   function emplacementCarte(id) { return document.getElementById('sf-carte-' + idSur(id)); }
@@ -389,6 +406,22 @@
     }
   }
 
+  /* ---------- Export pour Facebook (js/export-facebook.js) : image carrée de 1080 x 1080 et texte, lus au moment du clic
+     (le score montré, le texte corrigé et les scores arrivés depuis sont donc toujours ceux de l'écran). ---------- */
+  if (window.BCRExport) window.BCRExport.enregistrer('score', function (id) {
+    var r = recs[id]; if (!r) return null;
+    var art = emplacementCarte(id), champ = art && art.querySelector('[data-texte]'), texte = champ ? champ.value : r.texte;
+    var parts = r.parts.map(function (i) { return 'img/partenaires/' + PART[i][0] + '.jpg'; });
+    if (estWE(id)) {
+      var w = weDe(id);
+      return { texte: texte, fichier: 'bcr-resultats-weekend-' + w.id.slice(3), spec: { type: 'weekend', dates: w.dates, parts: parts,
+        lignes: w.lignes.map(function (l) { return { equipe: l.equipe, adv: l.adv, score: ligneMasquee(l) ? issue(l.bcr, l.ad) : l.bcr + '-' + l.ad, v: l.bcr > l.ad }; }) } };
+    }
+    var m = M[id];
+    return { texte: texte, fichier: 'bcr-resultat-' + (m.code || m.tid) + '-' + m.x.j, spec: { type: 'match', equipe: m.equipe, niv: m.niv + (m.code ? ' (' + m.code + ')' : ''),
+      issue: issue(r.bcr, r.ad), vict: r.bcr > r.ad, bcr: r.bcr, ad: r.ad, masque: !!r.masque, adv: m.adv, sig: m.sig, quand: m.quand, lieu: m.lieu, parts: parts } };
+  });
+
   /* ---------- Contrôle des deux nombres ---------- */
   function nombre(v) { v = String(v).trim(); return /^\d{1,3}$/.test(v) && +v <= 200 ? +v : null; }
 
@@ -401,7 +434,7 @@
     annoncer('Réception du résultat officiel en cours.');
     setTimeout(function () {
       var r, avant = rot.next;
-      if (WE && id === WE.id) { r = { parts: prochainsPartenaires(), rotDe: avant, publie: false }; r.texte = texteWeekend(r); }
+      if (estWE(id)) { r = { parts: prochainsPartenaires(), rotDe: avant, publie: false }; r.texte = texteWeekend(r, weDe(id)); }
       else {
         var m = M[id];
         r = { bcr: bcr, ad: ad, source: source || 'officiel', parts: prochainsPartenaires(), rotDe: avant, publie: false };
@@ -409,16 +442,24 @@
       }
       recs[id] = r; sauver(); enCours[id] = false;
       dessiner(id, true);
-      annoncer(WE && id === WE.id ? 'Le visuel des résultats du week-end est prêt, avec son texte. Il ne reste qu\'à le publier.'
+      majWE2(id);
+      annoncer(estWE(id) ? 'Le visuel des résultats du week-end est prêt, avec son texte. Il ne reste qu\'à le publier.'
         : (source === 'saisi' ? 'Score enregistré' : 'Résultat officiel reçu') + ' : BCR ' + bcr + ' - ' + ad + '. Le site est à jour, le visuel et le texte sont prêts. Il ne reste qu\'à publier.');
     }, 700);
   }
 
+  /* Un score de « Ce week-end » arrive ou est remis en attente : le récapitulatif du week-end suit, tant qu'il n'est pas publié. */
+  function majWE2(id) {
+    if (!WE2 || id === WE2.id || !M[id] || CARTES_CE.indexOf(M[id]) < 0) return;
+    var r = recs[WE2.id];
+    if (r && !r.publie) { var w = weDe(WE2.id); if (w.lignes.length) r.texte = texteWeekend(r, w); else delete recs[WE2.id]; sauver(); }
+    dessiner(WE2.id, false);
+  }
   racine.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     if (b.hasAttribute('data-arrivee')) {
       var id = b.getAttribute('data-arrivee'), art = emplacementCarte(id);
-      if (WE && id === WE.id) { arriver(id); return; }
+      if (estWE(id)) { arriver(id); return; }
       var m = M[id], bcr, ad;
       if (m.reel) { bcr = m.reel[0]; ad = m.reel[1]; }
       else {
@@ -450,7 +491,7 @@
       if (ancien && ancien.publie) ancien.parts.forEach(function (i) { if (rot.app[i]) rot.app[i] -= 1; });
       /* Rejouer redonne les mêmes partenaires au prochain passage (si c'étaient les derniers attribués) : la répétition ne décale pas la rotation. */
       if (ancien && typeof ancien.rotDe === 'number' && rot.next === ancien.rotDe + NB_PART) rot.next = ancien.rotDe;
-      delete recs[rid]; sauver(); dessiner(rid, false);
+      delete recs[rid]; sauver(); dessiner(rid, false); majWE2(rid);
       var bt = emplacementCarte(rid).querySelector('[data-arrivee]'); if (bt) bt.focus();
       annoncer('Démonstration remise en attente.');
     }
@@ -503,7 +544,7 @@
   }
   var html = '', ordre = [];
   if (CE) {
-    var ids1 = CARTES_CE.map(function (m) { return m.id; });
+    var ids1 = CARTES_CE.map(function (m) { return m.id; }).concat([WE2.id]);
     html += groupe(CE.proche ? 'Ce week-end : ' + JOURS[6] + ' ' + datesWE(CE.sam).replace(' et ', ' et ' + JOURS[0] + ' ') : 'Prochain week-end à domicile : ' + JOURS[6] + ' ' + datesWE(CE.sam).replace(' et ', ' et ' + JOURS[0] + ' '),
       (CE.total > CARTES_CE.length ? CE.total + ' matchs à domicile au calendrier ; la démonstration en montre les ' + CARTES_CE.length + ' premiers par l\'horaire. ' : (CE.total > 1 ? CE.total + ' matchs à domicile au calendrier. ' : '1 match à domicile au calendrier. '))
       + 'Ces matchs ne sont pas encore joués : avant de cliquer, réglez le score à montrer (démonstration).', ids1);

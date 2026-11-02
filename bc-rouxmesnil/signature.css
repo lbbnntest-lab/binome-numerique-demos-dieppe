@@ -76,7 +76,7 @@
 .tableau .eq span{font-size:1.15rem;letter-spacing:.06em}
 .tableau .temps{background:#fff;color:#14181c;text-align:center;padding:6px 14px;line-height:1.05}
 .tableau .temps small{display:block;font-size:.8rem}
-.tableau .temps strong{font-size:1.35rem}
+.tableau .temps strong{font-size:1.9rem;display:block;letter-spacing:.02em;white-space:nowrap}
 .plus3{position:absolute;right:6%;top:4%;font-family:var(--titre);font-style:italic;font-weight:700;font-size:3.4rem;color:var(--vif);opacity:0;pointer-events:none}
 
 /* Bande défilante des valeurs */

@@ -123,8 +123,12 @@
     var nom = suite ? suivante() : choisir(); derniere = nom;
     /* Dans l'enchaînement, le tableau garde le score officiel (78-57) au lieu de recompter depuis zéro. */
     /* Le lancer franc commence déjà sur la ligne (ballon remis par l'arbitre) : pieds derrière la ligne (x 372). */
-    var c = Object.assign(etatDepart(), nom === 'lancer-franc' ? { hx: 336, ax: 344, bx: 326 } : {}), e = { d: 0, v: 0, r: 0, tour: 0, s: suite ? 78 : 0, a: suite ? 57 : 0 }, pose = construire(c);
-    function compteur(s, d){ if (!suite) tl.to(e, { s: s, a: 57, duration: d, ease: 'power1.out', onUpdate: compte }, 1.0); }
+    /* Score affiché : la victoire choisie par l'accueil (window.BCR_TABLEAU, données FFBB), sinon le play-off 78-57.
+       Les valeurs 75, 76, 77 ci-dessous sont lues comme « le score final moins 3, 2 ou 1 point ». */
+    var TB = window.BCR_TABLEAU || { bcr: 78, ad: 57 };
+    function avant(s) { return Math.max(0, TB.bcr - (78 - s)); }
+    var c = Object.assign(etatDepart(), nom === 'lancer-franc' ? { hx: 336, ax: 344, bx: 326 } : {}), e = { d: 0, v: 0, r: 0, tour: 0, s: suite ? TB.bcr : 0, a: suite ? TB.ad : 0 }, pose = construire(c);
+    function compteur(s, d){ if (!suite) tl.to(e, { s: avant(s), a: TB.ad, duration: d, ease: 'power1.out', onUpdate: compte }, 1.0); }
     var mode = 'main', dep = null, ctrl = null, depR = null;
     var trajet = document.getElementById('trajet');
     document.documentElement.setAttribute('data-action', nom);
@@ -235,7 +239,7 @@
         .fromTo(A.filet, { scaleY: 1 }, { scaleY: fort ? 1.32 : 1.18, svgOrigin: '520 104', duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.out' }, t + 0.03)
         .fromTo('.cercle-av', { stroke: '#ff6a1a' }, { stroke: '#ffd2a8', duration: 0.12, yoyo: true, repeat: 1 }, t + 0.01)
         .fromTo('#eclat', { opacity: 1, scale: 0.7, svgOrigin: '520 116' }, { opacity: 0, scale: fort ? 1.35 : 1.2, svgOrigin: '520 116', duration: 0.55, ease: 'power2.out', immediateRender: false }, t + 0.04)
-        .to(e, { s: 78, duration: 0.3, ease: 'none', onUpdate: compte }, t + 0.06)
+        .to(e, { s: TB.bcr, duration: 0.3, ease: 'none', onUpdate: compte }, t + 0.06)
         .fromTo('.tableau', { boxShadow: '0 18px 40px rgba(0,0,0,.45)' }, { boxShadow: '0 0 0 3px #46c46f, 0 18px 40px rgba(0,0,0,.45)', duration: 0.25, yoyo: true, repeat: 1 }, t + 0.06)
         .to(A.ballon, { attr: { transform: 'translate(522 ' + SOL_B + ')' }, duration: 0.42, ease: 'power2.in', onUpdate: function(){
           var m = /translate\(([-\d.]+) ([-\d.]+)\)/.exec(A.ballon.getAttribute('transform'));

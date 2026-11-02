@@ -1,0 +1,227 @@
+/* Aperçu du résumé vidéo d'un match : lecteur commun à medias.html (espace dirigeants) et photos.html (page publique).
+   Construit par js/resume-video.js. Toutes les classes commencent par « rv- » : le lecteur ne dépend d'aucune autre feuille
+   que style.css (variables --titre et --texte) et s'affiche pareil sur les deux pages.
+   Charte : noir du club, vert du club, vert vif, blanc ; Barlow Condensed en italique et en capitales pour les titres,
+   Source Sans 3 pour les sous-titres. Aucun verre dépoli, aucune lueur, aucun dégradé décoratif (règle 7ter).
+   Les tailles sont en cqw (largeur du cadre vidéo) avec un plancher en pixels pour rester lisibles sur téléphone. */
+
+.rv{--noir:#080a09;--vert:#1f7a3f;--vif:#46c46f;--gris:#f3f4f1;--rv-vertical:340px;
+  width:100%;min-width:0;background:#0d100e;color:#fff;border:1px solid rgba(255,255,255,.14);padding:clamp(10px,2vw,18px);font-family:var(--texte)}
+.rv *{box-sizing:border-box}
+.rv img{display:block;max-width:none}
+
+/* ---------- Cadre vidéo ---------- */
+.rv-ecran{container-type:inline-size;position:relative;overflow:hidden;isolation:isolate;width:100%;aspect-ratio:16/9;margin:0 auto;background:var(--noir);color:#fff;cursor:pointer;-webkit-user-select:none;user-select:none}
+.rv[data-format=vertical] .rv-ecran{aspect-ratio:9/16;width:min(100%,var(--rv-vertical))}
+.rv-scene{position:absolute;inset:0}
+.rv-plan{position:absolute;inset:0;overflow:hidden;visibility:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:5.2cqw 6cqw 14cqw}
+.rv-plan.rv-actif{visibility:visible}
+.rv-plan > *{position:relative}
+.rv[data-format=vertical] .rv-plan{padding:9cqw 8cqw 42cqw}
+
+/* Texte de titre : capitales italiques de la charte, masque de révélation (la ligne monte derrière un cache) */
+.rv-ligne{display:block;overflow:hidden;padding-top:.14em;margin-top:-.14em;padding-bottom:.04em}
+.rv-ligne > span{display:block}
+.rv-gros{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;line-height:.92;letter-spacing:.005em;margin:0}
+
+/* Fonds en photo : la salle du club, floutée et assombrie. Aucune personne. */
+.rv-fond{position:absolute !important;inset:0;overflow:hidden;background:var(--noir)}
+.rv-fond img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform:scale(1.15);will-change:transform}
+.rv-fond.flou img{filter:blur(.9cqw) brightness(.48) saturate(.85)}
+.rv-fond.tres-sombre img{filter:blur(1.2cqw) brightness(.3) saturate(.7)}
+.rv-fond::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,10,9,.78),rgba(8,10,9,.1))}
+.rv[data-format=vertical] .rv-fond::after{background:linear-gradient(0deg,rgba(8,10,9,.82),rgba(8,10,9,.15))}
+
+/* Bandes obliques : la signature du club (vert vif et vert du club) */
+.rv-bandes{position:absolute !important;right:-6cqw;top:0;bottom:0;width:26cqw;pointer-events:none}
+.rv-bandes i{position:absolute;top:0;bottom:0;transform:skewX(-14deg)}
+.rv-bandes i:nth-child(1){right:15cqw;width:2.6cqw;background:var(--vif)}
+.rv-bandes i:nth-child(2){right:0;width:13cqw;background:var(--vert)}
+.rv[data-format=vertical] .rv-bandes{right:-8cqw;width:24cqw;top:auto;height:20cqw;bottom:0}
+.rv[data-format=vertical] .rv-bandes i:nth-child(1){right:13cqw;width:3cqw}
+.rv[data-format=vertical] .rv-bandes i:nth-child(2){width:11cqw}
+
+/* ---------- 1. Ouverture ---------- */
+.rv-club{display:flex;align-items:center;gap:2cqw;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.06em;font-size:max(11px,3cqw)}
+.rv-club img{width:max(26px,7cqw);height:max(26px,7cqw);border-radius:50%;background:#000;object-fit:contain}
+.rv-titre{border-left:1.1cqw solid var(--vif);padding-left:3cqw;max-width:78%}
+.rv-l1{font-size:5.4cqw}
+.rv-l2{font-size:11.4cqw;margin-top:.8cqw}
+.rv-duel{display:grid;gap:1.2cqw}
+.rv-duel-ligne{display:flex;align-items:center;gap:1.6cqw;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.03em;font-size:max(12px,3.6cqw);line-height:1}
+.rv-eq{display:flex;align-items:center;gap:1.6cqw;min-width:0}
+.rv-duel-ligne img{width:max(24px,7cqw);height:max(24px,7cqw);border-radius:50%;background:#fff;padding:.5cqw;object-fit:contain;flex:none}
+.rv-duel-ligne img.noir{background:#000;padding:0}
+.rv-duel-ligne em{font-style:normal;color:var(--vif);font-size:.8em;margin:0 1cqw}
+.rv-quand{margin:0;font-size:max(11px,2.8cqw);font-weight:600;color:#e4e8e5;letter-spacing:.02em}
+.rv[data-format=vertical] .rv-club{font-size:max(12px,4.8cqw);gap:3cqw}
+.rv[data-format=vertical] .rv-club img{width:max(34px,11cqw);height:max(34px,11cqw)}
+.rv[data-format=vertical] .rv-titre{max-width:100%;border-left-width:1.8cqw;padding-left:4.5cqw}
+.rv[data-format=vertical] .rv-l1{font-size:10cqw}
+.rv[data-format=vertical] .rv-l2{font-size:17cqw;margin-top:1.4cqw}
+.rv[data-format=vertical] .rv-duel{gap:2.2cqw}
+.rv[data-format=vertical] .rv-duel-ligne{font-size:max(13px,6cqw);gap:2.4cqw;flex-direction:column;align-items:flex-start}
+.rv[data-format=vertical] .rv-eq{gap:3cqw}
+.rv[data-format=vertical] .rv-duel-ligne img{width:max(32px,12cqw);height:max(32px,12cqw)}
+.rv[data-format=vertical] .rv-duel-ligne em{display:block;margin:0 0 0 4cqw;font-size:5cqw}
+.rv[data-format=vertical] .rv-quand{font-size:max(12px,4.2cqw)}
+
+/* ---------- 2. Score ---------- */
+.rv-score{background:var(--noir);justify-content:space-between;padding-top:4.6cqw}
+.rv-sur{margin:0;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.14em;color:var(--vif);font-size:max(11px,3cqw);text-align:center}
+.rv-tableau{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:2cqw}
+.rv-cote{display:grid;justify-items:center;gap:.8cqw}
+.rv-nombre{font-family:var(--titre);font-style:italic;font-weight:700;font-size:25cqw;line-height:.82;font-variant-numeric:tabular-nums;color:#dfe3e0;display:block}
+.rv-cote.gagne .rv-nombre{color:var(--vif)}
+.rv-nom{display:flex;align-items:center;gap:1.4cqw;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:max(11px,3.4cqw);line-height:1}
+.rv-nom img{width:max(22px,6.4cqw);height:max(22px,6.4cqw);border-radius:50%;background:#fff;padding:.4cqw;object-fit:contain}
+.rv-nom img.noir{background:#000;padding:0}
+.rv-trait{align-self:stretch;display:grid;grid-template-rows:1fr auto 1fr;justify-items:center;gap:1.4cqw;padding:0 1cqw}
+.rv-trait::before,.rv-trait::after{content:"";width:.5cqw;background:rgba(255,255,255,.3)}
+.rv-trait span{font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.08em;font-size:max(10px,2.6cqw);color:#c9cdca}
+.rv-trait::before,.rv-trait::after{justify-self:center}
+.rv-ecart{align-self:center}
+.rv-ecart-fond{display:block;background:var(--vert);padding:1.1cqw 4.5cqw;transform:skewX(-14deg)}
+.rv-ecart-fond > span{display:block;transform:skewX(14deg);font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:max(13px,4.4cqw);line-height:1.1}
+.rv[data-format=vertical] .rv-score{padding-top:12cqw;padding-bottom:42cqw}
+.rv[data-format=vertical] .rv-sur{font-size:max(12px,4.6cqw)}
+.rv[data-format=vertical] .rv-tableau{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:3cqw;align-items:center}
+.rv[data-format=vertical] .rv-cote{gap:2cqw}
+.rv[data-format=vertical] .rv-nombre{font-size:36cqw}
+.rv[data-format=vertical] .rv-nom{font-size:max(13px,6cqw);gap:2.6cqw}
+.rv[data-format=vertical] .rv-nom img{width:max(30px,11cqw);height:max(30px,11cqw)}
+.rv[data-format=vertical] .rv-trait{grid-template-rows:none;grid-template-columns:1fr auto 1fr;align-items:center;padding:0}
+.rv[data-format=vertical] .rv-trait::before,.rv[data-format=vertical] .rv-trait::after{width:auto;height:.5cqw;flex:none;align-self:center;justify-self:stretch}
+.rv[data-format=vertical] .rv-trait span{font-size:max(11px,4cqw);padding:0 3cqw}
+.rv[data-format=vertical] .rv-ecart-fond > span{font-size:max(15px,8cqw)}
+.rv[data-format=vertical] .rv-ecart-fond{padding:1.6cqw 8cqw}
+
+/* ---------- 3. Temps forts : trois coupes rapides dans la photo de la salle ---------- */
+.rv-forts{padding:0}
+.rv-coupe{position:absolute !important;inset:0;overflow:hidden;visibility:hidden}
+.rv-coupe:first-child{visibility:visible}
+.rv-coupe img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform:scale(1.5);filter:brightness(.7) contrast(1.06) saturate(.9);will-change:transform}
+.rv-coupe:nth-child(1) img{object-position:3% 40%;transform-origin:8% 30%}
+.rv-coupe:nth-child(2) img{object-position:60% 70%;transform-origin:60% 78%}
+.rv-coupe:nth-child(3) img{object-position:96% 40%;transform-origin:92% 50%}
+.rv-coupe::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,10,9,.75),rgba(8,10,9,0) 55%)}
+.rv-viseur{position:absolute !important;inset:8.5cqw 4.5cqw 4.5cqw;pointer-events:none;z-index:1}
+.rv-viseur i{position:absolute;width:5cqw;height:5cqw;border:0 solid rgba(255,255,255,.9)}
+.rv-viseur i:nth-child(1){left:0;top:0;border-width:.5cqw 0 0 .5cqw}
+.rv-viseur i:nth-child(2){right:0;top:0;border-width:.5cqw .5cqw 0 0}
+.rv-viseur i:nth-child(3){left:0;bottom:0;border-width:0 0 .5cqw .5cqw}
+.rv-viseur i:nth-child(4){right:0;bottom:0;border-width:0 .5cqw .5cqw 0}
+.rv-extrait{position:absolute !important;left:7cqw;top:11.5cqw;z-index:1;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:max(11px,2.8cqw);background:rgba(8,10,9,.78);padding:.8cqw 2cqw}
+.rv-tiers{position:absolute !important;left:0;bottom:15cqw;z-index:2;display:flex;align-items:stretch;max-width:92%}
+.rv-tiers b{display:flex;align-items:center;background:var(--vif);color:var(--noir);font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:max(13px,4cqw);padding:1.2cqw 3.6cqw 1.2cqw 6.5cqw;clip-path:polygon(0 0,100% 0,92% 100%,0 100%);white-space:nowrap}
+.rv-tiers span{display:flex;align-items:center;background:var(--noir);font-weight:600;font-size:max(11px,2.9cqw);line-height:1.25;padding:1.2cqw 3cqw 1.2cqw 1.4cqw;margin-left:-1.4cqw}
+.rv[data-format=vertical] .rv-extrait{left:9cqw;top:16cqw;font-size:max(11px,4cqw)}
+.rv[data-format=vertical] .rv-viseur{inset:10cqw 6cqw 40cqw}
+.rv[data-format=vertical] .rv-tiers{bottom:48cqw;flex-direction:column;align-items:flex-start;max-width:90%}
+.rv[data-format=vertical] .rv-tiers b{font-size:max(15px,7cqw);padding:1.6cqw 8cqw 1.6cqw 9cqw}
+.rv[data-format=vertical] .rv-tiers span{font-size:max(12px,4.4cqw);margin:0;padding:2cqw 5cqw 2cqw 9cqw}
+
+/* ---------- 4. Qualification : fond vert plein ---------- */
+.rv-elite{background:var(--vert);justify-content:flex-start;gap:3cqw}
+.rv-fili{position:absolute !important;right:-2cqw;top:3cqw;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:44cqw;line-height:.8;color:transparent;-webkit-text-stroke:.35cqw rgba(255,255,255,.34);white-space:nowrap;pointer-events:none}
+.rv-saison{margin:0;display:flex;align-items:center;gap:2cqw;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.14em;font-size:max(11px,3.2cqw)}
+.rv-saison::before{content:"";width:7cqw;height:.7cqw;background:#fff}
+.rv-q{font-size:8.4cqw;max-width:11em}
+.rv-prochain{position:absolute !important;left:0;bottom:14.5cqw;display:flex;align-items:center;gap:2.4cqw;background:var(--noir);padding:1.2cqw 6cqw 1.2cqw 6cqw;clip-path:polygon(0 0,100% 0,97% 100%,0 100%);max-width:96%}
+.rv-prochain img{width:max(28px,8cqw);height:max(28px,8cqw);border-radius:50%;background:#fff;padding:.7cqw;object-fit:contain;flex:none}
+.rv-prochain p{margin:0;font-size:max(11px,2.8cqw);line-height:1.3;color:#e4e8e5}
+.rv-prochain strong{display:block;font-family:var(--titre);font-style:italic;text-transform:uppercase;letter-spacing:.04em;font-size:max(14px,4.2cqw);line-height:1.05;color:#fff}
+.rv[data-format=vertical] .rv-elite{padding-top:13cqw;gap:5cqw}
+.rv[data-format=vertical] .rv-fili{font-size:44cqw;right:-3cqw;top:12cqw;writing-mode:vertical-rl}
+.rv[data-format=vertical] .rv-saison{font-size:max(12px,4.4cqw)}
+.rv[data-format=vertical] .rv-saison::before{width:12cqw;height:1cqw}
+.rv[data-format=vertical] .rv-q{font-size:17cqw}
+.rv[data-format=vertical] .rv-prochain{bottom:49cqw;padding:3cqw 8cqw;gap:4cqw}
+.rv[data-format=vertical] .rv-prochain img{width:max(40px,16cqw);height:max(40px,16cqw)}
+.rv[data-format=vertical] .rv-prochain p{font-size:max(12px,4.2cqw)}
+.rv[data-format=vertical] .rv-prochain strong{font-size:max(15px,6cqw)}
+
+/* ---------- 5. Partenaires : fond clair ---------- */
+.rv-parts{background:var(--gris);color:var(--noir);justify-content:flex-start;gap:3cqw}
+.rv-parts .rv-bandes{right:-8cqw;width:22cqw;height:12cqw;top:0;bottom:auto}
+.rv-parts .rv-bandes i{top:0;bottom:0}
+.rv-merci{font-size:6.3cqw}
+.rv-logos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;width:88%}
+.rv-logos li{background:#fff;border:1px solid rgba(8,10,9,.14);aspect-ratio:2.3/1;display:flex;align-items:center;justify-content:center;padding:1.2cqw 2cqw}
+.rv-logos img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply}
+.rv[data-format=vertical] .rv-parts{padding-top:15cqw;gap:8cqw}
+.rv[data-format=vertical] .rv-parts .rv-bandes{height:18cqw;right:-6cqw;width:26cqw}
+.rv[data-format=vertical] .rv-merci{font-size:15cqw}
+.rv[data-format=vertical] .rv-logos{grid-template-columns:repeat(2,1fr);gap:3.4cqw;width:100%}
+.rv[data-format=vertical] .rv-logos li{aspect-ratio:2/1;padding:2cqw 3cqw}
+
+/* ---------- 6. Fin ---------- */
+.rv-fin{align-items:center;justify-content:center;text-align:center;gap:1.6cqw;padding-bottom:9cqw}
+.rv-fin > img{width:max(56px,18cqw);height:max(56px,18cqw);border-radius:50%;background:#000;object-fit:contain}
+.rv-fin-nom{font-size:7.4cqw;max-width:12em}
+.rv-fin-trait{width:14cqw;height:.8cqw;background:var(--vif);margin:1.2cqw 0}
+.rv-devise{margin:0;font-size:max(12px,3.3cqw);color:#dfe3e0;font-weight:600;letter-spacing:.03em}
+.rv-fin .rv-bandes{left:0;right:0;width:auto;top:auto;height:2.6cqw;bottom:0}
+.rv-fin .rv-bandes i{top:0;bottom:0}
+.rv-fin .rv-bandes i:nth-child(1){left:0;right:auto;width:100%;background:var(--vert);transform:none}
+.rv-fin .rv-bandes i:nth-child(2){left:0;right:auto;width:34%;background:var(--vif);transform:none}
+.rv[data-format=vertical] .rv-fin{padding-bottom:38cqw;gap:3cqw}
+.rv[data-format=vertical] .rv-fin > img{width:34cqw;height:34cqw}
+.rv[data-format=vertical] .rv-fin-nom{font-size:15cqw}
+.rv[data-format=vertical] .rv-devise{font-size:max(13px,5cqw)}
+.rv[data-format=vertical] .rv-fin-trait{width:24cqw;height:1.2cqw}
+
+/* ---------- Balayage entre deux cartons ---------- */
+.rv-balai{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5;display:none}
+.rv-gsap .rv-balai{display:block}
+.rv-balai > div{position:absolute;top:-12%;bottom:-12%;left:0;width:230%;display:flex}
+.rv-balai i:nth-child(1){flex:0 0 5.2%;background:var(--vif)}
+.rv-balai i:nth-child(2){flex:1 1 auto;background:var(--vert)}
+.rv-balai i:nth-child(3){flex:0 0 9.6%;background:var(--noir)}
+
+/* ---------- Sous-titres, marque, bouton de lecture ---------- */
+.rv-st{position:absolute;left:6%;right:6%;bottom:4cqw;margin:0;text-align:center;z-index:6;font-weight:600;font-size:max(13px,3.1cqw);line-height:1.38;pointer-events:none}
+.rv-st span{background:rgba(8,10,9,.84);color:#fff;padding:.28em .6em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.rv-st:empty{display:none}
+.rv[data-format=vertical] .rv-st{bottom:20cqw;left:7%;right:7%;font-size:max(14px,5.2cqw)}
+.rv-marque{position:absolute;right:2.4cqw;top:2.4cqw;z-index:6;background:rgba(8,10,9,.72);border:1px solid rgba(255,255,255,.45);color:#fff;font-size:max(10px,2cqw);font-weight:600;padding:.5cqw 1.6cqw;pointer-events:none}
+.rv[data-format=vertical] .rv-marque{font-size:max(10px,3.2cqw);right:3.6cqw;top:3.6cqw}
+.rv-jouer{position:absolute;right:5cqw;bottom:16cqw;z-index:6;width:max(44px,9.5cqw);height:max(44px,9.5cqw);border-radius:50%;background:#fff;display:none;pointer-events:none}
+.rv-jouer::after{content:"";position:absolute;left:36%;top:50%;margin-top:calc(max(44px,9.5cqw) * -.17);border-left:calc(max(44px,9.5cqw) * .3) solid var(--noir);border-top:calc(max(44px,9.5cqw) * .17) solid transparent;border-bottom:calc(max(44px,9.5cqw) * .17) solid transparent}
+.rv[data-format=vertical] .rv-jouer{right:7cqw;bottom:auto;top:13cqw;width:max(48px,16cqw);height:max(48px,16cqw)}
+.rv[data-format=vertical] .rv-jouer::after{margin-top:calc(max(48px,16cqw) * -.17);border-left-width:calc(max(48px,16cqw) * .3);border-top-width:calc(max(48px,16cqw) * .17);border-bottom-width:calc(max(48px,16cqw) * .17)}
+.rv-ecran[data-etat=arret] .rv-jouer,.rv-ecran[data-etat=fin] .rv-jouer{display:block}
+
+/* ---------- Commandes ---------- */
+.rv-temps-ligne{display:flex;align-items:center;gap:12px;margin:12px auto 0}
+.rv[data-format=vertical] .rv-temps-ligne{width:min(100%,var(--rv-vertical))}
+.rv-progression{flex:1;height:6px;background:rgba(255,255,255,.22);overflow:hidden}
+.rv-progression i{display:block;height:100%;width:100%;background:var(--vif);transform:scaleX(0);transform-origin:left center}
+.rv-temps{font-size:.88rem;font-variant-numeric:tabular-nums;color:#d7dbd8;min-width:5.6em;text-align:right}
+.rv-commandes{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 0}
+.rv-btn{font:inherit;font-weight:700;font-size:.98rem;min-height:44px;padding:9px 18px;cursor:pointer;border:0;background:var(--vif);color:var(--noir);transition:transform 160ms cubic-bezier(.23,1,.32,1)}
+.rv-btn.creux{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #fff}
+.rv-btn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.rv-btn:hover{background:#fff}.rv-btn.creux:hover{background:rgba(255,255,255,.14)}}
+.rv-btn:focus-visible,.rv-formats button:focus-visible,.rv-texte summary:focus-visible{outline:3px solid var(--vif);outline-offset:2px}
+.rv-formats{display:inline-flex}
+.rv-formats button{font:inherit;font-size:.92rem;min-height:44px;padding:8px 14px;border:1px solid #fff;background:transparent;color:#fff;cursor:pointer}
+.rv-formats button + button{border-left:0}
+.rv-formats button[aria-pressed=true]{background:#fff;color:var(--noir);font-weight:700}
+.rv-etat{min-height:1.5em;margin:12px 0 0;color:#d7dbd8;font-size:.95rem}
+.rv-demo{margin:8px 0 0;max-width:46em;border-left:3px solid var(--vif);padding:2px 0 2px 12px;color:#e4e8e5;font-size:.95rem}
+.rv-texte{margin:16px 0 0;background:#14181c;border-left:4px solid var(--vif)}
+.rv-texte summary{cursor:pointer;padding:12px 16px;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:1.15rem}
+.rv-texte p{margin:0;padding:0 16px 16px;color:#d7dbd8;line-height:1.65}
+.rv-texte span.lu{background:var(--vif);color:var(--noir)}
+
+@media (max-width:480px){
+  .rv{padding:10px}
+  .rv-formats{width:100%}
+  .rv-formats button{flex:1}
+  .rv-btn{flex:1 1 auto}
+}
+/* Mouvement réduit : le balayage disparaît, on passe d'un carton à l'autre par coupe franche. */
+@media (prefers-reduced-motion:reduce){
+  .rv-btn{transition:none}
+}
