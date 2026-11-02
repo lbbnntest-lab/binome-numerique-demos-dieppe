@@ -88,6 +88,9 @@
 .s-bande .bande-oct{display:none}
 .s-bande.octobre-rose{background:#f472b6}
 .s-bande.octobre-rose .bande-oct{display:inline}
+.s-bande .bande-nov{display:none}
+.s-bande.movember{background:#2563eb;color:#fff}
+.s-bande.movember .bande-nov{display:inline}
 .s-bande{position:relative}
 .s-bande.en-pause .piste{animation-play-state:paused}
 /* Bouton Pause de la bande (une animation qui dure plus de 5 secondes doit pouvoir être arrêtée), même geste que la mascotte */

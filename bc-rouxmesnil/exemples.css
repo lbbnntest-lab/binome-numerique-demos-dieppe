@@ -146,3 +146,10 @@
   .sf-etapes li{flex-wrap:wrap}
   .pdm-texte{padding:18px}
 }
+
+/* Boutique : articles JAKO en plus, repliés */
+.plus-articles{margin-top:22px}
+.plus-articles > summary{list-style:none;cursor:pointer;display:inline-block}
+.plus-articles > summary::-webkit-details-marker{display:none}
+.plus-articles[open] > summary{margin-bottom:22px}
+.produit .visuel.sans-photo{min-height:170px}

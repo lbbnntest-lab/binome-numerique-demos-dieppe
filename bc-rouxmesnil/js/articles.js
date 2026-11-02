@@ -89,10 +89,11 @@
       corps: 'Pendant les vacances d\'octobre, le club proposait trois journées de stage : le lundi 19 pour les U11, le mardi 20 pour les U13 et le jeudi 22 pour les U15, de 10 h à 16 h 30.\n\n'
         + 'Une journée entière de basket, avec le pique-nique le midi et le goûter offert en fin de journée.\n\n'
         + 'Merci aux coachs et aux bénévoles. Le prochain stage sera annoncé ici, sur la page Vie du club.' },
-    rose: { l1: 'Le club a soutenu Octobre rose', l2: 'Tout le mois d\'octobre, le logo du club est passé en rose', l3: 'Merci à toutes celles et ceux qui ont porté le rose avec nous',
-      titre: 'En octobre, le BCR a vu la vie en rose',
-      corps: 'Tout le mois d\'octobre, le Basket Club de Rouxmesnil a soutenu Octobre rose, la campagne de sensibilisation au dépistage du cancer du sein : le logo du club est passé en rose.\n\n'
-        + 'Merci à toutes celles et ceux qui ont porté le rose avec nous, à la salle comme en dehors.' }
+    movember: { l1: 'En novembre, le club porte la moustache pour Movember', l2: 'Tournoi masculin des U18 aux seniors, vendredi 20 novembre à 19 h, gymnase Alexandre-Cheruel', l3: 'Animations, vente de t-shirts, restauration sur place : venez nombreux',
+      titre: 'Movember : le BCR porte la moustache avec panache',
+      corps: 'En novembre, le Basket Club de Rouxmesnil se mobilise pour Movember, le mois consacré à la santé des hommes : le club porte la moustache, et son logo arbore le ruban bleu.\n\n'
+        + 'Temps fort du mois : un tournoi masculin, des U18 aux seniors, le vendredi 20 novembre à partir de 19 h au gymnase Alexandre-Cheruel. Au programme : animations, vente de t-shirts et d\'objets aux couleurs du club, et restauration sur place.\n\n'
+        + 'Venez nombreux encourager les joueurs, et sortez la moustache !' }
   };
   var exempleEnCours = null;
   Array.prototype.forEach.call(document.querySelectorAll('[data-exemple]'), function (b) {
