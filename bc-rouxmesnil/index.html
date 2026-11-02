@@ -306,18 +306,17 @@
     joues.sort(function(a, b){ return a.recu !== b.recu ? (a.recu ? 1 : -1) : (a.d < b.d ? -1 : a.d > b.d ? 1 : 0); });
     var z = document.getElementById('resultats-recents'), MC = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
     if (z && joues.length) z.innerHTML = joues.slice(-4).reverse().map(function(x){
-      var d = new Date(x.d.slice(0,10) + 'T12:00'), e = x.s[0] - x.s[1], cache = JEUNE.test(x.id) && Math.abs(e) >= 30;
+      var d = new Date(x.d.slice(0,10) + 'T12:00'), e = x.s[0] - x.s[1], cache = false;
       var sc = cache ? '<span>' + (e > 0 ? 'Victoire' : 'Défaite') + '</span>' : '<span>' + x.s[0] + '</span><i>-</i><span>' + x.s[1] + '</span>';
       var a = x.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+x.logo+'" alt="">' : '<span class="logo-adv" aria-hidden="true">'+x.sig+'</span>';
       return '<div' + (x.recu ? ' class="recu"' : '') + '><div class="cat">' + x.court + ' · <span style="white-space:nowrap">' + d.getDate() + ' ' + MC[d.getMonth()] + '</span></div><div class="sc">' + sc + '</div><div class="duel">' + BCR + '<i>vs</i>' + a + '</div><div class="adv">' + (x.dom ? 'À domicile' : 'À l\'extérieur') + ', contre ' + x.adv + (x.recu ? '<br><span class="etiquette-ex" style="margin:4px 0 0;white-space:normal">reçu pendant la démonstration</span>' : '') + '</div></div>';
     }).join('');
     /* Tableau d'affichage de l'accueil : une victoire récente (les 30 derniers jours, sinon les dernières connues), différente
-       à chaque visite ; jamais une défaite, jamais un grand écart chez les jeunes. La mascotte compte jusqu'à ce score. */
+       à chaque visite ; jamais une défaite. La mascotte compte jusqu'à ce score. */
     /* Seulement la dernière victoire de chaque équipe : dès qu'une équipe gagne à nouveau, sa victoire précédente disparaît. */
     var derniere = {};
     joues.filter(function(x){ return x.s[0] > x.s[1]; }).forEach(function(x){ if (!derniere[x.id] || x.d > derniere[x.id].d) derniere[x.id] = x; });
     var vict = Object.keys(derniere).map(function(k){ return derniere[k]; })
-      .filter(function(x){ return !(JEUNE.test(x.id) && x.s[0] - x.s[1] >= 30); })
       .sort(function(a, b){ return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
     var limite = new Date(maintenant.getTime() - 30 * 864e5).toISOString().slice(0, 10);
     var recentes = vict.filter(function(x){ return x.d.slice(0,10) >= limite; });

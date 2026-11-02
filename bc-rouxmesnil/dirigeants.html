@@ -463,7 +463,7 @@
       <p class="visuellement-cache" id="sf-annonce" role="status" aria-live="polite"></p>
       <div class="note"><b>Pour le club</b>Le résultat officiel arriverait sans que personne ne le tape, si la fédération en donne l'accord. Le site, le visuel et le texte seraient prêts ; un dirigeant n'aurait plus qu'à publier. Ici, tout est simulé.</div>
       <div class="note"><b>Les partenaires</b>Les logos de trois partenaires figurent sur chaque visuel, à tour de rôle, et chaque apparition est comptée : de quoi nourrir le bilan de saison de l'espace partenaire.</div>
-      <div class="note"><b>Les jeunes</b>Les visuels portent le nom de l'équipe et le score, jamais le nom ni la photo d'un enfant. Chez les jeunes, un grand écart n'est pas mis en avant.</div>
+      <div class="note"><b>Les jeunes</b>Les visuels portent le nom de l'équipe et le score, jamais le nom ni la photo d'un enfant.</div>
 
       <details class="sf-secours" id="sf-secours">
         <summary>Solution de secours : un bénévole tape le score</summary>
@@ -879,8 +879,7 @@
       effectif:['Julie V.','Claire P.','Marion S.','Aurélie D.','Sonia L.','Élodie R.','Sandra M.','Céline T.','Audrey B.','Laetitia G.','Nathalie F.','Virginie C.'],
       indispos:[{nom:'Sonia L.', du:S.prochainSamedi(), au:S.prochainSamedi(1), motif:'Examen'}], sansRep:['Virginie C.'] }
   };
-  /* Vrais matchs (js/donnees-ffbb.js) : prochains matchs et dernier résultat de chaque équipe, selon la date du jour.
-     Chez les jeunes, un écart de 30 points ou plus n'est pas affiché. */
+  /* Vrais matchs (js/donnees-ffbb.js) : prochains matchs et dernier résultat de chaque équipe, selon la date du jour. */
   (function(){
     var F = window.BCR_FFBB && window.BCR_FFBB.equipes; if (!F) return;
     var MAP = {u13:'u13f', u15:'u15f', u18:'u18f1', rf2:'rf2'}, JEUNES = {u13:1, u15:1, u18:1};
@@ -896,7 +895,7 @@
       e.avenir = av.slice(0, 4); delete e.suivant; delete e.advSuivant;
       if (joues.length) {
         var l = joues[joues.length-1], dd = new Date(l.d.slice(0,10) + 'T12:00'), g = l.s[0] > l.s[1];
-        var cache = JEUNES[k] && Math.abs(l.s[0] - l.s[1]) >= 30;
+        var cache = false;
         e.dernier = dd.getDate() + ' ' + MOISF[dd.getMonth()] + ' : ' + (g ? 'victoire' : 'défaite') + (cache ? '' : ' ' + l.s[0] + '-' + l.s[1]) + ' contre ' + l.adv;
       }
     });

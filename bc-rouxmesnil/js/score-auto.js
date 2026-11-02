@@ -25,7 +25,7 @@
   var PART = [["commune-rouxmesnil","Commune de Rouxmesnil-Bouteilles"],["mekabulle","Mekabulle"],["chaumont","Michael Chaumont"],["demare","SAS Demare Luc"],["proxi","Proxi Super"],["salon-m","Le salon M"],["stadium","Sport Solidaire Stadium"],["abrafer","Abrafer"],["diamant","SAS Diamant Fermetures"],["auchan","Auchan Dieppe"],["ligny-gaspary","Ligny-Gaspary Immobilier"],["dequesne","SAS Dequesne"],["trianon","Le Trianon"],["atelier","L'atelier"],["bigmat","BigMat Roger"],["wlc","WLC Automobiles"],["art-mony","Art Mony Pub"],["ongles","Les Ongles en Gel in A."],["hysope","Hysope Fleurs"],["leader","Leader actual emploi"],["bayeux","EURL Bayeux Maçonnerie"],["boulangerie-prieure","Boulangerie du Prieuré"],["etria","Etria"],["eph","EPH publicité"],["bistrot-barrieres","Bistrot des Barrières"],["franck-provost","Franck Provost"],["brico-depot","Brico Dépôt"],["samp","SAMP Services"],["carbon","Carbon Decor · Carbon Meta"],["regates","Les Régates"],["feron","Boucherie charcuterie Feron"]];
   var NB_PART = 3;          /* logos de partenaires par visuel */
   var MAX_CARTES = 10;      /* cartes « Ce week-end » */
-  var ECART_JEUNES = 30;    /* chez les jeunes, un écart de 30 points ou plus : score non affiché */
+  var ECART_JEUNES = 1000;  /* le club publie lui-même tous les scores de ses jeunes (fondateur, 02/11) : aucun score masqué */
 
   /* Les 19 équipes de championnat (libellés repris de equipes.html), dans l'ordre d'affichage des listes.
      nom/niv/code : en-tête du visuel ; base/prec : « nos seniors garçons (régionale 3) » et « Seniors garçons (régionale 3) ». */
@@ -364,7 +364,7 @@
       return entete('sf-' + f + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille ok">Préparé tout seul</span>')
         + '<div class="sf-resultat">' + etapes(['Résultats du week-end rassemblés', 'Visuel et texte préparés'], r.publie)
         + '<div class="pub">' + visuelWeekend(r, w) + '<div class="pub-corps">' + apercuWeekend()
-        + corpsPublication(id, f, r, '', (w.direct ? 'Les ' + w.lignes.length + ' scores reçus pendant la démonstration ; un score reçu ensuite s\'ajoute tout seul tant que le visuel n\'est pas publié.' : 'Exemple avec les ' + w.lignes.length + ' résultats réels publiés par la FFBB pour ce week-end (relevé du ' + (D.releve || '') + ').') + ' Chez les jeunes, un écart de 30 points ou plus n\'est pas affiché.') + '</div></div></div>';
+        + corpsPublication(id, f, r, '', (w.direct ? 'Les ' + w.lignes.length + ' scores reçus pendant la démonstration ; un score reçu ensuite s\'ajoute tout seul tant que le visuel n\'est pas publié.' : 'Exemple avec les ' + w.lignes.length + ' résultats réels publiés par la FFBB pour ce week-end (relevé du ' + (D.releve || '') + ').')) + '</div></div></div>';
     }
     var m = M[id];
     var secours = r.source === 'saisi';
