@@ -196,6 +196,12 @@
   .compteurs-sc > div + div{padding-left:12px}
   .tableau .eq{padding:8px 10px;gap:8px}
   .tableau .eq b{font-size:1.4rem}
+  .tableau .eq{min-width:0}
+  .tableau .eq img{width:24px;height:24px}
+  .tableau .eq span{font-size:1rem;min-width:0;overflow:hidden}
+  .tableau .eq b{flex-shrink:0;min-width:0}
+  .tableau .temps{padding:6px 8px;flex-shrink:0}
+  .tableau .temps strong{font-size:clamp(1rem,4.4vw,1.5rem)}
   .compteurs-sc > div:nth-child(3){padding-left:0;border-left:0}
   .logos{grid-template-columns:1fr 1fr}
   .logos div:nth-child(2){border-right:0}
@@ -289,6 +295,7 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 .pm-cl{position:sticky;top:110px}
 @media (max-width:900px){.pm-cl{position:static}}
 .tableau-legende{margin:10px 0 0;font-size:.85rem;color:#c9cdca}
+@media (max-width:380px){.tableau .eq img{display:none}}
 /* Repères d'étape (la proposition écrite compte deux étapes) et fonctions montrées qui n'y figurent pas (idées, sur devis). */
 .repere{display:inline-block;font-family:var(--texte);font-style:normal;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:700;line-height:1.5;padding:1px 7px;margin-left:8px;vertical-align:middle}
 .repere.etape{background:#e3efe6;color:#14532d;border:1px solid #14532d}
