@@ -9,7 +9,7 @@
   document.querySelectorAll('[data-terrain]').forEach(function(el){ el.insertAdjacentHTML('afterbegin', TERRAIN); });
   var liens = [['bureau.html','p-bureau','Bureau du 5 novembre'],['index.html','p-proposition','La proposition'],['explications.html','p-explications','Page par page'],['boutique.html','p-boutique','Boutique et JAKO']];
   var nav = liens.map(function(l){ return '<a href="'+l[0]+'"'+(l[1]===page?' aria-current="page"':'')+'>'+l[2]+'</a>'; }).join('');
-  var tete = '<header class="pres-tete"><div class="wrap">'
+  var tete = '<a class="evitement" href="#contenu">Aller au contenu</a><header class="pres-tete"><div class="wrap">'
     + '<div class="pres-marque"><img src="../img/lbn-272.png" alt="" width="68" height="36"><div><strong>Le Binôme Numérique</strong><span>Proposition au Basket Club de Rouxmesnil</span></div></div>'
     + '<nav aria-label="Présentation">'+nav+'<a class="pres-site" href="../index.html?explications">Voir le site du club</a></nav>'
     + '</div></header>';
@@ -17,6 +17,7 @@
     + '<div><h3>Cette présentation</h3><p>Document de travail remis au bureau du BCR. Les montants figurent dans la proposition écrite remise au rendez-vous.</p></div>'
     + '<div><h3>Le site du club</h3><p><a href="../index.html?explications">Ouvrir la maquette du site</a></p></div></div></footer>';
   document.body.insertAdjacentHTML('afterbegin', tete);
+  var mc = document.querySelector('main'); if (mc && !mc.id) mc.id = 'contenu';
   document.body.classList.add('haut-pose');   /* voir style.css : le contenu apparaît une fois l'en-tête posé */
   document.body.insertAdjacentHTML('beforeend', pied);
 })();

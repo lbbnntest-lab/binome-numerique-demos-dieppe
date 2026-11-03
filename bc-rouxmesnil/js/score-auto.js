@@ -23,6 +23,7 @@
 
   /* Les 31 partenaires du calendrier 2026 (même liste, même ordre que partenaires.html ; Le Binôme Numérique n'en fait pas partie). */
   var PART = [["commune-rouxmesnil","Commune de Rouxmesnil-Bouteilles"],["mekabulle","Mekabulle"],["chaumont","Michael Chaumont"],["demare","SAS Demare Luc"],["proxi","Proxi Super"],["salon-m","Le salon M"],["stadium","Sport Solidaire Stadium"],["abrafer","Abrafer"],["diamant","SAS Diamant Fermetures"],["auchan","Auchan Dieppe"],["ligny-gaspary","Ligny-Gaspary Immobilier"],["dequesne","SAS Dequesne"],["trianon","Le Trianon"],["atelier","L'atelier"],["bigmat","BigMat Roger"],["wlc","WLC Automobiles"],["art-mony","Art Mony Pub"],["ongles","Les Ongles en Gel in A."],["hysope","Hysope Fleurs"],["leader","Leader actual emploi"],["bayeux","EURL Bayeux Maçonnerie"],["boulangerie-prieure","Boulangerie du Prieuré"],["etria","Etria"],["eph","EPH publicité"],["bistrot-barrieres","Bistrot des Barrières"],["franck-provost","Franck Provost"],["brico-depot","Brico Dépôt"],["samp","SAMP Services"],["carbon","Carbon Decor · Carbon Meta"],["regates","Les Régates"],["feron","Boucherie charcuterie Feron"]];
+  PART.push(PART.shift());   /* la commune (argent public) en dernier : la rotation commence par un partenaire privé */
   var NB_PART = 3;          /* logos de partenaires par visuel */
   var MAX_CARTES = 10;      /* cartes « Ce week-end » */
   var ECART_JEUNES = 1000;  /* le club publie lui-même tous les scores de ses jeunes (fondateur, 02/11) : aucun score masqué */
@@ -316,7 +317,7 @@
   function titreCarte(m) { return m.adv + ', ' + m.quand.toLowerCase() + ', ' + m.lieu; }
   function attenteMatch(m) {
     var f = idSur(m.id), pas = m.reel === null;
-    return entete('sf-' + f + '-t', m.lib + ' · ' + etiqEquipe(m), titreCarte(m), '<span class="etat pastille attente">En attente du résultat officiel</span>')
+    return entete('sf-' + f + '-t', m.lib + ' · ' + etiqEquipe(m), titreCarte(m), '<span class="etat pastille attente">' + (pas ? 'En attente du résultat officiel' : 'Avant l\'arrivée du score') + '</span>')
       + '<div class="sf-attente">'
       + (pas
         ? '<details class="sf-reglage" open><summary>Régler le score de démonstration</summary>'
@@ -331,11 +332,11 @@
   function attenteWeekend(w) {
     var n = w.lignes.length;
     var aide = w.direct
-      ? (n ? n + (n > 1 ? ' scores reçus' : ' score reçu') + ' sur les ' + CARTES_CE.length + ' matchs ci-dessus : le visuel les réunit tous.' : 'Il se remplit avec les scores reçus dans les cartes ci-dessus : faites arriver au moins un score.')
-      : (n > 1 ? 'Les ' + n + ' résultats publiés' : 'Le résultat publié') + ' par la FFBB pour ce week-end-là (relevé du ' + esc(D.releve || '') + ') ; chaque dimanche, toutes les équipes dont le résultat est connu y seraient.';
-    return entete('sf-' + idSur(w.id) + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille attente">Dimanche soir, en attente</span>')
+      ? (n ? (n > 1 ? n + ' scores reçus' : '1 score reçu') + ' pour les matchs ci-dessus : le visuel ' + (n > 1 ? 'les réunit tous.' : 'le reprend, et chaque score reçu ensuite s\'y ajoute.') : 'Il se remplit avec les scores reçus dans les cartes ci-dessus : faites arriver au moins un score.')
+      : (n > 1 ? 'Les ' + n + ' résultats publiés' : 'Le résultat publié') + ' par la FFBB pour ce week-end-là (relevé du ' + esc(D.releve || '') + ') ; une fois les scores arrivés, toutes les équipes dont le résultat est connu y seraient.';
+    return entete('sf-' + idSur(w.id) + '-t', 'Une fois les scores arrivés', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille attente">En attente des scores</span>')
       + '<div class="sf-attente"><p class="aide">' + aide + ' <span class="etiquette-ex">démonstration</span></p>'
-      + '<div class="actions"><button type="button" class="bouton" data-arrivee="' + esc(w.id) + '"' + (n ? '' : ' disabled') + '>Montrer le dimanche soir</button></div></div>';
+      + '<div class="actions"><button type="button" class="bouton" data-arrivee="' + esc(w.id) + '"' + (n ? '' : ' disabled') + '>Montrer l\'arrivée des résultats</button></div></div>';
   }
 
   function apercuSite(m, r) {
@@ -354,17 +355,18 @@
   function partenaireInfo(r) {
     if (!r.parts.length) return '<p class="aide">Aucun partenaire à afficher : l\'emplacement reste vide.</p>';
     var cptes = r.parts.map(function (i) { return '<strong>' + esc(PART[i][1]) + '</strong> ' + apparitions(i); }).join(', ');
-    return '<p class="aide sf-part">Logos à l\'écran, à leur tour dans la rotation (partenaires du club, calendrier 2026) : <strong>' + esc(noms(r.parts)) + '</strong>. '
-      + 'Apparitions comptées sur les visuels publiés de cette démonstration : ' + cptes + (r.publie ? '' : ' ; une de plus pour chacun une fois ce visuel publié') + '.</p>';
+    return '<p class="aide sf-part">Logos à l\'écran, à leur tour : <strong>' + esc(noms(r.parts)) + '</strong>. '
+      + 'Ici, tous les partenaires du club (calendrier 2026) passent à tour de rôle ; dès que des partenaires prennent l\'option « partenaire numérique », ce sont leurs logos. '
+      + 'Passages de chaque logo dans cette démonstration (le bilan des apparitions arrive avec l\'espace partenaire, en 2e étape) : ' + cptes + (r.publie ? '' : ' ; une de plus pour chacun une fois ce visuel publié') + '.</p>';
   }
   function resultat(id) {
     var r = recs[id], f = idSur(id);
     if (estWE(id)) {
       var w = weDe(id);
-      return entete('sf-' + f + '-t', 'Chaque dimanche soir', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille ok">Préparé tout seul</span>')
+      return entete('sf-' + f + '-t', 'Une fois les scores arrivés', 'Résultats du week-end des ' + w.dates, '<span class="etat pastille ok">Préparé tout seul</span>')
         + '<div class="sf-resultat">' + etapes(['Résultats du week-end rassemblés', 'Visuel et texte préparés'], r.publie)
         + '<div class="pub">' + visuelWeekend(r, w) + '<div class="pub-corps">' + apercuWeekend()
-        + corpsPublication(id, f, r, '', (w.direct ? 'Les ' + w.lignes.length + ' scores reçus pendant la démonstration ; un score reçu ensuite s\'ajoute tout seul tant que le visuel n\'est pas publié.' : 'Exemple avec les ' + w.lignes.length + ' résultats réels publiés par la FFBB pour ce week-end (relevé du ' + (D.releve || '') + ').')) + '</div></div></div>';
+        + corpsPublication(id, f, r, '', (w.direct ? (w.lignes.length > 1 ? 'Les ' + w.lignes.length + ' scores reçus' : 'Le score reçu') + ' pendant la démonstration ; un score reçu ensuite s\'ajoute tout seul tant que le visuel n\'est pas publié.' : 'Exemple avec les ' + w.lignes.length + ' résultats réels publiés par la FFBB pour ce week-end (relevé du ' + (D.releve || '') + ').')) + '</div></div></div>';
     }
     var m = M[id];
     var secours = r.source === 'saisi';
@@ -378,11 +380,11 @@
     return '<label for="sf-txt-' + f + '">Texte prêt (modifiable)</label>'
       + '<textarea id="sf-txt-' + f + '" rows="' + (estWE(id) ? Math.min(16, weDe(id).lignes.length + 5) : 5) + '" data-texte' + (r.publie ? ' readonly' : '') + '>' + esc(r.texte) + '</textarea>'
       + extra + partenaireInfo(r) + (note ? '<p class="aide">' + esc(note) + '</p>' : '')
-      + '<div class="pub-boutons"><button type="button" class="bouton" data-publier="' + esc(id) + '"' + (r.publie ? ' disabled' : '') + '>' + (r.publie ? 'Publié (simulation)' : 'Publier sur Facebook') + '</button>'
+      + '<div class="pub-boutons"><button type="button" class="bouton" data-publier="' + esc(id) + '"' + (r.publie ? ' disabled' : '') + '>' + (r.publie ? 'Publié (simulation)' : 'Publier (simulation)') + '</button>'
       + '<button type="button" class="bouton ligne petit" data-rejouer="' + esc(id) + '">Rejouer la démonstration</button></div>'
       + (window.BCRExport ? window.BCRExport.boutons('score', id) : '')
-      + '<p class="aide">Un dirigeant relit et publie : rien ne part sans ce geste, et c\'est ce que nous conseillons pour les réseaux. Le bureau peut aussi choisir de publier sans validation les seuls visuels de score, qui ne portent aucun nom ni aucune photo.</p>'
-      + '<p class="pub-etat" role="status" aria-live="polite">' + (r.publie ? 'Simulation : publication faite. Rien n\'a été envoyé. Sur le vrai site, deux façons au choix du club : publier directement sur la page Facebook du club, ou télécharger le visuel et copier le texte pour le publier soi-même.' : '') + '</p>';
+      + '<p class="aide">Rien n\'est publié sur le site ni sur Facebook sans qu\'un dirigeant l\'ait relu.</p>'
+      + '<p class="pub-etat" role="status" aria-live="polite">' + (r.publie ? 'Simulation : publication faite. Rien n\'a été envoyé. Sur le vrai site, un dirigeant télécharge le visuel et copie le texte pour les publier lui-même sur la page Facebook du club. La publication directe depuis le site se fera seulement si le club nous en donne l\'accès, après un essai réussi avec lui.' : '') + '</p>';
   }
 
   function carte(id) {
@@ -546,19 +548,25 @@
   if (CE) {
     var ids1 = CARTES_CE.map(function (m) { return m.id; }).concat([WE2.id]);
     html += groupe(CE.proche ? 'Ce week-end : ' + JOURS[6] + ' ' + datesWE(CE.sam).replace(' et ', ' et ' + JOURS[0] + ' ') : 'Prochain week-end à domicile : ' + JOURS[6] + ' ' + datesWE(CE.sam).replace(' et ', ' et ' + JOURS[0] + ' '),
-      (CE.total > CARTES_CE.length ? CE.total + ' matchs à domicile au calendrier ; la démonstration en montre les ' + CARTES_CE.length + ' premiers par l\'horaire. ' : (CE.total > 1 ? CE.total + ' matchs à domicile au calendrier. ' : '1 match à domicile au calendrier. '))
+      'Les matchs à domicile ' + (CE.proche ? 'de ce week-end' : 'du prochain week-end') + ', d\'après le calendrier de la fédération' + (CE.total > CARTES_CE.length ? ' ; la démonstration montre les premiers par l\'horaire. ' : '. ')
       + 'Ces matchs ne sont pas encore joués : avant de cliquer, réglez le score à montrer (démonstration).', ids1);
     ordre = ordre.concat(ids1);
   } else html += groupe('Ce week-end', 'Aucun match à domicile du club n\'est inscrit au calendrier relevé pour les prochains week-ends.', []);
   if (DEJA) {
     var ids2 = CARTES_DEJA.map(function (m) { return m.id; }).concat([WE.id]);
-    html += groupe('Déjà joué : week-end des ' + WE.dates, 'Résultats officiels de la fédération : rien à régler, le bouton montre simplement l\'arrivée du score.', ids2);
+    html += groupe('Déjà joué', 'Résultats officiels de la fédération : rien à régler, le bouton montre simplement l\'arrivée du score.', ids2);
     ordre = ordre.concat(ids2);
   } else html += groupe('Déjà joué', 'Aucun résultat de week-end n\'est encore connu dans les données relevées.', []);
   zone.innerHTML = html;
   ordre.forEach(function (id) { dessiner(id, false); });
 
+  /* ?demo=score : la page s'ouvre sur ce bloc ; avec &carte=<id du match> (ex. dfu18-2026-10-31), sur la carte de ce match
+     (id de l'article : « sf-carte-<id du match> », ex. sf-carte-dfu18-2026-10-31), sous l'en-tête fixe. */
   if (/[?&]demo=score/.test(location.search)) {
-    setTimeout(function () { racine.scrollIntoView({ block: 'start' }); }, 120);
+    var qc = /[?&]carte=([a-z0-9-]+)/i.exec(location.search), cible = qc && emplacementCarte(qc[1]);
+    setTimeout(function () {
+      if (cible) window.scrollTo({ top: Math.max(0, cible.getBoundingClientRect().top + window.pageYOffset - 104) });
+      else racine.scrollIntoView({ block: 'start' });
+    }, 120);
   }
 })();

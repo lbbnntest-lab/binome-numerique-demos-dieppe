@@ -1,7 +1,7 @@
 /* Espace dirigeants, bloc « Un article Merci à notre partenaire » (démonstration). Lié uniquement depuis dirigeants.html.
    - Le club choisit un rythme (chaque semaine, toutes les deux semaines, chaque mois), gardé dans l'onglet (sessionStorage, clé « bcr-merci »).
    - Un article de remerciement est préparé pour le partenaire suivant, pris à tour de rôle dans les 31 partenaires du calendrier 2026 du club
-     (même liste, même ordre que partenaires.html). Texte : le nom, le métier, la commune quand ils sont connus, et le fait que le partenaire
+     (même liste que partenaires.html ; la commune en dernier). Texte : le nom, le métier, la commune quand ils sont connus, et le fait que le partenaire
      soutient le club. Rien d'autre (ni horaires, ni note, ni adresse, ni citation).
    - Un dirigeant relit (case à cocher), corrige si besoin, puis publie : l'article paraît sur la page Vie du club et en dernier article de
      l'accueil, par le même mécanisme que js/articles.js (clé « bcr-articles »). Il peut aussi l'exporter pour Facebook (js/export-facebook.js).
@@ -53,6 +53,7 @@
     var dans = mots(p.nom);
     if (p.metier && mots(p.metier).some(function (m) { return dans.indexOf(m) >= 0; })) p.metier = null;
   });
+  P.push(P.shift());   /* la commune (argent public) passe en dernier : la démonstration de l'article commence par un partenaire privé */
   var N = P.length;
 
   var RYTHMES = {
@@ -152,7 +153,8 @@
   zone.innerHTML =
     '<div class="mp-rythme" role="group" aria-labelledby="mp-rythme-t"><p class="mp-lib" id="mp-rythme-t">Rythme des articles</p>'
     + '<div class="filtres" id="mp-rythmes">' + Object.keys(RYTHMES).map(function (k) { return '<button type="button" data-rythme="' + k + '" aria-pressed="false">' + RYTHMES[k].lib + '</button>'; }).join('') + '</div>'
-    + '<p class="aide" id="mp-cadence"></p></div>'
+    + '<p class="aide" id="mp-cadence"></p>'
+    + '<p class="aide mp-option">Option « partenaire numérique » : l’article est préparé pour chaque partenaire qui la prend. Pour la démonstration, les 31 partenaires du calendrier passent à tour de rôle.</p></div>'
     + '<div class="mp-courant">'
     + '<h3 id="mp-statut-t">Article à relire</h3><p class="mp-statut" id="mp-statut"></p>'
     + '<div class="pub mp-pub"><div class="pub-cadre mp-cadre"><div class="mp-apercu" id="mp-apercu" role="img" aria-label="Image pour Facebook"></div>'
@@ -207,7 +209,7 @@
   function majListe() {
     var d = dates();
     Array.prototype.forEach.call($('mp-rythmes').querySelectorAll('[data-rythme]'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-rythme') === st.rythme)); });
-    $('mp-cadence').textContent = 'À ce rythme, les ' + N + ' partenaires ont chacun leur article en ' + RYTHMES[st.rythme].cadence + '.';
+    $('mp-cadence').textContent = 'À ce rythme, dans la démonstration, les ' + N + ' partenaires ont chacun leur article en ' + RYTHMES[st.rythme].cadence + '.';
     $('mp-prochains').innerHTML = [0, 1, 2].map(function (k) {
       var p = partenaire(k);
       return '<li><span class="mp-date">' + esc(maj1(dateLongue(d[k]))) + '</span><span class="mp-logo"><img src="img/partenaires/' + p.slug + '.jpg" alt="" width="64" height="40" loading="lazy"></span>'

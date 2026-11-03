@@ -91,10 +91,10 @@
       corps: 'Pendant les vacances d\'octobre, le club proposait trois journées de stage : le lundi 19 pour les U11, le mardi 20 pour les U13 et le jeudi 22 pour les U15, de 10 h à 16 h 30.\n\n'
         + 'Une journée entière de basket, avec le pique-nique le midi et le goûter offert en fin de journée.\n\n'
         + 'Merci aux coachs et aux bénévoles. Le prochain stage sera annoncé ici, sur la page Vie du club.' },
-    movember: { l1: 'En novembre, le club porte la moustache pour Movember, le mois de la santé des hommes. Le logo du club arbore le ruban bleu.', l2: 'Tournoi masculin des U18 aux seniors, vendredi 20 novembre à partir de 19 h, gymnase Alexandre-Cheruel', l4: 'Animations, vente de t-shirts et restauration sur place', l3: 'Venez nombreux encourager les joueurs',
+    movember: { l1: 'En novembre, le club porte la moustache pour Movember, le mois de la santé des hommes. Le logo du club arbore le ruban bleu.', l2: 'Tournoi masculin des U18 aux seniors, vendredi 20 novembre à partir de 19 h, salle Alexandre-Cheruel', l4: 'Animations, vente de t-shirts et restauration sur place', l3: 'Venez nombreux encourager les joueurs',
       titre: 'Movember : le BCR porte la moustache avec panache',
       corps: 'En novembre, le Basket Club de Rouxmesnil se mobilise pour Movember, le mois consacré à la santé des hommes : le club porte la moustache, et son logo arbore le ruban bleu.\n\n'
-        + 'Temps fort du mois : un tournoi masculin, des U18 aux seniors, le vendredi 20 novembre à partir de 19 h au gymnase Alexandre-Cheruel. Au programme : animations, vente de t-shirts et d\'objets aux couleurs du club, et restauration sur place.\n\n'
+        + 'Temps fort du mois : un tournoi masculin, des U18 aux seniors, le vendredi 20 novembre à partir de 19 h à la salle Alexandre-Cheruel. Au programme : animations, vente de t-shirts et d\'objets aux couleurs du club, et restauration sur place.\n\n'
         + 'Venez nombreux encourager les joueurs, et sortez la moustache !' }
   };
   var exempleEnCours = null;

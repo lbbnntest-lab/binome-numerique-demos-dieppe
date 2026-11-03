@@ -85,7 +85,7 @@
       + '<textarea id="pub-' + id + '-txt" rows="' + (p.lignes || 7) + '" data-texte>' + esc(t) + '</textarea>'
       + '<div class="pub-boutons"><button type="button" class="bouton ligne petit" data-copier>Copier le texte</button>'
       + '<button type="button" class="bouton petit" data-valider' + (st.valide ? ' hidden' : '') + '>Valider</button>'
-      + '<button type="button" class="bouton petit" data-publier aria-describedby="pub-' + id + '-aide"' + (st.valide && !st.publie ? '' : ' disabled') + '>Publier sur Facebook et Instagram</button></div>'
+      + '<button type="button" class="bouton petit" data-publier aria-describedby="pub-' + id + '-aide"' + (st.valide && !st.publie ? '' : ' disabled') + '>Publier (simulation)</button></div>'
       + '<p class="aide" id="pub-' + id + '-aide">' + (st.publie ? 'Publication programmée (simulation).' : st.valide ? 'Validée : la publication est possible.' : 'Publier se débloque après validation.') + '</p>'
       + '<p class="pub-etat" role="status" aria-live="polite"></p></div></article>';
   }
@@ -126,7 +126,7 @@
     if (b.hasAttribute('data-publier')) {
       if (!(etats[id] && etats[id].valide)) return;
       etats[id].publie = true; sauver(); majCarte(art);
-      annoncer(art, 'Simulation : publication programmée après validation. Rien n\'est envoyé : sur le vrai site, elle partirait sur la page Facebook et le compte Instagram du club.');
+      annoncer(art, 'Simulation : publication programmée après validation. Rien n\'est envoyé : sur le vrai site, un dirigeant la publie lui-même sur la page Facebook du club, ou directement depuis le site si le club nous en donne l\'accès, après un essai réussi avec lui.');
       ta.focus();
     }
   });
@@ -161,7 +161,7 @@
     finMatch.innerHTML = cartesChg + (s.length ? s.map(function (x) {
       var m = { equipe: x.equipe, niv: x.niv, adv: x.adv || 'adversaire à compléter', lieu: x.lieu, quand: x.date ? dateFr(x.date) : 'Date à compléter', bcr: x.bcr, ad: x.ad };
       return carte({ id: 'fm-' + x.id, type: 'Fin de match · score saisi par le coach', titre: m.equipe + ' contre ' + m.adv, visuel: visuelMatch(m), texte: texteMatch(m) });
-    }).join('') : (ch.length ? '' : '<p class="vide-filtre">Aucun score saisi pour le moment. Dès qu\'un coach saisirait le score final d\'un match, sa publication apparaîtrait ici.</p>'));
+    }).join('') : (ch.length ? '' : '<p class="vide-filtre">Aucun score saisi pour le moment. Dès qu\'un score final arrivera, sa publication apparaîtrait ici.</p>'));
   }
   ['bcr:score', 'bcr:changement'].forEach(function (t) { document.addEventListener(t, function () { afficherFinMatch(); if (window.BCRRole && BCRRole.majPastilles) BCRRole.majPastilles(); }); });
   afficherFinMatch();

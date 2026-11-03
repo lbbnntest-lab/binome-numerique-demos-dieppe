@@ -77,12 +77,12 @@
     { id: 'tm-2026-11-07-rfu18-chrono', date: '2026-11-07', heure: '15:15', match: 'U18 féminines (élite régionale) contre Cherbourg', poste: 'Chronométreur', pris: null },
     { id: 'tm-2026-11-07-dfu15-marqueur', date: '2026-11-07', heure: '17:00', match: 'U15 féminines contre US Bacqueville', poste: 'Marqueur', pris: null },
     { id: 'tm-2026-11-07-dfu15-chrono', date: '2026-11-07', heure: '17:00', match: 'U15 féminines contre US Bacqueville', poste: 'Chronométreur', pris: 'Nadia B.' },
-    { id: 'tm-2026-11-08-dm6-marqueur', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (D6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Marqueur', pris: null },
-    { id: 'tm-2026-11-08-dm6-chrono', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (D6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-dm6-marqueur', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (départementale 6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-dm6-chrono', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (départementale 6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Chronométreur', pris: null },
     { id: 'tm-2026-11-08-prm-marqueur', date: '2026-11-08', heure: '09:45', match: 'Seniors masculins (pré-régionale) contre AS Couronne', poste: 'Marqueur', pris: 'Thomas R.' },
     { id: 'tm-2026-11-08-prm-chrono', date: '2026-11-08', heure: '09:45', match: 'Seniors masculins (pré-régionale) contre AS Couronne', poste: 'Chronométreur', pris: null },
-    { id: 'tm-2026-11-08-dm3-marqueur', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (D3) contre CBPQ', poste: 'Marqueur', pris: null },
-    { id: 'tm-2026-11-08-dm3-chrono', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (D3) contre CBPQ', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-dm3-marqueur', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (départementale 3) contre CBPQ', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-dm3-chrono', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (départementale 3) contre CBPQ', poste: 'Chronométreur', pris: null },
     { id: 'tm-2026-11-08-rm3-marqueur', date: '2026-11-08', heure: '14:00', match: 'Seniors masculins (régionale 3) contre Rouen Métropole 5', poste: 'Marqueur', pris: null },
     { id: 'tm-2026-11-08-rm3-chrono', date: '2026-11-08', heure: '14:00', match: 'Seniors masculins (régionale 3) contre Rouen Métropole 5', poste: 'Chronométreur', pris: 'Thomas R.' },
     { id: 'tm-2026-11-08-rf2-marqueur', date: '2026-11-08', heure: '16:00', match: 'Seniors féminines (régionale 2) contre Évreux AC', poste: 'Marqueur', pris: 'Julie M.' },
@@ -182,7 +182,7 @@
 
   /* ---------- Matchs à venir et derniers résultats (relevé de la FFBB, js/donnees-ffbb.js) ---------- */
   function annule(id) { var c = S && S.changement(id); return !!(c && (c.statut === 'annule' || c.statut === 'forfait')); }
-  function heureFr(h) { return h ? ', ' + h.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ') : ''; }
+  function heureFr(h) { return h ? ', ' + h.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ') : ''; }
   /* Calendrier de l'équipe d'un enfant d'après la FFBB, du plus ancien au plus récent. Identifiant : celui des
      convocations du coach (« u15|AAAA-MM-JJ »). Pas d'heure dans la donnée : l'horaire n'est pas fixé, on n'affiche que le jour.
      s = [score du BCR, score de l'adversaire]. */
@@ -366,7 +366,7 @@
     });
     zone.innerHTML = dates.map(function (k) {
       var cs = liste.filter(function (c) { return cle(c) === k; }), d = cs[0].date, h = heureDe(cs);
-      return '<div class="creneau"><h3>' + esc(dateFr(d)) + (h ? ' · ' + esc(h.slice(0, 2).replace(/^0/, '') + ' h ' + h.slice(3, 5)) : '') + '<br>' + esc(cs[0].match) + '</h3><p class="bv-ex"><span class="etiquette-ex">exemple</span> postes et noms</p><ul>' + cs.map(function (c) {
+      return '<div class="creneau"><h3>' + esc(dateFr(d)) + ' · ' + (h ? esc(h.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ')) : 'horaire à fixer') + '<br>' + esc(cs[0].match) + '</h3><p class="bv-ex"><span class="etiquette-ex">exemple</span> postes et noms</p><ul>' + cs.map(function (c) {
         var moi = pris.some(function (p) { return p.creneauId === c.id && p.nom === NOM_FAMILLE; });
         var autre = pris.filter(function (p) { return p.creneauId === c.id && p.nom !== NOM_FAMILLE; })[0];
         /* Poste tenu selon le planning du président (js/table-marque.js), sinon nom d'exemple. */

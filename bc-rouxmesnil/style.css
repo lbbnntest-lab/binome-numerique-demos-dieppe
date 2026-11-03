@@ -345,7 +345,7 @@ button,[role="button"],.bouton,.s-bouton,.s-annonce,.entete-insc,.fam-nav a,.all
 }
 
 /* Événement passé : carte grisée et étiquette nette, mise à jour toute seule à la date de fin */
-.est-passe{filter:grayscale(1);opacity:.6}
+.est-passe{filter:grayscale(1)}
 .est-passe .s-bouton,.est-passe .bouton{pointer-events:none}
 .badge-passe{display:inline-block;background:#4b504d;color:#fff;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;padding:3px 10px;margin:0 0 8px}
 .fin-evenement{border-left:6px solid #4b504d;background:#eceeed;color:#1d211f;padding:14px 16px;margin:0 0 18px}

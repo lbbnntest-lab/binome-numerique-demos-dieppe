@@ -241,6 +241,7 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 
 /* Présentation (distincte du site du club) */
 .pres-tete{position:sticky;top:0;z-index:50;background:#f3f4f1;border-bottom:3px solid var(--ballon)}
+@media (max-width:700px){.pres-tete{position:static}}   /* en-tête non collant sur téléphone (présentation et page du bureau) */
 .pres-tete .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
 .pres-marque strong{display:block;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:1.3rem;color:var(--ink)}
 .pres-marque span{color:var(--ink-soft);font-size:.9rem}

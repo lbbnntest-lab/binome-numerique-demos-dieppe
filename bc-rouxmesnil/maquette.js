@@ -21,7 +21,7 @@
     ['equipes.html','equipes','Équipes et résultats'],
     ['inscription.html','inscription','Inscriptions et stages'],
     ['boutique.html','boutique','Boutique'],
-    ['videos.html','videos','Vidéos'],
+    ['videos.html','videos','Matchs en direct'],
     ['photos.html','photos','Photos et vidéos'],
     ['u18f.html','u18f','U18F élite'],
     ['licencies.html','licencies','Espace licenciés'],
@@ -30,7 +30,7 @@
     ['evenements.html','evenements','Événements'],
     ['vie-du-club.html','vie-du-club','Vie du club'],
     ['rejoindre.html','rejoindre','Rejoindre le club'],
-    ['direct.html','direct','Score en direct'],
+    ['direct.html','direct','Score en direct (2e étape)'],
     ['partenaires.html','partenaires','Nos partenaires']
   ];
   var menu = liens.map(function(l, i){
@@ -59,8 +59,8 @@
     + '</div></nav></header>';
 
   var pied = '<footer class="pied"><div class="wrap">'
-    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles ; ancien gymnase Lefebvre quand deux matchs ont lieu en même temps.</p></div>'
-    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="vie-du-club.html">Vie du club</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Vidéos</a><br><a href="photos.html">Photos et vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="partenaires.html">Nos partenaires</a><br><a href="rejoindre.html">Rejoindre le club</a></p></div>'
+    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles ; salle Charles-Lefebvre quand deux matchs ont lieu en même temps.</p></div>'
+    + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="vie-du-club.html">Vie du club</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Matchs en direct</a><br><a href="photos.html">Photos et vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="partenaires.html">Nos partenaires</a><br><a href="rejoindre.html">Rejoindre le club</a></p></div>'
     + '<div><h3>Contact</h3><p>basketclubrouxmesnil@gmail.com<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
     + '<div class="bas"><span>© Basket Club de Rouxmesnil</span>'
     + '<span class="signe-lbn">Maquette réalisée par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a></span></div>'
@@ -78,6 +78,7 @@
         if (k && k.indexOf('bcr-') === 0 && k !== 'bcr-expl') sessionStorage.removeItem(k);
       }
       localStorage.removeItem('bcr-direct');
+      localStorage.removeItem('bcr-tableau');
     } catch (e) {}
     location.reload();
   });

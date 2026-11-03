@@ -33,7 +33,8 @@
     /* Un bloc par match (même jour, même rencontre), dans l'ordre des horaires. */
     function cle(c) { return c.date + '|' + c.match; }
     function heureDe(cs) { var h = cs.filter(function (c) { return c.heure; })[0]; return h ? h.heure : ''; }
-    function heureFr(h) { return h ? ' · ' + h.slice(0, 2).replace(/^0/, '') + ' h ' + h.slice(3, 5) : ''; }
+    /* « 14 h », « 13 h 30 » (espaces insécables : l'heure ne se coupe jamais) ; un match sans horaire : « horaire à fixer ». */
+    function heureFr(h) { return h ? ' · ' + h.replace(/^0/, '').replace(':00', ' h').replace(':', ' h ') : ' · horaire à fixer'; }
     liste.forEach(function (c) { if (dates.indexOf(cle(c)) < 0) dates.push(cle(c)); });
     dates.sort(function (a, b) {
       var ca = liste.filter(function (c) { return cle(c) === a; }), cb = liste.filter(function (c) { return cle(c) === b; });
@@ -81,7 +82,7 @@
       var id = sel.getAttribute('data-tm-poste'), c = T.postes().filter(function (x) { return x.id === id; })[0];
       T.affecter(id, sel.value); rendreBenevoles();
       annoncer('tm-etat', sel.value ? 'Simulation : ' + sel.value + ' tiendra le poste de ' + c.poste.toLowerCase() + ' (' + dateFr(c.date).toLowerCase() + '). Rien n\'est envoyé dans cette maquette.'
-        : 'Simulation : le poste de ' + c.poste.toLowerCase() + ' (' + dateFr(c.date).toLowerCase() + ') est de nouveau à pourvoir ; les familles peuvent le prendre depuis leur espace.');
+        : 'Simulation : le poste de ' + c.poste.toLowerCase() + ' (' + dateFr(c.date).toLowerCase() + ') est de nouveau à pourvoir ; un dirigeant peut y désigner quelqu\'un.');
       var n = zone.querySelector('[data-tm-poste="' + id + '"]'); if (n) n.focus();
     });
     zone.addEventListener('submit', function (ev) {

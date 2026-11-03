@@ -144,10 +144,10 @@
     <div class="wrap">
       <div class="s-entete-bloc">
         <h2 id="titre-we" data-mv="mots">Les prochains matchs</h2>
-        <p>Les matchs à la salle (calendrier FFBB) et ceux des U18 féminines élite. Les matchs des autres équipes : <a href="equipes.html" style="color:var(--vif)">Équipes et résultats</a>.</p>
+        <p>Les matchs à domicile (calendrier de la fédération) et ceux des U18 féminines élite. Les matchs des autres équipes : <a href="equipes.html" style="color:var(--vif)">Équipes et résultats</a>.</p>
       </div>
       <ul class="matchs" id="matchs"></ul>
-      <div class="note"><b>Pour le club</b>Les matchs de vos affiches s'affichent ici puis disparaissent une fois joués. Sur le futur site, ils viendraient du calendrier officiel pour toutes les équipes, si la ligue et la fédération sont d'accord.</div>
+      <div class="note"><b>Pour le club</b>Les matchs à domicile du calendrier de la fédération s'affichent ici puis disparaissent une fois joués. Sur le futur site, ils viendraient du calendrier officiel pour toutes les équipes, si la ligue et la fédération sont d'accord.</div>
     </div>
   </section>
 
@@ -157,7 +157,7 @@
         <div>
           <h2 id="titre-venir" data-mv="mots">Venir à la salle</h2>
           <p class="venir-adresse"><b>Salle Alexandre-Cheruel</b><br>Rue des Salines, Rouxmesnil-Bouteilles</p>
-          <p>Quand deux matchs ont lieu en même temps, l'un se joue à l'ancien gymnase Lefebvre : le lieu serait indiqué sur chaque match.</p>
+          <p>Quand deux matchs ont lieu en même temps, l'un se joue à la salle Charles-Lefebvre : le lieu serait indiqué sur chaque match.</p>
           <p class="aide-venir">Gymnase Alexandre-Cheruel, 1200 rue des Salines, Rouxmesnil-Bouteilles.</p>
         </div>
         <div class="venir-actions">
@@ -208,7 +208,7 @@
         </article>
         <article class="vie-carte clair" id="vie-prochain">
           <h3>Les prochains matchs</h3>
-          <p>Les rencontres à la salle Alexandre-Cheruel : le jour, l'adversaire et l'horaire dès que la fédération les fixe.</p>
+          <p>Les rencontres à domicile : le jour, l'adversaire et l'horaire dès que la fédération les fixe.</p>
           <a class="s-bouton creux" href="#week-end">Voir les prochains matchs</a>
         </article>
         <article class="vie-carte">
@@ -291,7 +291,7 @@
     Object.keys(F).forEach(function(id){ (F[id].matchs || []).forEach(function(m){
       if (m.adv === 'Exempt' || !LIB[id]) return;
       var x = {id:id, d:m.d, eq:LIB[id][0], court:LIB[id][1], adv:m.adv, sig:m.sig, logo:m.logo, dom:m.dom, s:m.s};
-      if (m.s) joues.push(x); else { var k = m.d.slice(0,10) + m.adv + (m.dom ? id : ''); if (/Rouxmesnil/.test(m.adv)) { if (vus[m.d.slice(0,10)+'derby']) return; vus[m.d.slice(0,10)+'derby'] = 1; } tous.push(x); }
+      if (m.s) joues.push(x); else if (m.dom || id === 'u18f1') { var k = m.d.slice(0,10) + m.adv + (m.dom ? id : ''); if (/Rouxmesnil/.test(m.adv)) { if (vus[m.d.slice(0,10)+'derby']) return; vus[m.d.slice(0,10)+'derby'] = 1; } tous.push(x); }
     }); });
     MATCHS = tous;
     /* Résultats récents : les quatre derniers, plus ceux reçus pendant la démonstration (espace dirigeants). */
@@ -348,7 +348,7 @@
     .sort(function(a, b){ return cle(a) < cle(b) ? -1 : cle(a) > cle(b) ? 1 : 0; }).slice(0, 10);
   document.getElementById('matchs').innerHTML = avenir.map(function(m){
     var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00');
-    var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h ' + m.d.slice(14,16) : '';
+    var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h' + (m.d.slice(14,16) === '00' ? '' : ' ' + m.d.slice(14,16)) : '';
     var a = m.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+m.logo+'" alt="'+m.adv+'">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>';
     return '<li><span class="jour">'+J[d.getDay()]+' '+d.getDate()+' '+Mo[d.getMonth()]+'</span><span class="heure">'+h+'</span><span class="aff"><b>'+m.eq+'</b> contre '+m.adv+'</span><span class="duel">'+(m.dom ? BCR+'<i>vs</i>'+a : a+'<i>vs</i>'+BCR)+'</span><span class="lieu">'+(m.dom ? 'À domicile' : 'À l\'extérieur')+'</span></li>';
   }).join('');

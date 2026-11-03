@@ -4,7 +4,7 @@
      « Les rendez-vous du week-end » : le prochain week-end de matchs (samedi et dimanche), texte Facebook dans le style de la page du club
         (sections par jour, puis à domicile / à l'extérieur) et affiches 1080 x 1350 (couverture, puis une par jour et par lieu) ;
      « Les résultats du week-end » : le dernier week-end passé qui compte au moins un score, même style, une affiche par jour.
-   Salles : js/salles-ffbb.js (salle du club pour les matchs à domicile ; salles à l'extérieur connues seulement). Une salle inconnue
+   Salles : js/salles-ffbb.js (salle relevée pour le match, sinon salle du club à domicile ; à l'extérieur, salles connues seulement). Une salle inconnue
    n'est jamais devinée : la ligne « salle » est omise. Un horaire non fixé s'écrit avec le jour seul.
    Thème du mois (mois de la date du jour) : octobre rose, novembre bleu (Movember), sinon vert et noir du club.
    Les émojis sont réservés au texte destiné à Facebook (style réel du club) ; aucun émoji sur les affiches.
@@ -13,7 +13,7 @@
   'use strict';
   var zone = document.getElementById('rdv-zone');
   if (!zone) return;
-  var D = window.BCR_FFBB, X = window.BCRExport, PUB = window.BCRPub, SAL = window.BCR_SALLES || { domicile: ['Salle Alexandre Cheruel', 'Rouxmesnil-Bouteilles'], matchs: {} };
+  var D = window.BCR_FFBB, X = window.BCRExport, PUB = window.BCRPub, SAL = window.BCR_SALLES || { domicile: ['Salle Alexandre-Cheruel', 'Rouxmesnil-Bouteilles'], matchs: {} };
   if (!D || !D.equipes) { zone.innerHTML = '<p class="aide">Les données de la fédération ne sont pas chargées sur cette page.</p>'; return; }
 
   /* Les 19 équipes de championnat (codes de la fédération ; libellé court quand l'équipe n'a pas de code). */
@@ -60,7 +60,7 @@
 
   /* ---------- Les matchs du samedi et du dimanche ---------- */
   function salleDe(m) {
-    var s = m.dom ? SAL.domicile : (SAL.matchs || {})[m.id + '|' + m.j];
+    var s = (SAL.matchs || {})[m.id + '|' + m.j] || (m.dom ? SAL.domicile : null);   /* salle relevée pour ce match, sinon celle du club à domicile */
     return s ? [s[0], s[1].replace('-Bouteilles', '')] : null;
   }
   var brut = [];
@@ -149,8 +149,12 @@
       L.push(SEP); L.push('📅 ' + maj(dateLongue(j)));
       if (g.dom.length) {
         L.push('🏠 ' + (g.dom.length > 1 ? 'MATCHS' : 'MATCH') + ' À DOMICILE');
-        L.push('📍 ' + salleTxt(g.dom[0]));
-        g.dom.forEach(function (m) { L.push('🏀 ' + heureTxt(m) + ' | ' + m.lib); L.push('🆚 ' + m.adv); });
+        var club = salleTxt({ dom: true, id: '', j: '' });
+        L.push('📍 ' + club);
+        g.dom.forEach(function (m) {
+          var autre = salleTxt(m) !== club ? ' (' + salleDe(m)[0] + ')' : '';   /* match à domicile dans une autre salle : écrite sur la ligne du match */
+          L.push('🏀 ' + heureTxt(m) + ' | ' + m.lib + autre); L.push('🆚 ' + m.adv);
+        });
       }
       if (g.ext.length) {
         L.push('🚌 ' + (g.ext.length > 1 ? 'MATCHS' : 'MATCH') + ' À L\'EXTÉRIEUR');
@@ -164,7 +168,7 @@
     var th = paragrapheTheme();
     if (th.length) L = L.concat(th, '');
     L.push('📣 SUPPORTERS, ON COMPTE SUR VOUS !');
-    L.push(dom ? '🔥 Venez nombreux à la salle Alexandre Cheruel pour encourager nos équipes à domicile' + (ext ? ', et une grosse pensée pour toutes nos équipes en déplacement !' : ' !')
+    L.push(dom ? '🔥 Venez nombreux encourager nos équipes à domicile' + (ext ? ', et une grosse pensée pour toutes nos équipes en déplacement !' : ' !')
       : '🔥 Une grosse pensée pour toutes nos équipes en déplacement, que nous encourageons de tout cœur !');
     L.push(FIN);
     return L.join('\n');
@@ -206,7 +210,7 @@
   /* ---------- Affiches ---------- */
   function ligneAff(m, res) {
     var l = { heure: m.t ? m.t.replace(':', 'H') : '', jourCourt: m.g === 6 ? 'SAM.' : 'DIM.', code: m.lib, adv: m.adv, sig: m.sig, logo: m.logo,
-      salle: res || m.dom ? '' : salleTxt(m) };
+      salle: res ? '' : m.dom && salleTxt(m) === salleTxt({ dom: true, id: '', j: '' }) ? '' : salleTxt(m) };   /* à domicile : la salle seulement si ce n'est pas celle du club */
     if (res) { l.bcr = m.s[0]; l.ad = m.s[1]; l.v = issue(m); l.lieuTxt = m.dom ? 'À domicile' : 'À l\'extérieur'; }
     return l;
   }
@@ -312,7 +316,7 @@
   var html = '';
   if (prochain) {
     var dom = prochain.ms.filter(function (m) { return m.dom; }).length, ext = prochain.ms.length - dom;
-    var note = (dom ? pl(dom, 'match', 'matchs') + ' à domicile' : '') + (dom && ext ? ', ' : '') + (ext ? pl(ext, 'match', 'matchs') + ' à l\'extérieur' : '') + '.';
+    var note = (dom && ext ? 'Matchs à domicile et à l\'extérieur' : dom ? 'Matchs à domicile' : 'Matchs à l\'extérieur') + ', d\'après le calendrier de la fédération.';
     var avertis = prochain.sam !== debutCourant ? '<p class="aide">Aucun match ce week-end : voici le prochain week-end de matchs.</p>' : '';
     html += avertis + bloc('rdv', 'Les rendez-vous du week-end', prochain, texteRdv(prochain), affiches(prochain, false), note);
   } else {
@@ -320,7 +324,7 @@
   }
   if (passe) {
     var bb = bilan(passe), ancien = dernierPasse && dernierPasse.sam !== passe.sam;
-    var n2 = (bb.d === 0 ? pl(bb.v, 'victoire', 'victoires') + ' sur ' + pl(bb.n, 'match', 'matchs') : bb.v === 0 ? pl(bb.d, 'défaite', 'défaites') : pl(bb.v, 'victoire', 'victoires') + ' et ' + pl(bb.d, 'défaite', 'défaites')) + (passe.ms.length < passe.total ? ' ; ' + passe.ms.length + ' scores reçus sur ' + passe.total + ' matchs' : '') + '.';
+    var n2 = (bb.d === 0 ? pl(bb.v, 'victoire', 'victoires') + ' sur ' + pl(bb.n, 'match', 'matchs') : bb.v === 0 ? pl(bb.d, 'défaite', 'défaites') : pl(bb.v, 'victoire', 'victoires') + ' et ' + pl(bb.d, 'défaite', 'défaites')) + (passe.ms.length < passe.total ? ' ; ' + pl(passe.ms.length, 'score reçu', 'scores reçus') + ' sur ' + pl(passe.total, 'match', 'matchs') : '') + '.';
     var avert = ancien ? '<p class="aide">Les scores du week-end des ' + esc(datesTitre(dernierPasse)) + ' ne sont pas encore reçus : voici le dernier week-end avec des résultats.</p>' : '';
     html += avert + bloc('res', 'Les résultats du week-end', passe, texteRes(passe), affiches(passe, true), n2);
   } else {

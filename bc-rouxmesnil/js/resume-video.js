@@ -25,7 +25,7 @@
   var DEBUTS = [0, 3.2, 6.5, 10, 12.6, 17.7, 21.7, 25.3, 28.7];   /* début de chaque phrase, en secondes */
   var PLANS_T = [0, 6.5, 12, 17.5, 25, 28.5];                      /* début de chaque carton */
   var FIN = 32.5;
-  var PARTENAIRES = ['commune-rouxmesnil', 'auchan', 'stadium', 'brico-depot', 'leader', 'etria'];
+  var PARTENAIRES = ['auchan', 'stadium', 'brico-depot', 'leader', 'etria', 'commune-rouxmesnil'];
 
   function mmss(s) { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60); }
 

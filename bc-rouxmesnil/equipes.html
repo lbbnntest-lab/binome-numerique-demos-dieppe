@@ -56,7 +56,7 @@
     <div class="wrap">
       <p class="s-surtitre">Toutes les équipes du BCR</p>
       <h1 id="titre-page" class="s-titre">Équipes et <span class="vert">résultats</span></h1>
-      <p class="s-chapo">Choisissez une catégorie puis une équipe : ses prochains matchs, ses résultats et son classement. Ajoutez ses matchs à l'agenda de votre téléphone ; sur le futur site, vous pourrez aussi la suivre pour recevoir ses résultats.</p>
+      <p class="s-chapo">Choisissez une catégorie puis une équipe : ses prochains matchs, ses résultats et son classement. Ajoutez ses matchs à l'agenda de votre téléphone.</p>
     </div>
   </section>
 
@@ -191,7 +191,7 @@
   function adv(m){ return m.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+m.logo+'" alt="">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>'; }
   var JOURS = ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'], MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
   function dateFr(s){ var d = new Date(s.length > 10 ? s : s + 'T12:00'); return JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()]; }
-  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h '+s.slice(14,16) : ''; }
+  function heure(s){ return s.length > 10 ? s.slice(11,13).replace(/^0/,'')+' h'+(s.slice(14,16)==='00'?'':' '+s.slice(14,16)) : ''; }
   function libelle(e){ return e.nom+' · '+e.niv; }
 
   function afficherCats(){
@@ -213,7 +213,7 @@
       return '<div class="ligne-m"><span class="d">'+dateFr(m.d)+'<small>'+heure(m.d)+'</small></span><span class="m"><span class="duel">'+(m.dom?LOGO+'<i>vs</i>'+adv(m):adv(m)+'<i>vs</i>'+LOGO)+'</span><span>'+m.adv+'<br><span class="lieu">'+(m.dom?'À domicile':'À l\'extérieur')+'</span></span></span></div>';
     }
     var avenir = e.avenir.length ? e.avenir.slice(0,5).map(ligneAv).join('')
-      + (e.avenir.length > 5 ? '<details class="saison-plus"><summary>Toute la saison : '+(e.avenir.length-5)+' autres matchs</summary>'+e.avenir.slice(5).map(ligneAv).join('')+'</details>' : '')
+      + (e.avenir.length > 5 ? '<details class="saison-plus"><summary>Toute la saison : '+(e.avenir.length-5===1?'1 autre match':(e.avenir.length-5)+' autres matchs')+'</summary>'+e.avenir.slice(5).map(ligneAv).join('')+'</details>' : '')
       : '<p class="vide">Le calendrier de cette équipe est sur <a href="'+lien+'" target="_blank" rel="noopener">la page FFBB du club</a>.</p>';
     var res = e.res.length ? e.res.map(function(m){
       return '<div class="ligne-m"><span class="d">'+(m.dl||dateFr(m.d))+'</span><span class="m"><span class="duel">'+(m.sans?LOGO:LOGO+'<i>vs</i>'+adv(m))+'</span><span>'+m.adv+(m.txt?'<br><span class="lieu">'+(m.txt==='Score officiel sur la FFBB'?'<a href="'+lien+'" target="_blank" rel="noopener">Score officiel sur la FFBB</a>':m.txt)+'</span>':'')+'</span></span><span class="r'+(m.v===true?' v':(m.v===false?' d':''))+'">'+m.s+'</span></div>';

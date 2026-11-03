@@ -21,12 +21,12 @@
     { id: 'tm-2026-11-07-rfu18-chrono', date: '2026-11-07', heure: '15:15', match: 'U18 féminines (élite régionale) contre Cherbourg', poste: 'Chronométreur', pris: null },
     { id: 'tm-2026-11-07-dfu15-marqueur', date: '2026-11-07', heure: '17:00', match: 'U15 féminines contre US Bacqueville', poste: 'Marqueur', pris: null },
     { id: 'tm-2026-11-07-dfu15-chrono', date: '2026-11-07', heure: '17:00', match: 'U15 féminines contre US Bacqueville', poste: 'Chronométreur', pris: 'Nadia B.' },
-    { id: 'tm-2026-11-08-dm6-marqueur', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (D6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Marqueur', pris: null },
-    { id: 'tm-2026-11-08-dm6-chrono', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (D6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-dm6-marqueur', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (départementale 6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-dm6-chrono', date: '2026-11-08', heure: '08:00', match: 'Seniors masculins (départementale 6) contre CEP Saint-Nicolas-d\'Aliermont', poste: 'Chronométreur', pris: null },
     { id: 'tm-2026-11-08-prm-marqueur', date: '2026-11-08', heure: '09:45', match: 'Seniors masculins (pré-régionale) contre AS Couronne', poste: 'Marqueur', pris: 'Thomas R.' },
     { id: 'tm-2026-11-08-prm-chrono', date: '2026-11-08', heure: '09:45', match: 'Seniors masculins (pré-régionale) contre AS Couronne', poste: 'Chronométreur', pris: null },
-    { id: 'tm-2026-11-08-dm3-marqueur', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (D3) contre CBPQ', poste: 'Marqueur', pris: null },
-    { id: 'tm-2026-11-08-dm3-chrono', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (D3) contre CBPQ', poste: 'Chronométreur', pris: null },
+    { id: 'tm-2026-11-08-dm3-marqueur', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (départementale 3) contre CBPQ', poste: 'Marqueur', pris: null },
+    { id: 'tm-2026-11-08-dm3-chrono', date: '2026-11-08', heure: '11:15', match: 'Seniors masculins (départementale 3) contre CBPQ', poste: 'Chronométreur', pris: null },
     { id: 'tm-2026-11-08-rm3-marqueur', date: '2026-11-08', heure: '14:00', match: 'Seniors masculins (régionale 3) contre Rouen Métropole 5', poste: 'Marqueur', pris: null },
     { id: 'tm-2026-11-08-rm3-chrono', date: '2026-11-08', heure: '14:00', match: 'Seniors masculins (régionale 3) contre Rouen Métropole 5', poste: 'Chronométreur', pris: 'Thomas R.' },
     { id: 'tm-2026-11-08-rf2-marqueur', date: '2026-11-08', heure: '16:00', match: 'Seniors féminines (régionale 2) contre Évreux AC', poste: 'Marqueur', pris: 'Julie M.' },
@@ -52,8 +52,8 @@
   /* Créneaux du prochain week-end de matchs, calculés chaque jour à partir du calendrier FFBB (js/donnees-ffbb.js) :
      tous les matchs à domicile du samedi et du dimanche qui suivent la date du jour (?aujourdhui=AAAA-MM-JJ pour tester).
      Sans ces données, la liste ci-dessus sert de secours. Noms déjà placés : exemples, toujours aux mêmes postes. */
-  var LIBELLES = { rm3: 'Seniors masculins (régionale 3)', prm: 'Seniors masculins (pré-régionale)', dm3: 'Seniors masculins (D3)', dm6: 'Seniors masculins (D6)',
-    rf2: 'Seniors féminines (régionale 2)', df2: 'Seniors féminines (D2)', df3: 'Seniors féminines (D3)', u21: 'U21 masculins', u18f1: 'U18 féminines (élite régionale)',
+  var LIBELLES = { rm3: 'Seniors masculins (régionale 3)', prm: 'Seniors masculins (pré-régionale)', dm3: 'Seniors masculins (départementale 3)', dm6: 'Seniors masculins (départementale 6)',
+    rf2: 'Seniors féminines (régionale 2)', df2: 'Seniors féminines (départementale 2)', df3: 'Seniors féminines (départementale 3)', u21: 'U21 masculins', u18f1: 'U18 féminines (élite régionale)',
     dfu18: 'U18 féminines (départementale)', dmu18a: 'U18 masculins (équipe 1)', dmu18b: 'U18 masculins (équipe 2)', dmu18c: 'U18 masculins (équipe 3)',
     u15f: 'U15 féminines', dmu15a: 'U15 masculins (équipe 1)', dmu15b: 'U15 masculins (équipe 2)', u13f: 'U13 féminines', dmu13: 'U13 masculins', u11: 'U11 mixte' };
   function aujourdhui() {
@@ -76,7 +76,8 @@
     var vus = {}, PRIS = ['Sophie D.', 'Thomas R.', 'Julie M.', 'Nadia B.', 'Maxime P.'], k = 0, out = [];
     tous.filter(function (x) { return x.m.d.slice(0, 10) <= fin; }).forEach(function (x) {
       var date = x.m.d.slice(0, 10), heure = x.m.d.length > 10 ? x.m.d.slice(11, 16) : '';
-      var cle = date + x.m.adv; if (vus[cle]) return; vus[cle] = 1; /* un derby du club n'apparaît qu'une fois */
+      /* Un derby du club n'apparaît qu'une fois ; deux équipes du club qui reçoivent le même adversaire le même jour restent séparées. */
+      var cle = /^BC Rouxmesnil/.test(x.m.adv) ? date + '|derby|' + x.id.replace(/[abc]$/, '') : date + '|' + x.id; if (vus[cle]) return; vus[cle] = 1;
       var match = (LIBELLES[x.id] || x.id) + ' contre ' + x.m.adv;
       [['Marqueur', 'marqueur'], ['Chronométreur', 'chrono']].forEach(function (p) {
         out.push({ id: 'tm-' + date + '-' + x.id + '-' + p[1], date: date, heure: heure, match: match, poste: p[0], pris: (k++ % 3 === 0) ? PRIS[(k / 3 | 0) % PRIS.length] : null });
