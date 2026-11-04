@@ -154,7 +154,7 @@
     '<div class="mp-rythme" role="group" aria-labelledby="mp-rythme-t"><p class="mp-lib" id="mp-rythme-t">Rythme des articles</p>'
     + '<div class="filtres" id="mp-rythmes">' + Object.keys(RYTHMES).map(function (k) { return '<button type="button" data-rythme="' + k + '" aria-pressed="false">' + RYTHMES[k].lib + '</button>'; }).join('') + '</div>'
     + '<p class="aide" id="mp-cadence"></p>'
-    + '<p class="aide mp-option">Option « partenaire numérique » : l’article est préparé pour chaque partenaire qui la prend. Pour la démonstration, les 31 partenaires du calendrier passent à tour de rôle.</p></div>'
+    + '<p class="aide mp-option">Le club choisit les partenaires remerciés et le rythme. Pour la démonstration, les 31 partenaires du calendrier passent à tour de rôle.</p></div>'
     + '<div class="mp-courant">'
     + '<h3 id="mp-statut-t">Article à relire</h3><p class="mp-statut" id="mp-statut"></p>'
     + '<div class="pub mp-pub"><div class="pub-cadre mp-cadre"><div class="mp-apercu" id="mp-apercu" role="img" aria-label="Image pour Facebook"></div>'

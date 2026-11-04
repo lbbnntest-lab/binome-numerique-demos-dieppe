@@ -356,7 +356,7 @@
     if (!r.parts.length) return '<p class="aide">Aucun partenaire à afficher : l\'emplacement reste vide.</p>';
     var cptes = r.parts.map(function (i) { return '<strong>' + esc(PART[i][1]) + '</strong> ' + apparitions(i); }).join(', ');
     return '<p class="aide sf-part">Logos à l\'écran, à leur tour : <strong>' + esc(noms(r.parts)) + '</strong>. '
-      + 'Ici, tous les partenaires du club (calendrier 2026) passent à tour de rôle ; dès que des partenaires prennent l\'option « partenaire numérique », ce sont leurs logos. '
+      + 'Ici, tous les partenaires du club (calendrier 2026) passent à tour de rôle. '
       + 'Passages de chaque logo dans cette démonstration (le bilan des apparitions arrive avec l\'espace partenaire, en 2e étape) : ' + cptes + (r.publie ? '' : ' ; une de plus pour chacun une fois ce visuel publié') + '.</p>';
   }
   function resultat(id) {
