@@ -147,6 +147,7 @@
         <p>Les matchs à domicile (calendrier de la fédération) et ceux des U18 féminines élite. Les matchs des autres équipes : <a href="equipes.html" style="color:var(--vif)">Équipes et résultats</a>.</p>
       </div>
       <ul class="matchs" id="matchs"></ul>
+      <p class="visuellement-cache" id="agenda-statut" role="status"></p>
       <div class="note"><b>Pour le club</b>Les matchs à domicile du calendrier de la fédération s'affichent ici puis disparaissent une fois joués. Sur le futur site, ils viendraient du calendrier officiel pour toutes les équipes, si la ligue et la fédération sont d'accord.</div>
     </div>
   </section>
@@ -157,12 +158,28 @@
         <div>
           <h2 id="titre-venir" data-mv="mots">Venir à la salle</h2>
           <p class="venir-adresse"><b>Salle Alexandre-Cheruel</b><br>Rue des Salines, Rouxmesnil-Bouteilles</p>
-          <p>Quand deux matchs ont lieu en même temps, l'un se joue à la salle Charles-Lefebvre : le lieu serait indiqué sur chaque match.</p>
-          <p class="aide-venir">Gymnase Alexandre-Cheruel, 1200 rue des Salines, Rouxmesnil-Bouteilles.</p>
         </div>
         <div class="venir-actions">
-          <a class="s-bouton" href="https://www.openstreetmap.org/search?query=rue%20des%20Salines%2C%20Rouxmesnil-Bouteilles" target="_blank" rel="noopener">Itinéraire (OpenStreetMap)</a>
+          <a class="s-bouton" href="https://www.openstreetmap.org/search?query=rue%20des%20Salines%2C%20Rouxmesnil-Bouteilles" target="_blank" rel="noopener">Itinéraire<span class="visuellement-cache"> vers la salle sur OpenStreetMap (nouvel onglet)</span></a>
           <a class="s-bouton creux" href="equipes.html">Voir tous les matchs</a>
+        </div>
+      </div>
+      <div class="venir-reperes" data-mv="suite">
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <h3>L'adresse</h3>
+          <p id="adresse-salle">Gymnase Alexandre-Cheruel, 1200 rue des Salines, 76370 Rouxmesnil-Bouteilles</p>
+          <p><button type="button" class="copier" data-copier="adresse-salle">Copier l'adresse</button> <span role="status" class="copie-statut"></span></p>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l5-4 5 4v12M13 21V11l4-3 4 3v10M3 21h18"/></svg>
+          <h3>Deux salles</h3>
+          <p>Quand deux matchs ont lieu en même temps, l'un se joue à la salle Charles-Lefebvre. Le lieu serait indiqué sur chaque match.</p>
+        </div>
+        <div id="venir-prochain">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
+          <h3>Prochain match à la salle</h3>
+          <p>Les dates arrivent dès que la fédération les fixe.</p>
         </div>
       </div>
       <div class="note"><b>Pour le club</b>Un jour de match à domicile, l'accueil afficherait un bandeau avec la rencontre, le score en direct et l'accès à la salle. <a href="index.html?jour-de-match&amp;explications">Voir l'accueil un jour de match</a>.</div>
@@ -346,12 +363,60 @@
   function cle(m){ return m.d.length > 10 ? m.d : m.d + 'T23:00'; }   /* horaire non fixé : en fin de journée */
   var avenir = MATCHS.filter(function(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T23:59'); return d.getTime() + 2*3600e3 > maintenant.getTime(); })
     .sort(function(a, b){ return cle(a) < cle(b) ? -1 : cle(a) > cle(b) ? 1 : 0; }).slice(0, 10);
-  document.getElementById('matchs').innerHTML = avenir.map(function(m){
+  /* Les prochains matchs, regroupés par jour. Chaque match peut s'ajouter à l'agenda du téléphone (fichier .ics, rien n'est envoyé).
+     Au-delà de six matchs, la suite se déplie d'un bouton : la page reste courte sur téléphone. */
+  var VISIBLES = 6, jourPrec = '', html = '';
+  avenir.forEach(function(m, k){
     var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00');
     var h = m.d.length > 10 ? m.d.slice(11,13).replace(/^0/,'') + ' h' + (m.d.slice(14,16) === '00' ? '' : ' ' + m.d.slice(14,16)) : '';
     var a = m.logo ? '<img class="logo-eq clair" loading="lazy" width="40" height="40" src="img/logos/'+m.logo+'" alt="'+m.adv+'">' : '<span class="logo-adv" aria-hidden="true">'+m.sig+'</span>';
-    return '<li><span class="jour">'+J[d.getDay()]+' '+d.getDate()+' '+Mo[d.getMonth()]+'</span><span class="heure">'+h+'</span><span class="aff"><b>'+m.eq+'</b> contre '+m.adv+'</span><span class="duel">'+(m.dom ? BCR+'<i>vs</i>'+a : a+'<i>vs</i>'+BCR)+'</span><span class="lieu">'+(m.dom ? 'À domicile' : 'À l\'extérieur')+'</span></li>';
-  }).join('');
+    var lj = J[d.getDay()]+' '+d.getDate()+' '+Mo[d.getMonth()], plus = k >= VISIBLES ? ' class="m-plus" hidden' : '';
+    if (lj !== jourPrec) {
+      var n = avenir.filter(function(x){ var dx = new Date(x.d.length > 10 ? x.d : x.d + 'T12:00'); return dx.toDateString() === d.toDateString(); }).length;
+      html += '<li class="m-jour"' + (k >= VISIBLES ? ' data-plus hidden' : '') + '><h3>' + lj + '</h3><span>' + n + (n > 1 ? ' matchs' : ' match') + '</span></li>';
+      jourPrec = lj;
+    }
+    html += '<li' + plus + '><span class="jour">'+lj+'</span><span class="heure">'+(h || '<small>horaire à venir</small>')+'</span><span class="aff"><b>'+m.eq+'</b> contre '+m.adv+'</span><span class="duel">'+(m.dom ? BCR+'<i>vs</i>'+a : a+'<i>vs</i>'+BCR)+'</span><span class="lieu">'+(m.dom ? 'À domicile' : "À l'extérieur")+'<button type="button" class="m-agenda" data-agenda="'+k+'"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg><span>Agenda</span><span class="visuellement-cache"> : ajouter '+m.eq+' contre '+m.adv+', '+lj+(h ? ' à '+h : '')+'</span></button></span></li>';
+  });
+  var ulM = document.getElementById('matchs');
+  ulM.innerHTML = html;
+  ulM.classList.add('groupes');
+  var resteM = avenir.length - VISIBLES;
+  if (resteM > 0) {
+    ulM.insertAdjacentHTML('afterend', '<button type="button" class="s-bouton creux m-deplier" aria-expanded="false" aria-controls="matchs">Afficher les ' + resteM + ' autres matchs</button>');
+    var dep = ulM.nextElementSibling;
+    dep.addEventListener('click', function(){
+      var ouvrir = dep.getAttribute('aria-expanded') !== 'true';
+      Array.prototype.forEach.call(ulM.querySelectorAll('.m-plus,[data-plus]'), function(li){ li.hidden = !ouvrir; });
+      dep.setAttribute('aria-expanded', String(ouvrir));
+      dep.textContent = ouvrir ? 'Réduire la liste' : 'Afficher les ' + resteM + ' autres matchs';
+      if (ouvrir) { var p = ulM.querySelector('.m-plus'); if (p && window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches) gsap.from(ulM.querySelectorAll('.m-plus,[data-plus]'), { opacity: 0, y: 14, duration: .45, stagger: .05, ease: 'power2.out' }); }
+      else ulM.scrollIntoView({ block: 'start' });
+    });
+  }
+  /* Fichier agenda (.ics) : heure locale de la salle, deux heures de match ; sans horaire, une journée entière. */
+  ulM.addEventListener('click', function(e){
+    var bt = e.target.closest('[data-agenda]'); if (!bt) return;
+    var m = avenir[+bt.getAttribute('data-agenda')]; if (!m) return;
+    var z = function(n){ return (n < 10 ? '0' : '') + n; };
+    var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00'), f = new Date(d.getTime() + 2 * 3600e3);
+    var jj = function(x){ return x.getFullYear() + z(x.getMonth() + 1) + z(x.getDate()); };
+    var hh = function(x){ return 'T' + z(x.getHours()) + z(x.getMinutes()) + '00'; };
+    var lendemain = new Date(d.getTime() + 864e5);
+    var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//BC Rouxmesnil//Matchs//FR','BEGIN:VEVENT',
+      'UID:' + m.d + '-' + (m.sig || 'm') + '@bcrouxmesnil',
+      'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
+      m.d.length > 10 ? 'DTSTART:' + jj(d) + hh(d) : 'DTSTART;VALUE=DATE:' + jj(d),
+      m.d.length > 10 ? 'DTEND:' + jj(f) + hh(f) : 'DTEND;VALUE=DATE:' + jj(lendemain),
+      'SUMMARY:BCR · ' + m.eq.replace(/[,;]/g, ' ') + ' contre ' + m.adv.replace(/[,;]/g, ' '),
+      'LOCATION:' + (m.dom ? 'Salle Alexandre-Cheruel\\, 1200 rue des Salines\\, Rouxmesnil-Bouteilles' : "À l'extérieur"),
+      'DESCRIPTION:Match du Basket Club de Rouxmesnil. Lieu et horaire à vérifier sur le site du club.',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+    var l = document.createElement('a'); l.href = url; l.download = 'match-bcr-' + m.d.slice(0, 10) + '.ics';
+    document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+    var st = document.getElementById('agenda-statut'); if (st) st.textContent = 'Le match est prêt à être ajouté à votre agenda : ouvrez le fichier téléchargé.';
+  });
   if (!avenir.length) document.getElementById('matchs').innerHTML = '<li><span class="aff">Le calendrier des prochains matchs sera publié ici dès que la fédération le fixe.</span></li>';
   function quand(m){ var d = new Date(m.d.length > 10 ? m.d : m.d + 'T12:00'); return J[d.getDay()].toLowerCase() + ' ' + d.getDate() + ' ' + Mo[d.getMonth()]; }
   /* Annonce de l'élite : compte à rebours jusqu'au 7 novembre, puis le prochain match de l'élite (jamais une date passée). */
@@ -365,6 +430,15 @@
       c.nextSibling.nodeValue = el ? 'U18 féminines en élite régionale : prochain match le ' + quand(el) + ', contre ' + el.adv : 'U18 féminines en élite régionale : suivez leur saison';
     }
   }
+  /* Carte « Venir à la salle » : dans combien de jours, et quel match. */
+  (function(){
+    var vz = document.getElementById('venir-prochain'), pm = avenir.filter(function(m){ return m.dom; })[0];
+    if (!vz || !pm) return;
+    var dp = new Date(pm.d.length > 10 ? pm.d : pm.d + 'T12:00'), j0 = new Date(dp.getFullYear(), dp.getMonth(), dp.getDate());
+    var nj = Math.round((j0 - auj0) / 864e5), hp = pm.d.length > 10 ? ', ' + pm.d.slice(11,13).replace(/^0/,'') + ' h ' + pm.d.slice(14,16) : '';
+    var quandTxt = nj <= 0 ? "Aujourd'hui" : nj === 1 ? 'Demain' : 'Dans ' + nj + ' jours';
+    vz.querySelector('p').innerHTML = '<span class="compte">' + quandTxt + '</span>' + J[dp.getDay()] + ' ' + dp.getDate() + ' ' + Mo[dp.getMonth()] + hp.replace(/ 00$/, '') + ' : ' + pm.eq + ' contre ' + pm.adv + '.';
+  })();
   /* Carte « La vie du club » : le prochain match à domicile. */
   var vp = document.getElementById('vie-prochain'), dm = avenir.filter(function(m){ return m.dom; })[0];
   if (vp && dm) {
@@ -372,6 +446,17 @@
     vp.innerHTML = '<span class="gros-num" aria-hidden="true">' + dd.getDate() + '</span><h3>Prochain match à la salle</h3><p>' + J[dd.getDay()] + ' ' + dd.getDate() + ' ' + Mo[dd.getMonth()] + (hh ? ', ' + hh : '') + ' : ' + dm.eq + ' contre ' + dm.adv + '.</p><a class="s-bouton creux" href="#week-end">Voir les prochains matchs</a>';
   }
 })();
+</script>
+<script>
+/* Copier l'adresse de la salle (pour la coller dans le GPS ou un message). */
+document.querySelectorAll('[data-copier]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var t = document.getElementById(b.getAttribute('data-copier')).textContent, st = b.parentNode.querySelector('.copie-statut');
+    var ok = function(){ if (st) st.textContent = 'Adresse copiée.'; b.textContent = 'Copiée'; setTimeout(function(){ b.textContent = "Copier l'adresse"; if (st) st.textContent = ''; }, 2500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){ if (st) st.textContent = "Copie impossible : sélectionnez l'adresse à la main."; });
+    else if (st) st.textContent = "Copie impossible : sélectionnez l'adresse à la main.";
+  });
+});
 </script>
 <script>document.querySelectorAll(".vie-carte[data-fin]").forEach(function(c){ if (new Date(c.getAttribute("data-fin")) < new Date()) { c.classList.add("est-passe"); c.querySelector("h3").insertAdjacentHTML("beforebegin", "<span class=\"badge-passe\">Événement passé</span>"); var b = c.querySelector(".s-bouton"); if (b) b.remove(); } });</script>
 <script src="maquette.js"></script>

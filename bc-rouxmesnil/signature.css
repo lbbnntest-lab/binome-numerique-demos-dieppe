@@ -332,3 +332,59 @@ section.bloc h2{font-size:clamp(2rem,4.4vw,3.2rem)}
 /* Logos des partenaires sur l'accueil */
 .logos div{border-bottom:1px solid var(--line)}
 .logos div img{max-height:72px;max-width:100%;width:auto;height:auto;object-fit:contain;border-radius:3px}
+
+/* ===== Accueil, 05/11/2026 : matchs regroupés par jour, ajout à l'agenda, salle et partenaires plus lisibles ===== */
+.visuellement-cache{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.matchs.groupes{border-top:0}
+.matchs.groupes li.m-jour{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:30px 0 10px;border-bottom:2px solid var(--vif)}
+.matchs.groupes li.m-jour:first-child{padding-top:0}
+.matchs.groupes .m-jour h3{margin:0;font-size:clamp(1.5rem,3vw,2rem);text-transform:uppercase;color:#fff}
+.matchs.groupes .m-jour span{font-family:var(--titre);text-transform:uppercase;letter-spacing:.08em;color:#c9cdca;font-size:.95rem}
+.matchs.groupes li:not(.m-jour){grid-template-columns:110px minmax(0,1fr) auto auto;position:relative;transition:background-color .2s ease}
+.matchs.groupes li:not(.m-jour) .jour{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.matchs .heure small{font-size:.8rem;font-style:normal;font-weight:600;color:#c9cdca;letter-spacing:.06em;text-transform:uppercase}
+.matchs .lieu{display:flex;align-items:center;justify-content:flex-end;gap:14px;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){.matchs.groupes li:not(.m-jour):hover{background:linear-gradient(90deg,rgba(70,196,111,.08),transparent 70%)}}
+.m-agenda{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 12px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;font:inherit;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.05em;font-size:.85rem;cursor:pointer;transition:background-color .15s ease,border-color .15s ease,color .15s ease}
+.m-agenda svg{width:18px;height:18px}
+@media (hover:hover) and (pointer:fine){.m-agenda:hover{background:var(--vif);border-color:var(--vif);color:#080a09}}
+.m-deplier{margin-top:26px}
+@media (max-width:900px){
+  .matchs.groupes li:not(.m-jour){grid-template-columns:auto minmax(0,1fr);gap:6px 16px}
+  .matchs.groupes .heure{grid-row:1;font-size:1.7rem}
+  .matchs.groupes .aff{grid-column:2;grid-row:1}
+  .matchs.groupes .duel{grid-column:1/-1}
+  .matchs.groupes .lieu{grid-column:1/-1;justify-content:space-between}
+}
+
+/* Venir à la salle : trois repères en cartes, l'adresse se copie d'un geste */
+.venir-reperes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.venir-reperes > div{background:#fff;border:1px solid var(--line);padding:22px 22px 20px;position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.23,1,.32,1),box-shadow .25s ease}
+.venir-reperes > div::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ballon)}
+.venir-reperes svg{width:30px;height:30px;color:var(--ballon);margin-bottom:10px}
+.venir-reperes h3{font-size:1.25rem;text-transform:uppercase;margin:0 0 6px}
+.venir-reperes p{margin:0 0 10px;color:var(--ink-soft)}
+.venir-reperes p:last-child{margin-bottom:0}
+.venir-reperes .copier{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:var(--ballon-ink);text-decoration:underline;text-underline-offset:.2em;cursor:pointer}
+.venir-reperes .compte{font-family:var(--titre);font-style:italic;font-weight:700;font-size:2.4rem;line-height:1;color:var(--ink);display:block;margin:2px 0 6px}
+@media (hover:hover) and (pointer:fine){.venir-reperes > div:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(16,20,18,.10)}}
+@media (max-width:900px){.venir-reperes{grid-template-columns:1fr}}
+
+/* Résultats : un peu moins d'air avant la vie du club */
+.s-resultats{padding-bottom:40px}
+
+/* Partenaires : cases blanches régulières, logo centré, léger relief au survol */
+.s-partenaires .logos{gap:12px;border:0;grid-template-columns:repeat(4,minmax(0,1fr))}
+.s-partenaires .logos > div{background:#fff;border:1px solid var(--line) !important;border-radius:6px;min-height:120px;padding:18px;transition:transform .25s cubic-bezier(.23,1,.32,1),box-shadow .25s ease}
+.s-partenaires .logos > div img{max-height:76px;mix-blend-mode:multiply}
+@media (hover:hover) and (pointer:fine){.s-partenaires .logos > div:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(16,20,18,.10)}}
+@media (max-width:760px){.s-partenaires .logos{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.s-partenaires .logos > div{min-height:100px}}
+
+/* Cartes de la vie du club : relief au survol */
+.vie-carte{transition:transform .3s cubic-bezier(.23,1,.32,1),box-shadow .3s ease}
+.vie-carte .gros-num{transition:transform .5s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.vie-carte:not(.est-passe):hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(16,20,18,.18)}.vie-carte:not(.est-passe):hover .gros-num{transform:translateX(-8px) scale(1.06)}}
+/* Boutons : flèche qui avance au survol (boutons pleins) */
+.s-bouton:not(.creux)::after{content:"";width:.55em;height:.55em;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);margin-left:2px;transition:transform .2s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.s-bouton:not(.creux):hover::after{transform:translateX(4px) rotate(45deg)}}
+@media (prefers-reduced-motion:reduce){.vie-carte,.venir-reperes > div,.s-partenaires .logos > div{transition:none}.vie-carte:hover,.venir-reperes > div:hover,.s-partenaires .logos > div:hover{transform:none}}

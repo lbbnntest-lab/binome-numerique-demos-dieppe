@@ -59,14 +59,18 @@
     + '</div></nav></header>';
 
   var pied = '<footer class="pied"><div class="wrap">'
-    + '<div><h3>Basket Club de Rouxmesnil</h3><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles ; salle Charles-Lefebvre quand deux matchs ont lieu en même temps.</p></div>'
+    + '<div><p class="pied-marque"><img src="img/logo-bcr-160.webp" alt="" width="56" height="56" loading="lazy"><strong>Basket Club<br>de Rouxmesnil</strong></p><p>Club affilié à la Fédération française de basket-ball.<br>Salle Alexandre-Cheruel, Rouxmesnil-Bouteilles ; salle Charles-Lefebvre quand deux matchs ont lieu en même temps.</p></div>'
     + '<div><h3>Le club</h3><p><a href="equipes.html">Équipes et résultats</a><br><a href="vie-du-club.html">Vie du club</a><br><a href="inscription.html">S\'inscrire</a><br><a href="boutique.html">Boutique</a><br><a href="videos.html">Matchs en direct</a><br><a href="photos.html">Photos et vidéos</a><br><a href="u18f.html">U18F élite</a><br><a href="partenaires.html">Nos partenaires</a><br><a href="rejoindre.html">Rejoindre le club</a></p></div>'
-    + '<div><h3>Contact</h3><p>basketclubrouxmesnil@gmail.com<br>Page Facebook : Basket Club Rouxmesnil</p></div>'
-    + '<div class="bas"><span>© Basket Club de Rouxmesnil</span>'
+    + '<div><h3>Contact</h3><p class="pied-contact"><a href="mailto:basketclubrouxmesnil@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>basketclubrouxmesnil@gmail.com</a><br>Page Facebook : Basket Club Rouxmesnil</p>'
+    + '<h3 style="margin-top:18px">La salle</h3><p>Salle Alexandre-Cheruel<br>1200 rue des Salines, Rouxmesnil-Bouteilles<br><a href="index.html#venir">Venir à la salle</a></p></div>'
+    + '<div class="bas"><span>© Basket Club de Rouxmesnil · <button type="button" class="pied-haut">Revenir en haut de la page</button></span>'
     + '<span class="signe-lbn">Maquette réalisée par <a href="https://lebinomenumerique.fr"><img src="img/lbn-clair.png" alt="" width="46" height="24">Le Binôme Numérique</a></span></div>'
     + '</div></footer>';
 
-  document.body.insertAdjacentHTML('afterbegin', bandeau + entete);
+  var principal = document.querySelector('main');
+  if (principal && !principal.id) principal.id = 'contenu';
+  if (principal) principal.setAttribute('tabindex', '-1');
+  document.body.insertAdjacentHTML('afterbegin', '<a class="evitement" href="#contenu">Aller au contenu</a>' + bandeau + entete);
   document.body.classList.add('haut-pose');   /* le contenu apparaît une fois le haut de page posé : rien ne saute (voir style.css) */
   // Remise à zéro de la démonstration : efface ce que la visite a saisi (convocations, demandes, scores…),
   // garde le mode présentation, puis recharge la page.
@@ -120,4 +124,53 @@
     }, {rootMargin:'0px 0px -8% 0px'});
     blocs.forEach(function(b){ obs.observe(b); });
   } else { blocs.forEach(function(b){ b.classList.add('vu'); }); }
+
+  // Confort de visite : barre de lecture, en-tête qui se détache du contenu, bouton « haut de page »,
+  // barre d'accès rapide sur téléphone (pages publiques). Tout est facultatif : sans script, la page reste complète.
+  var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function enHaut(){
+    window.scrollTo({ top: 0, behavior: reduit ? 'auto' : 'smooth' });
+    var cible = document.querySelector('.entete .logo');
+    if (cible) cible.focus({ preventScroll: true });
+  }
+  var tete = document.querySelector('.entete.sig');
+  var prog = null;
+  if (tete) { tete.insertAdjacentHTML('beforeend', '<span class="lecture-prog" aria-hidden="true"></span>'); prog = tete.querySelector('.lecture-prog'); }
+  document.body.insertAdjacentHTML('beforeend', '<button type="button" class="haut-page" aria-label="Revenir en haut de la page" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>');
+  var hp = document.querySelector('.haut-page');
+  hp.addEventListener('click', enHaut);
+  var ph = document.querySelector('.pied-haut'); if (ph) ph.addEventListener('click', enHaut);
+
+  var PUBLIQUES = ['accueil','equipes','inscription','videos','photos','u18f','evenements','vie-du-club','rejoindre','partenaires'];
+  var barre = null;
+  if (PUBLIQUES.indexOf(page) >= 0) {
+    var ic = {
+      matchs: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+      salle: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+      res: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>',
+      insc: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="8" r="4"/><path d="M2 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5M19 8v6M16 11h6"/></svg>'
+    };
+    var R = [['index.html#week-end','Matchs',ic.matchs,''],['index.html#venir','La salle',ic.salle,''],['equipes.html','Résultats',ic.res,'equipes'],['inscription.html',"S'inscrire",ic.insc,'inscription']];
+    document.body.insertAdjacentHTML('beforeend', '<nav class="barre-rapide" aria-label="Accès rapide">' + R.map(function(r){
+      return '<a href="' + r[0] + '"' + (r[3] && r[3] === page ? ' aria-current="page"' : '') + '>' + r[2] + '<span>' + r[1] + '</span></a>';
+    }).join('') + '</nav>');
+    barre = document.querySelector('.barre-rapide');
+    document.body.classList.add('avec-barre');
+    // La barre s'efface quand le pied de page arrive (il porte déjà tous les liens).
+    var pf = document.querySelector('footer.pied');
+    if (pf && 'IntersectionObserver' in window) new IntersectionObserver(function(e){ barre.classList.toggle('cachee', e[0].isIntersecting); }).observe(pf);
+  }
+
+  var attente = false;
+  function surDefilement(){
+    attente = false;
+    var y = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+    if (prog) prog.style.setProperty('--p', h > 0 ? Math.min(1, y / h).toFixed(4) : 0);
+    if (tete) tete.classList.toggle('defile', y > 8);
+    var montrer = y > window.innerHeight * 1.5;
+    if (hp.classList.contains('visible') !== montrer) { hp.classList.toggle('visible', montrer); hp.tabIndex = montrer ? 0 : -1; }
+  }
+  window.addEventListener('scroll', function(){ if (!attente) { attente = true; requestAnimationFrame(surDefilement); } }, { passive: true });
+  window.addEventListener('resize', surDefilement);
+  surDefilement();
 })();
