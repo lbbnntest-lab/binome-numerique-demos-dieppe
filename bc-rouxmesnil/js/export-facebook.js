@@ -215,46 +215,106 @@
   }
 
   /* ---------- Affiches portrait 1080 x 1350 (rendez-vous et résultats du week-end) ----------
-     Une seule mise en page (liste de primitives : rectangles, ronds, logos, textes, emblèmes) peinte de deux façons :
+     Mise en page reprise des vraies affiches du club (fond texturé, logo et grand titre en tête, pastille de date, une carte
+     blanche par match, bandeau du mois en pied), dessinée ici en formes simples : aucune image extérieure, seulement le logo
+     du club et les logos d'adversaires déjà présents sur le site (sinon un rond avec les initiales).
+     Une seule mise en page (liste de primitives : chemins, rectangles, dégradés, logos, textes) peinte de deux façons :
      en SVG dans la page (aperçu à l'écran) et sur un canvas (fichier PNG). L'aperçu et le fichier ne peuvent donc pas différer.
      Description d'une affiche (spec.type = 'affiche') :
-       modele : 'couverture' | 'jour' | 'resultats' ; mode : 'rdv' | 'res' (couverture) ; theme : { fond, accent, nom, emb } ;
+       modele : 'couverture' | 'jour' | 'resultats' ; mode : 'rdv' | 'res' (couverture) ; theme : { id, fond, accent, nom, emb } ;
        titre ; dates ; lieu ('dom' | 'ext') ; salleDom ; suite ; resume ; compte : { dom, ext } ou { v, n } ; alt ;
        lignes : [{ heure, jourCourt, code, adv, sig, logo, salle, lieuTxt, bcr, ad, v }].
-     Aucun émoji sur les affiches. */
+     Aucun émoji et aucun logo de fédération sur les affiches : la pastille de division est un simple rond dessiné. */
   var HP = 1350;
   var EMBLEMES = {
     ruban: { remp: [], trait: ['M34 95 C45 68 51 57 60 43 C71 27 71 9 53 7 C37 5 33 20 43 36 C51 50 58 66 67 95'], lw: 9 },
     moustache: { remp: ['M50 44 C44 33 30 29 16 36 C7 41 2 50 3 60 C11 53 21 51 31 53 C40 55 46 54 50 50 C54 54 60 55 69 53 C79 51 89 53 97 60 C98 50 93 41 84 36 C70 29 56 33 50 44 Z'], trait: [], lw: 0 },
     ballon: { remp: [], trait: ['M6 50 A44 44 0 1 0 94 50 A44 44 0 1 0 6 50 Z', 'M50 6 V94', 'M6 50 H94', 'M19 17 C37 35 37 65 19 83', 'M81 17 C63 35 63 65 81 83'], lw: 4 }
   };
-  var CA = { fond: '#0b0e0c', haut: '#12171a', gris: '#c9cdca', clair: '#d7dbd8' };
+  /* Pictogrammes dessinés dans un carré de 100 x 100 : r = formes pleines, t = traits (épaisseur lw). */
+  var PICTOS = {
+    calendrier: { r: ['M10 30 Q10 22 18 22 H82 Q90 22 90 30 V42 H10 Z', 'M24 52h13v11h-13z M44 52h13v11h-13z M64 52h13v11h-13z M24 70h13v11h-13z M44 70h13v11h-13z M64 70h13v11h-13z'],
+      t: ['M18 22 H82 Q90 22 90 30 V84 Q90 92 82 92 H18 Q10 92 10 84 V30 Q10 22 18 22 Z', 'M32 10 V30', 'M68 10 V30'], lw: 8 },
+    maison: { r: ['M50 6 L97 47 L89 56 L82 50 V93 H60 V66 H40 V93 H18 V50 L11 56 L3 47 Z'], t: [], lw: 0 },
+    avion: { r: ['M95 41 C100 44 100 56 95 59 L63 57 L41 94 H30 L43 57 L19 55 L11 69 H3 L7 50 L3 31 H11 L19 45 L43 43 L30 6 H41 L63 43 Z'], t: [], lw: 0 },
+    lieu: { r: ['M50 3 C29 3 14 19 14 39 C14 63 50 97 50 97 C50 97 86 63 86 39 C86 19 71 3 50 3 Z M50 23 A16 16 0 1 0 50 55 A16 16 0 1 0 50 23 Z'], t: [], lw: 0, pair: true },
+    coeur: { r: ['M50 88 C20 66 6 50 6 32 C6 18 17 8 30 8 C39 8 46 13 50 20 C54 13 61 8 70 8 C83 8 94 18 94 32 C94 50 80 66 50 88 Z'], t: [], lw: 0 },
+    ruban: { r: [], t: EMBLEMES.ruban.trait, lw: 13 },
+    megaphone: { r: ['M8 38 H28 L72 13 V87 L28 62 H8 Z M30 64 L40 91 H53 L45 64 Z'], t: ['M83 33 Q93 50 83 67'], lw: 7 },
+    chevron: { r: [], t: ['M22 14 L62 50 L22 86'], lw: 20 },
+    ballon: { r: [], t: EMBLEMES.ballon.trait, lw: 6 },
+    moustache: { r: ['M50 42 C44 34 34 32 26 36 C18 40 14 48 8 50 C4 51 2 47 4 43 C0 46 0 54 6 57 C14 61 26 58 34 55 C42 52 47 51 50 48 C53 51 58 52 66 55 C74 58 86 61 94 57 C100 54 100 46 96 43 C98 47 96 51 92 50 C86 48 82 40 74 36 C66 32 56 34 50 42 Z'], t: [], lw: 0 }
+  };
+  /* Couleurs du mois : bleu (Movember), rose (Octobre rose), sinon le vert et noir du club. */
+  var PALETTES = {
+    bleu: { nuit: '#030a22', fonce: '#0a2260', vif: '#1f5fd0', eclat: '#4a93ff', clair: '#9fcbff', encre: '#0a1d4a', trait: '#d5e0f3', carte: '#eaf1fc', defaite: '#36435f' },
+    rose: { nuit: '#1e030d', fonce: '#5a0a2f', vif: '#d8186f', eclat: '#ff58a0', clair: '#ffb1d3', encre: '#4a0a26', trait: '#f1d4e2', carte: '#fcebf3', defaite: '#5b3a48' },
+    vert: { nuit: '#020503', fonce: '#0a2814', vif: '#1f7a3f', eclat: '#3dbb67', clair: '#9fe6b6', encre: '#0c2a17', trait: '#d3e6d9', carte: '#ecf6ef', defaite: '#3a4a40' }
+  };
+  function paletteDe(th) { return PALETTES[th && th.id] || (th && th.emb === 'moustache' ? PALETTES.bleu : th && th.emb === 'ruban' ? PALETTES.rose : PALETTES.vert); }
+  function rgba(hex, a) {
+    var h = String(hex).replace('#', ''); if (h.length === 3) h = h.replace(/(.)/g, '$1$1');
+    if (a === undefined || a === null) a = 1;
+    return 'rgba(' + parseInt(h.slice(0, 2), 16) + ',' + parseInt(h.slice(2, 4), 16) + ',' + parseInt(h.slice(4, 6), 16) + ',' + a + ')';
+  }
+  function n1(v) { return Math.round(v * 10) / 10; }
+  function rr(x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, h / 2, w / 2));
+    var a = 'A' + n1(r) + ' ' + n1(r) + ' 0 0 1 ';
+    return 'M' + n1(x + r) + ' ' + n1(y) + 'H' + n1(x + w - r) + a + n1(x + w) + ' ' + n1(y + r) + 'V' + n1(y + h - r) + a + n1(x + w - r) + ' ' + n1(y + h)
+      + 'H' + n1(x + r) + a + n1(x) + ' ' + n1(y + h - r) + 'V' + n1(y + r) + a + n1(x + r) + ' ' + n1(y) + 'Z';
+  }
+  function cercle(cx, cy, r) { var a = 'A' + n1(r) + ' ' + n1(r) + ' 0 1 0 '; return 'M' + n1(cx - r) + ' ' + n1(cy) + a + n1(cx + r) + ' ' + n1(cy) + a + n1(cx - r) + ' ' + n1(cy) + 'Z'; }
   var mesureCtx = null;
   function mesure() { if (!mesureCtx) mesureCtx = document.createElement('canvas').getContext('2d'); return mesureCtx; }
   function mettreEnPage(s) {
     return polices().then(function () {
-      var th = s.theme, P = [], mc = mesure(), LOGO = 'img/logo-bcr-160.webp';
-      function R(x, y, w, h, f) { P.push({ k: 'rect', x: x, y: y, w: w, h: h, f: f }); }
-      function T(t, x, y, taille, o) { o = o || {}; P.push({ k: 'txt', t: t, x: x, y: y, taille: taille, f: o.f || 't', it: !!o.it, gras: !!o.gras, c: o.c || '#fff', al: o.al || 'left', ls: o.ls || 0 }); }
-      /* Texte sur une ligne, à la plus grande taille qui tient dans la largeur (sinon points de suspension) ; rend la taille retenue. */
-      function TT(t, x, y, tmax, tmin, largeur, o) {
+      var th = s.theme || {}, K = paletteDe(th), P = [], mc = mesure(), LOGO = 'img/logo-bcr-160.webp';
+      var movember = th.id === 'bleu' || (!th.id && th.emb === 'moustache');
+      var graine = 1;
+      String(s.modele + (s.mode || '') + (s.lieu || '')).split('').forEach(function (c) { graine = (graine * 31 + c.charCodeAt(0)) % 2147483646 + 1; });
+      function alea() { graine = (graine * 16807) % 2147483647; return (graine - 1) / 2147483646; }
+      function R(x, y, w, h, f, op) { P.push({ k: 'rect', x: x, y: y, w: w, h: h, f: f, op: op }); }
+      function PA(d, o) { o = o || {}; P.push({ k: 'path', d: d, f: o.f || null, s: o.s || null, lw: o.lw || 0, op: o.op === undefined ? 1 : o.op, pair: !!o.pair, tr: o.tr || null }); }
+      function G(id, type, c, st) { P.push({ k: 'grad', id: id, type: type, c: c, st: st }); return { g: id }; }
+      function CLIP(d) { P.push({ k: 'clip', d: d }); }
+      function FINCLIP() { P.push({ k: 'finclip' }); }
+      function T(t, x, y, taille, o) { o = o || {}; P.push({ k: 'txt', t: t, x: x, y: y, taille: taille, f: o.f || 't', it: !!o.it, gras: !!o.gras, c: o.c || '#fff', al: o.al || 'left', ls: o.ls || 0, op: o.op === undefined ? 1 : o.op }); }
+      function fonteDe(o) { return o.f === 'x' ? function (z) { return texte(z, o.gras); } : function (z) { return titre(z, o.it); }; }
+      /* Plus grande taille (entre tmax et tmin) à laquelle le texte tient sur une ligne ; sinon points de suspension. */
+      function ajusteLigne(t, tmax, tmin, largeur, o) {
         o = o || {};
-        var fonte = o.f === 'x' ? function (z) { return texte(z, o.gras); } : function (z) { return titre(z, o.it); };
         espacement(mc, o.ls || 0);
-        var r = ajuster(mc, String(t), fonte, tmax, tmin, largeur);
-        var z = parseFloat(mc.font.match(/(\d+(?:\.\d+)?)px/)[1]);
+        var r = ajuster(mc, String(t), fonteDe(o), tmax, tmin, largeur);
+        var z = parseFloat(mc.font.match(/(\d+(?:\.\d+)?)px/)[1]), w = mc.measureText(r).width;
         espacement(mc, 0);
-        T(r, x, y, z, o); return z;
+        return { t: r, z: z, w: w };
       }
-      function logo(src, sig, cx, cy, r) { P.push({ k: 'logo', src: src || '', sig: sig || '', cx: cx, cy: cy, r: r }); }
-      function emb(type, x, y, t, c) { P.push({ k: 'emb', type: type, x: x, y: y, t: t, c: c }); }
-      function pied() {
-        R(0, 1240, W, 110, th.fond);
-        TT('ALLEZ LE BCR !', W / 2, 1316, 76, 40, W - 2 * M, { it: true, al: 'center', ls: 3 });
+      function TT(t, x, y, tmax, tmin, largeur, o) { var a = ajusteLigne(t, tmax, tmin, largeur, o); T(a.t, x, y, a.z, o); return a.z; }
+      function logo(src, sig, cx, cy, r, o) { o = o || {}; P.push({ k: 'logo', src: src || '', sig: sig || '', cx: cx, cy: cy, r: r, fond: o.fond || '', anneau: o.anneau || '', rep: o.rep || '', zs: o.zs || 0 }); }
+      /* Initiales de repli plus parlantes : le sigle si le nom en est un (« CBPQ »), sans numéro d'équipe (« BO2 » -> « BO »),
+         au moins deux signes (« Comité 76 » -> « C76 »). Rien n'est inventé : tout vient du nom ou du sigle fournis. */
+      function sigleAff(adv, sig) {
+        var nom = String(adv || '').replace(/\([^)]*\)/g, ' ').replace(/[ \t]+-?\s*\d+\s*$/, '').trim();
+        if (/^[A-ZÀ-Ý]{2,5}$/.test(nom)) return nom;
+        var s = maj(sig || '').replace(/(\D)\d+$/, '$1');
+        if (s.length >= 2) return s;
+        var num = /\b(\d{2,3})\b/.exec(String(adv || ''));
+        if (num) return (s || maj(nom.charAt(0))) + num[1];
+        var lettres = maj(nom).replace(/[^A-ZÀ-Ý]/g, '');
+        return lettres.length >= 2 ? lettres.slice(0, 2) : (s || lettres);
+      }
+      function picto(nom, x, y, taille, c, o) {
+        var d = PICTOS[nom]; if (!d) return; o = o || {};
+        var tr = [n1(x), n1(y), taille / 100];
+        d.r.forEach(function (v) { PA(v, { f: c, tr: tr, pair: d.pair, op: o.op }); });
+        d.t.forEach(function (v) { PA(v, { s: c, lw: o.lw || d.lw, tr: tr, op: o.op }); });
       }
       /* Coupe un texte en lignes : aux espaces et après les traits d'union (« Mesnil-Franqueville-Boos »). */
       function casser(t, largeur) {
-        var mots = String(t).replace(/\s+/g, ' ').trim().split(' '), lignes = [], cur = '';
+        var mots = String(t).replace(/[ \t\r\n]+/g, ' ').trim().split(' '), lignes = [], cur = '';
+        /* Un mot d'une lettre (« À », « & ») reste collé au mot qui le suit. */
+        for (var q = mots.length - 2; q >= 0; q--) if (mots[q].length <= 1) mots.splice(q, 2, mots[q] + ' ' + mots[q + 1]);
         mots.forEach(function (mot) {
           var morceaux = mot.match(/[^-]+-?|-/g) || [mot];
           morceaux.forEach(function (mc2, k) {
@@ -263,6 +323,12 @@
           });
         });
         if (cur) lignes.push(cur);
+        /* Pas de dernière ligne orpheline (« 2 » seul) : on y descend le mot précédent. */
+        var n = lignes.length;
+        if (n > 1 && lignes[n - 1].length <= 2 && / /.test(lignes[n - 2])) {
+          var i = lignes[n - 2].lastIndexOf(' ');
+          lignes[n - 1] = lignes[n - 2].slice(i + 1) + ' ' + lignes[n - 1]; lignes[n - 2] = lignes[n - 2].slice(0, i);
+        }
         return lignes;
       }
       /* Texte sur au plus maxL lignes, à la plus grande taille qui tient dans largeur x hauteur ; sinon points de suspension. */
@@ -274,7 +340,7 @@
           if ((lignes.length * z * inter <= hauteur && lignes.length <= maxL && !large) || z <= tmin) break;
           z -= 1;
         }
-        var haut = Math.max(1, Math.min(maxL, Math.floor(hauteur / (z * inter))));
+        var haut = Math.max(1, Math.min(maxL, Math.floor(hauteur / (z * inter)))), coupe = lignes.length > haut;
         if (lignes.length > haut) {
           lignes = lignes.slice(0, haut);
           var d = lignes[haut - 1];
@@ -282,124 +348,376 @@
           lignes[haut - 1] = d.replace(/[\s.,;:-]+$/, '') + '…';
         }
         lignes = lignes.map(function (x) {
-          while (x.length > 1 && mc.measureText(x).width > largeur) x = x.slice(0, -2) + '…';
+          while (x.length > 1 && mc.measureText(x).width > largeur + 0.5) { x = x.slice(0, -2) + '…'; coupe = true; }
           return x;
         });
-        return { taille: z, lignes: lignes, pas: z * inter };
+        return { taille: z, lignes: lignes, pas: z * inter, coupe: coupe };
       }
-      /* Bloc de textes (1 à 2 lignes chacun) centré verticalement sur cy. */
-      function blocCentre(items, x, cy, largeur) {
-        var tot = 0, bl = items.map(function (it) {
-          var b = blocT(it.t, it.titre ? function (z) { return titre(z, true); } : function (z) { return texte(z, it.gras); }, it.tmax, it.tmin, largeur, it.h, it.titre ? 1.0 : 1.08, it.lignes || 2);
-          tot += b.lignes.length * b.pas; return b;
-        });
-        var y = cy - tot / 2;
-        bl.forEach(function (b, i) {
-          b.lignes.forEach(function (ln, k) {
-            var o = items[i].titre ? { f: 't', it: true, c: items[i].c, ls: 1, al: items[i].al } : { f: 'x', gras: items[i].gras, c: items[i].c, al: items[i].al };
-            T(ln, items[i].x !== undefined ? items[i].x : x, y + b.taille * (items[i].titre ? .8 : .85) + k * b.pas, b.taille, o);
-          });
-          y += b.lignes.length * b.pas;
-        });
+      /* Deux lignes se lisent mieux que trois, mais pas au prix d'une police bien plus petite : on garde trois lignes
+         seulement quand les deux lignes tomberaient sous 24 px et que trois lignes donnent au moins 3 px de plus. */
+      function choixBloc(t, fonte, tmax, tmin, largeur, hauteur, inter, maxL) {
+        var b2 = blocT(t, fonte, tmax, tmin, largeur, hauteur, inter, Math.min(2, maxL));
+        if (maxL <= 2) return b2;
+        var b3 = blocT(t, fonte, tmax, tmin, largeur, hauteur, inter, maxL);
+        if (b2.coupe && !b3.coupe) return b3;
+        return !b3.coupe && b2.taille < 24 && b3.taille >= b2.taille + 3 ? b3 : b2;
+      }
+      /* Paragraphe (titre droit en capitales par défaut) centré verticalement sur cy ; rend sa hauteur. */
+      function paragraphe(t, x, cy, largeur, hauteur, tmax, tmin, maxL, o) {
+        o = o || {}; var oo = { f: o.f || 't', it: !!o.it, gras: o.gras, c: o.c || '#fff', al: o.al || 'left', op: o.op };
+        var b = choixBloc(t, fonteDe(oo), tmax, tmin, largeur, hauteur, o.inter || 1.02, maxL);
+        var tot = b.lignes.length * b.pas, y = cy - tot / 2;
+        b.lignes.forEach(function (ln, k) { T(ln, x, y + b.taille * .8 + k * b.pas, b.taille, oo); });
+        return tot;
       }
       function cheminLogo(f) { return f ? (f.indexOf('/') >= 0 ? f : 'img/logos/' + f) : ''; }
-      function fond(i, y, h) {
-        R(M, y, W - 2 * M, h, i % 2 ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.09)');
-        R(M, y, 184, h, th.fond);
+
+      /* ---- Fond texturé : dégradé, halo de lumière, traînées diagonales, grain ---- */
+      function traineesDans(y0, y1, nb, opMax) {
+        var pente = 0.62;
+        for (var k = 0; k < nb; k++) {
+          var lg = 160 + alea() * 620, ya = y0 + alea() * (y1 - y0 + lg) - lg / 2, yb = ya + lg;
+          var x = alea() * (W + 700) - 600, w = 2 + alea() * alea() * 46;
+          var blanc = alea() < .45;
+          PA('M' + n1(x) + ' ' + n1(yb) + 'L' + n1(x + w) + ' ' + n1(yb) + 'L' + n1(x + w + pente * lg) + ' ' + n1(ya) + 'L' + n1(x + pente * lg) + ' ' + n1(ya) + 'Z',
+            { f: blanc ? '#ffffff' : K.eclat, op: Math.round((.03 + alea() * opMax) * 1000) / 1000 });
+        }
       }
-      function rangeeRdv(l, i, y, rh) {
-        var h = rh - 10, cy = y + h / 2, r = Math.min(44, Math.floor(h * .34));
-        fond(i, y, h);
-        var ts = Math.min(l.heure ? 80 : 60, Math.floor(h * .5));
-        TT(l.heure || l.jourCourt, M + 92, cy + ts * .34, ts, 24, 164, { it: true, al: 'center', ls: 1 });
-        var fc = Math.min(66, Math.floor(h * .42));
-        if (/ /.test(l.code)) blocCentre([{ t: l.code, titre: true, c: '#fff', tmax: fc, tmin: 22, h: h * .86 }], 268, cy, 200);
-        else TT(l.code, 268, cy + fc * .34, fc, 24, 204, { it: true, ls: 1 });
-        logo(LOGO, 'BCR', 528, cy, r);
-        T('VS', 596, cy + 8, 26, { c: CA.gris, al: 'center', ls: 1 });
-        logo(cheminLogo(l.logo), l.sig, 664, cy, r);
-        var amax = Math.min(38, Math.floor(h * .27)), smax = Math.min(26, Math.floor(h * .19));
-        var items = [{ t: l.adv, gras: true, c: '#fff', tmax: amax, tmin: 17, h: h * (l.salle ? .5 : .8) }];
-        if (l.salle) items.push({ t: l.salle, gras: false, c: CA.gris, tmax: smax, tmin: 14, h: h * .36 });
-        blocCentre(items, 726, cy, W - M - 14 - 726);
+      function grain(y0, y1, nb) {
+        var d = '';
+        for (var k = 0; k < nb; k++) { var gx = n1(alea() * W), gy = n1(y0 + alea() * (y1 - y0)), gt = n1(1.5 + alea() * 3); d += 'M' + gx + ' ' + gy + 'h' + gt + 'v' + gt + 'h-' + gt + 'z'; }
+        PA(d, { f: '#ffffff', op: .14 });
       }
-      function rangeeRes(l, i, y, rh) {
-        var h = rh - 10, cy = y + h / 2, r = Math.min(44, Math.floor(h * .34));
-        fond(i, y, h);
-        var fc = Math.min(62, Math.floor(h * .42));
-        if (/ /.test(l.code)) blocCentre([{ t: l.code, titre: true, c: '#fff', tmax: fc, tmin: 20, h: h * .86, al: 'center', x: M + 92 }], M + 92, cy, 164);
-        else TT(l.code, M + 92, cy + fc * .34, fc, 20, 164, { it: true, al: 'center', ls: 1 });
-        logo(LOGO, 'BCR', 320, cy, r);
-        var ss = Math.min(70, Math.floor(h * .5)), tot = ss * .7 + 8 + 16, top = cy - tot / 2;
-        TT(l.bcr + ' - ' + l.ad, 492, top + ss * .7, ss, 30, 150, { it: true, al: 'center', c: l.v === true ? th.accent : '#fff' });
-        T(l.v === true ? 'VICTOIRE' : l.v === false ? 'DÉFAITE' : '', 492, top + ss * .7 + 8 + 18, 22, { c: CA.gris, al: 'center', ls: 3 });
-        logo(cheminLogo(l.logo), l.sig, 664, cy, r);
-        var amax = Math.min(38, Math.floor(h * .27));
-        var items = [{ t: l.adv, gras: true, c: '#fff', tmax: amax, tmin: 17, h: h * .52 }];
-        if (l.lieuTxt) items.push({ t: l.lieuTxt, gras: false, c: CA.gris, tmax: 24, tmin: 14, h: h * .3, lignes: 1 });
-        blocCentre(items, 726, cy, W - M - 14 - 726);
+      function fondAffiche(haloY) {
+        R(0, 0, W, HP, G('fd', 'lin', [0, 0, 300, HP], [[0, K.fonce], [.5, K.nuit], [1, K.nuit]]));
+        R(0, 0, W, HP, G('halo', 'rad', [W / 2 + 40, haloY, 720], [[0, '#ffffff', .34], [.3, K.eclat, .26], [.7, K.vif, .08], [1, K.vif, 0]]));
+        traineesDans(0, HP, 54, .13);
+        /* Grand faisceau de lumière derrière le titre. */
+        PA('M' + 120 + ' ' + (haloY + 520) + 'L' + 420 + ' ' + (haloY + 520) + 'L' + 1000 + ' ' + (haloY - 420) + 'L' + 820 + ' ' + (haloY - 420) + 'Z', { f: G('fx', 'lin', [0, haloY + 520, 0, haloY - 420], [[0, '#ffffff', 0], [.5, '#ffffff', .12], [1, '#ffffff', 0]]) });
+        grain(0, HP, 220);
+        R(0, 0, W, HP, G('vg', 'rad', [W / 2, HP / 2, 900], [[.55, K.nuit, 0], [1, K.nuit, .8]]));
+      }
+      /* ---- Petit titre « BASKET CLUB DE ROUXMESNIL » encadré de deux traits ---- */
+      function petitTitre(cx, y, x0, x1, taille) {
+        var a = ajusteLigne('BASKET CLUB DE ROUXMESNIL', taille, 22, x1 - x0 - 120, { ls: 3 });
+        T(a.t, cx, y, a.z, { ls: 3, al: 'center' });
+        var g = cx - a.w / 2 - 18, d = cx + a.w / 2 + 18, ly = n1(y - a.z * .34);
+        if (g - x0 > 20) PA('M' + x0 + ' ' + ly + 'H' + n1(g), { s: K.eclat, lw: 5 });
+        if (x1 - d > 20) PA('M' + n1(d) + ' ' + ly + 'H' + x1, { s: K.eclat, lw: 5 });
+      }
+      /* ---- Gros titre sur deux lignes : « RENDEZ-VOUS » droit blanc, « DU WEEK-END » italique ---- */
+      function grosTitre(l1, l2, cx, y1, y2, t1, t2, largeur) {
+        var a = ajusteLigne(l1, t1, 60, largeur, {}), b = ajusteLigne(l2, t2, 60, largeur, { it: true });
+        T(a.t, cx + 5, y1 + 6, a.z, { al: 'center', c: K.nuit, op: .55 });
+        T(a.t, cx, y1, a.z, { al: 'center' });
+        T(b.t, cx + 5, y2 + 6, b.z, { it: true, al: 'center', c: K.nuit, op: .55 });
+        T(b.t, cx, y2, b.z, { it: true, al: 'center', c: K.eclat });
+        var w = Math.max(b.w, a.w * .8), x0 = cx - w / 2 + 30, x1 = cx + w / 2 - 10, yy = y2 + 26;
+        PA('M' + n1(x0) + ' ' + n1(yy + 4) + 'Q' + n1(cx) + ' ' + n1(yy - 16) + ' ' + n1(x1) + ' ' + n1(yy - 6) + 'L' + n1(x1 - 6) + ' ' + n1(yy + 4) + 'Q' + n1(cx) + ' ' + n1(yy - 4) + ' ' + n1(x0 + 6) + ' ' + n1(yy + 14) + 'Z', { f: K.eclat });
+      }
+      function blasonClub(cx, cy, r) {
+        PA(cercle(cx, cy, r + 16), { f: K.eclat, op: .28 });
+        PA(cercle(cx, cy, r + 7), { f: '#ffffff' });
+        logo(LOGO, 'BCR', cx, cy, r, { fond: 'noir' });
+      }
+      /* ---- Bandeau du bas ---- */
+      function bandeau(y0) {
+        var bord = 'M0 ' + (y0 + 16) + 'L90 ' + (y0 + 6) + 'L210 ' + (y0 + 14) + 'L360 ' + y0 + 'L520 ' + (y0 + 12) + 'L690 ' + (y0 - 2) + 'L860 ' + (y0 + 10) + 'L1080 ' + y0;
+        var zone = bord + 'V' + HP + 'H0Z';
+        PA(zone, { f: G('bd', 'lin', [0, y0, 0, HP], movember ? [[0, K.fonce], [1, K.nuit]] : [[0, '#0b2614'], [1, '#020403']]) });
+        CLIP(zone); traineesDans(y0, HP, 18, .16); grain(y0, HP, 60); FINCLIP();
+        PA(bord, { s: movember ? K.eclat : '#46c46f', lw: 5 });
+        var h = HP - y0;
+        if (movember) {
+          /* Marges : environ 28 px sous le bord du bandeau et au moins 26 px au-dessus du bas de l'image. */
+          var valeurs = ['PASSION', 'ESPRIT D\'ÉQUIPE', 'RESPECT', 'ROUXMESNIL'], pv = (h - 30 - 26) / 4;
+          valeurs.forEach(function (v, k) {
+            var by = y0 + 30 + pv * k + pv * .76;
+            picto('chevron', 34 + k * 5, by - 19, 18, K.eclat);
+            TT(v, 58 + k * 5, by, 30, 18, 220, { it: true });
+          });
+          /* Plaque blanche, ruban, moustache et « LE BCR SOUTIENT MOVEMBER ». */
+          var py = y0 + 24;
+          PA('M300 ' + (py + 6) + 'L776 ' + (py - 2) + 'L762 ' + (HP - 26) + 'L286 ' + (HP - 20) + 'Z', { f: '#ffffff', op: .96 });
+          picto('ruban', 332, py + 2, 88, K.vif, { lw: 15 });
+          picto('moustache', 306, py + 22, 140, '#111317');
+          var bx = 466;
+          TT('LE BCR', bx, py + 50, 50, 30, 280, { it: true, c: K.vif, ls: 1 });
+          TT('SOUTIENT', bx + 26, py + 78, 27, 18, 250, { it: true, c: '#111317', ls: 1 });
+          PA('M' + (bx - 8) + ' ' + (py + 85) + 'L756 ' + (py + 80) + 'L750 ' + (py + 126) + 'L' + (bx - 16) + ' ' + (py + 129) + 'Z', { f: K.vif });
+          TT('MOVEMBER', bx + 4, py + 122, 54, 30, 280, { it: true, ls: 1 });
+          var causes = [['coeur', 'SANTÉ MASCULINE'], ['ruban', 'PRÉVENTION'], ['megaphone', 'SENSIBILISATION']], pc = (h - 30 - 26) / 3;
+          causes.forEach(function (c, k) {
+            var cy = y0 + 26 + pc * k + pc / 2;
+            PA(cercle(816, cy, 21), { s: '#ffffff', lw: 3.5 });
+            picto(c[0], 816 - 12, cy - 12, 24, '#ffffff', c[0] === 'ruban' ? { lw: 16 } : {});
+            TT(c[1], 848, cy + 10, 30, 16, W - 36 - 848, { it: true });
+          });
+        } else {
+          var vert = '#46c46f';
+          PA('M0 ' + (HP - 18) + 'H' + W + 'V' + HP + 'H0Z', { f: '#1f7a3f' });
+          picto('ballon', 46, y0 + h / 2 - 50, 92, vert);
+          picto('ballon', W - 46 - 92, y0 + h / 2 - 50, 92, vert);
+          TT('PASSION · ESPRIT D\'ÉQUIPE · RESPECT', W / 2, y0 + h / 2 + 8, 62, 30, W - 2 * 170, { it: true, al: 'center', ls: 1 });
+          TT('BASKET CLUB DE ROUXMESNIL', W / 2, y0 + h / 2 + 56, 30, 18, W - 2 * 170, { al: 'center', c: vert, ls: 4 });
+        }
       }
 
-      R(0, 0, W, HP, CA.fond);
-      if (s.modele === 'couverture') {
-        R(0, 0, W, 300, th.fond);
-        logo(LOGO, 'BCR', M + 106, 150, 100);
-        T('BASKET CLUB', 300, 138, 84, { it: true, ls: 4 });
-        T('DE ROUXMESNIL', 300, 232, 84, { it: true, ls: 4 });
-        TT(s.mode === 'res' ? 'RÉSULTATS' : 'RENDEZ-VOUS', M, 520, 196, 80, W - 2 * M, { it: true, ls: 1 });
-        TT('DU WEEK-END', M, 700, 196, 80, W - 2 * M, { it: true, ls: 1 });
-        R(0, 750, W, 150, th.fond);
-        TT(maj(s.dates), W / 2, 845, 92, 36, W - 2 * M, { it: true, al: 'center', ls: 1 });
-        emb(th.emb, M, 950, 280, th.accent);
-        var x = 420, c = s.compte || {}, ls = [];
-        if (th.nom) TT(maj(th.nom), x, 1040, 84, 40, W - M - x, { it: true, c: th.accent, ls: 1 });
-        if (s.mode === 'res') {
-          ls.push(c.v + (c.v > 1 ? ' VICTOIRES' : ' VICTOIRE'));
-          ls.push('SUR ' + c.n + (c.n > 1 ? ' MATCHS' : ' MATCH'));
-        } else {
-          if (c.dom) ls.push(c.dom + (c.dom > 1 ? ' MATCHS' : ' MATCH') + ' À DOMICILE');
-          if (c.ext) ls.push(c.ext + (c.ext > 1 ? ' MATCHS' : ' MATCH') + ' À L\'EXTÉRIEUR');
+      /* ---- Cartes des matchs ---- */
+      var XC = 40, WC = W - 80;
+      function carteFond(i, y, h) {
+        PA(rr(XC, y + 6, WC, h, 18), { f: K.nuit, op: .5 });
+        PA(rr(XC, y, WC, h, 18), { f: G('ct' + i, 'lin', [0, y, 0, y + h], [[0, '#ffffff'], [1, K.carte]]) });
+      }
+      function blocBleu(x, y, w, h, vif) {
+        PA(rr(x, y, w, h, 12), { f: vif === false ? K.defaite : { g: 'tb' } });
+        PA(rr(x, y, w, h * .48, 12), { f: '#ffffff', op: .08 });
+      }
+      function division(code, cx, cy, h, largeur) {
+        var fc = Math.min(28, Math.floor(h * .23)), disque = Math.max(11, Math.min(20, Math.floor(h * .15)));
+        mc.font = titre(fc); espacement(mc, 0);
+        code = maj(code || '');
+        var lignes = / /.test(code) ? blocT(code, function (z) { return titre(z); }, fc, 13, largeur, h * .5, 1.0, 2) : null;
+        var hc = lignes ? lignes.lignes.length * lignes.pas : fc, avec = hc + 8 + 2 * disque <= h - 18, tot = hc + (avec ? 8 + 2 * disque : 0), top = cy - tot / 2;
+        if (lignes) lignes.lignes.forEach(function (ln, k) { T(ln, cx, top + lignes.taille * .8 + k * lignes.pas, lignes.taille, { al: 'center', c: K.encre }); });
+        else TT(code, cx, top + fc * .8, fc, 13, largeur, { al: 'center', c: K.encre });
+        if (avec) {
+          var dy = top + hc + 8 + disque;
+          PA(cercle(cx, dy, disque), { f: { g: 'tb' } });
+          PA(cercle(cx, dy, disque - 3), { s: '#ffffff', lw: 1.5, op: .7 });
+          picto('ballon', cx - disque * .62, dy - disque * .62, disque * 1.24, '#ffffff', { lw: 8 });
         }
-        var y2 = th.nom ? 1124 : 1080;
-        ls.forEach(function (t, k) { TT(t, x, y2 + k * 68, 58, 28, W - M - x, { it: true, ls: 1 }); });
-        pied();
+      }
+      function separateur(x, y, h) { PA('M' + x + ' ' + n1(y + 14) + 'V' + n1(y + h - 14), { s: K.trait, lw: 3 }); }
+      /* Nom du club à côté de son logo : deux lignes lisibles sur téléphone (22 px au moins) ; si la carte est trop basse,
+         « BCR » seul plutôt qu'un texte minuscule. */
+      function texteClub(h) {
+        var z = Math.max(22, Math.min(26, Math.floor(h * .2)));
+        var a = ajusteLigne('BASKET CLUB', z, 22, 112, {}), b = ajusteLigne('ROUXMESNIL', z, 22, 112, {});
+        var ok = h >= 104 && a.t === 'BASKET CLUB' && b.t === 'ROUXMESNIL';
+        if (!ok) { var c = ajusteLigne('BCR', 36, 22, 112, { it: true }); return { bcr: true, z: c.z, w: Math.ceil(c.w) + 2 }; }
+        var zz = Math.min(a.z, b.z), w1 = ajusteLigne('BASKET CLUB', zz, zz, 999, {}).w, w2 = ajusteLigne('ROUXMESNIL', zz, zz, 999, {}).w;
+        return { bcr: false, z: zz, w: Math.ceil(Math.max(w1, w2)) + 2 };
+      }
+      function blocClub(x, cy, r, h) {
+        logo(LOGO, 'BCR', x + r, cy, r, { fond: 'noir' });
+        if (h < 80) return;
+        var tx = x + 2 * r + 9, tc = texteClub(h);
+        if (tc.bcr) { T('BCR', tx, cy + tc.z * .35, tc.z, { it: true, c: K.encre }); return; }
+        T('BASKET CLUB', tx, cy - tc.z * .14, tc.z, { c: K.encre });
+        T('ROUXMESNIL', tx, cy + tc.z * .86, tc.z, { c: K.encre });
+      }
+      function rayon(h) { return Math.max(18, Math.min(38, Math.floor(h * .25))); }
+      function largeurClub(h) { return h < 80 ? 2 * rayon(h) : 2 * rayon(h) + 9 + texteClub(h).w; }
+      /* Zone de texte de l'adversaire (même calcul pour toutes les cartes d'une affiche). */
+      function zoneAdv(x0, x1, h) { var r = rayon(h), la = x1 - x0 - largeurClub(h) - 54; return { r: r, larg: la - 2 * r - 10 }; }
+      /* Taille qu'aurait le nom de l'adversaire seul dans sa carte (sans rien dessiner). */
+      function tailleAdv(t, largeur, hauteur, tmax) { return choixBloc(t, function (z) { return titre(z); }, tmax, 13, largeur, hauteur, 1.02, 3).taille; }
+      var plafondAdv = 99;
+      function blocAdv(l, x, largeur, cy, r, h) {
+        var sg = sigleAff(l.adv, l.sig);
+        logo(cheminLogo(l.logo), sg, x + r, cy, r, { fond: 'blanc', anneau: K.trait, rep: K.vif, zs: sg.length >= 4 ? .56 : sg.length === 3 ? .68 : .78 });
+        var tx = x + 2 * r + 10;
+        paragraphe(maj(l.adv), tx, cy, x + largeur - tx, h - 18, Math.min(plafondAdv, Math.min(36, Math.floor(h * .25))), 13, 3, { c: K.encre });
+      }
+      function vs(cx, cy, h) { var z = Math.min(46, Math.floor(h * .36)); T('VS', cx, cy + z * .35, z, { it: true, al: 'center', c: K.vif }); }
+      /* Le club toujours à gauche, comme sur ses affiches ; l'icône maison / avion dit où se joue le match. */
+      function equipes(l, x0, x1, cy, h) {
+        var r = rayon(h), lc = largeurClub(h), lv = 54, la = x1 - x0 - lc - lv;
+        blocClub(x0, cy, r, h); vs(x0 + lc + lv / 2, cy, h); blocAdv(l, x0 + lc + lv, la, cy, r, h);
+      }
+      /* Une seule taille (à 3 px près) pour les noms d'adversaires d'une même affiche. */
+      function uniformiserAdv(lignes, x0, x1, h) {
+        var za = zoneAdv(x0, x1, h), tmax = Math.min(36, Math.floor(h * .25)), mini = tmax;
+        lignes.forEach(function (l) { mini = Math.min(mini, tailleAdv(maj(l.adv), za.larg, h - 18, tmax)); });
+        plafondAdv = mini + 3;
+      }
+      /* Salle : le nom en capitales, la ville en dessous (20 px au moins, sur deux lignes s'il le faut), centrés dans la colonne. */
+      function blocSalle(salle, x, cy, largeur, hauteur) {
+        var parts = String(salle).split(' – '), nom = maj(parts[0]), ville = parts.length > 1 ? maj(parts.slice(1).join(' – ')) : '';
+        var zn = Math.max(18, Math.min(25, Math.floor(hauteur * .23))), zv = Math.max(18, Math.min(22, Math.round(zn * .88)));
+        var bv = ville ? blocT(ville, function (z) { return titre(z); }, zv, Math.min(18, zv), largeur, hauteur * .5, 1.02, 2) : null;
+        /* Affiche très chargée seulement : plutôt une ville plus petite qu'une ville coupée. */
+        if (bv && bv.coupe) bv = blocT(ville, function (z) { return titre(z); }, zv, 13, largeur, hauteur * .5, 1.02, 2);
+        var hv = bv ? bv.lignes.length * bv.pas + 2 : 0;
+        var b = blocT(nom, function (z) { return titre(z); }, zn, 15, largeur, hauteur - hv, 1.02, 3);
+        var tot = b.lignes.length * b.pas + hv, y = cy - tot / 2;
+        b.lignes.forEach(function (ln, k) { T(ln, x, y + b.taille * .8 + k * b.pas, b.taille, { c: K.encre }); });
+        if (bv) bv.lignes.forEach(function (ln, k) { T(ln, x, y + b.lignes.length * b.pas + 2 + bv.taille * .8 + k * bv.pas, bv.taille, { c: K.vif }); });
+      }
+      function carteRdv(l, i, y, h, colonne) {
+        var cy = y + h / 2;
+        carteFond(i, y, h);
+        blocBleu(50, y + 8, 160, h - 16);
+        var hz = Math.min(l.heure ? 76 : 58, Math.floor((h - 16) * .56));
+        TT(l.heure || l.jourCourt, 130, cy + hz * .35, hz, 22, 144, { it: true, al: 'center', ls: 1 });
+        division(l.code, 266, cy, h, 92);
+        separateur(318, y, h);
+        equipes(l, 330, finRdv(colonne), cy, h);
+        if (colonne) {
+          separateur(812, y, h);
+          var salle = l.salle || (s.lieu === 'dom' ? s.salleDom : '');
+          var tp = Math.min(40, Math.floor(h * .34));
+          if (salle) {
+            picto('lieu', 822, cy - tp / 2, tp, K.vif);
+            blocSalle(salle, 822 + tp + 6, cy, W - XC - 12 - (822 + tp + 6), h - 16);
+          } else {
+            /* Salle pas encore connue : on le dit, sans rien deviner. */
+            picto('lieu', 822, cy - tp / 2, tp, '#9aa5b8');
+            paragraphe('LIEU À CONFIRMER', 822 + tp + 6, cy, W - XC - 12 - (822 + tp + 6), h - 16, Math.max(18, Math.min(24, Math.floor(h * .2))), 16, 2, { c: '#7d889c' });
+          }
+        }
+      }
+      function finRdv(colonne) { return colonne ? 806 : W - XC - 14; }
+      function carteRes(l, i, y, h) {
+        var cy = y + h / 2;
+        carteFond(i, y, h);
+        blocBleu(50, y + 8, 176, h - 16, l.v);
+        var sz = Math.min(64, Math.floor((h - 16) * .44)), lz = Math.max(12, Math.min(20, Math.floor(h * .14))), etiq = l.v === true ? 'VICTOIRE' : l.v === false ? 'DÉFAITE' : '';
+        var tot = sz * .78 + (etiq ? 8 + lz : 0), top = cy - tot / 2;
+        TT(l.bcr + ' - ' + l.ad, 138, top + sz * .78, sz, 24, 160, { it: true, al: 'center' });
+        if (etiq) T(etiq, 138, top + sz * .78 + 8 + lz * .85, lz, { al: 'center', ls: 3, c: l.v === true ? '#ffffff' : 'rgba(255,255,255,.8)' });
+        division(l.code, 282, cy, h, 96);
+        separateur(338, y, h);
+        equipes(l, 350, 868, cy, h);
+        separateur(878, y, h);
+        if (l.lieuTxt) {
+          /* Icône au-dessus, « À DOMICILE » / « À L'EXTÉRIEUR » sur une seule ligne en dessous, centrés dans la colonne. */
+          var dom = /domicile/i.test(l.lieuTxt), ccx = (878 + W - XC) / 2, lw = W - XC - 878 - 20;
+          var tp = Math.max(22, Math.min(40, Math.floor(h * .28))), al = ajusteLigne(maj(l.lieuTxt), Math.max(18, Math.min(24, Math.floor(h * .18))), 16, lw, {});
+          var tot = tp + 8 + al.z * .8, top = cy - tot / 2;
+          picto(dom ? 'maison' : 'avion', ccx - tp / 2, top, tp, K.vif);
+          T(al.t, ccx, top + tp + 8 + al.z * .8, al.z, { al: 'center', c: K.encre });
+        }
+      }
+
+      var BAND = 1172;
+      G('tb', 'lin', [50, 0, 230, 0], [[0, K.eclat], [.45, K.vif], [1, K.fonce]]);
+      if (s.modele === 'couverture') {
+        fondAffiche(520);
+        blasonClub(150, 150, 98);
+        petitTitre(640, 108, 280, 1040, 40);
+        var res = s.mode === 'res';
+        grosTitre(res ? 'RÉSULTATS' : 'RENDEZ-VOUS', 'DU WEEK-END', W / 2, 436, 600, 210, 196, W - 2 * 56);
+        /* Pastille des dates (sur deux lignes si le week-end compte deux jours). */
+        var dt = maj(s.dates || ''), morceaux = dt.split(' & '), py = 688, ph = morceaux.length > 1 ? 196 : 132;
+        PA(rr(56, py + 8, W - 112, ph, 40), { f: K.nuit, op: .5 });
+        PA(rr(56, py, W - 112, ph, 40), { f: G('pd', 'lin', [56, 0, W - 56, 0], [[0, K.vif], [.6, K.fonce], [1, K.vif]]) });
+        PA(rr(56, py, W - 112, ph, 40), { s: K.clair, lw: 3, op: .7 });
+        /* Deux lignes équilibrées : « SAMEDI 7 & DIMANCHE 8 » puis « NOVEMBRE 2026 » quand le mois est commun ;
+           sinon chaque jour sur sa ligne (« SAMEDI 31 OCTOBRE & » / « DIMANCHE 1er NOVEMBRE 2026 »). Le texte reste celui fourni. */
+        var tw = W - 112 - 2 * 40 - 130, lgs;
+        if (morceaux.length > 1) {
+          var mm = /^(.*\d+(?:er)?)\s+([^\d&]+?(?:\s+\d{4})?)$/.exec(dt);
+          lgs = mm && /\d(?:er)?$/.test(morceaux[0]) ? [mm[1], mm[2]] : [morceaux[0] + ' &', morceaux.slice(1).join(' & ')];
+        } else lgs = [dt];
+        var zd = 74, wl = 0;
+        lgs.forEach(function (x) { zd = Math.min(zd, ajusteLigne(x, 74, 30, tw, { ls: 1 }).z); });
+        lgs = lgs.map(function (x) { var a = ajusteLigne(x, zd, 30, tw, { ls: 1 }); wl = Math.max(wl, a.w); return a.t; });
+        var gx = (W - (100 + 30 + wl)) / 2, tcx = gx + 130 + wl / 2, hl = zd * 1.1, ty0 = py + ph / 2 - (lgs.length * hl) / 2;
+        picto('calendrier', gx, py + ph / 2 - 50, 100, '#ffffff');
+        lgs.forEach(function (x, k) { T(x, tcx, ty0 + k * hl + zd * .86, zd, { al: 'center', ls: 1 }); });
+        /* Comptes : matchs à domicile / à l'extérieur, ou victoires. */
+        var c = s.compte || {}, rangs = [];
+        if (res) {
+          rangs.push(['ballon', c.v + (c.v > 1 ? ' VICTOIRES' : ' VICTOIRE') + ' SUR ' + c.n + (c.n > 1 ? ' MATCHS' : ' MATCH')]);
+        } else {
+          if (c.dom) rangs.push(['maison', c.dom + (c.dom > 1 ? ' MATCHS' : ' MATCH') + ' À DOMICILE']);
+          if (c.ext) rangs.push(['avion', c.ext + (c.ext > 1 ? ' MATCHS' : ' MATCH') + ' À L\'EXTÉRIEUR']);
+        }
+        var haut0 = py + ph + 34, dispo = BAND - 24 - haut0, pas = Math.min(104, dispo / Math.max(1, rangs.length)), y0r = haut0 + (dispo - pas * rangs.length) / 2;
+        rangs.forEach(function (rg, k) {
+          var a = ajusteLigne(rg[1], 70, 32, W - 2 * 80 - 100, { it: true, ls: 1 }), larg = 84 + a.w, x0 = (W - larg) / 2, yb = y0r + pas * k + pas / 2;
+          picto(rg[0], x0, yb - 34, 66, K.eclat, rg[0] === 'ballon' ? { lw: 8 } : {});
+          T(a.t, x0 + 84, yb + a.z * .34, a.z, { it: true, ls: 1 });
+        });
+        bandeau(BAND);
       } else {
-        R(0, 0, W, 230, th.fond);
-        logo(LOGO, 'BCR', M + 82, 115, 78);
-        var xt = M + 2 * 78 + 36;
-        T('BASKET CLUB DE ROUXMESNIL', xt, 84, 36, { ls: 4, c: 'rgba(255,255,255,.92)' });
-        TT(maj(s.titre), xt, 186, 112, 52, W - M - xt, { it: true, ls: 1 });
-        R(0, 230, W, 120, CA.haut);
-        var pill = s.modele === 'resultats' ? 'RÉSULTATS' : s.lieu === 'dom' ? 'À DOMICILE' : 'À L\'EXTÉRIEUR';
-        if (s.suite) pill += ' · ' + s.suite;
-        TT(pill, M, 312, 68, 40, 430, { it: true, c: th.accent, ls: 2 });
-        if (s.modele === 'resultats') { if (s.resume) TT(s.resume, W - M, 306, 40, 22, W - 2 * M - 450, { al: 'right', c: CA.clair, it: true, ls: 1 }); }
-        else if (s.lieu === 'dom' && s.salleDom) TT(s.salleDom, W - M, 304, 34, 18, W - 2 * M - 450, { f: 'x', al: 'right', c: CA.clair });
-        var n = s.lignes.length, top = 372, bas = 1218, rh = Math.min(190, Math.floor((bas - top) / Math.max(1, n))), dec = Math.floor(((bas - top) - n * rh) / 2);
-        s.lignes.forEach(function (l, i) { (s.modele === 'resultats' ? rangeeRes : rangeeRdv)(l, i, top + dec + i * rh, rh); });
-        pied();
+        var resu = s.modele === 'resultats';
+        fondAffiche(250);
+        /* Six matchs ou plus : en-tête plus compact, pour laisser de la place aux cartes. */
+        var lignes = s.lignes || [], n = lignes.length, dense = n >= 6;
+        var E = dense ? { bx: 132, by: 150, br: 86, ty: 56, tz: 30, y1: 166, y2: 268, z1: 118, z2: 108, py: 314, ph: 62, dz: 40, top: 400 }
+          : { bx: 150, by: 196, br: 104, ty: 68, tz: 34, y1: 214, y2: 342, z1: 156, z2: 146, py: 398, ph: 70, dz: 46, top: 500 };
+        blasonClub(E.bx, E.by, E.br);
+        petitTitre(672, E.ty, 300, 1040, E.tz);
+        grosTitre(resu ? 'RÉSULTATS' : 'RENDEZ-VOUS', 'DU WEEK-END', 672, E.y1, E.y2, E.z1, E.z2, 1040 - 304);
+        /* Pastille de la date, puis « À domicile » / « À l'extérieur » (ou le bilan du jour). */
+        var dtj = maj(s.titre || '') + (s.suite ? ' · ' + s.suite : '');
+        var ad = ajusteLigne(dtj, E.dz, 26, 470, { ls: 1 }), pw = Math.max(330, Math.min(600, 88 + ad.w + 34)), y2 = E.py, h2 = E.ph;
+        /* Le groupe « pastille + lieu (ou bilan) » est centré sur l'axe des cartes. */
+        var droite = '', ld = 0, dz = 0, ico = 0;
+        if (resu) { if (s.resume) { droite = maj(s.resume); ico = 72; dz = dense ? 52 : 56; } }
+        else { droite = s.lieu === 'dom' ? 'À DOMICILE' : 'À L\'EXTÉRIEUR'; ico = 78; dz = dense ? 54 : 60; }
+        var ard = droite ? ajusteLigne(droite, dz, resu ? 26 : 30, W - 80 - pw - 34 - ico, { it: true, ls: 1 }) : null;
+        var grp = pw + (ard ? 34 + ico + ard.w : 0), xg = Math.max(40, Math.round((W - grp) / 2));
+        PA(rr(xg, y2 + 5, pw, h2, 35), { f: K.nuit, op: .5 });
+        PA(rr(xg, y2, pw, h2, 35), { f: G('pj', 'lin', [xg, 0, xg + pw, 0], [[0, K.vif], [1, K.fonce]]) });
+        PA(rr(xg, y2, pw, h2, 35), { s: K.clair, lw: 3, op: .7 });
+        picto('calendrier', xg + 22, y2 + h2 / 2 - 22, 44, '#ffffff');
+        T(ad.t, xg + 82, y2 + h2 / 2 + ad.z * .35, ad.z, { ls: 1 });
+        var x3 = xg + pw + 34;
+        if (resu) {
+          if (ard) {
+            picto('ballon', x3, y2 + h2 / 2 - 28, 56, K.eclat, { lw: 8 });
+            T(ard.t, x3 + 72, y2 + h2 / 2 + ard.z * .35, ard.z, { it: true, ls: 1 });
+          }
+        } else {
+          var al = ard;
+          picto(s.lieu === 'dom' ? 'maison' : 'avion', x3, y2 + h2 / 2 - 31, 62, '#ffffff');
+          T(al.t, x3 + 78, y2 + h2 / 2 + al.z * .35, al.z, { it: true, ls: 1 });
+          PA('M' + (x3 + 80) + ' ' + (y2 + h2 + 8) + 'Q' + n1(x3 + 80 + al.w / 2) + ' ' + (y2 + h2 - 2) + ' ' + n1(x3 + 80 + al.w) + ' ' + (y2 + h2 + 2) + 'L' + n1(x3 + 76 + al.w) + ' ' + (y2 + h2 + 10) + 'Q' + n1(x3 + 80 + al.w / 2) + ' ' + (y2 + h2 + 6) + ' ' + (x3 + 84) + ' ' + (y2 + h2 + 16) + 'Z', { f: K.eclat });
+        }
+        /* Les cartes : hauteur selon le nombre de matchs, empilées au centre de la zone. */
+        var top = E.top, bas = BAND - 18, ecart = dense ? 10 : 12;
+        var rh = Math.min(n <= 1 ? 236 : n === 2 ? 212 : n === 3 ? 188 : 150, Math.floor((bas - top + ecart) / Math.max(1, n))), dec = Math.floor(((bas - top + ecart) - n * rh) / 2);
+        var colonne = !resu && lignes.some(function (l) { return l.salle; }) || (!resu && s.lieu === 'dom' && !!s.salleDom);
+        uniformiserAdv(lignes, resu ? 350 : 330, resu ? 868 : finRdv(colonne), rh - ecart);
+        lignes.forEach(function (l, i) {
+          var y = top + dec + i * rh, h = rh - ecart;
+          if (resu) carteRes(l, i, y, h); else carteRdv(l, i, y, h, colonne);
+        });
+        bandeau(BAND);
       }
       return { prims: P, largeur: W, hauteur: HP, alt: s.alt || '' };
     });
   }
   function svgAffiche(mep, pref) {
-    var o = [], defs = [], n = 0;
+    var o = [], defs = [], n = 0, ouverts = 0;
     var FT = 'font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif" font-weight="700"', FX = 'font-family="Source Sans 3, Arial, sans-serif"';
+    function fill(f) { return f && typeof f === 'object' ? 'url(#' + pref + 'g' + f.g + ')' : f; }
+    function op(v) { return v !== undefined && v !== null && v < 1 ? ' opacity="' + v + '"' : ''; }
     mep.prims.forEach(function (p) {
-      if (p.k === 'rect') o.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" fill="' + p.f + '"/>');
+      if (p.k === 'grad') {
+        var st = p.st.map(function (x) { return '<stop offset="' + x[0] + '" stop-color="' + x[1] + '"' + (x[2] !== undefined ? ' stop-opacity="' + x[2] + '"' : '') + '/>'; }).join('');
+        defs.push(p.type === 'rad'
+          ? '<radialGradient id="' + pref + 'g' + p.id + '" gradientUnits="userSpaceOnUse" cx="' + p.c[0] + '" cy="' + p.c[1] + '" r="' + p.c[2] + '">' + st + '</radialGradient>'
+          : '<linearGradient id="' + pref + 'g' + p.id + '" gradientUnits="userSpaceOnUse" x1="' + p.c[0] + '" y1="' + p.c[1] + '" x2="' + p.c[2] + '" y2="' + p.c[3] + '">' + st + '</linearGradient>');
+      } else if (p.k === 'rect') o.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" fill="' + fill(p.f) + '"' + op(p.op) + '/>');
+      else if (p.k === 'path') {
+        var at = ' d="' + p.d + '" fill="' + (p.f ? fill(p.f) : 'none') + '"' + (p.pair ? ' fill-rule="evenodd"' : '')
+          + (p.s ? ' stroke="' + p.s + '" stroke-width="' + p.lw + '" stroke-linecap="round" stroke-linejoin="round"' : '') + op(p.op);
+        o.push(p.tr ? '<path transform="translate(' + p.tr[0] + ' ' + p.tr[1] + ') scale(' + p.tr[2] + ')"' + at + '/>' : '<path' + at + '/>');
+      } else if (p.k === 'clip') {
+        var ck = pref + 'k' + (n++);
+        defs.push('<clipPath id="' + ck + '"><path d="' + p.d + '"/></clipPath>');
+        o.push('<g clip-path="url(#' + ck + ')">'); ouverts++;
+      } else if (p.k === 'finclip') { if (ouverts) { o.push('</g>'); ouverts--; } }
       else if (p.k === 'logo') {
-        var id = pref + 'c' + (n++);
-        o.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '" fill="' + (p.src ? '#000' : '#1c2320') + '"' + (p.src ? '' : ' stroke="#3a443f" stroke-width="4"') + '/>');
+        var id = pref + 'c' + (n++), blanc = p.fond === 'blanc';
         if (p.src) {
-          defs.push('<clipPath id="' + id + '"><circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '"/></clipPath>');
-          o.push('<image href="' + esc(p.src) + '" x="' + (p.cx - p.r) + '" y="' + (p.cy - p.r) + '" width="' + 2 * p.r + '" height="' + 2 * p.r + '" preserveAspectRatio="xMidYMid meet" clip-path="url(#' + id + ')"/>');
+          var ri = blanc ? p.r * .8 : p.r;
+          o.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '" fill="' + (blanc ? '#fff' : '#000') + '"' + (blanc ? ' stroke="' + (p.anneau || '#d5e0f3') + '" stroke-width="' + n1(Math.max(2, p.r * .07)) + '"' : '') + '/>');
+          defs.push('<clipPath id="' + id + '"><circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + n1(blanc ? p.r * .9 : p.r) + '"/></clipPath>');
+          o.push('<image href="' + esc(p.src) + '" x="' + n1(p.cx - ri) + '" y="' + n1(p.cy - ri) + '" width="' + n1(2 * ri) + '" height="' + n1(2 * ri) + '" preserveAspectRatio="xMidYMid meet" clip-path="url(#' + id + ')"/>');
         } else {
-          o.push('<text x="' + p.cx + '" y="' + (p.cy + p.r * .26) + '" text-anchor="middle" fill="#fff" font-size="' + Math.round(p.r * .78) + '" ' + FT + '>' + esc(maj(p.sig)) + '</text>');
+          o.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '" fill="' + (p.rep || '#1c2320') + '"' + (p.rep ? '' : ' stroke="#3a443f" stroke-width="4"') + '/>');
+          o.push('<text x="' + p.cx + '" y="' + n1(p.cy + p.r * .26) + '" text-anchor="middle" fill="#fff" font-size="' + Math.round(p.r * (p.zs || .74)) + '" ' + FT + '>' + esc(maj(p.sig)) + '</text>');
         }
       } else if (p.k === 'txt') {
         if (!p.t) return;
-        o.push('<text x="' + p.x + '" y="' + Math.round(p.y * 10) / 10 + '" font-size="' + p.taille + '" fill="' + p.c + '" text-anchor="' + (p.al === 'center' ? 'middle' : p.al === 'right' ? 'end' : 'start') + '" '
-          + (p.f === 't' ? FT + (p.it ? ' font-style="italic"' : '') : FX + (p.gras ? ' font-weight="700"' : '')) + (p.ls ? ' letter-spacing="' + p.ls + '"' : '') + '>' + esc(p.t) + '</text>');
+        o.push('<text x="' + n1(p.x) + '" y="' + n1(p.y) + '" font-size="' + p.taille + '" fill="' + p.c + '" text-anchor="' + (p.al === 'center' ? 'middle' : p.al === 'right' ? 'end' : 'start') + '" '
+          + (p.f === 't' ? FT + (p.it ? ' font-style="italic"' : '') : FX + (p.gras ? ' font-weight="700"' : '')) + (p.ls ? ' letter-spacing="' + p.ls + '"' : '') + op(p.op) + '>' + esc(p.t) + '</text>');
       } else if (p.k === 'emb') {
         var d = EMBLEMES[p.type]; if (!d) return;
         o.push('<g transform="translate(' + p.x + ' ' + p.y + ') scale(' + p.t / 100 + ')">'
@@ -407,24 +725,52 @@
           + d.trait.map(function (v) { return '<path d="' + v + '" fill="none" stroke="' + p.c + '" stroke-width="' + d.lw + '" stroke-linecap="round" stroke-linejoin="round"/>'; }).join('') + '</g>');
       }
     });
+    while (ouverts-- > 0) o.push('</g>');
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + mep.largeur + ' ' + mep.hauteur + '" role="img" aria-label="' + esc(mep.alt) + '" focusable="false"><defs>' + defs.join('') + '</defs>' + o.join('') + '</svg>';
   }
   function peindreAffiche(ctx, mep, ims) {
+    var grads = {}, ouverts = 0;
+    function fill(f) {
+      if (!f || typeof f !== 'object') return f;
+      var g = grads[f.g]; if (!g) return 'transparent';
+      return g;
+    }
     mep.prims.forEach(function (p) {
-      if (p.k === 'rect') { ctx.fillStyle = p.f; ctx.fillRect(p.x, p.y, p.w, p.h); }
+      if (p.k === 'grad') {
+        var g = p.type === 'rad' ? ctx.createRadialGradient(p.c[0], p.c[1], 0, p.c[0], p.c[1], p.c[2]) : ctx.createLinearGradient(p.c[0], p.c[1], p.c[2], p.c[3]);
+        p.st.forEach(function (x) { g.addColorStop(x[0], rgba(x[1], x[2])); });
+        grads[p.id] = g;
+      } else if (p.k === 'rect') {
+        ctx.save(); ctx.globalAlpha = p.op === undefined || p.op === null ? 1 : p.op; ctx.fillStyle = fill(p.f); ctx.fillRect(p.x, p.y, p.w, p.h); ctx.restore();
+      } else if (p.k === 'path') {
+        ctx.save(); ctx.globalAlpha = p.op;
+        if (p.tr) { ctx.translate(p.tr[0], p.tr[1]); ctx.scale(p.tr[2], p.tr[2]); }
+        var ch = new Path2D(p.d);
+        if (p.f) { ctx.fillStyle = fill(p.f); ctx.fill(ch, p.pair ? 'evenodd' : 'nonzero'); }
+        if (p.s) { ctx.strokeStyle = p.s; ctx.lineWidth = p.lw; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke(ch); }
+        ctx.restore();
+      } else if (p.k === 'clip') { ctx.save(); ctx.clip(new Path2D(p.d)); ouverts++; }
+      else if (p.k === 'finclip') { if (ouverts) { ctx.restore(); ouverts--; } }
       else if (p.k === 'logo') {
-        var im = p.src ? ims[p.src] : null;
-        if (im) logoRond(ctx, im, p.cx, p.cy, p.r);
-        else {
-          rond(ctx, p.cx, p.cy, p.r, p.src ? '#000' : '#1c2320', p.src ? null : '#3a443f');
-          if (!p.src) { ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = titre(Math.round(p.r * .78)); espacement(ctx, 0); ctx.fillText(maj(p.sig), p.cx, p.cy + p.r * .26); ctx.textAlign = 'left'; }
+        var im = p.src ? ims[p.src] : null, blanc = p.fond === 'blanc';
+        if (p.src) {
+          rond(ctx, p.cx, p.cy, p.r, blanc ? '#fff' : '#000');
+          if (blanc) { ctx.beginPath(); ctx.arc(p.cx, p.cy, p.r, 0, Math.PI * 2); ctx.lineWidth = n1(Math.max(2, p.r * .07)); ctx.strokeStyle = p.anneau || '#d5e0f3'; ctx.stroke(); }
+          if (im) {
+            var ri = blanc ? p.r * .8 : p.r;
+            ctx.save(); ctx.beginPath(); ctx.arc(p.cx, p.cy, blanc ? p.r * .9 : p.r, 0, Math.PI * 2); ctx.clip(); contenir(ctx, im, p.cx - ri, p.cy - ri, ri * 2, ri * 2); ctx.restore();
+          }
+        } else {
+          rond(ctx, p.cx, p.cy, p.r, p.rep || '#1c2320', p.rep ? null : '#3a443f');
+          ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = titre(Math.round(p.r * (p.zs || .74))); espacement(ctx, 0); ctx.fillText(maj(p.sig), p.cx, p.cy + p.r * .26); ctx.textAlign = 'left';
         }
       } else if (p.k === 'txt') {
         if (!p.t) return;
+        ctx.save(); ctx.globalAlpha = p.op === undefined ? 1 : p.op;
         ctx.font = p.f === 't' ? titre(p.taille, p.it) : texte(p.taille, p.gras);
         ctx.fillStyle = p.c; ctx.textAlign = p.al; espacement(ctx, p.ls);
         ctx.fillText(p.t, p.x + (p.al === 'center' && p.ls ? p.ls / 2 : 0), p.y);
-        espacement(ctx, 0); ctx.textAlign = 'left';
+        espacement(ctx, 0); ctx.restore(); ctx.textAlign = 'left';
       } else if (p.k === 'emb') {
         var d = EMBLEMES[p.type]; if (!d) return;
         ctx.save(); ctx.translate(p.x, p.y); ctx.scale(p.t / 100, p.t / 100);
@@ -433,6 +779,7 @@
         ctx.restore();
       }
     });
+    while (ouverts-- > 0) ctx.restore();
   }
   function dessinerAffiche(spec) {
     return mettreEnPage(spec).then(function (mep) {
