@@ -1,0 +1,251 @@
+/* Page « Le TikTok du BCR » (presentation/tiktok.html), à montrer au président sur un téléphone.
+   Polices du club hébergées dans ../fonts (licence SIL OFL 1.1, voir fonts/LICENCES.txt), mêmes polices de repli que style.css.
+   Page claire d'un bout à l'autre ; les seuls objets foncés sont les cadres verticaux et le bloc des règles pour les enfants. */
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/barlow-condensed-600.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/barlow-condensed-700.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:italic;font-weight:600;font-display:swap;src:url(../fonts/barlow-condensed-600-italic.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:italic;font-weight:700;font-display:swap;src:url(../fonts/barlow-condensed-700-italic.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400 700;font-display:swap;src:url(../fonts/source-sans-3.woff2) format("woff2")}
+@font-face{font-family:"Barlow repli";font-style:normal;font-weight:600 700;src:local("Arial Bold"),local("Arial-BoldMT");size-adjust:66%;ascent-override:151.5%;descent-override:30.3%;line-gap-override:0%}
+@font-face{font-family:"Barlow repli";font-style:italic;font-weight:600 700;src:local("Arial Bold Italic"),local("Arial-BoldItalicMT");size-adjust:66%;ascent-override:151.5%;descent-override:30.3%;line-gap-override:0%}
+@font-face{font-family:"Source repli";font-style:normal;font-weight:400;src:local("Arial"),local("ArialMT");size-adjust:91.7%;ascent-override:111.7%;descent-override:43.6%;line-gap-override:0%}
+@font-face{font-family:"Source repli";font-style:normal;font-weight:600 700;src:local("Arial Bold"),local("Arial-BoldMT");size-adjust:90%;ascent-override:113.8%;descent-override:44.4%;line-gap-override:0%}
+
+:root{
+  --fond:#f3f4f1;          /* fond de la page, jamais de blanc pur */
+  --papier:#fdfdfb;        /* seulement la carte du message de la semaine (blanc cassé) */
+  --coller:#e5e8e3;        /* fond du texte à coller */
+  --encre:#171a20;
+  --encre-douce:#4f5866;   /* 6,6:1 sur le fond */
+  --vert:#1f7a3f;          /* vert du club : 4,9:1 sur le fond */
+  --vert-fonce:#155a2d;
+  --vif:#46c46f;           /* seulement sur fond noir */
+  --noir:#080a09;
+  --nuit:#030a22;          /* fond des affiches de novembre (Movember) */
+  --gris:#c9cdca;
+  --trait:rgba(23,26,32,.14);
+  --titre:"Barlow Condensed","Barlow repli",system-ui,sans-serif;
+  --texte:"Source Sans 3","Source repli",system-ui,sans-serif;
+  --colonne:46rem;
+  --cadre:min(76vw,300px);
+}
+*{box-sizing:border-box}
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--fond);color:var(--encre);font-family:var(--texte);font-size:1.125rem;line-height:1.5;overflow-wrap:break-word}
+img,svg{display:block;max-width:100%;height:auto}
+p{margin:0 0 .8em}
+h1,h2,h3,h4{hyphens:none;overflow-wrap:normal;word-break:normal;text-wrap:balance}
+a{color:var(--vert-fonce);text-underline-offset:.18em;text-decoration-thickness:.08em}
+:focus-visible{outline:3px solid var(--vert);outline-offset:3px;border-radius:2px}
+.evitement{position:absolute;left:16px;top:-60px;background:var(--noir);color:#fff;padding:10px 14px;z-index:5;border-radius:4px}
+.evitement:focus{top:12px}
+
+.colonne{width:100%;max-width:calc(var(--colonne) + 32px);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.bloc{padding-top:2.75rem}
+h2{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:clamp(2rem,8.4vw,2.6rem);line-height:.98;letter-spacing:.005em;margin:0 0 .5em}
+h3{font-family:var(--titre);font-weight:700;font-size:1.4rem;line-height:1.1;margin:1.4em 0 .5em}
+h4{font-family:var(--titre);font-weight:700;font-size:1.2rem;line-height:1.15;margin:1em 0 .3em}
+.sous-titre{font-weight:600;color:var(--encre-douce);margin-top:-.4em}
+.petit{font-size:.95rem;color:var(--encre-douce)}
+.lib{font-weight:700}
+.trou{background:#dfe7df;border-bottom:2px dashed var(--vert);padding:0 .15em;font-weight:600;white-space:nowrap}
+.marque{display:inline-block;font-family:var(--texte);font-size:.82rem;font-weight:700;line-height:1.3;color:var(--vert-fonce);border:1.5px solid currentColor;border-radius:4px;padding:0 .45em;vertical-align:.12em;font-style:normal;text-transform:none;letter-spacing:0}
+
+/* ---------- En-tête ---------- */
+.tete{padding-top:max(18px,env(safe-area-inset-top))}
+.tete-club{display:flex;align-items:center;gap:10px;font-weight:600;font-size:1rem;color:var(--encre-douce);margin:0 0 1.4rem}
+.tete-logo{width:44px;height:auto;border-radius:50%;background:var(--noir)}
+h1{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:clamp(3.6rem,17vw,6.4rem);line-height:.86;letter-spacing:-.005em;margin:0 0 .3em;color:var(--noir)}
+.chapeau{font-size:1.25rem;line-height:1.4;max-width:32ch;margin-bottom:1.4rem}
+.tete-photo{margin:0}
+.tete-photo img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:60% 50%;border-radius:6px}
+.tete-photo figcaption{font-size:.9rem;color:var(--encre-douce);margin-top:.4rem}
+
+/* ---------- Le principe ---------- */
+.engagement{font-weight:600;border-top:2px solid var(--encre);border-bottom:2px solid var(--encre);padding:.7em 0;margin:1.1em 0}
+.gestes{list-style:none;padding:0;margin:0 0 1em;counter-reset:geste}
+.gestes li{counter-increment:geste;display:grid;grid-template-columns:2.6rem 1fr;align-items:baseline;padding:.45em 0;border-bottom:1px solid var(--trait)}
+.gestes li::before{content:counter(geste);font-family:var(--titre);font-style:italic;font-weight:700;font-size:2rem;line-height:1;color:var(--vert)}
+.premiere-fois{font-weight:600}
+
+/* ---------- Le mois d'un coup d'œil ---------- */
+.mois{list-style:none;padding:0;margin:0 0 .8em;border-top:2px solid var(--encre)}
+.mois li{padding:.7em 0 .5em;border-bottom:1px solid var(--trait)}
+.mois p{margin:0 0 .25em;font-size:1.05rem}
+.mois-date{display:inline-flex;align-items:center;min-height:44px;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;font-size:1.55rem;line-height:1;color:var(--vert-fonce);margin-right:.35em}
+@media (min-width:760px){
+  .mois li{display:grid;grid-template-columns:13rem 1fr;column-gap:1.2rem;align-items:start}
+  .mois li > .marque{grid-column:1;justify-self:start;margin-top:-.2em}
+  .mois li > p{grid-column:2}
+  .mois li > p:first-of-type{grid-row:1;padding-top:.55em}
+  .mois-date{grid-row:1}
+}
+
+/* ---------- Le rythme (une vraie suite : frise) ---------- */
+.frise{list-style:none;padding:0;margin:0 0 1em;position:relative}
+.frise li{position:relative;padding:0 0 1.1em 1.8rem}
+.frise li::before{content:"";position:absolute;left:.3rem;top:.35em;width:.85rem;height:.85rem;border-radius:50%;background:var(--vert)}
+.frise li::after{content:"";position:absolute;left:.66rem;top:1.4em;bottom:.1em;width:2px;background:var(--vert);opacity:.45}
+.frise li:last-child::after{display:none}
+.frise-quand{font-weight:700;color:var(--vert-fonce);margin:0 0 .15em}
+.frise h3{margin:0 0 .25em;font-size:1.3rem}
+.frise p:last-child{margin-bottom:0}
+
+/* ---------- Les enfants (conteneur vert plein, dans la colonne) ---------- */
+.enfants{background:var(--vert-fonce);color:#fff;border-radius:8px;padding:1.4rem 1.1rem 1.1rem}
+.enfants h2{color:#fff;margin-bottom:.25em}
+.enfants-rappel{font-weight:600;color:#e3efe6}
+.regles{list-style:none;padding:0;margin:0 0 1rem}
+.regles li{position:relative;padding:.5em 0 .5em 1.3rem;border-top:1px solid rgba(255,255,255,.22)}
+.regles li::before{content:"";position:absolute;left:0;top:1.15em;width:.7rem;height:3px;background:var(--vif)}
+.enfants > .regles li{font-weight:600;font-size:1.15rem}
+.autres summary{display:inline-flex;align-items:center;min-height:44px;padding:.35em .9em;border:2px solid #fff;border-radius:6px;font-weight:700;cursor:pointer;list-style:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+.autres summary::-webkit-details-marker{display:none}
+.autres summary::after{content:"+";font-size:1.3em;line-height:1;margin-left:.5em}
+.autres[open] summary::after{content:"\2212"}
+.autres summary:active{background:rgba(255,255,255,.16)}
+.autres[open] summary{margin-bottom:.8rem}
+.autres .regles{margin-bottom:0}
+
+/* ---------- Listes simples ---------- */
+.liste{list-style:none;padding:0;margin:0}
+.liste li{position:relative;padding:.55em 0 .55em 1.3rem;border-bottom:1px solid var(--trait)}
+.liste li::before{content:"";position:absolute;left:0;top:1.2em;width:.7rem;height:3px;background:var(--vert)}
+
+/* ---------- Le week-end d'exemple ---------- */
+.semaine-exemple{scroll-margin-top:12px}
+.bandeau-exemple{background:var(--noir);color:#fff;border-radius:8px;padding:1.1rem 1.1rem 1rem;margin-bottom:1.3rem}
+.bandeau-marque{display:inline-block;font-weight:700;font-size:.9rem;color:var(--noir);background:var(--vif);border-radius:4px;padding:0 .5em;margin:0 0 .6rem}
+.bandeau-exemple h2{color:#fff;margin:0 0 .3em}
+.bandeau-dates{font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;font-size:1.5rem;line-height:1;color:var(--vif);margin:0}
+
+/* Carte du message : blanche, simple, sans marque d'application */
+.message{background:var(--papier);border:1px solid var(--trait);border-radius:8px;padding:1rem 1rem .4rem;margin:0 0 1.6rem}
+.message-tete{display:flex;align-items:center;gap:.5em;margin:0}
+.message-titre{font-family:var(--titre);font-weight:700;font-size:1.35rem;line-height:1.1}
+.message-quand{color:var(--encre-douce);font-size:1rem;margin:0 0 .7em}
+.message-texte{font-size:1.06rem}
+.message-texte ol{margin:0 0 .8em;padding-left:1.5em}
+.message-texte li{margin-bottom:.25em}
+
+/* Une publication : le jour et l'heure, ce que c'est, le texte à coller */
+.pub{border-top:3px solid var(--encre);padding:.8rem 0 1.4rem}
+.pub-tete{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .7rem;margin-bottom:.7rem}
+.pub-tete h3{margin:0;font-size:1.5rem}
+.genre{display:inline-block;font-weight:700;font-size:.95rem;line-height:1.3;padding:.15em .6em;border-radius:4px}
+.genre.pret{background:var(--vert);color:#fff}
+.genre.filmer{background:var(--noir);color:#fff}
+.pub-images{font-size:1.05rem}
+.pub-images p{margin-bottom:.4em}
+.pub-quand-film{font-weight:600}
+.images{padding-left:1.5em;margin:0 0 .6em}
+.images li{margin-bottom:.25em}
+.lien{display:inline-flex;align-items:center;min-height:44px;font-weight:700}
+
+.coller{background:var(--coller);border-radius:6px;padding:.75rem .85rem .85rem;margin:.6rem 0 0}
+.coller-tete{margin:0 0 .35em;font-size:1rem}
+.coller-tete .marque,.message-tete .marque{margin-left:.35em}
+.coller-texte{font-size:1.06rem;margin:0 0 .7em;-webkit-user-select:text;user-select:text}
+.coller-bas{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .8rem}
+.etat{font-weight:600;color:var(--vert-fonce);font-size:1rem}
+
+.bouton{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.4em 1em;border:2px solid var(--vert);border-radius:6px;background:var(--vert);color:#fff;font:700 1rem/1.2 var(--texte);cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;transition:transform 120ms ease-out,background-color 120ms ease-out}
+.bouton:active{transform:scale(.97);background:var(--vert-fonce)}
+.bouton.ligne{background:transparent;color:var(--vert-fonce)}
+.bouton.ligne:active{background:rgba(31,122,63,.12)}
+@media (hover:hover) and (pointer:fine){
+  .bouton:hover{background:var(--vert-fonce);border-color:var(--vert-fonce);color:#fff}
+  .autres summary:hover{background:rgba(255,255,255,.12)}
+  .semaine summary:hover .semaine-titre{text-decoration:underline}
+  .matchs summary:hover{text-decoration-thickness:.14em}
+}
+
+/* Publication avec aperçu vertical : l'aperçu au-dessus sur téléphone, à gauche sur ordinateur */
+.pub-corps{display:block}
+.pub-corps .lecteur{margin:0 auto 1rem}
+@media (min-width:760px){
+  .avec-cadre .pub-corps{display:grid;grid-template-columns:var(--cadre) 1fr;gap:1.6rem;align-items:start}
+  .pub-corps .lecteur{margin:0}
+  .pub-texte .pub-images:first-child{margin-top:0}
+}
+
+/* ---------- Les cadres verticaux (la taille d'un écran de téléphone) ---------- */
+.lecteur{width:var(--cadre)}
+.cadre{position:relative;width:100%;aspect-ratio:9/16;overflow:hidden;border-radius:6px;border:1px solid var(--gris);background:var(--noir);container-type:inline-size;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.cadre-nuit{background:var(--nuit)}
+.diapo{position:absolute;inset:0;visibility:hidden;opacity:0;transition:opacity 280ms ease-out,visibility 0s linear 280ms}
+.diapo.active{visibility:visible;opacity:1;transition:opacity 280ms ease-out,visibility 0s}
+@media (prefers-reduced-motion:reduce){.diapo,.diapo.active{transition:none}}
+.affiche{display:flex;align-items:center;justify-content:center;padding-bottom:11%}
+.affiche svg{width:100%;height:auto}
+.diapo-repli{color:#fff;font-family:var(--titre);font-weight:700;font-style:italic;text-transform:uppercase;font-size:max(18px,8cqw);line-height:1.05;text-align:center;padding:0 8%;margin:0}
+.affiche.prete .diapo-repli{display:none}
+.carton{display:flex;flex-direction:column;justify-content:center;padding:9cqw 9cqw 22cqw;color:#fff}
+.carton-num{font-family:var(--titre);font-style:italic;font-weight:700;font-size:max(56px,26cqw);line-height:.8;color:var(--vif);margin:0 0 4cqw}
+.carton-picto{width:34cqw;height:34cqw;color:#fff;margin:0 0 6cqw}
+.carton-texte{font-weight:700;font-size:max(16px,7.2cqw);line-height:1.25;margin:0 0 4cqw}
+.carton-petit{font-size:max(14px,5.2cqw);color:var(--gris);margin:0}
+.carton-grand{font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:max(30px,13cqw);line-height:.95;margin:0 0 4cqw;color:#9fcbff}
+.carton-nuit{background:var(--nuit)}
+.carton-nuit .carton-picto{color:#9fcbff}
+.carton-nuit .carton-petit{color:#c3d3ee}
+/* La signature du club : deux bandes obliques, une seule fois, en bas du cadre « à filmer » */
+.bandes{position:absolute;left:-6%;right:-6%;bottom:6cqw;height:9cqw;pointer-events:none}
+.bandes::before,.bandes::after{content:"";position:absolute;top:0;bottom:0;transform:skewX(-14deg)}
+.bandes::before{left:0;width:58%;background:var(--vif)}
+.bandes::after{left:60%;right:0;background:var(--vert)}
+
+/* Commandes sous le cadre, jamais dessus */
+.commandes{margin-top:.6rem}
+.commandes-ligne{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.45rem;font-size:1rem}
+.compteur{font-weight:700;font-variant-numeric:tabular-nums}
+.commandes-boutons{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.commandes-boutons .bouton{padding:.3em .5em;font-size:.95rem}
+.astuce{font-size:.95rem;line-height:1.35;color:var(--encre-douce);margin:.55rem 0 0}
+
+/* ---------- Les 4 week-ends repliés ---------- */
+.semaine{border-top:2px solid var(--encre)}
+.semaine:last-of-type{border-bottom:2px solid var(--encre)}
+.semaine > summary{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:.8rem;min-height:64px;padding:.7rem 0;cursor:pointer;list-style:none;touch-action:manipulation;scroll-margin-top:12px}
+.semaine > summary::-webkit-details-marker{display:none}
+.semaine > summary::after{content:"+";grid-column:2;grid-row:1 / span 2;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:2px solid var(--vert);border-radius:50%;color:var(--vert-fonce);font-size:1.6rem;font-weight:600;line-height:1}
+.semaine[open] > summary::after{content:"\2212"}
+.semaine > summary:active::after{background:rgba(31,122,63,.12)}
+.semaine-date{grid-column:1;font-family:var(--titre);font-style:italic;font-weight:700;text-transform:uppercase;font-size:1.45rem;line-height:1;color:var(--vert-fonce)}
+.semaine-titre{grid-column:1;font-weight:700;font-size:1.15rem;line-height:1.25;margin-top:.2em}
+.semaine-corps{padding:.4rem 0 .6rem}
+.semaine-note{font-weight:600}
+.semaine .pub:last-child{padding-bottom:.6rem}
+
+.matchs{margin:.2rem 0 .4rem}
+.matchs > summary{display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--vert-fonce);text-decoration:underline;text-underline-offset:.18em;cursor:pointer;list-style:none;touch-action:manipulation}
+.matchs > summary::-webkit-details-marker{display:none}
+.matchs > summary::after{content:"+";margin-left:.4em;text-decoration:none;display:inline-block}
+.matchs[open] > summary::after{content:"\2212"}
+.matchs ul{list-style:none;padding:0;margin:0 0 .6em}
+.matchs li{padding:.3em 0;border-bottom:1px solid var(--trait);font-size:1.02rem}
+.matchs h4{margin-top:.7em}
+
+/* ---------- Aperçu des résultats ---------- */
+.apercu .lecteur{margin:0 auto 1.2rem}
+@media (min-width:760px){
+  .apercu{display:grid;grid-template-columns:var(--cadre) 1fr;gap:1.6rem;align-items:start}
+  .apercu .lecteur{margin:0}
+}
+
+/* ---------- Pied ---------- */
+.pied{padding-top:3rem;padding-bottom:max(2rem,env(safe-area-inset-bottom));font-size:.95rem;color:var(--encre-douce)}
+.pied p{margin:0 0 .5em;max-width:60ch}
+.lien-pied{display:inline-flex;align-items:center;min-height:44px}
+.pied::before{content:"";display:block;width:3rem;height:3px;background:var(--vert);margin-bottom:1rem}
+
+/* ---------- Image agrandie ---------- */
+.grand{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;color:#fff}
+.grand[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.grand::backdrop{background:rgba(8,10,9,.92)}
+.grand-cadre{position:relative;height:min(calc(100svh - 110px),calc((100vw - 32px) * 16 / 9));aspect-ratio:9/16;border-radius:6px;overflow:hidden;background:var(--nuit);container-type:inline-size}
+.grand-cadre .diapo{visibility:visible;opacity:1}
+.grand .bouton{min-width:9rem}
+.nw{white-space:nowrap}
+.coller + .petit{margin-top:.6rem}
