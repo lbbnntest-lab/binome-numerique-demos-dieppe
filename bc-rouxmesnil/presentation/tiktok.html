@@ -7,238 +7,128 @@
 <meta name="theme-color" content="#f3f4f1">
 <meta name="color-scheme" content="light">
 <title>Le TikTok du BCR</title>
-<meta name="description" content="Les 4 prochains week-ends du Basket Club de Rouxmesnil en courtes vidéos et en diaporamas : quoi filmer, le texte à coller, l'heure proposée.">
+<meta name="description" content="Le TikTok du Basket Club de Rouxmesnil : vous collez vos photos et vos vidéos, la vidéo du club est prête, voix comprise. Six semaines de publications, semaine par semaine.">
 <link rel="icon" href="../img/favicon-64.png" type="image/png">
 <link rel="preload" href="../fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="tiktok.css">
+<link rel="stylesheet" href="tiktok-studio.css">
 </head>
 <body>
 <a class="evitement" href="#contenu">Aller au contenu</a>
 
+<aside class="vers-appli" aria-labelledby="vers-appli-t">
+  <div class="colonne vers-appli-grille">
+    <p id="vers-appli-t"><strong>Tout se prépare maintenant dans l'appli du club</strong> : Facebook, Instagram et TikTok, à partir des mêmes matchs.</p>
+    <a class="bouton plein" href="../appli/">Ouvrir l'appli du club</a>
+  </div>
+</aside>
+
 <header class="tete colonne">
   <p class="tete-club"><img src="../img/logo-bcr-160.webp" width="160" height="168" alt="" class="tete-logo"> Pour le Basket Club de Rouxmesnil</p>
-  <h1>Le TikTok du BCR</h1>
-  <p class="chapeau">Les 4 prochains week-ends, du 14 novembre au 6 décembre 2026, avec un exemple pour le 7 novembre.</p>
-  <figure class="tete-photo">
-    <picture>
-      <source srcset="../img/salle-tribunes.webp" type="image/webp">
-      <img src="../img/salle-tribunes.jpg" width="1600" height="857" alt="La salle Alexandre-Cheruel vide : le parquet, le rond central, un panier et les tribunes.">
-    </picture>
-    <figcaption>La salle Alexandre-Cheruel.</figcaption>
-  </figure>
+  <div class="tete-grille">
+    <div class="tete-texte">
+      <h1>Le TikTok du BCR</h1>
+      <p class="promesse">Vous collez vos photos et vos vidéos, la vidéo du club est prête, voix comprise. Vous publiez.</p>
+      <div class="demo-commandes">
+        <button type="button" class="bouton plein grand-bouton" id="demo-bouton">Voir un exemple</button>
+        <p class="demo-aide" id="demo-aide">La vidéo se fabrique ici, dans ce téléphone, avec les vrais résultats du samedi 31 octobre. Rien à coller.</p>
+        <p class="demo-aide" id="demo-voix" hidden>La première fois, la voix se télécharge dans le téléphone : environ 90 Mo, en Wi-Fi de préférence.</p>
+      </div>
+    </div>
+    <figure class="ecran" id="demo-ecran">
+      <img class="ecran-attente" src="../img/salle-tribunes.jpg" width="1600" height="857" alt="La salle Alexandre-Cheruel vide : le parquet, un panier et les tribunes.">
+      <figcaption class="ecran-legende">Exemple : les résultats du samedi 31 octobre</figcaption>
+      <div class="avancement ecran-avancement" id="demo-avancement" hidden>
+        <div class="barre" aria-hidden="true"><span></span></div>
+        <p class="avancement-texte" role="status" aria-live="polite"></p>
+      </div>
+    </figure>
+    <div class="demo-suivi">
+        <div class="demo-apres" id="demo-apres" hidden>
+          <p class="demo-pret" id="demo-pret"></p>
+          <p>Cette vidéo vient d'être fabriquée dans ce téléphone : les textes, les couleurs du club et la voix. Elle n'est allée nulle part.</p>
+          <div class="rangee">
+            <button type="button" class="bouton ligne" id="demo-revoir">Revoir depuis le début</button>
+            <a class="bouton ligne" href="#calendrier">Voir le calendrier</a>
+          </div>
+        </div>
+    </div>
+  </div>
 </header>
 
 <main id="contenu">
 
-<section class="colonne bloc" id="principe" aria-labelledby="t-principe">
-  <h2 id="t-principe">Le principe</h2>
-  <p>Chaque semaine, en général le jeudi, vous recevez un message sur votre téléphone. Il dit quoi filmer le week-end : 3 petites vidéos de quelques secondes. Il donne le texte à coller et l'heure proposée pour publier.</p>
-  <p>Avec le message arrivent des diaporamas prêts : les rendez-vous du week-end, et le lundi les résultats. Pour eux, il n'y a rien à filmer.</p>
-  <p>Si vous avez déjà fait vos affiches, on les met dans le diaporama. Sinon, on en prépare dans votre style.</p>
-  <p class="engagement">Vous filmez au téléphone et vous publiez vous-même, sur votre compte. Le compte reste à vous. Nous ne créons aucun compte, ne demandons aucun mot de passe et ne publions rien à votre place.</p>
-  <p>Pour la vidéo, au moment de publier, vous choisissez les 3 petites vidéos d'un coup dans votre téléphone : l'application les met à la suite. Rien à monter.</p>
+<section class="colonne bloc" id="ligne" aria-labelledby="t-ligne">
+  <h2 id="t-ligne">Notre ligne</h2>
+  <dl class="ligne">
+    <div><dt>Pour qui</dt><dd>Les licenciés et leurs familles, Rouxmesnil-Bouteilles et Dieppe, nos partenaires, et ceux qui pourraient nous rejoindre.</dd></div>
+    <div><dt>Le ton</dt><dd>Celui de notre page Facebook. Chaleureux, fier, toujours en «&nbsp;nous&nbsp;». On ne se moque jamais de personne.</dd></div>
+    <div><dt>Notre règle</dt><dd>Au moins une publication sur deux ne parle pas de score.</dd></div>
+  </dl>
+  <p class="accent">Chaque semaine, la présentation change : vous ne publiez jamais deux fois la même chose.</p>
 
-  <h3>Publier, en 4 étapes</h3>
-  <ol class="gestes">
-    <li>Ouvrir le message.</li>
-    <li>Enregistrer les images (ou les 3 petites vidéos) dans le téléphone.</li>
-    <li>Dans l'application, appuyer sur +, puis sur Importer, et choisir les images d'un coup.</li>
-    <li>Appuyer sur Suivant, coller le texte, publier.</li>
-  </ol>
-  <p class="premiere-fois">La première fois, on s'assoit ensemble 15 minutes, à côté de vous.</p>
-  <p>Pour les enfants, une règle simple, rappelée dans chaque message : par défaut, aucun enfant reconnaissable. Le détail est plus bas.</p>
+  <h3 id="t-series">Nos 7 séries</h3>
+  <p class="sous-titre">Touchez une série pour voir ses présentations.</p>
+  <div class="series" id="series"></div>
+  <p class="joker">Une fois tous les quinze jours, une case <strong>Joker</strong>, facultative : une idée du moment, une réponse en vidéo à un commentaire, ou «&nbsp;le bruit du basket&nbsp;».</p>
+  <p class="petit">Chaque vidéo est verticale, à nos couleurs, avec des textes qui bougent. La plupart ont une voix de synthèse, sous-titrée. Quelques-unes gardent seulement le son de la salle, ou la vraie voix d'un adulte d'accord. Nous ne mettons aucune musique.</p>
 </section>
 
-<section class="colonne bloc" id="mois" aria-labelledby="t-mois">
-  <h2 id="t-mois">Le mois d'un coup d'œil</h2>
-  <ul class="mois">
-    <li>
-      <a class="mois-date" href="#we-07">7 et 8 novembre</a> <span class="marque">Exemple</span>
-      <p><span class="lib">À filmer :</span> U18 filles (élite) contre Cherbourg Basket Ball, samedi 15 h 15</p>
-      <p><span class="lib">Prêt, sans filmer :</span> premier match en élite (samedi) ; résultats (lundi 9)</p>
-    </li>
-    <li>
-      <a class="mois-date" href="#we-14">14 et 15 novembre</a>
-      <p><span class="lib">À filmer :</span> seniors filles (RF2) contre Pacy-Ménilles 2, dimanche 16 h</p>
-      <p><span class="lib">Prêt, sans filmer :</span> rendez-vous (vendredi 13) ; résultats (lundi 16)</p>
-    </li>
-    <li>
-      <a class="mois-date" href="#we-20">20 au 22 novembre</a>
-      <p><span class="lib">À filmer :</span> le tournoi Movember, vendredi 20 dès 19 h</p>
-      <p><span class="lib">Prêt, sans filmer :</span> tournoi (mercredi 18) ; résultats (lundi 23)</p>
-    </li>
-    <li>
-      <a class="mois-date" href="#we-28">28 et 29 novembre</a>
-      <p><span class="lib">À filmer :</span> merci à <span class="trou">[prénom du bénévole]</span></p>
-      <p><span class="lib">Prêt, sans filmer :</span> rendez-vous (vendredi 27) ; résultats (lundi 30)</p>
-    </li>
-    <li>
-      <a class="mois-date" href="#we-05">5 et 6 décembre</a>
-      <p><span class="lib">À filmer :</span> merci à <span class="trou">[nom du partenaire]</span>, au match des seniors garçons (DM6), dimanche 10 h</p>
-      <p><span class="lib">Prêt, sans filmer :</span> rendez-vous (vendredi 4) ; résultats (lundi 7)</p>
-    </li>
+<section class="colonne bloc" id="calendrier" aria-labelledby="t-calendrier" tabindex="-1">
+  <h2 id="t-calendrier">Le calendrier des 6 semaines</h2>
+  <ul class="rythme">
+    <li><strong>En général, 3 publications par semaine :</strong> le mercredi à 18 h, le vendredi à 18 h (le programme), le dimanche à 19 h 30 (les résultats). Le tournoi ou un jour férié déplacent parfois un rendez-vous : le calendrier le dit.</li>
+    <li><strong>En bonus, si vous avez le temps :</strong> le lundi à 18 h 30, le samedi soir après un match en élite à la maison, et les Joker. Bonus et Joker sont facultatifs : ils sont en gris.</li>
+    <li>Mieux vaut 3 par semaine tout l'hiver que 5 en novembre. Pas le temps ? On passe à la suivante, rien à rattraper.</li>
   </ul>
-  <p class="petit">Les horaires des matchs peuvent encore bouger : ils sont relus sur la fédération avant chaque message.</p>
-</section>
-
-<!-- ======================= Le week-end d'exemple, montré en entier ======================= -->
-<section class="colonne bloc semaine-exemple" id="we-07" aria-labelledby="t-exemple" tabindex="-1">
-  <div class="bandeau-exemple">
-    <p class="bandeau-marque">Exemple</p>
-    <h2 id="t-exemple">Ce qu'on vous aurait envoyé pour le premier match en élite</h2>
-    <p class="bandeau-dates">7 et 8 novembre</p>
+  <div class="depart">
+    <label for="depart">On commence le</label>
+    <select id="depart" class="champ"></select>
+    <p class="petit">Les matchs et le tournoi gardent leur date ; les autres vidéos se suivent dans l'ordre, à partir de votre premier jour.</p>
   </div>
-
-  <article class="message" aria-labelledby="m07">
-    <p class="message-tete"><span id="m07" class="message-titre">Le message</span> <span class="marque">Exemple</span></p>
-    <p class="message-quand">Il serait parti le vendredi 6 novembre, à midi.</p>
-    <div class="message-texte">
-      <p>Bonjour ! 🏀<br>Gros week-end : demain samedi à 15 h 15, nos U18 filles jouent leur premier match en élite régionale, salle Alexandre-Cheruel, contre Cherbourg Basket Ball 💙</p>
-      <p><strong>À filmer demain, pendant ce match</strong> (3 petites vidéos de 3 à 5 secondes, téléphone en vertical) :</p>
-      <ol>
-        <li>Les tribunes, filmées de loin avant le coup d'envoi.</li>
-        <li>Le ballon du match posé au rond central, ou les mains des joueuses réunies en cercle.</li>
-        <li>Le tableau de score à la fin du match.</li>
-      </ol>
-      <p>Qui peut filmer : un adulte du club, parent, dirigeant, joueuse ou joueur senior. Les petites vidéos vont seulement à l'adulte qui publie, puis on les efface du téléphone.</p>
-      <p>⚠️ Ce sont des mineures : personne de reconnaissable, ni chez nous ni chez Cherbourg, ni chez les jeunes arbitres. De dos et de loin, sans numéro lisible, les mains, le ballon. Le son de la salle seulement sans musique au micro ni prénom crié. Jamais de vestiaire, jamais de nom de famille.</p>
-      <p><strong>Déjà prêt, sans filmer</strong> : le diaporama « Aujourd'hui, premier match en élite », à publier samedi vers 11 h. Lundi, on vous envoie celui des résultats.</p>
-      <p>Les textes à coller sont plus bas. Bon week-end à tous ! 💙</p>
-    </div>
-  </article>
-
-  <article class="pub avec-cadre" aria-labelledby="p07a">
-    <div class="pub-tete"><h3 id="p07a">Samedi 7 novembre, vers 11 h</h3><span class="genre pret">Diaporama prêt</span></div>
-    <div class="pub-corps">
-      <div class="lecteur" data-lecteur="elite" aria-label="Aperçu du diaporama : premier match en élite, 2 images" role="group">
-        <div class="cadre cadre-nuit" data-cadre>
-          <div class="diapo affiche" data-affiche="elite" role="img" aria-label="Image 1 : aujourd'hui, 15 h 15, premier match en élite régionale pour nos U18 filles, contre Cherbourg Basket Ball, salle Alexandre-Cheruel.">
-            <p class="diapo-repli">Aujourd'hui, 15 h 15 : premier match en élite régionale pour nos U18 filles. Contre Cherbourg Basket Ball, salle Alexandre-Cheruel.</p>
-          </div>
-          <div class="diapo carton carton-nuit">
-            <svg class="carton-picto" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect x="22" y="8" width="56" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="5"/><rect x="14" y="18" width="56" height="70" rx="4" fill="#030a22" stroke="currentColor" stroke-width="5"/><path d="M24 34h36M24 48h36M24 62h24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
-            <p class="carton-grand">Ici, vos affiches</p>
-            <p class="carton-texte">Les « Rendez-vous du <span class="nw">week-end</span> » déjà publiées sur Facebook, telles quelles.</p>
-            <p class="carton-petit">Aucune photo de joueuse.</p>
-          </div>
-        </div>
-        <div class="commandes" data-commandes></div>
-        <p class="astuce">Touchez Agrandir pour lire l'affiche. Sur TikTok, elle garde cette forme, avec une bande en haut et en bas.</p>
-      </div>
-      <div class="pub-texte">
-        <p class="pub-images"><span class="lib">Les images :</span> 1. « Aujourd'hui, 15 h 15 : premier match en élite régionale pour nos U18 filles. Contre Cherbourg Basket Ball, salle Alexandre-Cheruel. » 2. Vos propres affiches « Rendez-vous du week-end » déjà publiées sur Facebook : elles passent telles quelles dans le diaporama. Aucune photo de joueuse.</p>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c07a">Aujourd'hui 15 h 15, nos U18 filles jouent leur premier match en élite régionale, contre Cherbourg Basket Ball 💙 Venez les encourager salle Alexandre-Cheruel !<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c07a">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <article class="pub avec-cadre" aria-labelledby="p07b">
-    <div class="pub-tete"><h3 id="p07b">Samedi 7 novembre, vers 19 h</h3><span class="genre filmer">À filmer</span></div>
-    <div class="pub-corps">
-      <div class="lecteur" data-lecteur="filmer" aria-label="Les 3 petites vidéos à filmer, dans l'ordre" role="group">
-        <div class="cadre cadre-noir" data-cadre>
-          <div class="diapo carton">
-            <p class="carton-num">1</p>
-            <svg class="carton-picto" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M8 88h84V40H76v12H60v12H44v12H28v12" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/><g fill="currentColor"><circle cx="36" cy="64" r="6"/><circle cx="52" cy="52" r="6"/><circle cx="68" cy="40" r="6"/><circle cx="84" cy="28" r="6"/></g></svg>
-            <p class="carton-texte">Les tribunes, filmées de loin avant le coup d'envoi.</p>
-            <p class="carton-petit">3 à 5 secondes, téléphone en vertical.</p>
-          </div>
-          <div class="diapo carton">
-            <p class="carton-num">2</p>
-            <svg class="carton-picto" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><circle cx="50" cy="50" r="40"/><path d="M50 10v80M10 50h80M22 22c16 16 16 40 0 56M78 22c-16 16-16 40 0 56"/></g></svg>
-            <p class="carton-texte">Le ballon du match posé au rond central, ou les mains des joueuses réunies en cercle.</p>
-            <p class="carton-petit">3 à 5 secondes, téléphone en vertical.</p>
-          </div>
-          <div class="diapo carton">
-            <p class="carton-num">3</p>
-            <svg class="carton-picto" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"><rect x="8" y="22" width="84" height="56" rx="4"/><path d="M50 30v40"/><path d="M20 62h20M60 62h20" stroke-linecap="round"/><path d="M30 10v12M70 10v12" stroke-linecap="round"/></g></svg>
-            <p class="carton-texte">Le tableau de score à la fin du match.</p>
-            <p class="carton-petit">3 à 5 secondes, téléphone en vertical.</p>
-          </div>
-          <span class="bandes" aria-hidden="true"></span>
-        </div>
-        <div class="commandes" data-commandes></div>
-      </div>
-      <div class="pub-texte">
-        <p class="pub-images"><span class="lib">Les 3 petites vidéos :</span> les tribunes de loin ; le ballon au rond central ou les mains en cercle ; le tableau de score à la fin. Tribunes sans visage net au premier plan.</p>
-        <p class="petit">Sur l'aperçu, chaque carton tient la place d'une de vos petites vidéos.</p>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c07b">Premier match en élite régionale pour nos U18 filles, contre Cherbourg Basket Ball 💙 Score final : <span class="trou">[score]</span>.<br>Merci à tous ceux qui sont venus les encourager !<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c07b">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <article class="pub" aria-labelledby="p07c">
-    <div class="pub-tete"><h3 id="p07c">Lundi 9 novembre, vers 18 h 30</h3><span class="genre pret">Diaporama prêt</span></div>
-    <p class="pub-images"><span class="lib">Les images :</span> une couverture « Les résultats du week-end, 7 et 8 novembre », puis une image pour le samedi et une pour le dimanche, avec les scores des 13 matchs que vous aviez annoncés sur Facebook. Aucune photo, seulement les scores.</p>
-    <p><a class="lien" href="#apercu">Voir à quoi il ressemble, avec les vrais résultats du 31 octobre</a></p>
-    <div class="coller">
-      <p class="coller-tete"><span class="lib">Texte à coller (le même chaque lundi)</span> <span class="marque">Exemple</span></p>
-      <p class="coller-texte" id="c07c"><span class="nw">🏀💙</span> LES RÉSULTATS DU WEEK-END SONT LÀ ! <span class="nw">💙🏀</span><br>Bravo à toutes nos équipes, et merci aux supporters 💙<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-      <div class="coller-bas"><button type="button" class="bouton" data-copier="c07c">Copier le texte</button><span class="etat" role="status"></span></div>
-    </div>
-  </article>
+  <div class="legende-piliers" id="legende-piliers"></div>
+  <div class="semaines" id="semaines-choix" role="group" aria-label="Choisir la semaine"></div>
+  <div id="semaine" class="semaine"></div>
+  <p class="petit source">Heures des matchs : calendrier de la fédération, horaires au 3 novembre. Avant chaque publication de match, vérifiez-les : dans le studio, une heure se corrige en la touchant.</p>
 </section>
 
-<section class="colonne bloc" id="rythme" aria-labelledby="t-rythme">
-  <h2 id="t-rythme">Le rythme : 3 publications par semaine au plus</h2>
-  <ol class="frise">
-    <li>
-      <p class="frise-quand">Avant le week-end (en général le vendredi soir)</p>
-      <h3>Diaporama « Les <span class="nw">rendez-vous</span> du <span class="nw">week-end</span> »</h3>
-      <p>Il arrive prêt avec le message. Vous le publiez.</p>
-    </li>
-    <li>
-      <p class="frise-quand">Le week-end</p>
-      <h3>Une courte vidéo : 3 petits morceaux de 3 à 5 secondes, filmés au téléphone pendant un match</h3>
-      <p>Une personne filme.</p>
-    </li>
-    <li>
-      <p class="frise-quand">Le lundi soir</p>
-      <h3>Diaporama « Les résultats du <span class="nw">week-end</span> »</h3>
-      <p>On relève les scores officiels de la fédération et on vous l'envoie le lundi. Vous le publiez. Si vous avez fait votre affiche des résultats, on peut la mettre dedans.</p>
-    </li>
-    <li>
-      <p class="frise-quand">Une fois par jour</p>
-      <h3>Les commentaires</h3>
-      <p>Un adulte du bureau les regarde, quelques minutes. Le filtre cache déjà les commentaires qui contiennent un mot de votre liste (insultes, noms de famille).</p>
-    </li>
+<section class="colonne bloc" id="publier" aria-labelledby="t-publier">
+  <h2 id="t-publier">Ce que fait le club, en 4 gestes</h2>
+  <ol class="gestes">
+    <li><strong>Ouvrir la publication du jour et y coller vos photos et vidéos.</strong> Tapez ce qu'on vous demande (souvent rien). Pas de vidéo ? La publication se fait quand même, sur un fond à nos couleurs. Pour une vidéo qui n'a pas de sens sans images (un bénévole, un panier, le défi, un sac), la page vous propose de la passer.</li>
+    <li><strong>Regarder la vidéo et l'enregistrer.</strong> Elle se fabrique dans votre téléphone, avec les textes, nos couleurs et la voix. Comptez environ une minute ; gardez l'écran allumé. Appuyez sur «&nbsp;Enregistrer la vidéo&nbsp;» : elle est enregistrée dans le téléphone. Si votre téléphone n'y arrive pas, ouvrez la page sur un ordinateur.</li>
+    <li><strong>La publier sur TikTok.</strong> Choisissez la vidéo dans le téléphone et collez la légende déjà prête. Pour la couverture, choisissez l'image avec le titre. Ajoutez un son de la bibliothèque libre de droits de l'application, volume bas : la voix reste devant. Si la vidéo a la voix de synthèse, activez avant de publier le réglage qui signale un contenu généré. Publiez.</li>
+    <li><strong>Garder un œil sur les commentaires.</strong> Un adulte du bureau les lit le dimanche soir et le lundi.</li>
   </ol>
-  <p>Pas de vidéo un week-end ? Pas grave : on publie juste les deux diaporamas.</p>
-  <p>Qui peut filmer : un adulte du club, parent, dirigeant, joueuse ou joueur senior. Un téléphone suffit, tenu en vertical.</p>
+  <p class="engagement">Vos photos et vidéos ne nous sont jamais envoyées : la vidéo se fabrique dans votre téléphone, et elle n'en sort que quand vous la publiez vous-même.</p>
 </section>
 
 <section class="colonne bloc" id="enfants" aria-labelledby="t-enfants">
   <div class="enfants">
     <h2 id="t-enfants">Les règles pour les enfants</h2>
-    <p class="enfants-rappel">Un rappel court est dans chaque message.</p>
+    <p class="enfants-rappel">Le studio rappelle la bonne règle au moment où vous collez vos photos.</p>
     <ul class="regles">
-      <li>Par défaut, aucun enfant reconnaissable, ni chez nous ni en face : on filme de dos et de loin, sans numéro ni nom lisible sur le maillot ; les mains, le ballon, le panier, les tribunes de loin, le tableau de score.</li>
-      <li>Aucun enfant reconnaissable sans l'accord écrit de ses deux parents (loi du 19 février 2024).</li>
-      <li>Jamais de nom de famille, ni dans la vidéo ni dans le texte.</li>
-      <li>Jamais de vestiaire.</li>
+      <li>Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024).</li>
+      <li>Jamais de nom de famille. Jamais de vestiaire.</li>
+      <li>Les joueurs adverses mineurs ne sont jamais reconnaissables.</li>
     </ul>
+    <h3>Selon la vidéo</h3>
+    <dl class="regles-selon">
+      <div><dt>Matchs et entraînements</dt><dd>Pas d'enfant reconnaissable : de dos, de loin, les mains, le ballon, le panier.</dd></div>
+      <div><dt>Sac, U11, bruit du basket</dt><dd>Aucun visage : seulement des objets et des mains, aucun papier ni objet qui porte un nom.</dd></div>
+      <div><dt>Gens du club, partenaires, tournoi</dt><dd>Adultes d'accord seulement de près ; aucun jeune reconnaissable, ni chez nous ni en face.</dd></div>
+      <div><dt>Photos anciennes</dt><dd>Seulement des photos prises par des gens du club qui sont d'accord, jamais une photo de journal. Personne de reconnaissable sans son accord (ou celui de sa famille).</dd></div>
+      <div><dt>Programme</dt><dd>Aucun joueur à l'image : la salle vide, le ballon, le panier, le tableau de score.</dd></div>
+    </dl>
     <details class="autres">
-      <summary>Les autres règles</summary>
+      <summary>Les consignes en plus</summary>
       <ul class="regles">
-        <li>L'accord pour un enfant reconnaissable : écrit, signé par les deux parents, avec l'accord du jeune lui-même. Il est à part de la licence, cite TikTok et dit jusqu'à quand il vaut. Sans lui, aucun enfant reconnaissable.</li>
-        <li>Les joueurs adverses, les jeunes arbitres et les jeunes de la table de marque ne sont jamais reconnaissables.</li>
-        <li>Les équipes seniors sont en principe adultes. Une joueuse ou un joueur de moins de 18 ans y reste non reconnaissable, comme les autres jeunes. Un adulte, de près seulement s'il est d'accord.</li>
-        <li>Jamais la feuille de match ni la tablette de la table de marque à l'image : elles portent les noms des joueurs.</li>
-        <li>Le son de la salle, seulement s'il n'y a ni musique au micro ni prénom ou nom crié ou annoncé. Sinon, on coupe le son et on met une musique proposée par l'application.</li>
-        <li>Les petites vidéos sont envoyées seulement à l'adulte qui publie, puis effacées du téléphone. Elles ne sont publiées que sur le compte du club.</li>
-        <li>Sur une vidéo où l'on voit des jeunes : jamais de lieu ajouté, ni l'heure et la salle du match dans le texte. Les diaporamas sans photo, comme vos affiches, peuvent les donner.</li>
-        <li>Une famille demande de retirer une vidéo : le club la retire le jour même.</li>
-        <li>Une idée : chez les plus jeunes, quand l'écart est très grand, écrire « victoire » sans le score.</li>
-        <li>Le club n'écrit jamais en message privé à un jeune et ne l'identifie jamais dans une vidéo.</li>
+        <li>Filmez quand la sono est coupée : sinon, la musique de la salle peut faire couper le son de la vidéo.</li>
+        <li>Aucune boisson alcoolisée, aucune bouteille, aucune enseigne d'alcool à l'image (partenaires, buvette, tournoi).</li>
+        <li>Chez les jeunes : seulement un panier ou une passe, filmé de loin. Une défense ou un panier à la sirène : seniors seulement.</li>
+        <li>Jamais la feuille de match ni la tablette de la table de marque à l'image : elles portent les noms des joueurs.</li>
+        <li>Une famille demande de retirer une vidéo : le club la retire le jour même.</li>
       </ul>
     </details>
   </div>
@@ -246,378 +136,40 @@
 
 <section class="colonne bloc" id="compte" aria-labelledby="t-compte">
   <h2 id="t-compte">Les règles du compte</h2>
-  <p class="sous-titre">On les règle ensemble, une seule fois, le jour où on s'assoit à côté de vous.</p>
   <ul class="liste">
-    <li>Si le club n'a pas encore de compte : un adulte du bureau l'ouvre, au nom du club. On le fait ensemble, à côté de vous.</li>
-    <li>Le compte est tenu par un adulte du bureau. Deux personnes du bureau connaissent l'accès, comme ça il ne dépend pas d'une seule personne. Nous, jamais.</li>
-    <li>Le compte passe en compte professionnel, un réglage gratuit de l'application (« Passer en compte Entreprise »). C'est ce qui donne droit aux musiques autorisées pour un club. Le compte du club est public : tout le monde peut voir les vidéos.</li>
-    <li>Le son : le bruit de la salle, tel qu'il a été filmé (voir la règle du son). Pour une musique, seulement celles que l'application propose au compte professionnel. Jamais une chanson à la mode.</li>
-    <li>Pour reprendre une vidéo sur Facebook, on la reprend sans la musique, ou avec le son de la salle.</li>
-    <li>On coupe le téléchargement des vidéos, les duos et les collages (les reprises de vos vidéos par d'autres comptes).</li>
-    <li>Les commentaires : le filtre des commentaires indésirables est allumé dès le premier jour, avec une liste de mots bloqués (insultes, noms de famille des joueurs). Sur une vidéo de jeunes, on peut couper les commentaires.</li>
+    <li>Le compte est au nom du club. Deux adultes du bureau en ont l'accès : il ne dépend pas d'une seule personne. Nous n'y avons pas accès.</li>
+    <li>Le compte passe en compte professionnel, un réglage gratuit de l'application. Le compte du club est public : tout le monde peut voir les vidéos.</li>
+    <li>Le son : nos vidéos portent déjà la voix et le son de vos vidéos. Au moment de publier, ajoutez un son de la bibliothèque libre de droits de l'application, volume bas. Jamais une chanson à la mode.</li>
+    <li>La voix est une voix de synthèse, fabriquée dans le téléphone, qui n'imite aucune personne connue ni aucun membre du club. «&nbsp;Voix de synthèse&nbsp;» est écrit à la fin de la vidéo et à la fin de la légende.</li>
+    <li>Par prudence, à chaque vidéo qui a la voix de synthèse, activez avant de publier le réglage qui signale un contenu généré. C'est un choix d'honnêteté du club : les règles de l'application visent surtout les images et les personnes d'aspect réaliste. La première fois, on repère ensemble où il se trouve sur votre téléphone.</li>
+    <li>Un partenaire qui donne quelque chose au club (argent, lots, matériel) : la vidéo porte «&nbsp;Collaboration commerciale&nbsp;», et on active aussi le réglage de contenu de marque.</li>
+    <li>On coupe le téléchargement des vidéos par les autres comptes, les duos et les collages.</li>
   </ul>
-</section>
-
-<!-- ======================= Les 4 week-ends suivants, repliés ======================= -->
-<section class="colonne bloc" id="semaines" aria-labelledby="t-semaines">
-  <h2 id="t-semaines">Les 4 prochains <span class="nw">week-end</span>s</h2>
-  <p>Touchez un week-end pour l'ouvrir. Les heures de publication sont proposées, à régler avec vous.</p>
-
-  <details class="semaine" id="we-14">
-    <summary><span class="semaine-date">14 et 15 novembre</span> <span class="semaine-titre">Les seniors filles à la maison</span></summary>
-    <div class="semaine-corps">
-      <article class="message" aria-labelledby="m14">
-        <p class="message-tete"><span id="m14" class="message-titre">Le message</span> <span class="marque">Exemple</span></p>
-        <p class="message-quand">Jeudi 12 novembre, midi.</p>
-        <div class="message-texte">
-          <p>Bonjour ! 🏀<br>Ce week-end, beaucoup de matchs à domicile 💙</p>
-          <p><strong>À filmer dimanche, au match des seniors filles (RF2) contre Pacy-Ménilles 2, 16 h, à domicile</strong> (3 petites vidéos de 3 à 5 secondes, téléphone en vertical) :</p>
-          <ol>
-            <li>Le panier, de loin, pendant l'échauffement.</li>
-            <li>L'équipe de dos, quand elle entre sur le terrain, assez loin pour que les numéros ne se lisent pas.</li>
-            <li>Le tableau de score à la fin du match.</li>
-          </ol>
-          <p>⚠️ En seniors, on filme de dos ou de loin. De près, seulement une joueuse majeure qui est d'accord. Une joueuse de moins de 18 ans reste non reconnaissable. Enfants des tribunes : de loin ou pas du tout. Jamais de vestiaire, jamais de nom de famille.</p>
-          <p><strong>Déjà prêt, sans filmer</strong> : le diaporama des rendez-vous du week-end, à publier vendredi vers 18 h. Lundi, celui des résultats.</p>
-          <p>Bon week-end à tous ! 💙</p>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p14a">
-        <div class="pub-tete"><h3 id="p14a">Vendredi 13 novembre, vers 18 h</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images"><span class="lib">Les images</span> (dans le style de vos affiches, bandeau Movember) : couverture « Les rendez-vous du week-end, 14 et 15 novembre », puis les matchs. Aucune photo de joueur.</p>
-        <details class="matchs">
-          <summary>Voir les matchs</summary>
-          <h4>Samedi à domicile</h4>
-          <ul>
-            <li><b>13 h</b> U18 garçons 3 contre Seventy Six Belleville</li>
-            <li><b>14 h</b> U13 garçons contre ES Arques</li>
-            <li><b>15 h 30</b> U15 garçons 2 contre US Bacqueville</li>
-            <li><b>16 h 15</b> U18 filles (départementale) contre US Forges-les-Eaux</li>
-            <li><b>18 h</b> U18 garçons 1 contre BC Offranville</li>
-            <li>U21 garçons contre Vexin normand-Étrépagny, horaire à confirmer</li>
-          </ul>
-          <h4>Dimanche à domicile</h4>
-          <ul>
-            <li><b>8 h 45</b> seniors filles (DF2) contre AL Césaire-Levillain 2</li>
-            <li><b>10 h 30</b> seniors garçons (PRM) contre AL Déville 2</li>
-            <li><b>14 h</b> seniors garçons (RM3) contre Louversey Conches</li>
-            <li><b>16 h</b> seniors filles (RF2) contre Pacy-Ménilles 2</li>
-          </ul>
-          <h4>Samedi à l'extérieur</h4>
-          <ul>
-            <li><b>13 h 30</b> U18 garçons 2 à ES Arques</li>
-            <li><b>13 h 30</b> U11 à US Bacqueville</li>
-            <li><b>14 h</b> U15 filles à AS Dieppe</li>
-            <li><b>15 h 30</b> U18 filles (élite) à Aplemont Le Havre 2</li>
-            <li><b>16 h</b> U15 garçons 1 à BC Offranville</li>
-            <li>U13 filles à Seventy Six Belleville, horaire à confirmer</li>
-          </ul>
-          <h4>Dimanche à l'extérieur</h4>
-          <ul>
-            <li><b>8 h 45</b> seniors garçons (DM3) à AL Déville 3</li>
-            <li><b>8 h 45</b> seniors garçons (DM6) à AS Dieppe</li>
-            <li><b>10 h 30</b> seniors filles (DF3) à AL Déville 3</li>
-          </ul>
-          <p class="petit">Les numéros des équipes de garçons (1, 2, 3) sont ceux de la fédération. Dites-nous vos noms, on les reprend.</p>
-        </details>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c14a"><span class="nw">🏀💙</span> LES RENDEZ-VOUS DU WEEK-END SONT LÀ ! <span class="nw">💙🏀</span><br>Venez nombreux nous encourager à domicile 💙<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c14a">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p14b">
-        <div class="pub-tete"><h3 id="p14b">Dimanche 15 novembre, vers 19 h</h3><span class="genre filmer">À filmer</span></div>
-        <p class="pub-images"><span class="lib">Les 3 petites vidéos :</span> le panier de loin à l'échauffement ; l'équipe de dos à l'entrée sur le terrain, assez loin pour que les numéros ne se lisent pas ; le tableau de score à la fin.</p>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c14b">Dimanche à la salle, nos seniors filles recevaient Pacy-Ménilles 2 💙 Score final : <span class="trou">[score]</span>.<br>Merci à tous ceux qui sont venus !<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c14b">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p14c">
-        <div class="pub-tete"><h3 id="p14c">Lundi 16 novembre, vers 18 h 30</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images">Les résultats du week-end des 14 et 15 novembre, une image par jour. <span class="lib">Texte à coller :</span> même texte que d'habitude.</p>
-      </article>
-    </div>
-  </details>
-
-  <details class="semaine" id="we-20">
-    <summary><span class="semaine-date">Du vendredi 20 au dimanche 22 novembre</span> <span class="semaine-titre">Le tournoi Movember</span></summary>
-    <div class="semaine-corps">
-      <article class="message" aria-labelledby="m20">
-        <p class="message-tete"><span id="m20" class="message-titre">Le message</span> <span class="marque">Exemple</span></p>
-        <p class="message-quand">Mardi 17 novembre, midi.</p>
-        <div class="message-texte">
-          <p>Bonjour ! 🏀<br>Vendredi soir, c'est le tournoi Movember 💙 Vendredi 20 novembre à partir de 19 h, salle Alexandre-Cheruel.<br>En novembre, on porte la moustache avec panache !</p>
-          <p><strong>À filmer vendredi soir, pendant le tournoi</strong> (3 petites vidéos de 3 à 5 secondes, téléphone en vertical) :</p>
-          <ol>
-            <li>La salle qui se remplit, filmée de loin, du haut des tribunes.</li>
-            <li>Les t-shirts en vente pendant le tournoi, filmés de près, sans personne reconnaissable.</li>
-            <li>Le tableau de score pendant un match.</li>
-          </ol>
-          <p>Idée en plus : un adulte d'accord qui montre sa moustache, vraie ou dessinée.</p>
-          <p>⚠️ Le tournoi va des U18 aux seniors : il y a des mineurs sur le terrain, et peut-être chez les arbitres et à la table de marque. Personne de reconnaissable, sauf des adultes d'accord. Jamais de vestiaire, jamais de nom de famille.</p>
-          <p><strong>Déjà prêt, sans filmer</strong> : le diaporama du tournoi, à publier mercredi soir vers 18 h. Lundi, celui des résultats.</p>
-          <p>Bon tournoi à tous ! 💙</p>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p20a">
-        <div class="pub-tete"><h3 id="p20a">Mercredi 18 novembre, vers 18 h</h3><span class="genre pret">Diaporama prêt</span></div>
-        <div class="pub-images">
-          <p><span class="lib">Les images</span> (bandeau « Le BCR soutient Movember ») :</p>
-          <ol class="images">
-            <li>« Tournoi Movember : vendredi 20 novembre, à partir de 19 h, salle Alexandre-Cheruel. »</li>
-            <li>« Tournoi masculin, des U18 aux seniors. »</li>
-            <li>« Animations, vente de t-shirts et de petits objets, restauration sur place. »</li>
-            <li>« Le BCR soutient Movember : santé masculine, prévention, sensibilisation. »</li>
-            <li>Les rendez-vous du samedi à domicile.</li>
-          </ol>
-          <p>Aucune photo de joueur, seulement du texte.</p>
-        </div>
-        <details class="matchs">
-          <summary>Voir les matchs (image 5)</summary>
-          <h4>Samedi à domicile</h4>
-          <ul>
-            <li><b>13 h</b> U13 filles contre US Bacqueville</li>
-            <li><b>15 h</b> U18 filles (élite) contre USO Mondeville 2</li>
-            <li><b>16 h</b> U15 filles contre Seventy Six Belleville</li>
-            <li><b>17 h 30</b> U18 garçons 2 contre Eawy Saint-Saëns</li>
-          </ul>
-        </details>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c20a">En novembre, on porte la moustache avec panache ! 💙 Vendredi 20 novembre, tournoi Movember à partir de 19 h, salle Alexandre-Cheruel. Venez nombreux !<br>#Movember #basket #Rouxmesnil #Dieppe #Normandie</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c20a">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p20b">
-        <div class="pub-tete"><h3 id="p20b">Samedi 21 novembre, vers 11 h</h3><span class="genre filmer">À filmer</span></div>
-        <p class="pub-quand-film">Filmé pendant le tournoi du vendredi soir.</p>
-        <p class="pub-images"><span class="lib">Les 3 petites vidéos :</span> la salle qui se remplit, de loin ; les t-shirts en vente ; le tableau de score. Si un adulte est d'accord : sa moustache. Des U18 jouent : un visage net seulement pour un adulte d'accord.</p>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c20b">Merci à tous pour ce tournoi Movember 💙 La moustache avec panache, pour la santé des hommes !<br>#Movember #basket #Rouxmesnil #Dieppe #Normandie</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c20b">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p20c">
-        <div class="pub-tete"><h3 id="p20c">Lundi 23 novembre, vers 18 h 30</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images">Les résultats du week-end des 21 et 22 novembre, une image par jour. <span class="lib">Texte à coller :</span> même texte que d'habitude.</p>
-      </article>
-    </div>
-  </details>
-
-  <details class="semaine" id="we-28">
-    <summary><span class="semaine-date">28 et 29 novembre</span> <span class="semaine-titre">Merci aux bénévoles</span></summary>
-    <div class="semaine-corps">
-      <article class="message" aria-labelledby="m28">
-        <p class="message-tete"><span id="m28" class="message-titre">Le message</span> <span class="marque">Exemple</span></p>
-        <p class="message-quand">Jeudi 26 novembre, midi.</p>
-        <div class="message-texte">
-          <p>Bonjour ! 🏀<br>Ce week-end, la salle tourne à plein : samedi et dimanche, beaucoup de matchs à domicile 💙 C'est le bon moment pour dire merci à un bénévole.</p>
-          <p><strong>À filmer ce week-end, avec <span class="trou">[prénom du bénévole]</span>, un bénévole adulte, d'accord pour être filmé (un petit message écrit de sa part suffit)</strong> (3 petites vidéos de 3 à 5 secondes, téléphone en vertical) :</p>
-          <ol>
-            <li>Ses mains au travail : les ballons qu'on sort, les chaises ou les tables qu'on installe.</li>
-            <li><span class="trou">[prénom du bénévole]</span> qui fait un petit signe à la caméra, seulement s'il ou elle est d'accord.</li>
-            <li>La salle prête, juste avant un match.</li>
-          </ol>
-          <p>⚠️ Jamais la feuille de match ni la tablette de la table de marque à l'image : elles portent les noms des joueurs. Aucun enfant reconnaissable autour. Jamais de vestiaire, jamais de nom de famille.</p>
-          <p><strong>Déjà prêt, sans filmer</strong> : le diaporama des rendez-vous du week-end, à publier vendredi vers 18 h. Lundi, celui des résultats.</p>
-          <p>Bon week-end à tous ! 💙</p>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p28a">
-        <div class="pub-tete"><h3 id="p28a">Vendredi 27 novembre, vers 18 h</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images"><span class="lib">Les images :</span> couverture « Les rendez-vous du week-end, 28 et 29 novembre », puis les matchs. Aucune photo de joueur.</p>
-        <details class="matchs">
-          <summary>Voir les matchs</summary>
-          <h4>Samedi à domicile</h4>
-          <ul>
-            <li><b>14 h</b> U11 contre BC Offranville</li>
-            <li><b>15 h 30</b> U15 garçons 2 contre Seventy Six Belleville</li>
-            <li><b>16 h 15</b> U18 garçons 1 contre Eawy Saint-Saëns 2</li>
-            <li><b>17 h</b> U18 garçons 3 contre US Bacqueville</li>
-            <li><b>18 h</b> U18 filles (départementale) contre CEP Saint-Nicolas-d'Aliermont</li>
-            <li>U21 garçons contre Mont-Saint-Aignan, horaire à confirmer</li>
-            <li>U18 garçons 2 contre AS Dieppe, horaire à confirmer</li>
-          </ul>
-          <h4>Dimanche à domicile</h4>
-          <ul>
-            <li><b>8 h 45</b> seniors garçons (DM3) contre BC Caudebec-en-Caux</li>
-            <li><b>10 h 30</b> seniors garçons (PRM) contre AL Montivilliers 3</li>
-            <li><b>10 h 30</b> seniors filles (DF2) contre Olympique Darnétal</li>
-            <li><b>15 h 30</b> seniors garçons (RM3) contre Saint-Thomas Le Havre 4</li>
-            <li>seniors filles (DF3) contre Olympique Darnétal 2, horaire à confirmer</li>
-          </ul>
-          <h4>À l'extérieur</h4>
-          <ul>
-            <li>Samedi <b>14 h 15</b> U13 filles à BC Offranville</li>
-            <li>Samedi <b>15 h</b> U13 garçons à Luneray</li>
-            <li>Samedi <b>16 h</b> U15 filles à BC Offranville</li>
-            <li>Samedi <b>17 h</b> U18 filles (élite) à Élan Carpiquet</li>
-            <li>Samedi, U15 garçons 1 à AS Dieppe, horaire à confirmer</li>
-            <li>Dimanche <b>10 h</b> seniors garçons (DM6) à Neufchâtel-en-Bray</li>
-            <li>Dimanche <b>16 h</b> seniors filles (RF2) à AL Déville 2</li>
-          </ul>
-          <p class="petit">Les numéros des équipes de garçons sont ceux de la fédération.</p>
-        </details>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c28a"><span class="nw">🏀💙</span> LES RENDEZ-VOUS DU WEEK-END SONT LÀ ! <span class="nw">💙🏀</span><br>Beaucoup de matchs à domicile samedi et dimanche, venez nombreux 💙<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c28a">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p28b">
-        <div class="pub-tete"><h3 id="p28b">Dimanche 29 novembre, vers 19 h</h3><span class="genre filmer">À filmer</span></div>
-        <p class="pub-images"><span class="lib">Les 3 petites vidéos :</span> ses mains au travail ; son petit signe, s'il ou elle est d'accord ; la salle prête avant un match. Si des enfants passent dans l'image : de dos et de loin, sinon on refait la petite vidéo.</p>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c28b">Pas de match sans nos bénévoles 💙 Ce week-end, un grand merci à <span class="trou">[prénom du bénévole]</span>, et à tous ceux qui donnent de leur temps au club !<br>#benevoles #basket #Rouxmesnil #Dieppe #Normandie</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c28b">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p28c">
-        <div class="pub-tete"><h3 id="p28c">Lundi 30 novembre, vers 18 h 30</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images">Les résultats du week-end des 28 et 29 novembre, une image par jour. <span class="lib">Texte à coller :</span> même texte que d'habitude.</p>
-      </article>
-    </div>
-  </details>
-
-  <details class="semaine" id="we-05">
-    <summary><span class="semaine-date">5 et 6 décembre</span> <span class="semaine-titre">Merci à un partenaire</span></summary>
-    <div class="semaine-corps">
-      <p class="semaine-note">En décembre, les diaporamas repassent aux couleurs vert et blanc du club.</p>
-      <article class="message" aria-labelledby="m05">
-        <p class="message-tete"><span id="m05" class="message-titre">Le message</span> <span class="marque">Exemple</span></p>
-        <p class="message-quand">Jeudi 3 décembre, midi.</p>
-        <div class="message-texte">
-          <p>Bonjour ! 🏀<br>Ce week-end, on dit merci à un partenaire du club : <span class="trou">[nom du partenaire]</span> 💚</p>
-          <p><strong>À filmer dimanche à 10 h, au match des seniors garçons (DM6) contre ES Arques 2, à domicile</strong> (3 petites vidéos de 3 à 5 secondes, téléphone en vertical) :</p>
-          <ol>
-            <li>Le panneau de <span class="trou">[nom du partenaire]</span> dans la salle, s'il y en a un. Sinon, son nom est dans le texte à coller, et vous filmez le ballon.</li>
-            <li>Le ballon qui passe devant, ou le panier, de loin.</li>
-            <li>Le tableau de score à la fin du match.</li>
-          </ol>
-          <p>On vérifie avant que <span class="trou">[nom du partenaire]</span> est d'accord pour paraître.<br>⚠️ En seniors, on filme de dos ou de loin. De près, seulement un joueur majeur qui est d'accord. Un joueur de moins de 18 ans reste non reconnaissable, chez nous comme en face. Enfants des tribunes : de loin ou pas du tout. Jamais de vestiaire, jamais de nom de famille.</p>
-          <p><strong>Déjà prêt, sans filmer</strong> : le diaporama des rendez-vous du week-end, à publier vendredi vers 18 h. Lundi, celui des résultats.</p>
-          <p>Bon week-end à tous ! 💚</p>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p05a">
-        <div class="pub-tete"><h3 id="p05a">Vendredi 4 décembre, vers 18 h</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images"><span class="lib">Les images</span> (vert et blanc) : couverture « Les rendez-vous du week-end, 5 et 6 décembre », puis les matchs. Aucune photo de joueur.</p>
-        <details class="matchs">
-          <summary>Voir les matchs</summary>
-          <h4>Samedi à domicile</h4>
-          <ul>
-            <li><b>14 h</b> U13 filles contre Luneray</li>
-            <li><b>15 h</b> U21 garçons contre SPN Vernon</li>
-            <li><b>15 h 30</b> U13 garçons contre AS Dieppe</li>
-            <li><b>16 h 45</b> U15 filles contre Eawy Saint-Saëns</li>
-            <li>U15 garçons, match entre nos deux équipes, horaire à confirmer</li>
-          </ul>
-          <h4>Dimanche à domicile</h4>
-          <ul>
-            <li><b>10 h</b> seniors garçons (DM6) contre ES Arques 2</li>
-          </ul>
-          <h4>À l'extérieur</h4>
-          <ul>
-            <li>Samedi <b>17 h 15</b> U18 filles (élite) à CB Ifs</li>
-            <li>Samedi, U18 filles (départementale) à US Bacqueville, horaire à confirmer</li>
-            <li>Samedi, U11 à Seventy Six Belleville 2, horaire à confirmer</li>
-            <li>Dimanche <b>10 h</b> seniors filles (DF2) à BC Barentin 2</li>
-            <li>Dimanche <b>10 h</b> seniors filles (DF3) à AS Dieppe</li>
-            <li>Dimanche <b>10 h 30</b> seniors garçons (PRM) à US Sainte-Marie Le Havre</li>
-            <li>Dimanche <b>10 h 30</b> seniors garçons (DM3) à Mont-Saint-Aignan 2</li>
-            <li>Dimanche <b>14 h</b> seniors filles (RF2) à ASPTT Rouen 2</li>
-            <li>Dimanche <b>15 h 30</b> seniors garçons (RM3) à DB Val-de-Reuil</li>
-          </ul>
-        </details>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c05a"><span class="nw">🏀💚</span> LES RENDEZ-VOUS DU WEEK-END SONT LÀ ! <span class="nw">💚🏀</span><br>Samedi et dimanche matin, on vous attend à domicile 💚<br>#basket #Rouxmesnil #Dieppe #Normandie #SeineMaritime</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c05a">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p05b">
-        <div class="pub-tete"><h3 id="p05b">Dimanche 6 décembre, vers 19 h</h3><span class="genre filmer">À filmer</span></div>
-        <p class="pub-quand-film">Filmé le matin même, au match des seniors garçons contre ES Arques 2.</p>
-        <p class="pub-images"><span class="lib">Les 3 petites vidéos :</span> le panneau du partenaire (ou le ballon) ; le ballon ou le panier ; le tableau de score.</p>
-        <p class="pub-images"><span class="lib">Au moment de publier :</span> on active le réglage de l'application qui signale un partenaire. On vous le montre la première fois.</p>
-        <div class="coller">
-          <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-          <p class="coller-texte" id="c05b">Merci à <span class="trou">[nom du partenaire]</span>, partenaire du club, qui soutient le BCR cette saison 💚 Sans nos partenaires, pas de saison !<br>#partenaire #basket #Rouxmesnil #Dieppe #Normandie</p>
-          <div class="coller-bas"><button type="button" class="bouton" data-copier="c05b">Copier le texte</button><span class="etat" role="status"></span></div>
-        </div>
-      </article>
-
-      <article class="pub" aria-labelledby="p05c">
-        <div class="pub-tete"><h3 id="p05c">Lundi 7 décembre, vers 18 h 30</h3><span class="genre pret">Diaporama prêt</span></div>
-        <p class="pub-images">Les résultats du week-end des 5 et 6 décembre. <span class="lib">Texte à coller :</span> même texte que d'habitude, avec des cœurs verts et les mots-clés #basket #Rouxmesnil #Dieppe #Normandie #SeineMaritime.</p>
-      </article>
-    </div>
-  </details>
-</section>
-
-<!-- ======================= Aperçu des résultats, vraies données ======================= -->
-<section class="colonne bloc" id="apercu" aria-labelledby="t-apercu" tabindex="-1">
-  <h2 id="t-apercu">Aperçu : le diaporama des résultats</h2>
-  <p class="sous-titre">Avec les vrais résultats du samedi 31 octobre.</p>
-  <div class="apercu">
-    <div class="lecteur" data-lecteur="resultats" aria-label="Aperçu du diaporama des résultats du samedi 31 octobre, 2 images" role="group">
-      <div class="cadre cadre-nuit" data-cadre>
-        <div class="diapo affiche" data-affiche="res-couverture" role="img" aria-label="Couverture : les résultats du samedi 31 octobre, 3 matchs de championnat, 3 victoires.">
-          <p class="diapo-repli">Les résultats du samedi 31 octobre : 3 matchs de championnat, 3 victoires.</p>
-        </div>
-        <div class="diapo affiche" data-affiche="res-samedi" role="img" aria-label="Samedi 31 octobre, 3 victoires. U18 filles, départementale : BCR 51, US Bacqueville 31, à domicile. U15 filles : BCR 61, Eawy Saint-Saëns 37, à l'extérieur. U13 filles : victoire à Luneray.">
-          <p class="diapo-repli">Samedi 31 octobre : U18 filles, BCR 51 - 31 US Bacqueville. U15 filles, BCR 61 - 37 à Eawy Saint-Saëns. U13 filles, victoire à Luneray.</p>
-        </div>
-      </div>
-      <div class="commandes" data-commandes></div>
-      <p class="astuce">Touchez Agrandir pour lire l'affiche. Sur TikTok, elle garde cette forme, avec une bande en haut et en bas.</p>
-    </div>
-    <div class="apercu-texte">
-      <p>Voilà à quoi ressemble un diaporama des résultats : une couverture, puis une image par jour de matchs. Ce week-end-là, on a joué seulement le samedi. Les scores sont les vrais, relevés sur la fédération.</p>
-      <ol class="images">
-        <li>Couverture : « Les résultats du samedi 31 octobre : 3 matchs de championnat, 3 victoires ».</li>
-        <li>Samedi : « U18 filles (départementale) : BCR 51 - 31 US Bacqueville, à domicile » ; « U15 filles : BCR 61 - 37, à Eawy Saint-Saëns » ; « U13 filles : victoire à Luneray ».</li>
-      </ol>
-      <div class="coller">
-        <p class="coller-tete"><span class="lib">Texte à coller</span> <span class="marque">Exemple</span></p>
-        <p class="coller-texte" id="c31"><span class="nw">🏀💙</span> LES RÉSULTATS DU WEEK-END SONT LÀ ! <span class="nw">💙🏀</span><br>3 matchs de championnat, 3 victoires pour nos filles ce samedi ! Bravo aux U18, aux U15 et aux U13 💙<br>#basket #Rouxmesnil #Dieppe #Normandie #Movember</p>
-        <div class="coller-bas"><button type="button" class="bouton" data-copier="c31">Copier le texte</button><span class="etat" role="status"></span></div>
-      </div>
-      <p class="petit">Calendrier et résultats de la fédération, relevés le 3 novembre.</p>
-    </div>
-  </div>
+  <h3>Les commentaires</h3>
+  <ul class="liste">
+    <li>Dès le premier jour, le filtre des commentaires indésirables est allumé, avec une liste de mots bloqués (insultes, noms de famille).</li>
+    <li>Un adulte du bureau lit les commentaires le dimanche soir et le lundi. Sur une vidéo de jeunes, on peut couper les commentaires.</li>
+    <li>On ne répond jamais en message privé à un jeune.</li>
+  </ul>
 </section>
 
 </main>
 
 <footer class="pied colonne">
-  <p>Exemple préparé par Le Binôme Numérique pour le Basket Club de Rouxmesnil.</p>
+  <p>Exemple préparé par Le Binôme Numérique pour le Basket Club de Rouxmesnil. Vos photos et vidéos restent sur votre téléphone : rien n'est envoyé.</p>
+  <details class="credits">
+    <summary>Crédits et confidentialité</summary>
+    <p>La page et la voix se chargent depuis cette adresse, et nulle part ailleurs. La voix est ensuite gardée dans le téléphone. Aucune photo, aucune vidéo, aucun texte tapé n'est envoyé.</p>
+    <p>Voix : modèle Piper «&nbsp;fr_FR-mls-medium&nbsp;», entraîné sur <a href="https://www.openslr.org/94/">Multilingual LibriSpeech</a> (V. Pratap et al., 2020), enregistrements de livres audio LibriVox, licence <a href="https://creativecommons.org/licenses/by/4.0/deed.fr">CC BY 4.0</a>. C'est une voix de synthèse : elle n'imite personne. Lecture des mots : espeak-ng (GPL-3). Fabrication de la vidéo : mediabunny (MPL-2.0) et un encodeur du son tiré de FFmpeg (LGPL 2.1). Calcul de la voix : onnxruntime (MIT). Polices : Barlow Condensed et Source Sans 3 (SIL OFL 1.1).</p>
+    <p><a href="../vendor/LISEZMOI-LICENCES.txt">Les licences, les versions et les sources de ces bibliothèques</a>.</p>
+  </details>
   <p><a class="lien-pied" href="https://lebinomenumerique.fr/mentions-legales.html">Mentions légales (sur lebinomenumerique.fr)</a></p>
 </footer>
 
-<dialog class="grand" id="grand" aria-label="Image agrandie">
-  <div class="grand-cadre" data-grand></div>
-  <form method="dialog"><button type="submit" class="bouton">Fermer</button></form>
-</dialog>
+<dialog class="studio" id="studio" aria-labelledby="studio-titre"></dialog>
 
 <script src="../js/export-facebook.js"></script>
 <script src="../js/donnees-ffbb.js"></script>
-<script src="../js/tiktok.js"></script>
+<script type="module" src="../js/tiktok.js"></script>
 </body>
 </html>

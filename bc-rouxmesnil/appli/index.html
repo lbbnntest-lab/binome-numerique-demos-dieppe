@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- Tous les chemins de cette page partent du dossier bc-rouxmesnil/ (img/, js/, fonts/, vendor/) : aucun lien « #… » ici. -->
+<base href="../">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080a09">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Les matchs du club et les publications prêtes à partager sur Facebook, Instagram et TikTok.">
+<meta name="apple-mobile-web-app-title" content="BCR Publier">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Les publications du club</title>
+<link rel="manifest" href="appli/manifest.webmanifest">
+<link rel="icon" href="appli/icones/icone-192.png" type="image/png">
+<link rel="apple-touch-icon" href="appli/icones/icone-180.png">
+<link rel="preload" href="fonts/barlow-condensed-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="appli/appli.css">
+</head>
+<body>
+
+<!-- 1. Installer (ouvert dans le navigateur, pas encore installé) : sur iPhone, l'appli installée a son propre stockage,
+     d'où l'ordre « installer d'abord, taper le code ensuite ». -->
+<section id="ecran-installer" class="ecran-entree" hidden aria-labelledby="inst-titre">
+  <div class="entree-cadre">
+    <img src="img/logo-bcr-240.webp" width="240" height="252" alt="" class="entree-logo">
+    <h1 id="inst-titre">Les publications du club</h1>
+    <p class="entree-club">Basket Club de Rouxmesnil</p>
+    <p class="entree-intro">Installez d'abord l'appli sur votre téléphone. Ensuite, ouvrez-la depuis l'icône du club et tapez le code.</p>
+
+    <div id="inst-android" class="inst-bloc">
+      <button type="button" id="inst-bouton" class="bouton plein grand" hidden>Installer l'appli</button>
+      <ol id="inst-gestes-android" class="gestes">
+        <li>Dans Chrome, touchez les trois points <span class="touche" aria-label="trois points">⋮</span> en haut à droite.</li>
+        <li>Touchez « Ajouter à l'écran d'accueil » ou « Installer l'appli ».</li>
+        <li>Touchez « Installer ».</li>
+      </ol>
+    </div>
+
+    <div id="inst-iphone" class="inst-bloc" hidden>
+      <p class="petit">Dans Safari :</p>
+      <ol class="gestes vignettes-iphone">
+        <li>
+          <svg viewBox="0 0 112 132" width="112" height="132" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="104" height="124" rx="14" fill="#fbfbf8" stroke="#171a20" stroke-width="2.5"/>
+            <rect x="14" y="16" width="84" height="8" rx="4" fill="#c9cdca"/><rect x="14" y="32" width="60" height="6" rx="3" fill="#e5e8e3"/><rect x="14" y="44" width="72" height="6" rx="3" fill="#e5e8e3"/>
+            <path d="M4 96h104" stroke="#c9cdca" stroke-width="2"/>
+            <circle cx="56" cy="112" r="14" fill="#d7ecdc" stroke="#1f7a3f" stroke-width="2.5"/>
+            <path d="M50 108v10h12v-10" fill="none" stroke="#171a20" stroke-width="2.2" stroke-linejoin="round"/><path d="M56 114v-12M52 105.5l4-4 4 4" fill="none" stroke="#171a20" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="22" cy="112" r="2.2" fill="#4f5866"/><circle cx="29" cy="112" r="2.2" fill="#4f5866"/><circle cx="36" cy="112" r="2.2" fill="#4f5866"/>
+          </svg>
+          <p>Touchez <b>Partager</b> (le carré avec une flèche). S'il n'est pas visible, touchez d'abord <b>•••</b> en bas.</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 112 132" width="112" height="132" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="104" height="124" rx="14" fill="#fbfbf8" stroke="#171a20" stroke-width="2.5"/>
+            <rect x="12" y="20" width="88" height="14" rx="4" fill="#e5e8e3"/><rect x="12" y="40" width="88" height="14" rx="4" fill="#e5e8e3"/>
+            <rect x="10" y="60" width="92" height="22" rx="5" fill="#d7ecdc" stroke="#1f7a3f" stroke-width="2.5"/>
+            <rect x="17" y="65" width="12" height="12" rx="3" fill="none" stroke="#171a20" stroke-width="2"/><path d="M23 68v6M20 71h6" stroke="#171a20" stroke-width="2" stroke-linecap="round"/>
+            <rect x="35" y="68.5" width="58" height="5" rx="2.5" fill="#171a20"/>
+            <rect x="12" y="88" width="88" height="14" rx="4" fill="#e5e8e3"/><rect x="12" y="108" width="88" height="12" rx="4" fill="#e5e8e3"/>
+          </svg>
+          <p>Touchez <b>« Sur l'écran d'accueil »</b> (faites défiler si besoin).</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 112 132" width="112" height="132" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="104" height="124" rx="14" fill="#fbfbf8" stroke="#171a20" stroke-width="2.5"/>
+            <rect x="70" y="14" width="30" height="16" rx="5" fill="#d7ecdc" stroke="#1f7a3f" stroke-width="2.5"/><rect x="76" y="20" width="18" height="4" rx="2" fill="#171a20"/>
+            <rect x="14" y="40" width="22" height="22" rx="5" fill="#080a09"/><rect x="42" y="45" width="54" height="5" rx="2.5" fill="#c9cdca"/><rect x="42" y="54" width="36" height="4" rx="2" fill="#e5e8e3"/>
+            <path d="M12 76h88" stroke="#e5e8e3" stroke-width="2"/>
+            <rect x="14" y="88" width="48" height="5" rx="2.5" fill="#171a20"/>
+            <rect x="72" y="83" width="28" height="16" rx="8" fill="#1f7a3f"/><circle cx="92" cy="91" r="6" fill="#fff"/>
+          </svg>
+          <p>Laissez <b>« Ouvrir comme app web »</b> activé, puis touchez <b>« Ajouter »</b>.</p>
+        </li>
+      </ol>
+    </div>
+
+    <p id="inst-fait" class="note" role="status" hidden></p>
+    <p class="petit">La première fois, gardez du réseau (Wi-Fi conseillé). Ensuite, l'appli marche aussi sans réseau.</p>
+    <p class="entree-liens">
+      <button type="button" id="inst-changer" class="lien">Vous avez un iPhone ?</button>
+      <button type="button" id="inst-continuer" class="lien">Continuer sans installer</button>
+    </p>
+    <p class="petit" id="inst-continuer-note" hidden>Sans installer, sur un iPhone, il faudra retaper le code dans l'appli installée.</p>
+    <p><button type="button" id="inst-fermer" class="bouton" hidden>Retour aux réglages</button></p>
+  </div>
+</section>
+
+<!-- 2. Le code du club (une seule fois par téléphone) -->
+<section id="ecran-code" class="ecran-entree" hidden aria-labelledby="code-titre">
+  <div class="entree-cadre">
+    <img src="img/logo-bcr-240.webp" width="240" height="252" alt="" class="entree-logo">
+    <h1 id="code-titre">Les publications du club</h1>
+    <p class="entree-club">Basket Club de Rouxmesnil</p>
+    <p id="code-change" class="alerte" hidden>Le code du club a changé : tapez le nouveau.</p>
+    <form id="f-code" class="f-code" novalidate>
+      <label for="code">Tapez le code du club.</label>
+      <div class="code-ligne">
+        <input id="code" name="code" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-describedby="code-msg code-honnete">
+        <button type="submit" class="bouton plein">Entrer</button>
+      </div>
+      <p id="code-msg" class="m-erreur" role="alert"></p>
+    </form>
+    <p id="code-honnete" class="honnete">Le code évite qu'on tombe sur l'appli par hasard. Ce n'est pas un coffre-fort : il n'y a rien de secret dedans (les matchs sont publics), et vos photos et vidéos ne quittent jamais votre téléphone.</p>
+    <p class="entree-liens"><button type="button" id="code-oublie" class="lien" aria-expanded="false" aria-controls="code-oublie-texte">Code oublié ?</button></p>
+    <p id="code-oublie-texte" class="note" hidden>Demandez-le au président ou au bureau du club.</p>
+  </div>
+</section>
+
+<!-- 3. L'appli -->
+<div id="appli" hidden>
+  <header class="barre-haut">
+    <img src="img/logo-bcr-160.webp" width="160" height="168" alt="" class="bh-logo">
+    <div class="bh-textes">
+      <p class="bh-club">Les publications du club</p>
+      <h1 id="titre-ecran" tabindex="-1">Cette semaine</h1>
+    </div>
+  </header>
+  <p id="bandeau" class="bandeau" role="status" hidden></p>
+  <main id="contenu" class="contenu">
+    <section id="vue-semaine" class="vue" aria-labelledby="titre-ecran"></section>
+    <section id="vue-matchs" class="vue" aria-labelledby="titre-ecran" hidden></section>
+    <section id="vue-publier" class="vue" aria-labelledby="titre-ecran" hidden></section>
+    <section id="vue-photos" class="vue" aria-labelledby="titre-ecran" hidden></section>
+    <section id="vue-reglages" class="vue" aria-labelledby="titre-ecran" hidden></section>
+  </main>
+  <p id="signal" class="signal" hidden></p>
+  <nav class="onglets" aria-label="Rubriques de l'appli">
+    <ul>
+      <li><button type="button" data-onglet="semaine" aria-current="page"><span class="o-picto" data-picto="semaine"></span><span class="o-mot">Cette semaine</span><span class="badge" hidden></span></button></li>
+      <li><button type="button" data-onglet="matchs"><span class="o-picto" data-picto="matchs"></span><span class="o-mot">Matchs</span></button></li>
+      <li><button type="button" data-onglet="publier"><span class="o-picto" data-picto="publier"></span><span class="o-mot">Publier</span></button></li>
+      <li><button type="button" data-onglet="photos"><span class="o-picto" data-picto="photos"></span><span class="o-mot">Photos</span></button></li>
+      <li><button type="button" data-onglet="reglages"><span class="o-picto" data-picto="reglages"></span><span class="o-mot">Réglages</span></button></li>
+    </ul>
+  </nav>
+</div>
+
+<dialog id="atelier" class="atelier" aria-labelledby="atelier-titre">
+  <div class="a-retour"></div>
+  <div class="a-corps"></div>
+</dialog>
+
+<dialog id="confirmer" class="confirmer" aria-labelledby="conf-titre" aria-describedby="conf-texte">
+  <h2 id="conf-titre"></h2>
+  <p id="conf-texte"></p>
+  <p class="rangee"><button type="button" id="conf-oui" class="bouton danger"></button><button type="button" id="conf-non" class="bouton"></button></p>
+</dialog>
+
+<p id="annonce" class="visuellement-cache" aria-live="polite"></p>
+<noscript><p class="sans-script">L'appli ne peut pas s'ouvrir dans ce navigateur. Ouvrez le lien avec Chrome sur Android, ou Safari sur iPhone.</p></noscript>
+<!-- dessin des affiches et des images carrées du club (chargé tel quel, il ne publie rien) -->
+<script src="js/export-facebook.js"></script>
+<script type="module" src="js/appli-demarrage.js"></script>
+</body>
+</html>

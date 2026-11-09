@@ -1,0 +1,120 @@
+Bibliothèques utilisées par le studio vidéo (presentation/tiktok.html, js/tiktok-studio.js, js/tiktok-voix.js)
+Copiées sans modification sauf mention. Relevé du 06/11/2026, complété le 07/11/2026.
+La page renvoie vers ce fichier (pied de page, « Crédits et confidentialité »).
+
+Les sources de ces logiciels libres sont fournies ici : vendor/sources/ (voir LISEZMOI-SOURCES.txt)
+
+mediabunny/mediabunny.min.mjs
+  mediabunny 1.62.1 (npm), https://github.com/Vanilagy/mediabunny (tag v1.62.1)
+  Licence MPL-2.0 (texte : mediabunny/LICENSE). Fichier non modifié.
+  Rôle : lecture des vidéos du téléphone, encodage H.264/AAC par le navigateur, fichier mp4.
+
+mediabunny/mediabunny-aac-encoder.min.mjs
+  @mediabunny/aac-encoder 1.62.1 (npm), même dépôt, dossier packages/aac-encoder (tag v1.62.1).
+  Licence MPL-2.0 (mediabunny/LICENSE).
+  Contient l'encodeur AAC de FFmpeg compilé en WebAssembly : FFmpeg, LGPL-2.1 ou ultérieure
+  (texte : mediabunny/LICENCE-FFMPEG-LGPL-2.1.txt). Version relevée dans le fichier : libavcodec 62.23.103
+  (« Lavc62.23.103 », branche de développement qui a suivi FFmpeg 8.0). La révision exacte de FFmpeg et les
+  options de compilation sont celles de la recette du dépôt mediabunny au tag v1.62.1 (packages/aac-encoder) ;
+  le paquet npm ne les écrit pas lui-même. Fichier non modifié. Sources (07/11/2026) : vendor/sources/
+  mediabunny-v1.62.1.tar.gz (recette) et ffmpeg-0390793d.tar.gz (voir vendor/sources/LISEZMOI-SOURCES.txt).
+  Chargé seulement si le navigateur n'a pas d'encodeur AAC fiable (iPhone, iPad, Safari).
+
+ort/ort.wasm.min.mjs, ort/ort-wasm-simd-threaded.mjs, ort/ort-wasm-simd-threaded.wasm
+  onnxruntime-web 1.30.0 (npm), https://github.com/microsoft/onnxruntime (tag v1.30.0)
+  Licence MIT (texte : ort/LICENSE). Fichiers non modifiés.
+  Le .wasm contient des composants tiers (dont Eigen, MPL-2.0 ; abseil ; flatbuffers ; onnx). Leurs avis sont
+  dans ThirdPartyNotices.txt du dépôt microsoft/onnxruntime au tag v1.30.0 (absent du paquet npm), copié ici le
+  07/11/2026 : ort/ThirdPartyNotices.txt (commit f2c39fe2f838cf35ce7da92824f5a5e3ee6e88a7 = tag v1.30.0, 338 088 octets,
+  SHA-256 143764b952fdb1a7c69ce653bfba74a7744d6a8a573bfb73e235fba356c83de3), avec la liste des composants du dépôt
+  au même commit : ort/deps-v1.30.0.txt (cmake/deps.txt, 8 188 octets,
+  SHA-256 880edacbd7954c32b8bff34959e6fc5bbae0dc402f8f99861c1c3f057b976c0d). Fichiers non modifiés.
+  Rôle : calcul du modèle de voix dans le téléphone.
+
+piper/piper_phonemize.js, piper/piper_phonemize.wasm, piper/piper_phonemize.data
+  @diffusionstudio/piper-wasm 1.0.0 (npm), https://github.com/diffusion-studio/piper-wasm
+  Paquet sous licence MIT (piper/LICENSE-piper-wasm-MIT.txt). D'après son LISEZMOI, construit en juin 2024 avec
+  Emscripten 3.1.47, à partir de :
+    - espeak-ng, fourche rhasspy (https://github.com/rhasspy/espeak-ng, dernier état de juin 2024),
+      licence GPL-3.0 ou ultérieure (texte : piper/COPYING-espeak-ng-GPL-3.0.txt) ;
+    - piper-phonemize, version wide-video (https://github.com/wide-video/piper-phonemize, dernier état de
+      juin 2024), licence MIT (texte : piper/LICENSE-piper-phonemize-MIT.txt).
+  Le paquet ne publie pas les numéros de révision exacts de ces deux dépôts.
+  MODIFICATION (06/11/2026) : piper_phonemize.data ne garde que les fichiers communs d'espeak-ng (phonèmes,
+  intonations, voix) et les dictionnaires fr_dict et en_dict (18,1 Mo -> 1,05 Mo) ; piper_phonemize.js porte la
+  table des fichiers correspondante (seule la liste « files » et la taille du paquet changent). Méthode :
+  piper/alleger_espeak.js (joint, à lancer sur les fichiers d'origine du paquet npm). Le .data et le .js modifiés
+  sont leur propre source et sont servis tels quels à côté du .wasm, qui n'est pas modifié.
+  Source correspondante du .wasm (GPL-3, art. 6) : fournie dans vendor/sources/ depuis le 07/11/2026 (archives
+  piper-wasm 022edba0, piper-phonemize cfff8e52, espeak-ng 0f65aa30 pour le code et 8593723f pour les données,
+  avec la recette ; détail et empreintes dans vendor/sources/LISEZMOI-SOURCES.txt).
+
+voix/fr_FR-mls-medium.onnx (+ .onnx.json, .MODEL_CARD) : VOIX UTILISÉE DEPUIS LE 07/11/2026
+  Voix Piper « fr_FR-mls-medium », dépôt rhasspy/piper-voices
+  (https://huggingface.co/rhasspy/piper-voices, commit e7229f7d33a10e145e109b886d661984201ac3c4,
+  fichier fr/fr_FR/mls/medium/). Dépôt sous licence MIT (voix/LICENSE-piper-voices-MIT.txt).
+  76 733 750 octets, SHA-256 0ed223f78466917f2bae05ee90096ce69ab1fdeb251f55590d0e7422d234e162 (= empreinte LFS du dépôt).
+  Carte du modèle : 125 locuteurs, « Trained from scratch » (aucun modèle de départ : ni lessac, ni ryan).
+  Corpus : Multilingual LibriSpeech (MLS), V. Pratap, Q. Xu, A. Sriram, G. Synnaeve et R. Collobert, 2020
+  (arXiv 2012.03411), https://www.openslr.org/94/, licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+  Enregistrements tirés des livres audio LibriVox (domaine public). Fichier non modifié.
+  Attribution (CC BY 4.0), écrite dans le pied de presentation/tiktok.html et dans les crédits de l'appli (appli/) :
+  « Voix : modèle Piper fr_FR-mls-medium, entraîné sur Multilingual LibriSpeech (V. Pratap et al., 2020,
+  openslr.org/94, licence CC BY 4.0), enregistrements LibriVox. »
+  Réglages (js/tiktok-voix.js, REGLAGES_VOIX) : locuteur 110 (lecteur MLS 2607), débit x 1,25, À CONFIRMER à l'écoute.
+  Réserve : chaque locuteur est un lecteur bénévole réel de LibriVox ; la licence couvre les enregistrements. On ne dit
+  jamais « la voix de … » ; la voix n'imite aucune personne connue ni aucun membre du club.
+
+voix/fr_FR-siwis-medium.onnx (+ .onnx.json, .MODEL_CARD) : PLUS UTILISÉE (remplacée par mls-medium le 07/11/2026)
+  À retirer du dossier avant le premier envoi de vendor/ (fichier existant : non supprimé sans l'accord du fondateur).
+  Voix Piper « fr_FR-siwis-medium », dépôt rhasspy/piper-voices
+  (https://huggingface.co/rhasspy/piper-voices, commit e7229f7d33a10e145e109b886d661984201ac3c4,
+  fichier fr/fr_FR/siwis/medium/). Dépôt sous licence MIT (voix/LICENSE-piper-voices-MIT.txt).
+  Corpus : SIWIS French Speech Synthesis Database, P.-E. Honnet, A. Lazaridis, P. N. Garner et J. Yamagishi
+  (Université d'Édimbourg), https://datashare.is.ed.ac.uk/handle/10283/2353, licence CC-BY 4.0
+  (https://creativecommons.org/licenses/by/4.0/). Mention faite dans le pied de la page.
+  63,2 Mo. Fichier non modifié.
+  POINT OUVERT (07/11/2026) : la carte du modèle dit « Finetuned from U.S. English lessac voice ». La voix
+  « lessac » vient des enregistrements Lessac Technologies du Blizzard Challenge, diffusés pour un usage NON
+  commercial (page https://www.cstr.ed.ac.uk/projects/blizzard/2011/lessac_blizzard2011). Le dépôt de Piper
+  ne tranche pas pour les voix affinées depuis lessac (discussion https://github.com/rhasspy/piper/discussions/271).
+  Tant que ce n'est pas tranché, le droit d'usage commercial de cette voix n'est pas établi : décision du
+  fondateur (garder pour une démonstration, ou passer à une voix française entraînée sans base lessac).
+  Voix de synthèse : elle n'imite aucune personne connue ni aucun membre du club (elle est apprise sur les
+  enregistrements d'une locutrice du corpus SIWIS).
+
+Polices (fonts/) : voir fonts/LICENCES.txt (SIL OFL 1.1).
+
+Confidentialité : tous ces fichiers sont servis par notre site. Le studio ne contacte aucun
+autre site, et les photos et vidéos du club ne quittent jamais le téléphone.
+
+----------------------------------------------------------------------------------------------------------
+POINTS À RÉGLER AVANT TOUTE DIFFUSION AU CLUB (relevé du 07/11/2026, revue de l'appli des publications)
+Ce fichier est gardé dans le téléphone par l'appli (appli/sw.js) : le lien des crédits marche sans réseau.
+1. FAIT (07/11/2026, téléchargement autorisé par le fondateur) : ort/ThirdPartyNotices.txt copié depuis
+   https://raw.githubusercontent.com/microsoft/onnxruntime/f2c39fe2f838cf35ce7da92824f5a5e3ee6e88a7/ThirdPartyNotices.txt
+   (tag v1.30.0), avec ort/deps-v1.30.0.txt (cmake/deps.txt du même commit). Empreintes plus haut (partie ort/).
+2. FAIT (07/11/2026) : sources de piper/piper_phonemize.wasm (espeak-ng, GPL-3.0) dans vendor/sources/ :
+   piper-wasm-022edba0.tar.gz (recette et fichiers d'origine), piper-phonemize-cfff8e52.tar.gz,
+   espeak-ng-0f65aa30.tar.gz (code compilé dans le .wasm), espeak-ng-8593723f.tar.gz (données) ; recette et
+   piper/alleger_espeak.js décrits dans vendor/sources/LISEZMOI-SOURCES.txt. Archives codeload.github.com non modifiées.
+3. FAIT (07/11/2026) : sources de mediabunny/mediabunny-aac-encoder.min.mjs (FFmpeg, LGPL-2.1) dans vendor/sources/ :
+   mediabunny-v1.62.1.tar.gz (recette packages/aac-encoder, pont C, aac.js) et ffmpeg-0390793d.tar.gz.
+4. FAIT (07/11/2026) : phrase ajoutée en tête de ce fichier : « Les sources de ces logiciels libres sont fournies ici :
+   vendor/sources/ (voir LISEZMOI-SOURCES.txt) ».
+   CE QUI RESTE INCERTAIN (points 1 à 4) :
+   - La correspondance entre les sources fournies et les fichiers servis (piper_phonemize.wasm, aac.js embarqué dans
+     mediabunny-aac-encoder.min.mjs) repose sur les révisions relevées et les recettes publiées ; elle n'est PAS prouvée
+     par une recompilation octet par octet (aucun outil de compilation installé). Les versions d'Emscripten ne sont
+     écrites dans aucun des fichiers.
+   - FFmpeg : la recette de mediabunny ne fixe pas la révision. 0390793d est un choix argumenté (dernière révision où
+     libavcodec vaut 62.23.103 ; aucun fichier de l'encodeur AAC ne change dans cet intervalle), pas la révision prouvée.
+   - espeak-ng : la recette appelle 0f65aa30 sous forme de .zip ; l'archive fournie est le .tar.gz de la même révision.
+   - piper-wasm : pas de fichier de licence dans le dépôt, seul son package.json dit « MIT ».
+   - ort : deps-v1.30.0.txt couvre toutes les versions d'onnxruntime, pas seulement le build web ; ThirdPartyNotices.txt
+     ne cite pas pthreadpool (présent dans deps.txt) ; sa présence dans le .wasm n'est pas vérifiée.
+   - mediabunny-v1.62.1.tar.gz fait 64,9 Mo : GitHub l'accepte (limite 100 Mo) mais affiche un avertissement au-delà de 50 Mo.
+5. voix/fr_FR-siwis-medium.* : plus chargeable par aucune page (retirée de REGLAGES_VOIX dans js/tiktok-voix.js le 07/11) ;
+   exclue de tout envoi par voix/.gitignore ; à supprimer du dossier après accord du fondateur.
+6. Locuteur de la voix MLS (110, lecteur MLS 2607) : toujours À CONFIRMER à l'écoute par le fondateur (Réglages >
+   « Écouter un essai », ou fichiers d'essai s110, s43, s79) ; inscrire ici le choix et la date.

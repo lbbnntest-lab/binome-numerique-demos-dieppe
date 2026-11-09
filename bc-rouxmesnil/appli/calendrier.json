@@ -1,0 +1,3448 @@
+{
+ "version": "1 · allégé le 07/11",
+ "etabli_le": "2026-11-07",
+ "objet": "Calendrier multi-réseaux du BCR (Facebook, Instagram, TikTok) du lundi 9 novembre au dimanche 20 décembre 2026, à partir des mêmes données : un score tapé une fois sert partout.",
+ "sources": {
+  "matchs": "js/donnees-ffbb.js (matchs relevés le 3 novembre) via js/tiktok-donnees.js",
+  "videos": "js/tiktok-donnees.js (30 publications, corrigé le 07/11 : « Premier match en élite » le mardi 10)",
+  "faits": [
+   "docs/strategie/partenariat_bc_rouxmesnil/faits_verifies_bcr.md",
+   "docs/strategie/partenariat_bc_rouxmesnil/publication_club_07-08-11/README.md"
+  ],
+  "formats": "scratchpad/appli/formats.md (07/11)"
+ },
+ "conventions": {
+  "trous": "{nom} = rempli par l’appli (calculé) ou tapé par le club ; jamais inventé. Les valeurs déjà connues sont dans « valeurs ».",
+  "heures": "Heures TikTok : celles du calendrier vidéo. Heures Facebook / Instagram : proposition (aucune source chiffrée sur la meilleure heure pour ce club).",
+  "statut": "fixe, ouverture, bonus, joker (vidéo), facultatif",
+  "minutes": "estimations, à remplacer par les temps réels après 2 semaines",
+  "affichage": "L’appli affiche « matchs relevés le 3 novembre » à côté de chaque liste de matchs."
+ },
+ "regles_enfants": {
+  "codes": {
+   "R1": "Pas d'enfant reconnaissable : de dos, de loin, les mains, le ballon, le panier.",
+   "R2": "Aucun visage : seulement des objets et des mains, aucun papier ni objet qui porte un nom.",
+   "R3": "Adultes d'accord seulement de près ; aucun jeune reconnaissable, ni chez nous ni en face.",
+   "R4": "Seulement des photos prises par des gens du club qui sont d'accord, jamais une photo de journal. Personne de reconnaissable sans son accord (ou celui de sa famille) ; pas d'enfant reconnaissable sans l'accord écrit des deux parents.",
+   "R5": "Aucun joueur à l'image : la salle vide, le ballon, le panier, le tableau de score.",
+   "R6": "Anniversaires : prénom seulement, jamais de nom de famille, d'âge, de date de naissance, d'équipe ni de photo pour un mineur. Un adulte seulement s'il a dit oui ; un mineur seulement avec l'accord écrit de ses deux parents.",
+   "R7": "Affiches et cartes de score : aucune photo de joueur par défaut (logos, heure, salle). Une photo d'équipe de mineurs seulement si chaque enfant a l'accord écrit de ses deux parents ; sinon, une photo de dos ou de loin.",
+   "R8": "Photos d'événement : adultes d'accord de près ; jeunes de dos ou de loin ; aucun mineur reconnaissable, ni chez nous ni en face ; aucune boisson alcoolisée à l'image."
+  },
+  "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables.",
+  "consignes": {
+   "sono": "Filmez quand la sono est coupée : sinon, la musique de la salle peut faire couper le son de la vidéo.",
+   "alcool": "Aucune boisson alcoolisée, aucune bouteille, aucune enseigne d'alcool à l'image.",
+   "supermarche": "Chez un supermarché : la vitrine et le nom, pas les rayons.",
+   "transport": "Le volant, le coffre et les sacs, voiture à l'arrêt ; ni enfant, ni plaque, ni lieu de départ.",
+   "defi": "De dos ou de loin, jamais de prénom.",
+   "sac_jeune": "Avec l'accord de la joueuse et de ses deux parents ; aucun objet personnalisé (porte-clés, gourde marquée, téléphone, sac reconnaissable).",
+   "panier_jeunes": "Chez les jeunes : seulement un panier ou une passe, filmé de loin. Une défense ou un panier à la sirène : seniors seulement, adversaire jamais reconnaissable."
+  }
+ },
+ "types": {
+  "rendez-vous": {
+   "nom": "Rendez-vous du week-end",
+   "trous": {
+    "coeur": "calculé : 💙 en novembre (Movember), 💚 ensuite",
+    "jours_week_end": "calculé",
+    "n_domicile": "calculé depuis la liste des matchs (corrigée par le club)",
+    "n_exterieur": "calculé",
+    "liste_matchs": "calculé : heure, équipe, adversaire, salle ; « heure à confirmer » si l’heure manque",
+    "bloc_evenement": "facultatif : Movember jusqu’au 20/11",
+    "lieux_domicile": "calculé : salle Alexandre-Cheruel, et salle Charles-Lefebvre si un match y est"
+   },
+   "facebook": {
+    "format": "publication, affiches portrait 1080 × 1350",
+    "images": "couverture + 1 affiche par jour et par lieu (2 à 6)",
+    "longueur": "1 000 à 2 200 signes ; la date et le nombre de matchs à domicile dans les 3 premières lignes (avant « Voir plus »)",
+    "ton": "celui du club : chaleureux, émojis, sections",
+    "hashtags": "aucun",
+    "texte": "🏀{coeur} LES RENDEZ-VOUS DU WEEK-END – BCR {coeur}🏀\n🔥 Un nouveau week-end de compétition attend nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {n_domicile} matchs à domicile et {n_exterieur} à l’extérieur. Venez nous encourager ! 💪\n━━━━━━━━━━━━━━\n{liste_matchs}\n━━━━━━━━━━━━━━\n{bloc_evenement}\n📣 SUPPORTERS, ON COMPTE SUR VOUS !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀"
+   },
+   "instagram": {
+    "format": "carrousel 4:5",
+    "images": "les mêmes affiches, dans le même ordre (couverture d’abord)",
+    "longueur": "150 à 300 signes, l’essentiel dans les 125 premiers",
+    "ton": "court, direct",
+    "hashtags": "3 à 5",
+    "texte": "Le programme du week-end est là 🏀{coeur}\n{n_domicile} matchs à la maison ({lieux_domicile}), {n_exterieur} à l’extérieur. Tous les horaires sur les images 👉\nOn compte sur vous en tribune !\n{hashtags_3_a_5}"
+   },
+   "story": {
+    "reseaux": [
+     "instagram",
+     "facebook"
+    ],
+    "format": "story 9:16 (1080 × 1920), texte dans la zone sûre",
+    "quand": "le samedi et le dimanche matin, environ 1 h avant le premier match à la maison",
+    "texte": "sur l’image : « Aujourd’hui à la maison » + heure, équipe, adversaire ; aucun texte à coller"
+   },
+   "tiktok": {
+    "format": "vidéo du vendredi 18 h (série « Ce week-end au BCR »)",
+    "note": "TikTok seulement : sur Facebook et Instagram, l’affiche fait déjà le travail"
+   },
+   "regle_enfants": [
+    "R5",
+    "R7"
+   ]
+  },
+  "resultats": {
+   "nom": "Résultats du week-end",
+   "trous": {
+    "score_nous": "tapé par le club (une fois, sert partout)",
+    "score_eux": "tapé par le club",
+    "liste_scores": "calculée depuis les scores tapés ; « ⏳ score à venir » si un score manque ; jamais de score inventé",
+    "n_victoires": "calculé",
+    "n_joues": "calculé (matchs dont le score est tapé)",
+    "accroche_resultats": "calculée : la moitié des matchs gagnés ou plus → le nombre de victoires ; moins → le match à retenir ; aucune → le nombre de matchs joués"
+   },
+   "facebook": {
+    "format": "publication, affiches portrait 1080 × 1350",
+    "images": "couverture (bilan) + 1 à 3 affiches de scores",
+    "longueur": "600 à 1 500 signes",
+    "ton": "fier, jamais moqueur ; une défaite se dit sans détour et sans excuse",
+    "hashtags": "aucun",
+    "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀"
+   },
+   "instagram": {
+    "format": "carrousel 4:5",
+    "images": "les mêmes affiches",
+    "longueur": "120 à 250 signes",
+    "ton": "court",
+    "hashtags": "3 à 5",
+    "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}"
+   },
+   "story": {
+    "reseaux": [
+     "instagram",
+     "facebook"
+    ],
+    "format": "story 9:16 : la couverture (bilan)",
+    "quand": "en même temps que la publication",
+    "texte": "aucun",
+    "facultatif": true
+   },
+   "tiktok": {
+    "format": "vidéo du dimanche 19 h 30 (série « Les résultats du week-end »)",
+    "note": "TikTok seulement ; tous les scores dans la légende"
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "regle_enfants": [
+    "R1",
+    "R7"
+   ]
+  },
+  "fin-de-match": {
+   "nom": "Fin de match · le match à la une",
+   "trous": {
+    "equipe": "calculé (match à la une du week-end : par défaut les U18 filles en élite ; le club peut en choisir un autre)",
+    "score_nous": "tapé par le club",
+    "score_eux": "tapé par le club",
+    "adversaire": "calculé",
+    "lieu_phrase": "calculé : « à la maison » ou « à l’extérieur »",
+    "prochain_match": "calculé depuis le calendrier relevé",
+    "partenaire_1": "calculé : 3 partenaires à tour de rôle",
+    "partenaire_2": "calculé",
+    "partenaire_3": "calculé"
+   },
+   "facebook": {
+    "format": "publication, 1 image (carte de score 1080 × 1350, ou 1080 × 1080 existante)",
+    "images": "1 (ou 1 photo de dos / de loin + la carte)",
+    "longueur": "200 à 400 signes",
+    "ton": "à chaud, fier ; défaite : respect de l’adversaire, on se relève",
+    "hashtags": "aucun",
+    "texte": "Victoire : {phrase_victoire}\nDéfaite : {phrase_defaite}\nProchain match : {prochain_match}.\nMerci à nos partenaires : {partenaire_1}, {partenaire_2} et {partenaire_3}.",
+    "phrase_victoire": "Victoire de nos {equipe} {lieu_phrase} : {score_nous} à {score_eux} contre {adversaire} ! Bravo {bravo} {coeur}",
+    "phrase_defaite": "Nos {equipe} s’inclinent {score_nous} à {score_eux} {lieu_phrase} face à {adversaire}. On garde la tête haute {coeur}"
+   },
+   "instagram": {
+    "format": "story 9:16 seulement (la carte de score) ; pas de publication : le carrousel du dimanche la reprend",
+    "images": "1",
+    "longueur": "aucun texte à coller",
+    "hashtags": "aucun"
+   },
+   "tiktok": {
+    "format": "vidéo « Coup de sifflet final » seulement les samedis d’un match en élite à la maison (21/11 et 12/12)"
+   },
+   "regle_enfants": [
+    "R1",
+    "R7"
+   ]
+  },
+  "merci-partenaire": {
+   "nom": "Merci partenaire",
+   "trous": {
+    "partenaire": "choisi par le club ; l’appli propose le suivant dans la liste (31 partenaires 2025-2026, liste 2026-2027 à confirmer)",
+    "metier_ville": "calculé depuis la liste, laissé vide s’il manque",
+    "compte_partenaire": "tapé par le club s’il le connaît (sinon rien)"
+   },
+   "facebook": {
+    "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+    "images": "1",
+    "longueur": "250 à 450 signes",
+    "ton": "reconnaissant, simple, jamais publicitaire",
+    "hashtags": "aucun",
+    "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+    "commune": "Pour la commune : « Avec le soutien de la commune de Rouxmesnil-Bouteilles » à la place de « Merci à notre partenaire »."
+   },
+   "instagram": {
+    "format": "publication 4:5 (la même image) ; story facultative (la même image en 9:16)",
+    "images": "1",
+    "longueur": "80 à 200 signes",
+    "hashtags": "2 à 3",
+    "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe"
+   },
+   "tiktok": {
+    "format": "seulement « On est passés chez… » (vidéo chez un partenaire d’accord, 7/12)"
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "regle_enfants": [
+    "R3"
+   ]
+  },
+  "article": {
+   "nom": "Article de vie du club (3 lignes → article)",
+   "trous": {
+    "titre": "tapé par le club (une ligne à part)",
+    "ligne_1": "tapée par le club : quoi, quand, où",
+    "ligne_2": "tapée : ce qui s’est passé",
+    "ligne_3": "tapée : le merci"
+   },
+   "facebook": {
+    "format": "publication, 2 à 6 photos (ou l’image « Vie du club » 1080 × 1080 sans photo)",
+    "images": "2 à 6",
+    "longueur": "400 à 1 200 signes",
+    "ton": "récit chaleureux, en « nous »",
+    "hashtags": "aucun",
+    "texte": "{titre} {coeur}\n\n{ligne_1}. {ligne_2}.\n\n{ligne_3}"
+   },
+   "instagram": {
+    "format": "carrousel 4:5, les mêmes photos",
+    "images": "2 à 6",
+    "longueur": "150 à 300 signes",
+    "hashtags": "3 à 5",
+    "texte": "{titre} {coeur}\n{ligne_1}.\n{hashtags_3_a_5}"
+   },
+   "tiktok": {
+    "format": "seulement s’il y a des vidéos (ex. le tournoi en 30 secondes, 23/11)"
+   },
+   "regle_enfants": [
+    "R8"
+   ]
+  },
+  "anniversaires": {
+   "nom": "Anniversaires du mois (habitude du club, sous conditions)",
+   "trous": {
+    "mois": "calculé",
+    "prenoms": "tapés par le club : seulement ceux qui ont dit oui (et, pour un mineur, ses deux parents par écrit)"
+   },
+   "facebook": {
+    "format": "publication, 1 image (gâteau ou ballon aux couleurs du club, sans photo de personne)",
+    "images": "1",
+    "longueur": "100 à 400 signes",
+    "ton": "festif",
+    "hashtags": "aucun",
+    "texte": "🎂 Les anniversaires de {mois} au BCR ! 🎉\nJoyeux anniversaire à {prenoms} ! {coeur}\nToute la famille du BCR vous souhaite une belle journée."
+   },
+   "instagram": {
+    "format": "rien (Facebook seulement)"
+   },
+   "tiktok": {
+    "format": "rien"
+   },
+   "regle_enfants": [
+    "R6"
+   ],
+   "defaut": "Sans prénom tapé, la publication ne sort pas. L’appli ne garde aucune date de naissance."
+  },
+  "video-serie": {
+   "nom": "Séries vidéo (calendrier TikTok) reprises sur Instagram et Facebook",
+   "instagram": {
+    "format": "Reel : le même fichier vidéo 1080 × 1920",
+    "texte": "la légende TikTok, telle quelle (3 à 5 hashtags ; « Voix : synthèse vocale » gardé)",
+    "quand": "à la même heure que TikTok"
+   },
+   "facebook": {
+    "format": "vidéo (Reel) : le même fichier, seulement pour les vidéos marquées « Facebook »",
+    "texte": "la légende sans les hashtags",
+    "quand": "à la même heure"
+   },
+   "tiktok": {
+    "format": "vidéo du studio (inchangée)"
+   },
+   "note": "Les vidéos de programme et de résultats restent sur TikTok seulement (les affiches font déjà ce travail sur Facebook et Instagram)."
+  },
+  "story-annonce": {
+   "nom": "Story d’annonce",
+   "instagram": {
+    "format": "story 9:16"
+   },
+   "facebook": {
+    "format": "story 9:16"
+   },
+   "regle_enfants": [
+    "R5"
+   ]
+  }
+ },
+ "minutes_par_geste_estimees": {
+  "rdv": 10,
+  "story": 2,
+  "fin": 5,
+  "scores": 10,
+  "res": 5,
+  "merci": 5,
+  "article": 15,
+  "anniv": 5,
+  "photosFb": 5,
+  "tiktokInfo": 8,
+  "tiktokSerie": 10,
+  "reel": 2,
+  "fbVideo": 2,
+  "commentaires_3_reseaux": 15,
+  "tournage_sur_place": 15
+ },
+ "semaines": [
+  {
+   "n": 1,
+   "du": "2026-11-09",
+   "au": "2026-11-15",
+   "titre": "Semaine 1 · du lundi 9 novembre au dimanche 15 novembre",
+   "publications": [
+    "p01",
+    "p02",
+    "p03",
+    "p07",
+    "p04",
+    "p09",
+    "p11",
+    "p10",
+    "p12",
+    "p13"
+   ],
+   "comptes": {
+    "total": 10,
+    "importantes": 6,
+    "videos": 2,
+    "facebook_publications": 5,
+    "stories": 3
+   },
+   "minutes_estimees": {
+    "mention": "ESTIMATION d’avant le 07/11 (calendrier allégé depuis), non chronométrée avec le club",
+    "avec_fixes_seulement": 127,
+    "avec_bonus_et_facultatifs": 132,
+    "socle_minimum": 75,
+    "dont_commentaires": 15,
+    "dont_tournage_pendant_les_matchs": 15,
+    "dont_taper_les_scores": 20
+   }
+  },
+  {
+   "n": 2,
+   "du": "2026-11-16",
+   "au": "2026-11-22",
+   "titre": "Semaine 2 · du lundi 16 novembre au dimanche 22 novembre",
+   "publications": [
+    "p16",
+    "p65",
+    "p18",
+    "p17",
+    "p20",
+    "p21",
+    "p23",
+    "p24"
+   ],
+   "comptes": {
+    "total": 8,
+    "importantes": 5,
+    "videos": 2,
+    "facebook_publications": 5,
+    "stories": 2
+   },
+   "minutes_estimees": {
+    "mention": "ESTIMATION d’avant le 07/11 (calendrier allégé depuis), non chronométrée avec le club",
+    "avec_fixes_seulement": 100,
+    "avec_bonus_et_facultatifs": 132,
+    "socle_minimum": 76,
+    "dont_commentaires": 15,
+    "dont_tournage_pendant_les_matchs": 15,
+    "dont_taper_les_scores": 10
+   }
+  },
+  {
+   "n": 3,
+   "du": "2026-11-23",
+   "au": "2026-11-29",
+   "titre": "Semaine 3 · du lundi 23 novembre au dimanche 29 novembre",
+   "publications": [
+    "p25",
+    "p28",
+    "p27",
+    "p26",
+    "p66",
+    "p30",
+    "p32",
+    "p31",
+    "p33",
+    "p34"
+   ],
+   "comptes": {
+    "total": 10,
+    "importantes": 5,
+    "videos": 3,
+    "facebook_publications": 6,
+    "stories": 2
+   },
+   "minutes_estimees": {
+    "mention": "ESTIMATION d’avant le 07/11 (calendrier allégé depuis), non chronométrée avec le club",
+    "avec_fixes_seulement": 107,
+    "avec_bonus_et_facultatifs": 119,
+    "socle_minimum": 60,
+    "dont_commentaires": 15,
+    "dont_tournage_pendant_les_matchs": 15,
+    "dont_taper_les_scores": 10
+   }
+  },
+  {
+   "n": 4,
+   "du": "2026-11-30",
+   "au": "2026-12-06",
+   "titre": "Semaine 4 · du lundi 30 novembre au dimanche 6 décembre",
+   "publications": [
+    "p40",
+    "p38",
+    "p39",
+    "p36",
+    "p41",
+    "p42",
+    "p43",
+    "p44",
+    "p45",
+    "p46"
+   ],
+   "comptes": {
+    "total": 10,
+    "importantes": 5,
+    "videos": 3,
+    "facebook_publications": 6,
+    "stories": 2
+   },
+   "minutes_estimees": {
+    "mention": "ESTIMATION d’avant le 07/11 (calendrier allégé depuis), non chronométrée avec le club",
+    "avec_fixes_seulement": 97,
+    "avec_bonus_et_facultatifs": 126,
+    "socle_minimum": 60,
+    "dont_commentaires": 15,
+    "dont_tournage_pendant_les_matchs": 15,
+    "dont_taper_les_scores": 10
+   }
+  },
+  {
+   "n": 5,
+   "du": "2026-12-07",
+   "au": "2026-12-13",
+   "titre": "Semaine 5 · du lundi 7 décembre au dimanche 13 décembre",
+   "publications": [
+    "p47",
+    "p49",
+    "p48",
+    "p67",
+    "p50",
+    "p51",
+    "p52",
+    "p54",
+    "p55",
+    "p56"
+   ],
+   "comptes": {
+    "total": 10,
+    "importantes": 5,
+    "videos": 4,
+    "facebook_publications": 6,
+    "stories": 2
+   },
+   "minutes_estimees": {
+    "mention": "ESTIMATION d’avant le 07/11 (calendrier allégé depuis), non chronométrée avec le club",
+    "avec_fixes_seulement": 92,
+    "avec_bonus_et_facultatifs": 114,
+    "socle_minimum": 60,
+    "dont_commentaires": 15,
+    "dont_tournage_pendant_les_matchs": 15,
+    "dont_taper_les_scores": 10
+   }
+  },
+  {
+   "n": 6,
+   "du": "2026-12-14",
+   "au": "2026-12-20",
+   "titre": "Semaine 6 · du lundi 14 décembre au dimanche 20 décembre",
+   "publications": [
+    "p57",
+    "p58",
+    "p59",
+    "p60",
+    "p61",
+    "p62",
+    "p63",
+    "p64"
+   ],
+   "comptes": {
+    "total": 8,
+    "importantes": 0,
+    "videos": 5,
+    "facebook_publications": 4,
+    "stories": 0
+   },
+   "minutes_estimees": {
+    "mention": "ESTIMATION d’avant le 07/11 (calendrier allégé depuis), non chronométrée avec le club",
+    "avec_fixes_seulement": 79,
+    "avec_bonus_et_facultatifs": 101,
+    "socle_minimum": 51,
+    "dont_commentaires": 15,
+    "dont_tournage_pendant_les_matchs": 15,
+    "dont_taper_les_scores": 0
+   }
+  }
+ ],
+ "publications": [
+  {
+   "date": "2026-11-09",
+   "heure": "12 h",
+   "type": "resultats",
+   "titre": "Résultats du week-end · Samedi 7 et dimanche 8 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "couverture (bilan) + 1 à 3 affiches de scores",
+     "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 7 et dimanche 8 novembre",
+      "n_matchs_au_calendrier": 13,
+      "fin_de_texte": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5",
+     "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    },
+    "story": {
+     "format": "story 9:16 : la couverture (bilan)",
+     "facultatif": true
+    }
+   },
+   "donnees": {
+    "week_end": "7-8/11",
+    "matchs": 13,
+    "domicile": 8,
+    "exterieur": 5,
+    "sans_heure": 0,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Cherbourg Basket Ball",
+     "lieu": "domicile",
+     "date": "2026-11-07",
+     "heure": "15 h 15"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun (les affiches se dessinent seules). Facultatif : 1 photo des tribunes de loin.",
+   "a_taper": "Les scores du 7-8/11 que vous connaissez (13 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "minutes_estimees": 5,
+   "note": "Seulement si le club ne l’a pas déjà publié le dimanche 8 au soir.",
+   "id": "p01",
+   "jour": "lundi",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-09",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Bienvenue sur le compte du BCR",
+   "statut": "facultatif",
+   "ancrage": "premier jour",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "special-bienvenue",
+     "ref_tiktok": 0,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    }
+   },
+   "medias_attendus": "rien. Si vous voulez, 2 à 4 photos de la salle, du ballon, du panier ou du tableau de score.",
+   "a_taper": "rien.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 10,
+   "source": "js/tiktok-donnees.js, publication 0",
+   "id": "p02",
+   "jour": "lundi",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-09",
+   "heure": "18 h 30",
+   "type": "story-annonce",
+   "titre": "Story · Le BCR est sur TikTok",
+   "statut": "facultatif",
+   "ancrage": "premier jour",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16",
+     "texte": "sur l’image : « Le BCR est aussi sur TikTok ! » + {nom_du_compte_tiktok}"
+    },
+    "facebook": {
+     "format": "la même story"
+    }
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Le nom du compte TikTok (une seule fois).",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "note": "Juste après la vidéo de bienvenue sur TikTok. La même ligne passe dans le rendez-vous Facebook du mardi 10.",
+   "id": "p03",
+   "jour": "lundi",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-10",
+   "heure": "18 h",
+   "type": "rendez-vous",
+   "titre": "Rendez-vous du week-end · Samedi 14 et dimanche 15 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "1 couverture + 4 affiches (jour × domicile / extérieur)",
+     "texte": "🏀{coeur} LES RENDEZ-VOUS DU WEEK-END – BCR {coeur}🏀\n🔥 Un nouveau week-end de compétition attend nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {n_domicile} matchs à domicile et {n_exterieur} à l’extérieur. Venez nous encourager ! 💪\n━━━━━━━━━━━━━━\n{liste_matchs}\n━━━━━━━━━━━━━━\n{bloc_evenement}\n📣 SUPPORTERS, ON COMPTE SUR VOUS !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 14 et dimanche 15 novembre",
+      "n_domicile": 10,
+      "n_exterieur": 9,
+      "bloc_evenement": "💙 MOVEMBER : tournoi masculin (U18 à seniors) le vendredi 20 novembre à partir de 19 h, salle Alexandre-Cheruel : animations, t-shirts et objets du club, restauration sur place.",
+      "ligne_tiktok": "📱 Le BCR est aussi sur TikTok : {nom_du_compte_tiktok}"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes affiches)",
+     "texte": "Le programme du week-end est là 🏀{coeur}\n{n_domicile} matchs à la maison ({lieux_domicile}), {n_exterieur} à l’extérieur. Tous les horaires sur les images 👉\nOn compte sur vous en tribune !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙",
+      "n_domicile": 10,
+      "n_exterieur": 9,
+      "lieux_domicile": "salle Alexandre-Cheruel, sauf indication sur l’affiche"
+     },
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "donnees": {
+    "week_end": "14-15/11",
+    "matchs": 19,
+    "domicile": 10,
+    "exterieur": 9,
+    "sans_heure": 2,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Aplemont Le Havre 2",
+     "lieu": "exterieur",
+     "date": "2026-11-14",
+     "heure": "15 h 30"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun : les affiches se dessinent seules (logos, heures, salles).",
+   "a_taper": "Rien. Vérifier les heures (2 matchs sans heure au 3 novembre) ; corriger, décocher ou ajouter un match.",
+   "verifier": "Les heures sur le site de la fédération avant de publier ; le club publiait le mardi pour le 7-8/11 : il peut garder son jour.",
+   "regle_enfants": {
+    "codes": [
+     "R5",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 10,
+   "note": "Le mardi, comme le club le fait déjà (décision du 07/11).",
+   "id": "p07",
+   "jour": "mardi",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-12",
+   "heure": "18 h",
+   "type": "merci-partenaire",
+   "titre": "Merci partenaire · {partenaire} (suggestion : Commune de Rouxmesnil-Bouteilles)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+     "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+     "valeurs": {
+      "partenaire": "{choisi par le club}",
+      "suggestion": "Commune de Rouxmesnil-Bouteilles",
+      "coeur": "💙"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "publication 4:5 (la même image)",
+     "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe",
+     "hashtags": [
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "Aucun : le logo est déjà dans l’appli. Facultatif : une photo de la vitrine, avec l’accord du partenaire.",
+   "a_taper": "Rien. Vous choisissez le partenaire ; l’appli propose le suivant de la liste.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ]
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "minutes_estimees": 5,
+   "note": "La commune : « Avec le soutien de… ». Liste 2026-2027 à confirmer avec le club. Passé au jeudi : le mardi est le jour du rendez-vous du week-end (décision du 07/11).",
+   "id": "p04",
+   "jour": "jeudi",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-14",
+   "heure": "12 h",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (6 matchs)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "14-15/11",
+    "domicile_ce_jour": 6,
+    "premier_match_domicile": "13 h"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p09",
+   "jour": "samedi",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-14",
+   "heure": "20 h",
+   "type": "story-jour",
+   "titre": "Story · Demain à la maison (4 matchs)",
+   "statut": "facultatif",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "14-15/11",
+    "domicile_ce_jour": 4,
+    "premier_match_domicile": "8 h 45"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p11",
+   "jour": "dimanche",
+   "semaine": 1,
+   "jour_matchs": "2026-11-15"
+  },
+  {
+   "date": "2026-11-14",
+   "heure": "17 h 30",
+   "type": "fin-de-match",
+   "titre": "Fin de match · U18 filles (élite) contre Aplemont Le Havre 2 (à l’extérieur)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "tiktok_le_meme_soir": null,
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 carte de score",
+     "texte": "Victoire : {phrase_victoire}\nDéfaite : {phrase_defaite}\nProchain match : {prochain_match}.\nMerci à nos partenaires : {partenaire_1}, {partenaire_2} et {partenaire_3}.",
+     "valeurs": {
+      "equipe": "U18 filles, en élite",
+      "bravo": "les filles",
+      "adversaire": "Aplemont Le Havre 2",
+      "lieu_phrase": "à l’extérieur",
+      "prochain_match": "samedi 21 novembre, 15 h, à la maison contre USO Mondeville 2",
+      "coeur": "💙",
+      "score_nous": "{tapé}",
+      "score_eux": "{tapé}",
+      "partenaire_1": "{à tour de rôle}",
+      "partenaire_2": "{à tour de rôle}",
+      "partenaire_3": "{à tour de rôle}"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "story 9:16 : la carte de score",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "14-15/11",
+    "matchs": 19,
+    "domicile": 10,
+    "exterieur": 9,
+    "sans_heure": 2,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Aplemont Le Havre 2",
+     "lieu": "exterieur",
+     "date": "2026-11-14",
+     "heure": "15 h 30"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Facultatif : 1 photo de dos ou de loin, ou du tableau de score (le coach ou un parent l’envoie par le groupe du club).",
+   "a_taper": "Le score (il ressert dimanche dans les résultats, sur les trois réseaux).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 5,
+   "note": "Match à l’extérieur : le score arrive par le coach ou un parent, par le groupe de messagerie du club.",
+   "id": "p10",
+   "jour": "samedi",
+   "semaine": 1,
+   "equipe": "u18f1"
+  },
+  {
+   "date": "2026-11-15",
+   "heure": "19 h 30",
+   "type": "video-serie",
+   "titre": "Les résultats du week-end · Les scores qui tombent",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "resultats-scores-qui-tombent",
+     "ref_tiktok": 4,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    }
+   },
+   "medias_attendus": "déjà fait ce week-end (les tribunes de loin, le tableau de score). Facultatif.",
+   "a_taper": "les scores que vous connaissez (19 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 4",
+   "id": "p12",
+   "jour": "dimanche",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-15",
+   "heure": "20 h 30",
+   "type": "resultats",
+   "titre": "Résultats du week-end · Samedi 14 et dimanche 15 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "couverture (bilan) + 1 à 3 affiches de scores",
+     "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 14 et dimanche 15 novembre",
+      "n_matchs_au_calendrier": 19,
+      "fin_de_texte": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5",
+     "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    },
+    "story": {
+     "format": "story 9:16 : la couverture (bilan)",
+     "facultatif": true
+    }
+   },
+   "donnees": {
+    "week_end": "14-15/11",
+    "matchs": 19,
+    "domicile": 10,
+    "exterieur": 9,
+    "sans_heure": 2,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Aplemont Le Havre 2",
+     "lieu": "exterieur",
+     "date": "2026-11-14",
+     "heure": "15 h 30"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun (les affiches se dessinent seules). Facultatif : 1 photo des tribunes de loin.",
+   "a_taper": "Rien de plus si les scores sont déjà tapés pour la vidéo TikTok de 19 h 30 ; sinon les scores que vous connaissez (19 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p13",
+   "jour": "dimanche",
+   "semaine": 1
+  },
+  {
+   "date": "2026-11-17",
+   "heure": "18 h",
+   "type": "rendez-vous",
+   "titre": "Rendez-vous du week-end · Samedi 21 et dimanche 22 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "1 couverture + 3 affiches (jour × domicile / extérieur)",
+     "texte": "🏀{coeur} LES RENDEZ-VOUS DU WEEK-END – BCR {coeur}🏀\n🔥 Un nouveau week-end de compétition attend nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {n_domicile} matchs à domicile et {n_exterieur} à l’extérieur. Venez nous encourager ! 💪\n━━━━━━━━━━━━━━\n{liste_matchs}\n━━━━━━━━━━━━━━\n{bloc_evenement}\n📣 SUPPORTERS, ON COMPTE SUR VOUS !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 21 et dimanche 22 novembre",
+      "n_domicile": 4,
+      "n_exterieur": 14,
+      "bloc_evenement": "💙 MOVEMBER : tournoi masculin (U18 à seniors) le vendredi 20 novembre à partir de 19 h, salle Alexandre-Cheruel : animations, t-shirts et objets du club, restauration sur place.",
+      "ligne_tiktok": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes affiches)",
+     "texte": "Le programme du week-end est là 🏀{coeur}\n{n_domicile} matchs à la maison ({lieux_domicile}), {n_exterieur} à l’extérieur. Tous les horaires sur les images 👉\nOn compte sur vous en tribune !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙",
+      "n_domicile": 4,
+      "n_exterieur": 14,
+      "lieux_domicile": "salle Alexandre-Cheruel, sauf indication sur l’affiche"
+     },
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "donnees": {
+    "week_end": "21-22/11",
+    "matchs": 18,
+    "domicile": 4,
+    "exterieur": 14,
+    "sans_heure": 3,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "USO Mondeville 2",
+     "lieu": "domicile",
+     "date": "2026-11-21",
+     "heure": "15 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun : les affiches se dessinent seules (logos, heures, salles).",
+   "a_taper": "Rien. Vérifier les heures (3 matchs sans heure au 3 novembre) ; corriger, décocher ou ajouter un match.",
+   "verifier": "Les heures sur le site de la fédération avant de publier ; le club publiait le mardi pour le 7-8/11 : il peut garder son jour.",
+   "regle_enfants": {
+    "codes": [
+     "R5",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 10,
+   "note": "Le mardi, comme le club le fait déjà (décision du 07/11).",
+   "id": "p16",
+   "jour": "mardi",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-19",
+   "heure": "18 h",
+   "type": "merci-partenaire",
+   "titre": "Merci partenaire · {partenaire} (suggestion : Mekabulle)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+     "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+     "valeurs": {
+      "partenaire": "{choisi par le club}",
+      "suggestion": "Mekabulle",
+      "coeur": "💙"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "publication 4:5 (la même image)",
+     "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe",
+     "hashtags": [
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "Aucun : le logo est déjà dans l’appli. Facultatif : une photo de la vitrine, avec l’accord du partenaire.",
+   "a_taper": "Rien. Vous choisissez le partenaire ; l’appli propose le suivant de la liste.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ]
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "minutes_estimees": 5,
+   "note": "La commune : « Avec le soutien de… ». Liste 2026-2027 à confirmer avec le club. Passé au jeudi : le mardi est le jour du rendez-vous du week-end (décision du 07/11).",
+   "id": "p65",
+   "jour": "jeudi",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-20",
+   "heure": "17 h",
+   "type": "story-annonce",
+   "titre": "Story · Tournoi Movember, ce soir dès 19 h",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16",
+     "texte": "sur l’image : « Ce soir dès 19 h · Tournoi Movember · salle Alexandre-Cheruel »"
+    },
+    "facebook": {
+     "format": "la même story"
+    }
+   },
+   "medias_attendus": "Facultatif : une photo de la salle qui se prépare (sans enfant reconnaissable).",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R3",
+     "R8"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p18",
+   "jour": "vendredi",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-20",
+   "heure": "matin ou midi",
+   "type": "video-serie",
+   "titre": "Movember · « Ce soir ! »",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "tiktok",
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "special-compte-a-rebours-ce-soir",
+     "ref_tiktok": 7,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ],
+     "heure": "matin ou midi"
+    },
+    "facebook": {
+     "format": "vidéo (le même fichier)",
+     "texte": "la légende TikTok sans les hashtags",
+     "hashtags": [],
+     "heure": "matin ou midi",
+     "facultatif": false
+    }
+   },
+   "medias_attendus": "déjà fait (une moustache d'adulte d'accord, les t-shirts, la salle qui se prépare).",
+   "a_taper": "rien. Vérifiez seulement l'heure du match de demain.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 14,
+   "source": "js/tiktok-donnees.js, publication 7",
+   "id": "p17",
+   "jour": "vendredi",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-21",
+   "heure": "12 h",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (4 matchs)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "21-22/11",
+    "domicile_ce_jour": 4,
+    "premier_match_domicile": "13 h"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p20",
+   "jour": "samedi",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-22",
+   "heure": "17 h 30",
+   "type": "fin-de-match",
+   "titre": "Fin de match · Seniors garçons (régionale 3) contre Vexin normand-Étrépagny (à l’extérieur)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "tiktok_le_meme_soir": "vidéo « Coup de sifflet final des U18 filles » à 18 h 30 (même score, tapé une fois)",
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 carte de score",
+     "texte": "Victoire : {phrase_victoire}\nDéfaite : {phrase_defaite}\nProchain match : {prochain_match}.\nMerci à nos partenaires : {partenaire_1}, {partenaire_2} et {partenaire_3}.",
+     "valeurs": {},
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "story 9:16 : la carte de score",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "21-22/11",
+    "matchs": 18,
+    "domicile": 4,
+    "exterieur": 14,
+    "sans_heure": 3,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "Seniors garçons (régionale 3)",
+     "adversaire": "Vexin normand-Étrépagny",
+     "lieu": "exterieur",
+     "date": "2026-11-22",
+     "heure": "15 h 30"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Facultatif : 1 photo de dos ou de loin, ou du tableau de score (le coach ou un parent l’envoie par le groupe du club).",
+   "a_taper": "Le score (il ressert dimanche dans les résultats, sur les trois réseaux).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p21",
+   "jour": "samedi",
+   "semaine": 2,
+   "equipe": "rm3"
+  },
+  {
+   "date": "2026-11-22",
+   "heure": "19 h 30",
+   "type": "video-serie",
+   "titre": "Les résultats du week-end · Le carnet",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "resultats-carnet",
+     "ref_tiktok": 10,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    }
+   },
+   "medias_attendus": "déjà fait samedi (1 photo par équipe qui jouait à la maison : U13 filles, U18 filles élite, U15 filles, U18 garçons 2).",
+   "a_taper": "les scores que vous connaissez (18 au plus). Puis vous touchez une photo, et l'équipe qui va avec.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 10",
+   "id": "p23",
+   "jour": "dimanche",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-22",
+   "heure": "20 h 30",
+   "type": "resultats",
+   "titre": "Résultats du week-end · Samedi 21 et dimanche 22 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "couverture (bilan) + 1 à 3 affiches de scores",
+     "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 21 et dimanche 22 novembre",
+      "n_matchs_au_calendrier": 18,
+      "fin_de_texte": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5",
+     "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    },
+    "story": {
+     "format": "story 9:16 : la couverture (bilan)",
+     "facultatif": true
+    }
+   },
+   "donnees": {
+    "week_end": "21-22/11",
+    "matchs": 18,
+    "domicile": 4,
+    "exterieur": 14,
+    "sans_heure": 3,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "USO Mondeville 2",
+     "lieu": "domicile",
+     "date": "2026-11-21",
+     "heure": "15 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun (les affiches se dessinent seules). Facultatif : 1 photo des tribunes de loin.",
+   "a_taper": "Rien de plus si les scores sont déjà tapés pour la vidéo TikTok de 19 h 30 ; sinon les scores que vous connaissez (18 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p24",
+   "jour": "dimanche",
+   "semaine": 2
+  },
+  {
+   "date": "2026-11-23",
+   "heure": "18 h 30",
+   "type": "video-serie",
+   "titre": "Movember · Le tournoi en 30 secondes",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "tiktok",
+    "instagram"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "special-tournoi-micro-en-tribune",
+     "ref_tiktok": 11,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ],
+     "heure": "18 h 30"
+    }
+   },
+   "medias_attendus": "déjà fait au tournoi (les vidéos de la soirée et les 2 réponses « Un mot pour l'équipe ? »).",
+   "a_taper": "rien. Vous touchez les 2 vidéos où quelqu'un répond.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 12,
+   "source": "js/tiktok-donnees.js, publication 11",
+   "id": "p25",
+   "jour": "lundi",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-24",
+   "heure": "18 h",
+   "type": "rendez-vous",
+   "titre": "Rendez-vous du week-end · Samedi 28 et dimanche 29 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "1 couverture + 4 affiches (jour × domicile / extérieur)",
+     "texte": "🏀{coeur} LES RENDEZ-VOUS DU WEEK-END – BCR {coeur}🏀\n🔥 Un nouveau week-end de compétition attend nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {n_domicile} matchs à domicile et {n_exterieur} à l’extérieur. Venez nous encourager ! 💪\n━━━━━━━━━━━━━━\n{liste_matchs}\n━━━━━━━━━━━━━━\n{bloc_evenement}\n📣 SUPPORTERS, ON COMPTE SUR VOUS !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 28 et dimanche 29 novembre",
+      "n_domicile": 12,
+      "n_exterieur": 7,
+      "bloc_evenement": "",
+      "ligne_tiktok": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes affiches)",
+     "texte": "Le programme du week-end est là 🏀{coeur}\n{n_domicile} matchs à la maison ({lieux_domicile}), {n_exterieur} à l’extérieur. Tous les horaires sur les images 👉\nOn compte sur vous en tribune !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙",
+      "n_domicile": 12,
+      "n_exterieur": 7,
+      "lieux_domicile": "salle Alexandre-Cheruel, sauf indication sur l’affiche"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    }
+   },
+   "donnees": {
+    "week_end": "28-29/11",
+    "matchs": 19,
+    "domicile": 12,
+    "exterieur": 7,
+    "sans_heure": 4,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Élan Carpiquet",
+     "lieu": "exterieur",
+     "date": "2026-11-28",
+     "heure": "17 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun : les affiches se dessinent seules (logos, heures, salles).",
+   "a_taper": "Rien. Vérifier les heures (4 matchs sans heure au 3 novembre) ; corriger, décocher ou ajouter un match.",
+   "verifier": "Les heures sur le site de la fédération avant de publier ; le club publiait le mardi pour le 7-8/11 : il peut garder son jour.",
+   "regle_enfants": {
+    "codes": [
+     "R5",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 10,
+   "note": "Le mardi, comme le club le fait déjà (décision du 07/11).",
+   "id": "p28",
+   "jour": "mardi",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-25",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Le défi du mercredi · Manche 1",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "tiktok",
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "defi-dix-lancers",
+     "ref_tiktok": 12,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ],
+     "heure": "18 h"
+    },
+    "facebook": {
+     "format": "vidéo (le même fichier)",
+     "texte": "la légende TikTok sans les hashtags",
+     "hashtags": [],
+     "heure": "18 h",
+     "facultatif": true
+    }
+   },
+   "medias_attendus": "déjà fait à l'entraînement (une seule vidéo des 10 tirs).",
+   "a_taper": "le nombre de paniers sur 10. Vous choisissez qui relève le défi.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 12,
+   "source": "js/tiktok-donnees.js, publication 12",
+   "id": "p27",
+   "jour": "mercredi",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-26",
+   "heure": "18 h",
+   "type": "article",
+   "titre": "Article · Merci pour le tournoi Movember",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 2 à 6 photos du tournoi",
+     "texte": "{titre} {coeur}\n\n{ligne_1}. {ligne_2}.\n\n{ligne_3}",
+     "valeurs": {
+      "titre": "{tapé : ex. « Merci pour le tournoi Movember ! »}",
+      "ligne_1": "Vendredi 20 novembre, salle Alexandre-Cheruel, {tapé}",
+      "ligne_2": "{tapé}",
+      "ligne_3": "{tapé : le merci}",
+      "fin_fixe": "Le BCR soutient Movember : santé masculine, prévention, sensibilisation.",
+      "coeur": "💙"
+     },
+     "hashtags": [
+      "#Movember"
+     ]
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes photos)",
+     "texte": "{titre} {coeur}\n{ligne_1}.\n{hashtags_3_a_5}",
+     "hashtags": [
+      "#Movember",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "2 à 6 photos du tournoi, prises le 20/11 (photographes bénévoles : créditer « Photo : {prénom nom du photographe, s’il le veut} »).",
+   "a_taper": "3 lignes et un titre. Aucun chiffre de recette ou de dons sauf si le club le donne.",
+   "regle_enfants": {
+    "codes": [
+     "R8"
+    ]
+   },
+   "minutes_estimees": 15,
+   "note": "Tournoi masculin U18 à seniors : il y a des mineurs. Photos de près : adultes d’accord seulement. Passé au jeudi : le mardi est le jour du rendez-vous du week-end (décision du 07/11).",
+   "id": "p26",
+   "jour": "jeudi",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-27",
+   "heure": "18 h",
+   "type": "merci-partenaire",
+   "titre": "Merci partenaire · {partenaire} (suggestion : Michael Chaumont)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+     "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+     "valeurs": {
+      "partenaire": "{choisi par le club}",
+      "suggestion": "Michael Chaumont",
+      "coeur": "💙"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "publication 4:5 (la même image)",
+     "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe",
+     "hashtags": [
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "Aucun : le logo est déjà dans l’appli. Facultatif : une photo de la vitrine, avec l’accord du partenaire.",
+   "a_taper": "Rien. Vous choisissez le partenaire ; l’appli propose le suivant de la liste.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ]
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "minutes_estimees": 5,
+   "note": "La commune : « Avec le soutien de… ». Liste 2026-2027 à confirmer avec le club. Passé au jeudi : le mardi est le jour du rendez-vous du week-end (décision du 07/11).",
+   "id": "p66",
+   "jour": "jeudi",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-28",
+   "heure": "13 h",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (7 matchs)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "28-29/11",
+    "domicile_ce_jour": 7,
+    "premier_match_domicile": "14 h"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p30",
+   "jour": "samedi",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-28",
+   "heure": "20 h",
+   "type": "story-jour",
+   "titre": "Story · Demain à la maison (5 matchs)",
+   "statut": "facultatif",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "28-29/11",
+    "domicile_ce_jour": 5,
+    "premier_match_domicile": "8 h 45"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p32",
+   "jour": "dimanche",
+   "semaine": 3,
+   "jour_matchs": "2026-11-29"
+  },
+  {
+   "date": "2026-11-29",
+   "heure": "18 h",
+   "type": "fin-de-match",
+   "titre": "Fin de match · Seniors filles (régionale 2) contre AL Déville 2 (à l’extérieur)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "tiktok_le_meme_soir": null,
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 carte de score",
+     "texte": "Victoire : {phrase_victoire}\nDéfaite : {phrase_defaite}\nProchain match : {prochain_match}.\nMerci à nos partenaires : {partenaire_1}, {partenaire_2} et {partenaire_3}.",
+     "valeurs": {},
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "story 9:16 : la carte de score",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "28-29/11",
+    "matchs": 19,
+    "domicile": 12,
+    "exterieur": 7,
+    "sans_heure": 4,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "Seniors filles (régionale 2)",
+     "adversaire": "AL Déville 2",
+     "lieu": "exterieur",
+     "date": "2026-11-29",
+     "heure": "16 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Facultatif : 1 photo de dos ou de loin, ou du tableau de score (le coach ou un parent l’envoie par le groupe du club).",
+   "a_taper": "Le score (il ressert dimanche dans les résultats, sur les trois réseaux).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 5,
+   "note": "Match à l’extérieur : le score arrive par le coach ou un parent, par le groupe de messagerie du club.",
+   "id": "p31",
+   "jour": "samedi",
+   "semaine": 3,
+   "equipe": "rf2"
+  },
+  {
+   "date": "2026-11-29",
+   "heure": "19 h 30",
+   "type": "video-serie",
+   "titre": "Les résultats du week-end · Le chiffre du week-end",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "resultats-chiffre",
+     "ref_tiktok": 14,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    }
+   },
+   "medias_attendus": "déjà fait ce week-end. Facultatif.",
+   "a_taper": "les scores que vous connaissez (19 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 14",
+   "id": "p33",
+   "jour": "dimanche",
+   "semaine": 3
+  },
+  {
+   "date": "2026-11-29",
+   "heure": "20 h 30",
+   "type": "resultats",
+   "titre": "Résultats du week-end · Samedi 28 et dimanche 29 novembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "couverture (bilan) + 1 à 3 affiches de scores",
+     "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💙",
+      "jours_week_end": "Samedi 28 et dimanche 29 novembre",
+      "n_matchs_au_calendrier": 19,
+      "fin_de_texte": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5",
+     "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💙"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#Normandie"
+     ]
+    },
+    "story": {
+     "format": "story 9:16 : la couverture (bilan)",
+     "facultatif": true
+    }
+   },
+   "donnees": {
+    "week_end": "28-29/11",
+    "matchs": 19,
+    "domicile": 12,
+    "exterieur": 7,
+    "sans_heure": 4,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Élan Carpiquet",
+     "lieu": "exterieur",
+     "date": "2026-11-28",
+     "heure": "17 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun (les affiches se dessinent seules). Facultatif : 1 photo des tribunes de loin.",
+   "a_taper": "Rien de plus si les scores sont déjà tapés pour la vidéo TikTok de 19 h 30 ; sinon les scores que vous connaissez (19 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p34",
+   "jour": "dimanche",
+   "semaine": 3
+  },
+  {
+   "date": "2026-12-01",
+   "heure": "18 h",
+   "type": "rendez-vous",
+   "titre": "Rendez-vous du week-end · Samedi 5 et dimanche 6 décembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "1 couverture + 4 affiches (jour × domicile / extérieur)",
+     "texte": "🏀{coeur} LES RENDEZ-VOUS DU WEEK-END – BCR {coeur}🏀\n🔥 Un nouveau week-end de compétition attend nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {n_domicile} matchs à domicile et {n_exterieur} à l’extérieur. Venez nous encourager ! 💪\n━━━━━━━━━━━━━━\n{liste_matchs}\n━━━━━━━━━━━━━━\n{bloc_evenement}\n📣 SUPPORTERS, ON COMPTE SUR VOUS !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💚",
+      "jours_week_end": "Samedi 5 et dimanche 6 décembre",
+      "n_domicile": 6,
+      "n_exterieur": 9,
+      "bloc_evenement": "",
+      "ligne_tiktok": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes affiches)",
+     "texte": "Le programme du week-end est là 🏀{coeur}\n{n_domicile} matchs à la maison ({lieux_domicile}), {n_exterieur} à l’extérieur. Tous les horaires sur les images 👉\nOn compte sur vous en tribune !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💚",
+      "n_domicile": 6,
+      "n_exterieur": 9,
+      "lieux_domicile": "salle Alexandre-Cheruel, sauf indication sur l’affiche"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "donnees": {
+    "week_end": "5-6/12",
+    "matchs": 15,
+    "domicile": 6,
+    "exterieur": 9,
+    "sans_heure": 3,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "CB Ifs",
+     "lieu": "exterieur",
+     "date": "2026-12-05",
+     "heure": "17 h 15"
+    },
+    "derby": {
+     "equipe": "U15 garçons 1 contre U15 garçons 2",
+     "date": "2026-12-05",
+     "heure": "heure non fixée au 3 novembre"
+    }
+   },
+   "medias_attendus": "Aucun : les affiches se dessinent seules (logos, heures, salles).",
+   "a_taper": "Rien. Vérifier les heures (3 matchs sans heure au 3 novembre) ; corriger, décocher ou ajouter un match.",
+   "verifier": "Les heures sur le site de la fédération avant de publier ; le club publiait le mardi pour le 7-8/11 : il peut garder son jour.",
+   "regle_enfants": {
+    "codes": [
+     "R5",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 10,
+   "note": "Le mardi, comme le club le fait déjà (décision du 07/11).",
+   "id": "p40",
+   "jour": "mardi",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-02",
+   "heure": "12 h",
+   "type": "anniversaires",
+   "titre": "Anniversaires de décembre (Facebook, facultatif)",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "facebook"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image (gâteau ou ballon aux couleurs du club, sans photo de personne)",
+     "texte": "🎂 Les anniversaires de {mois} au BCR ! 🎉\nJoyeux anniversaire à {prenoms} ! {coeur}\nToute la famille du BCR vous souhaite une belle journée.",
+     "valeurs": {
+      "mois": "décembre",
+      "prenoms": "{tapés par le club}",
+      "coeur": "💚"
+     },
+     "hashtags": []
+    }
+   },
+   "medias_attendus": "Aucun (image aux couleurs du club, sans photo de personne).",
+   "a_taper": "Les prénoms des personnes qui ont dit oui. Rien d’autre.",
+   "regle_enfants": {
+    "codes": [
+     "R6"
+    ]
+   },
+   "minutes_estimees": 5,
+   "defaut": "Sans prénom tapé, la publication ne sort pas. L’appli ne garde aucune date de naissance.",
+   "note": "Le club publiait des « Anniversaires du mois ». Un mineur seulement avec l’accord écrit de ses deux parents. Pas d’anniversaires de novembre : le mois est commencé, et les accords sont à recueillir d’abord.",
+   "id": "p38",
+   "jour": "mercredi",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-02",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Le défi du mercredi · Manche 2",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "tiktok",
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "defi-dix-lancers",
+     "ref_tiktok": 17,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ],
+     "heure": "18 h"
+    },
+    "facebook": {
+     "format": "vidéo (le même fichier)",
+     "texte": "la légende TikTok sans les hashtags",
+     "hashtags": [],
+     "heure": "18 h",
+     "facultatif": true
+    }
+   },
+   "medias_attendus": "déjà fait, ou à un entraînement avant mercredi.",
+   "a_taper": "le nombre de paniers sur 10. Vous choisissez qui.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 12,
+   "source": "js/tiktok-donnees.js, publication 17",
+   "id": "p39",
+   "jour": "mercredi",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-03",
+   "heure": "18 h",
+   "type": "merci-partenaire",
+   "titre": "Merci partenaire · {partenaire} (suggestion : SAS Demare Luc)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+     "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+     "valeurs": {
+      "partenaire": "{choisi par le club}",
+      "suggestion": "SAS Demare Luc",
+      "coeur": "💚"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "publication 4:5 (la même image)",
+     "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe",
+     "hashtags": [
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "Aucun : le logo est déjà dans l’appli. Facultatif : une photo de la vitrine, avec l’accord du partenaire.",
+   "a_taper": "Rien. Vous choisissez le partenaire ; l’appli propose le suivant de la liste.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ]
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "minutes_estimees": 5,
+   "note": "Passé au jeudi : le mardi est le jour du rendez-vous du week-end (décision du 07/11).",
+   "id": "p36",
+   "jour": "jeudi",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-04",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Ce week-end au BCR · Le derby à ne pas rater",
+   "statut": "facultatif",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "programme-match-a-ne-pas-rater",
+     "ref_tiktok": 18,
+     "texte": "légende du studio (legendeFinale) ; elle commence par : « ROUXMESNIL contre ROUXMESNIL 🏀 Samedi, c'est le derby : nos U15 garçons 1 contre nos U15 garçons 2 ! Venez encourager les deux équipes 💚 »",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "rien (si vous voulez : la salle vide, le ballon au rond central).",
+   "a_taper": "rien. Si l'heure du derby est connue, touchez-le pour l'ajouter.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 18",
+   "id": "p41",
+   "jour": "vendredi",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-05",
+   "heure": "13 h",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (5 matchs)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "5-6/12",
+    "domicile_ce_jour": 5,
+    "premier_match_domicile": "14 h"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p42",
+   "jour": "samedi",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-05",
+   "heure": "19 h 15",
+   "type": "fin-de-match",
+   "titre": "Fin de match · U18 filles (élite) contre CB Ifs (à l’extérieur)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "tiktok_le_meme_soir": null,
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 carte de score",
+     "texte": "Victoire : {phrase_victoire}\nDéfaite : {phrase_defaite}\nProchain match : {prochain_match}.\nMerci à nos partenaires : {partenaire_1}, {partenaire_2} et {partenaire_3}.",
+     "valeurs": {
+      "equipe": "U18 filles, en élite",
+      "bravo": "les filles",
+      "adversaire": "CB Ifs",
+      "lieu_phrase": "à l’extérieur",
+      "prochain_match": "samedi 12 décembre, 15 h, à la maison contre Douvres Cœur de Nacre",
+      "coeur": "💚",
+      "score_nous": "{tapé}",
+      "score_eux": "{tapé}",
+      "partenaire_1": "{à tour de rôle}",
+      "partenaire_2": "{à tour de rôle}",
+      "partenaire_3": "{à tour de rôle}"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "story 9:16 : la carte de score",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "5-6/12",
+    "matchs": 15,
+    "domicile": 6,
+    "exterieur": 9,
+    "sans_heure": 3,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "CB Ifs",
+     "lieu": "exterieur",
+     "date": "2026-12-05",
+     "heure": "17 h 15"
+    },
+    "derby": {
+     "equipe": "U15 garçons 1 contre U15 garçons 2",
+     "date": "2026-12-05",
+     "heure": "heure non fixée au 3 novembre"
+    }
+   },
+   "medias_attendus": "Facultatif : 1 photo de dos ou de loin, ou du tableau de score (le coach ou un parent l’envoie par le groupe du club).",
+   "a_taper": "Le score (il ressert dimanche dans les résultats, sur les trois réseaux).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 5,
+   "note": "Match à l’extérieur : le score arrive par le coach ou un parent, par le groupe de messagerie du club.",
+   "id": "p43",
+   "jour": "samedi",
+   "semaine": 4,
+   "equipe": "u18f1"
+  },
+  {
+   "date": "2026-12-06",
+   "heure": "9 h",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (1 match)",
+   "statut": "facultatif",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "5-6/12",
+    "domicile_ce_jour": 1,
+    "premier_match_domicile": "10 h"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p44",
+   "jour": "dimanche",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-06",
+   "heure": "19 h 30",
+   "type": "video-serie",
+   "titre": "Les résultats du week-end · Le tableau",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "resultats-tableau",
+     "ref_tiktok": 19,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "déjà fait ce week-end. Facultatif.",
+   "a_taper": "les scores que vous connaissez (15 au plus). Pour le derby, aucun score ne s'affiche : « Bravo aux deux équipes ».",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 19",
+   "id": "p45",
+   "jour": "dimanche",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-06",
+   "heure": "20 h 30",
+   "type": "resultats",
+   "titre": "Résultats du week-end · Samedi 5 et dimanche 6 décembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "couverture (bilan) + 1 à 3 affiches de scores",
+     "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💚",
+      "jours_week_end": "Samedi 5 et dimanche 6 décembre",
+      "n_matchs_au_calendrier": 15,
+      "fin_de_texte": "Derby : « U15 garçons 1 et 2 : bravo aux deux équipes ! » (sans score)"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5",
+     "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💚"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "story": {
+     "format": "story 9:16 : la couverture (bilan)",
+     "facultatif": true
+    }
+   },
+   "donnees": {
+    "week_end": "5-6/12",
+    "matchs": 15,
+    "domicile": 6,
+    "exterieur": 9,
+    "sans_heure": 3,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "CB Ifs",
+     "lieu": "exterieur",
+     "date": "2026-12-05",
+     "heure": "17 h 15"
+    },
+    "derby": {
+     "equipe": "U15 garçons 1 contre U15 garçons 2",
+     "date": "2026-12-05",
+     "heure": "heure non fixée au 3 novembre"
+    }
+   },
+   "medias_attendus": "Aucun (les affiches se dessinent seules). Facultatif : 1 photo des tribunes de loin.",
+   "a_taper": "Rien de plus si les scores sont déjà tapés pour la vidéo TikTok de 19 h 30 ; sinon les scores que vous connaissez (15 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p46",
+   "jour": "dimanche",
+   "semaine": 4
+  },
+  {
+   "date": "2026-12-07",
+   "heure": "18 h 30",
+   "type": "video-serie",
+   "titre": "On est passés chez… un partenaire",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "tiktok",
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "special-partenaire-on-est-passes",
+     "ref_tiktok": 20,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#partenaire",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#partenaire",
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ],
+     "heure": "18 h 30"
+    },
+    "facebook": {
+     "format": "vidéo (le même fichier)",
+     "texte": "la légende TikTok sans les hashtags",
+     "hashtags": [],
+     "heure": "18 h 30",
+     "facultatif": false
+    }
+   },
+   "medias_attendus": "déjà fait chez le partenaire, avec son accord.",
+   "a_taper": "rien. Vous choisissez le partenaire, et vous dites s'il donne quelque chose au club.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 14,
+   "source": "js/tiktok-donnees.js, publication 20",
+   "id": "p47",
+   "jour": "lundi",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-08",
+   "heure": "18 h",
+   "type": "rendez-vous",
+   "titre": "Rendez-vous du week-end · Samedi 12 et dimanche 13 décembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "1 couverture + 4 affiches (jour × domicile / extérieur)",
+     "texte": "🏀{coeur} LES RENDEZ-VOUS DU WEEK-END – BCR {coeur}🏀\n🔥 Un nouveau week-end de compétition attend nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {n_domicile} matchs à domicile et {n_exterieur} à l’extérieur. Venez nous encourager ! 💪\n━━━━━━━━━━━━━━\n{liste_matchs}\n━━━━━━━━━━━━━━\n{bloc_evenement}\n📣 SUPPORTERS, ON COMPTE SUR VOUS !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💚",
+      "jours_week_end": "Samedi 12 et dimanche 13 décembre",
+      "n_domicile": 9,
+      "n_exterieur": 5,
+      "bloc_evenement": "",
+      "ligne_tiktok": ""
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes affiches)",
+     "texte": "Le programme du week-end est là 🏀{coeur}\n{n_domicile} matchs à la maison ({lieux_domicile}), {n_exterieur} à l’extérieur. Tous les horaires sur les images 👉\nOn compte sur vous en tribune !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💚",
+      "n_domicile": 9,
+      "n_exterieur": 5,
+      "lieux_domicile": "salle Alexandre-Cheruel, sauf indication sur l’affiche"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "donnees": {
+    "week_end": "12-13/12",
+    "matchs": 14,
+    "domicile": 9,
+    "exterieur": 5,
+    "sans_heure": 4,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Douvres Cœur de Nacre",
+     "lieu": "domicile",
+     "date": "2026-12-12",
+     "heure": "15 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun : les affiches se dessinent seules (logos, heures, salles).",
+   "a_taper": "Rien. Vérifier les heures (4 matchs sans heure au 3 novembre) ; corriger, décocher ou ajouter un match.",
+   "verifier": "Les heures sur le site de la fédération avant de publier ; le club publiait le mardi pour le 7-8/11 : il peut garder son jour.",
+   "regle_enfants": {
+    "codes": [
+     "R5",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 10,
+   "note": "Le mardi, comme le club le fait déjà (décision du 07/11).",
+   "id": "p49",
+   "jour": "mardi",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-09",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Le défi du mercredi · Manche 3, la dernière",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "tiktok",
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "defi-dix-lancers",
+     "ref_tiktok": 21,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ],
+     "heure": "18 h"
+    },
+    "facebook": {
+     "format": "vidéo (le même fichier)",
+     "texte": "la légende TikTok sans les hashtags",
+     "hashtags": [],
+     "heure": "18 h",
+     "facultatif": true
+    }
+   },
+   "medias_attendus": "déjà fait, ou à un entraînement avant mercredi.",
+   "a_taper": "le nombre de paniers sur 10. Vous choisissez qui.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 12,
+   "source": "js/tiktok-donnees.js, publication 21",
+   "id": "p48",
+   "jour": "mercredi",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-10",
+   "heure": "18 h",
+   "type": "merci-partenaire",
+   "titre": "Merci partenaire · {partenaire} (suggestion : Proxi Super)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+     "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+     "valeurs": {
+      "partenaire": "{choisi par le club}",
+      "suggestion": "Proxi Super",
+      "coeur": "💙"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "publication 4:5 (la même image)",
+     "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe",
+     "hashtags": [
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "Aucun : le logo est déjà dans l’appli. Facultatif : une photo de la vitrine, avec l’accord du partenaire.",
+   "a_taper": "Rien. Vous choisissez le partenaire ; l’appli propose le suivant de la liste.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ]
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "minutes_estimees": 5,
+   "note": "La commune : « Avec le soutien de… ». Liste 2026-2027 à confirmer avec le club. Passé au jeudi : le mardi est le jour du rendez-vous du week-end (décision du 07/11).",
+   "id": "p67",
+   "jour": "jeudi",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-11",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Ce week-end au BCR · L'affiche",
+   "statut": "facultatif",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "programme-affiche",
+     "ref_tiktok": 22,
+     "texte": "légende du studio (legendeFinale) ; elle commence par : « {n_domicile} matchs à la maison ce week-end 🏀 Vous venez voir lequel ? »",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "rien (si vous voulez : la salle vide, le ballon, le panier).",
+   "a_taper": "rien. Vérifiez les heures ; corrigez ou ajoutez un match si besoin.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 22",
+   "id": "p50",
+   "jour": "vendredi",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-12",
+   "heure": "12 h 30",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (4 matchs)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "12-13/12",
+    "domicile_ce_jour": 4,
+    "premier_match_domicile": "13 h 30"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p51",
+   "jour": "samedi",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-13",
+   "heure": "18 h",
+   "type": "fin-de-match",
+   "titre": "Fin de match · Seniors garçons (régionale 3) contre Oissel (à la maison)",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "tiktok_le_meme_soir": "vidéo « Coup de sifflet final des U18 filles » à 18 h 30 (même score, tapé une fois)",
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 carte de score",
+     "texte": "Victoire : {phrase_victoire}\nDéfaite : {phrase_defaite}\nProchain match : {prochain_match}.\nMerci à nos partenaires : {partenaire_1}, {partenaire_2} et {partenaire_3}.",
+     "valeurs": {},
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "story 9:16 : la carte de score",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "12-13/12",
+    "matchs": 14,
+    "domicile": 9,
+    "exterieur": 5,
+    "sans_heure": 4,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "Seniors garçons (régionale 3)",
+     "adversaire": "Oissel",
+     "lieu": "domicile",
+     "date": "2026-12-13",
+     "heure": "16 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Facultatif : 1 photo de dos ou de loin, ou du tableau de score (le coach ou un parent l’envoie par le groupe du club).",
+   "a_taper": "Le score (il ressert dimanche dans les résultats, sur les trois réseaux).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p52",
+   "jour": "samedi",
+   "semaine": 5,
+   "equipe": "rm3"
+  },
+  {
+   "date": "2026-12-13",
+   "heure": "8 h 45",
+   "type": "story-jour",
+   "titre": "Story · Aujourd’hui à la maison (5 matchs)",
+   "statut": "facultatif",
+   "ancrage": "week-end",
+   "reseaux": [
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "instagram": {
+     "format": "story 9:16 (1080 × 1920), zone sûre",
+     "texte": "aucun (tout est sur l’image)"
+    },
+    "facebook": {
+     "format": "la même story",
+     "texte": "aucun"
+    }
+   },
+   "donnees": {
+    "week_end": "12-13/12",
+    "domicile_ce_jour": 5,
+    "premier_match_domicile": "9 h 45"
+   },
+   "medias_attendus": "Aucun.",
+   "a_taper": "Rien.",
+   "regle_enfants": {
+    "codes": [
+     "R5"
+    ]
+   },
+   "minutes_estimees": 2,
+   "id": "p54",
+   "jour": "dimanche",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-13",
+   "heure": "19 h 30",
+   "type": "video-serie",
+   "titre": "Les résultats du week-end · Les scores qui tombent",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "resultats-scores-qui-tombent",
+     "ref_tiktok": 24,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "déjà fait ce week-end. Facultatif.",
+   "a_taper": "les scores que vous connaissez (14 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 8,
+   "source": "js/tiktok-donnees.js, publication 24",
+   "id": "p55",
+   "jour": "dimanche",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-13",
+   "heure": "20 h 30",
+   "type": "resultats",
+   "titre": "Résultats du week-end · Samedi 12 et dimanche 13 décembre",
+   "statut": "fixe",
+   "ancrage": "week-end",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, affiches portrait 1080 × 1350",
+     "images": "couverture (bilan) + 1 à 3 affiches de scores",
+     "texte": "🏆{coeur} LES RÉSULTATS DU WEEK-END – BCR {coeur}🏆\n🔥 Retour sur le week-end de nos équipes du Basket Club de Rouxmesnil !\n📅 {jours_week_end} : {accroche_resultats}\n━━━━━━━━━━━━━━\n{liste_scores}\n━━━━━━━━━━━━━━\n🔥 Bilan du week-end : {n_victoires} victoires sur {n_joues} matchs !\n👏 Bravo à toutes nos équipes, et merci aux supporters et aux bénévoles !\n💚🖤 ENSEMBLE, PLUS FORTS ! ALLEZ LE BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💚",
+      "jours_week_end": "Samedi 12 et dimanche 13 décembre",
+      "n_matchs_au_calendrier": 14,
+      "fin_de_texte": "Dernière ligne ajoutée : « Pas de match le week-end prochain : nos seniors et nos U18 filles élite reprennent le week-end du 9-10 janvier. »"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5",
+     "texte": "Les résultats du week-end {coeur}\n{accroche_resultats}\nTous les scores sur les images 👉 Bravo à tous !\n{hashtags_3_a_5}",
+     "valeurs": {
+      "coeur": "💚"
+     },
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "story": {
+     "format": "story 9:16 : la couverture (bilan)",
+     "facultatif": true
+    }
+   },
+   "donnees": {
+    "week_end": "12-13/12",
+    "matchs": 14,
+    "domicile": 9,
+    "exterieur": 5,
+    "sans_heure": 4,
+    "releve": "matchs relevés le 3 novembre",
+    "match_une": {
+     "equipe": "U18 filles (élite)",
+     "adversaire": "Douvres Cœur de Nacre",
+     "lieu": "domicile",
+     "date": "2026-12-12",
+     "heure": "15 h"
+    },
+    "derby": null
+   },
+   "medias_attendus": "Aucun (les affiches se dessinent seules). Facultatif : 1 photo des tribunes de loin.",
+   "a_taper": "Rien de plus si les scores sont déjà tapés pour la vidéo TikTok de 19 h 30 ; sinon les scores que vous connaissez (14 au plus).",
+   "regle_enfants": {
+    "codes": [
+     "R1",
+     "R7"
+    ]
+   },
+   "regle_scores": "Une seule règle pour les trois réseaux (proposition à valider par le club) : derby sans score (« Bravo aux deux équipes ») ; chez les jeunes, 30 points d’écart ou plus → « Victoire » sans le score.",
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p56",
+   "jour": "dimanche",
+   "semaine": 5
+  },
+  {
+   "date": "2026-12-14",
+   "heure": "18 h 30",
+   "type": "video-serie",
+   "titre": "Le panier de la semaine · La défense",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "tiktok",
+    "instagram"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "panier-de-la-semaine",
+     "ref_tiktok": 25,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ],
+     "heure": "18 h 30"
+    }
+   },
+   "medias_attendus": "déjà fait le week-end du 12-13 (une défense ou une passe chez les seniors).",
+   "a_taper": "rien. Vous choisissez l'équipe.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 12,
+   "source": "js/tiktok-donnees.js, publication 25",
+   "id": "p57",
+   "jour": "lundi",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-15",
+   "heure": "18 h",
+   "type": "merci-partenaire",
+   "titre": "Merci partenaire · {partenaire} (suggestion : Le salon M)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, 1 image 1080 × 1350 (logo du partenaire aux couleurs du club)",
+     "texte": "Merci à {partenaire} {coeur}\nAujourd’hui, le Basket Club de Rouxmesnil dit merci à {partenaire}{metier_ville}.\nGrâce à ses partenaires, le club peut faire jouer toutes ses équipes, des plus jeunes aux seniors. Merci pour votre soutien !",
+     "valeurs": {
+      "partenaire": "{choisi par le club}",
+      "suggestion": "Le salon M",
+      "coeur": "💚"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "publication 4:5 (la même image)",
+     "texte": "Merci à {partenaire} pour son soutien {coeur} {compte_partenaire}\n#BCRouxmesnil #Rouxmesnil #Dieppe",
+     "hashtags": [
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe"
+     ]
+    }
+   },
+   "medias_attendus": "Aucun : le logo est déjà dans l’appli. Facultatif : une photo de la vitrine, avec l’accord du partenaire.",
+   "a_taper": "Rien. Vous choisissez le partenaire ; l’appli propose le suivant de la liste.",
+   "regle_enfants": {
+    "codes": [
+     "R3"
+    ]
+   },
+   "prudence": "S’il y a une contrepartie (le partenaire donne quelque chose au club), indiquer le partenariat : mention « Collaboration commerciale » en tête de légende et sur la vidéo (loi du 9 juin 2023, à faire valider). Aucun bar ni boisson alcoolisée à l’image ; Le Trianon et le Bistrot des Barrières : merci en texte seulement, jamais en vidéo.",
+   "minutes_estimees": 5,
+   "note": "",
+   "id": "p58",
+   "jour": "mardi",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-16",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Rétro BCR · La photo d'avant",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "special-retro",
+     "ref_tiktok": 26,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "rien. 2 à 5 photos anciennes, prises par des gens du club qui sont d'accord.",
+   "a_taper": "l'année, si vous la connaissez.",
+   "regle_enfants": {
+    "codes": [
+     "R4"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 10,
+   "source": "js/tiktok-donnees.js, publication 26",
+   "id": "p59",
+   "jour": "mercredi",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-16",
+   "heure": "19 h",
+   "type": "article",
+   "titre": "Rétro BCR · les photos d’avant (Facebook et Instagram)",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "facebook",
+    "instagram"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "publication, les 2 à 5 photos anciennes",
+     "texte": "📸 Rétro BCR {coeur}\n{annee_ou_rien}Petits et grands pour le plaisir du ballon depuis 1949.\nVous y étiez ? Racontez-nous en commentaire !",
+     "valeurs": {
+      "coeur": "💚",
+      "annee_ou_rien": "{tapé si connu : « En [année], » ; sinon rien}"
+     },
+     "hashtags": []
+    },
+    "instagram": {
+     "format": "carrousel 4:5 (les mêmes photos, recadrées)",
+     "texte": "Rétro BCR 📸 Depuis 1949 💚\n#basket #BCRouxmesnil #Rouxmesnil #Dieppe #SeineMaritime",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "Les mêmes 2 à 5 photos anciennes que la vidéo TikTok du jour.",
+   "a_taper": "L’année, si vous la connaissez.",
+   "regle_enfants": {
+    "codes": [
+     "R4"
+    ]
+   },
+   "minutes_estimees": 5,
+   "note": "Jamais « vous reconnaissez quelqu’un ? » : on ne fait pas identifier les personnes.",
+   "id": "p60",
+   "jour": "mercredi",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-18",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "Nos jeunes · Nos U11",
+   "statut": "facultatif",
+   "ancrage": "ordre",
+   "reseaux": [
+    "tiktok",
+    "instagram",
+    "facebook"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "jeunes-u11",
+     "ref_tiktok": 27,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ],
+     "heure": "18 h"
+    },
+    "facebook": {
+     "format": "vidéo (le même fichier)",
+     "texte": "la légende TikTok sans les hashtags",
+     "hashtags": [],
+     "heure": "18 h",
+     "facultatif": false
+    }
+   },
+   "medias_attendus": "déjà fait à l'entraînement des U11 (sans aucun visage).",
+   "a_taper": "rien.",
+   "regle_enfants": {
+    "codes": [
+     "R2"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 14,
+   "source": "js/tiktok-donnees.js, publication 27",
+   "id": "p61",
+   "jour": "vendredi",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-19",
+   "heure": "12 h",
+   "type": "video-serie",
+   "titre": "Joker · Vous avez choisi le défi de la saison 2",
+   "statut": "joker",
+   "ancrage": "apres la manche 3",
+   "reseaux": [
+    "tiktok"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "defi-vous-avez-choisi",
+     "ref_tiktok": 28,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    }
+   },
+   "medias_attendus": "si vous voulez, 1 à 3 petites vidéos du nouveau défi.",
+   "a_taper": "rien. Vous choisissez le défi dans une liste.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 10,
+   "source": "js/tiktok-donnees.js, publication 28",
+   "id": "p62",
+   "jour": "samedi",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-20",
+   "heure": "18 h",
+   "type": "video-serie",
+   "titre": "6 semaines en 30 secondes",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "tiktok",
+    "instagram"
+   ],
+   "sorties": {
+    "tiktok": {
+     "format": "vidéo verticale 1080 × 1920 fabriquée par le studio",
+     "modele": "special-bilan-30s",
+     "ref_tiktok": 29,
+     "texte": "légende du studio (legendeFinale)",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ]
+    },
+    "instagram": {
+     "format": "Reel (le même fichier)",
+     "texte": "la légende TikTok, telle quelle",
+     "hashtags": [
+      "#basket",
+      "#BCRouxmesnil",
+      "#Rouxmesnil",
+      "#Dieppe",
+      "#SeineMaritime"
+     ],
+     "heure": "18 h"
+    }
+   },
+   "medias_attendus": "rien de neuf. Vos plus belles vidéos de l'automne, déjà dans le téléphone.",
+   "a_taper": "rien.",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ],
+    "toujours": "Un enfant reconnaissable seulement avec l'accord écrit de ses deux parents, et s'il est d'accord lui aussi (loi du 19 février 2024). Jamais de nom de famille. Jamais de vestiaire. Les joueurs adverses mineurs ne sont jamais reconnaissables."
+   },
+   "minutes_estimees": 12,
+   "source": "js/tiktok-donnees.js, publication 29",
+   "id": "p63",
+   "jour": "dimanche",
+   "semaine": 6
+  },
+  {
+   "date": "2026-12-20",
+   "heure": "19 h",
+   "type": "article",
+   "titre": "Bilan de l’automne · texte Facebook avec la vidéo",
+   "statut": "facultatif",
+   "ancrage": "date",
+   "reseaux": [
+    "facebook"
+   ],
+   "sorties": {
+    "facebook": {
+     "format": "la vidéo « 6 semaines en 30 secondes » + texte",
+     "texte": "Merci pour cet automne {coeur} {ligne_tapee_ou_rien}\nNos seniors et nos U18 filles élite reprennent le week-end du 9-10 janvier. Bonnes fêtes à toute la famille du BCR ! 🏀",
+     "valeurs": {
+      "coeur": "💚",
+      "ligne_tapee_ou_rien": "{facultatif : une phrase du club}"
+     },
+     "hashtags": []
+    }
+   },
+   "medias_attendus": "La vidéo du jour (déjà fabriquée pour TikTok).",
+   "a_taper": "Rien (une phrase facultative).",
+   "regle_enfants": {
+    "codes": [
+     "R1"
+    ]
+   },
+   "minutes_estimees": 3,
+   "note": "Remplace la légende TikTok sur Facebook. « Reprise le 9-10 janvier » vaut pour les seniors et les U18 filles élite (matchs relevés le 3 novembre) ; les autres équipes : 2e phase non relevée.",
+   "id": "p64",
+   "jour": "dimanche",
+   "semaine": 6
+  }
+ ],
+ "controles": {
+  "erreurs": [],
+  "facebook_deux_publications_le_meme_jour": [],
+  "total_publications": 56,
+  "par_type": {
+   "resultats": 6,
+   "video-serie": 19,
+   "story-annonce": 2,
+   "rendez-vous": 5,
+   "merci-partenaire": 6,
+   "story-jour": 9,
+   "fin-de-match": 5,
+   "article": 3,
+   "anniversaires": 1
+  },
+  "rendez_vous_le_mardi": [
+   "p07 2026-11-10 mardi 18 h",
+   "p16 2026-11-17 mardi 18 h",
+   "p28 2026-11-24 mardi 18 h",
+   "p40 2026-12-01 mardi 18 h",
+   "p49 2026-12-08 mardi 18 h"
+  ],
+  "deplacements_du_07_11": [
+   "p04 2026-11-10 -> 2026-11-12",
+   "p07 2026-11-12 -> 2026-11-10",
+   "p16 2026-11-19 -> 2026-11-17",
+   "p26 2026-11-24 -> 2026-11-26",
+   "p28 2026-11-26 -> 2026-11-24",
+   "p36 2026-12-01 -> 2026-12-03",
+   "p40 2026-12-03 -> 2026-12-01",
+   "p49 2026-12-10 -> 2026-12-08"
+  ],
+  "allege_le": "2026-11-07",
+  "fins_de_match": [
+   "p10 2026-11-14 u18f1",
+   "p21 2026-11-22 rm3",
+   "p31 2026-11-29 rf2",
+   "p43 2026-12-05 u18f1",
+   "p52 2026-12-13 rm3"
+  ],
+  "important_par_semaine": [
+   "1 : 6 sur 10",
+   "2 : 5 sur 8",
+   "3 : 5 sur 10",
+   "4 : 5 sur 10",
+   "5 : 5 sur 10",
+   "6 : 0 sur 8"
+  ]
+ }
+}

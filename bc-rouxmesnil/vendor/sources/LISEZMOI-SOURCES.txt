@@ -1,0 +1,171 @@
+Sources correspondantes de vendor/piper/piper_phonemize.wasm (espeak-ng, licence GPL-3.0 ou ultérieure)
+Relevé et téléchargement du 07/11/2026. Les archives sont celles que GitHub fabrique pour une révision donnée
+(codeload.github.com), non modifiées. Chaque archive contient en tête le numéro de la révision (en-tête « comment= »).
+
+Fichier servi : vendor/piper/piper_phonemize.wasm, 635 212 octets,
+  SHA-256 b777cd107a91d2bcc6a1ea46f2c26a662a7407394fe84589198aeaa83dd7a9d6.
+  Il vient du paquet npm @diffusionstudio/piper-wasm 1.0.0 ; il est identique, octet pour octet, au fichier
+  build/piper_phonemize.wasm du dépôt diffusion-studio/piper-wasm à la révision 022edba0 (archive 1 ci-dessous).
+  Il n'est pas modifié par nous.
+
+----------------------------------------------------------------------------------------------------------
+1. piper-wasm-022edba0.tar.gz  (la recette de compilation et les fichiers produits)
+   Projet   : @diffusionstudio/piper-wasm, https://github.com/diffusion-studio/piper-wasm
+   Origine  : https://codeload.github.com/diffusion-studio/piper-wasm/tar.gz/022edba0455ef024574747e1134ef893f1d71b76
+   Révision : 022edba0455ef024574747e1134ef893f1d71b76 (branche main, 05/07/2024, « pushed repo to npm », dernier commit)
+   Taille   : 9 237 096 octets
+   SHA-256  : 6e768b69a3843c9ca1484e3dda245f77481b4461fabc65273f7ed0fef39571b5
+   Licence  : MIT (champ « license » de son package.json ; le dépôt n'a pas de fichier LICENSE)
+   Rôle     : README.md = la recette ci-dessous ; build/ = les fichiers d'origine (.wasm, .js, .data de 18 Mo)
+              avant notre allègement.
+
+2. piper-phonemize-cfff8e52.tar.gz  (programme piper_phonemize, compilé dans le .wasm)
+   Projet   : piper-phonemize, fourche wide-video, https://github.com/wide-video/piper-phonemize
+   Origine  : https://codeload.github.com/wide-video/piper-phonemize/tar.gz/cfff8e52ebaea37c7e953ae2d06b174acb827ac4
+   Révision : cfff8e52ebaea37c7e953ae2d06b174acb827ac4 (branche wide.video, branche par défaut, 02/04/2024 ;
+              dernier envoi au dépôt le 02/04/2024, donc c'est bien l'état cloné en juin 2024)
+   Taille   : 9 787 575 octets
+   SHA-256  : 7029b52aabc2512d36f4d98c6ede732c48a0e7128d0cd0e62379dfcee770038e
+   Licence  : MIT (LICENSE.md, Michael Hansen) ; contient aussi json.hpp (nlohmann, MIT) et uni_algo.h
+              (licences/uni-algo/LICENSE.md, domaine public ou MIT au choix).
+   Rôle     : code C++ de piper_phonemize ; son CMakeLists.txt télécharge et compile espeak-ng à la révision fixée
+              0f65aa30 (archive 3), via https://github.com/rhasspy/espeak-ng/archive/0f65aa301e0d6bae5e172cc74197d32a6182200f.zip
+              (même contenu que l'archive 3, emballage zip au lieu de tar.gz).
+
+3. espeak-ng-0f65aa30.tar.gz  (code d'espeak-ng compilé dans le .wasm)
+   Projet   : espeak-ng, fourche rhasspy, https://github.com/rhasspy/espeak-ng (dépôt archivé, lecture seule)
+   Origine  : https://codeload.github.com/rhasspy/espeak-ng/tar.gz/0f65aa301e0d6bae5e172cc74197d32a6182200f
+   Révision : 0f65aa301e0d6bae5e172cc74197d32a6182200f (13/09/2023), espeak-ng 1.52-dev (configure.ac)
+   Taille   : 16 321 475 octets
+   SHA-256  : 37ebbabb010200be8ec26c61b770e93f964f4503a329d7d74c239a1a40051e43
+   Licence  : GPL-3.0 ou ultérieure (COPYING, = vendor/piper/COPYING-espeak-ng-GPL-3.0.txt) ; quelques parties sous
+              Apache-2.0 (COPYING.APACHE, lecteur « speechPlayer », désactivé par la recette) et données Unicode
+              (COPYING.UCD, ucd-tools).
+   Rôle     : bibliothèque libespeak-ng liée dans piper_phonemize.wasm.
+
+4. espeak-ng-8593723f.tar.gz  (données espeak-ng : piper_phonemize.data)
+   Projet   : espeak-ng, fourche rhasspy (même dépôt)
+   Origine  : https://codeload.github.com/rhasspy/espeak-ng/tar.gz/8593723f10cfd9befd50de447f14bf0a9d2a14a4
+   Révision : 8593723f10cfd9befd50de447f14bf0a9d2a14a4 (27/11/2023), dernier commit de la branche master : c'est
+              donc l'état du « git clone --depth 1 » de la recette en juin 2024.
+   Taille   : 16 321 829 octets
+   SHA-256  : 41c199da1355deec93eab6065be99d00b938dd452e78f282ab481db91657e4e4
+   Licence  : comme l'archive 3.
+   Rôle     : la recette compile ce clone (./configure ; make) pour produire espeak-ng-data/ (phonèmes, intonations,
+              dictionnaires), embarqué dans piper_phonemize.data par --preload-file.
+   Écart avec l'archive 3 : 9 commits, qui ne touchent que des fichiers de compilation (CMakeLists.txt,
+              src/include/compat/*.h, src/include/espeak/speak_lib.h) ; aucun fichier de espeak-ng-data/.
+
+----------------------------------------------------------------------------------------------------------
+Recette de compilation (README.md de diffusion-studio/piper-wasm @022edba0, « As of JUN 2024 », reprise telle quelle ;
+elle renvoie elle-même à https://github.com/wide-video/piper-wasm). Emscripten 3.1.47, Debian 11.3 :
+
+  # Docker (optional)
+  docker run -it -v $(pwd):/wasm -w /wasm debian:11.3
+  apt-get update
+  apt-get install --yes --no-install-recommends build-essential cmake ca-certificates curl pkg-config git python3 autogen automake autoconf libtool
+
+  # Emscripten
+  git clone --depth 1 https://github.com/emscripten-core/emsdk.git /wasm/modules/emsdk
+  cd /wasm/modules/emsdk
+  ./emsdk install 3.1.47
+  ./emsdk activate 3.1.47
+  source ./emsdk_env.sh
+  TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+  sed -i -E 's/int\s+(iswalnum|iswalpha|iswblank|iswcntrl|iswgraph|iswlower|iswprint|iswpunct|iswspace|iswupper|iswxdigit)\(wint_t\)/\/\/\0/g' ./upstream/emscripten/cache/sysroot/include/wchar.h
+
+  # espeak-ng   (=> révision 8593723f, archive 4)
+  git clone --depth 1 https://github.com/rhasspy/espeak-ng.git /wasm/modules/espeak-ng
+  cd /wasm/modules/espeak-ng
+  ./autogen.sh
+  ./configure
+  make
+
+  # piper-phonemize   (=> révision cfff8e52, archive 2, qui compile espeak-ng 0f65aa30, archive 3)
+  git clone --depth 1 https://github.com/wide-video/piper-phonemize.git /wasm/modules/piper-phonemize
+  cd /wasm/modules/piper-phonemize
+  emmake cmake -Bbuild -DCMAKE_INSTALL_PREFIX=install -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_FILE -DBUILD_TESTING=OFF -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-O3 -s INVOKE_RUN=0 -s MODULARIZE=1 -s EXPORT_NAME='createPiperPhonemize' -s EXPORTED_FUNCTIONS='[_main]' -s EXPORTED_RUNTIME_METHODS='[callMain, FS]' --preload-file /wasm/modules/espeak-ng/espeak-ng-data@/espeak-ng-data"
+  emmake cmake --build build --config Release # fails on "Compile intonations / Permission denied", continue with next steps
+  sed -i 's+$(MAKE) $(MAKESILENT) -f CMakeFiles/data.dir/build.make CMakeFiles/data.dir/build+#\0+g' /wasm/modules/piper-phonemize/build/e/src/espeak_ng_external-build/CMakeFiles/Makefile2
+  sed -i 's/using namespace std/\/\/\0/g' /wasm/modules/piper-phonemize/build/e/src/espeak_ng_external/src/speechPlayer/src/speechWaveGenerator.cpp
+  emmake cmake --build build --config Release
+
+Pour recompiler sans réseau à ces révisions : remplacer les deux « git clone » par l'extraction des archives 4 et 2
+dans /wasm/modules/espeak-ng et /wasm/modules/piper-phonemize, et faire pointer la ligne URL du CMakeLists.txt de
+piper-phonemize (ligne 45) vers le chemin local de l'archive 3 (ExternalProject accepte un fichier .tar.gz). Options d'espeak-ng fixées par le CMakeLists.txt de
+piper-phonemize : USE_ASYNC, USE_MBROLA, USE_LIBSONIC, USE_LIBPCAUDIO, USE_KLATT, USE_SPEECHPLAYER désactivés ;
+EXTRA_cmn et EXTRA_ru activés ; bibliothèque partagée ; -D_FILE_OFFSET_BITS=64.
+
+----------------------------------------------------------------------------------------------------------
+Notre modification (06/11/2026) : vendor/piper/alleger_espeak.js (joint, sa propre source).
+  node alleger_espeak.js <dossier contenant les 3 fichiers d'origine (build/ de l'archive 1)> <dossier de sortie>
+  Garde dans piper_phonemize.data tous les fichiers communs d'espeak-ng-data et seulement les dictionnaires fr_dict et
+  en_dict (18 077 249 -> 1 050 427 octets), réécrit la table des fichiers de piper_phonemize.js, copie le .wasm sans
+  le modifier. Les .data et .js servis sont le résultat de ce programme.
+
+----------------------------------------------------------------------------------------------------------
+Ce qui est vérifié et ce qui ne l'est pas (honnêtement) :
+  - Vérifié : le .wasm servi est identique à celui du dépôt piper-wasm @022edba0 ; les 327 fichiers sources de
+    espeak-ng-data/ (lang/, voices/) contenus dans le .data d'origine sont identiques, octet pour octet, à ceux de
+    l'archive 4 ; le .wasm contient les chemins /wasm/modules/piper-phonemize/build/e/src/espeak_ng_external/...
+    et /wasm/modules/piper-phonemize/src/json.hpp, conformes à la recette et à la compilation d'espeak-ng par le
+    CMakeLists.txt de piper-phonemize ; les révisions 2 et 4 sont les seules possibles pour un clone de juin 2024
+    (aucun envoi à ces dépôts entre leur dernier commit et juillet 2024).
+  - Non vérifié : la version d'Emscripten (3.1.47) n'est écrite ni dans le .wasm ni dans le .js ; on suit le README.
+    Aucun numéro de version d'espeak-ng n'apparaît dans le binaire. La correspondance repose donc sur ces révisions
+    relevées et sur la recette publiée ; elle n'a PAS été prouvée par une recompilation octet par octet.
+
+==========================================================================================================
+FFmpeg / mediabunny
+Sources correspondantes de vendor/mediabunny/mediabunny-aac-encoder.min.mjs (encodeur AAC de FFmpeg compilé en
+WebAssembly, licence LGPL-2.1 ou ultérieure ; le reste du paquet est sous MPL-2.0). Relevé et téléchargement du
+07/11/2026, archives codeload.github.com non modifiées (révision écrite dans l'en-tête « comment= »).
+
+Fichier servi : vendor/mediabunny/mediabunny-aac-encoder.min.mjs, 992 505 octets,
+  SHA-256 85f0fd9a9b55e619cdc00fcebf082da97c6d3fbbb63a616ee938330ff6997cdb, paquet npm @mediabunny/aac-encoder 1.62.1,
+  non modifié. Il embarque packages/aac-encoder/build/aac.js du dépôt au tag v1.62.1 (SHA-256 de aac.js :
+  a180fd4d7ec360d9b1c3064a3a523603552dccdf5355aed845bb3133d96c7c26 ; dernière compilation : commit 0f6c3747 du 27/04/2026).
+  Chaîne relevée dans les deux : « Lavc62.23.103 » (libavcodec 62.23.103).
+
+----------------------------------------------------------------------------------------------------------
+5. mediabunny-v1.62.1.tar.gz  (la recette de compilation, le pont C et les fichiers produits)
+   Projet   : mediabunny, https://github.com/Vanilagy/mediabunny
+   Origine  : https://codeload.github.com/Vanilagy/mediabunny/tar.gz/refs/tags/v1.62.1
+   Révision : tag v1.62.1 = commit f630141a4ac2936d00af14bf8ff2c5bb62b66150
+   Taille   : 64 925 527 octets
+   SHA-256  : 0dafb29fe01281c9128086d136cfca8d1ad639987176f71fdedf21945a2e2939
+   Licence  : MPL-2.0 (LICENSE, packages/aac-encoder/LICENSE)
+   Rôle     : packages/aac-encoder/README.md, partie « Building and development » = la recette (options de
+              ./configure de FFmpeg et commande emcc) ; packages/aac-encoder/src/bridge.c = le pont C ;
+              packages/aac-encoder/build/aac.js = le fichier produit. Le dépôt n'a ni sous-module, ni Dockerfile,
+              ni script de compilation de FFmpeg : la recette dit seulement « clone FFmpeg », sans révision.
+
+6. ffmpeg-0390793d.tar.gz  (code de FFmpeg compilé dans aac.js : libavcodec + libavutil)
+   Projet   : FFmpeg, miroir officiel https://github.com/FFmpeg/FFmpeg
+   Origine  : https://codeload.github.com/FFmpeg/FFmpeg/tar.gz/0390793dc36c1e390dd9559abd2e2502ebc7f92d
+   Révision : 0390793dc36c1e390dd9559abd2e2502ebc7f92d (branche master, 28/02/2026 ; RELEASE = 8.0.git)
+   Taille   : 16 832 671 octets
+   SHA-256  : 7a9793173a5defd4c21897184f30761260450d78a441925ab5e0a7dceb14f09d
+   Licence  : LGPL-2.1 ou ultérieure pour les parties compilées (COPYING.LGPLv2.1, LICENSE.md ; la recette n'active
+              aucune option GPL ni « nonfree » ; = vendor/mediabunny/LICENCE-FFMPEG-LGPL-2.1.txt)
+   Choix de la révision (RÉVISION EXACTE NON ÉTABLIE) : libavcodec vaut 62.23.103 de 499b5f5f92f73e5b0e6108242983695fcb6409e2
+              (27/01/2026) à 0390793d inclus (513 commits) ; le commit suivant, e245f4d5cf642faa6f43002654dfc84ba457b78c,
+              passe à 62.24.100. Les deux compilations de aac.js (04/03/2026 et 27/04/2026) portent 62.23.103 : FFmpeg a
+              donc été cloné dans cet intervalle. 0390793d est la dernière révision de l'intervalle, la plus proche
+              de la date de compilation. Comparaison des deux bornes (499b5f5f et 0390793d, archives extraites) : aucun
+              fichier propre à l'encodeur AAC ne change (aacenc*, aaccoder, aacpsy, psymodel, aactab, aacenctab, lpc,
+              sinewin, audio_frame_queue, encode.c, codec_desc.c, options*) ; les seuls fichiers communs modifiés sont
+              sans effet sur ce code (avcodec.c : une ligne dans la partie décodeur ; encode.h : fonction ajoutée
+              non utilisée ; libavutil error.c, opt.c, utils.c, uuid.c : écriture du code, pas de comportement).
+
+Recette (README.md de packages/aac-encoder @v1.62.1, résumé ; le texte exact est dans l'archive 5) : Emscripten
+(version non écrite), FFmpeg configuré avec emconfigure ./configure --target-os=none --arch=x86_32 --enable-cross-compile
+--disable-asm --disable-x86asm --disable-inline-asm --disable-programs --disable-doc --disable-debug --disable-all
+--disable-everything --disable-autodetect --disable-pthreads --disable-runtime-cpudetect --enable-avcodec
+--enable-encoder=aac --cc=emcc --cxx=em++ --ar=emar --ranlib=emranlib --extra-cflags="-DNDEBUG -Oz -flto -msimd128"
+--extra-ldflags="-Oz -flto" ; emmake make ; puis emcc src/bridge.c libavcodec.a libavutil.a (options -s MODULARIZE=1
+EXPORT_ES6=1 SINGLE_FILE=1 ...) -o build/aac.js. Pour recompiler à cette révision : extraire l'archive 6 à la place
+du « clone FFmpeg ».
+
+Ce qui n'est pas vérifié : la révision exacte de FFmpeg (voir ci-dessus) et la version d'Emscripten ne sont écrites ni
+dans aac.js ni dans le dépôt ; aucune recompilation octet par octet n'a été faite.

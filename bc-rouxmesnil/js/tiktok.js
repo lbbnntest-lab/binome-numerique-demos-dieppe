@@ -1,247 +1,273 @@
-/* Page « Le TikTok du BCR » (presentation/tiktok.html).
-   - Les affiches des aperçus sont dessinées par js/export-facebook.js (le même dessin que les affiches « Rendez-vous » et
-     « Résultats du week-end » de la maquette), avec les scores réels de js/donnees-ffbb.js (relevé de la fédération du 3 novembre).
-     Aucun fichier existant n'est modifié : on passe à l'affiche une description adaptée, puis on retouche l'image obtenue
-     (chemins des logos, deux textes, score retiré chez les U13 filles).
-   - Le diaporama des résultats suit ce qu'annonce la page : une couverture, puis une image par jour de matchs.
-   - Cadres verticaux : une image à la fois, défilement toutes les 3,5 s seulement quand le cadre est à l'écran,
-     bouton pour l'arrêter (son texte dit l'action, sans état « enfoncé ») ; rien ne défile seul avec « réduire les animations ».
-   - « Copier le texte » : presse-papiers, sinon le texte est sélectionné pour être copié à la main.
-   Rien n'est envoyé ni publié. */
-(function () {
-  'use strict';
-  var X = window.BCRExport, D = window.BCR_FFBB;
-  var reduit = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-  var DUREE = 3500;
-  var W = 1080;
+/* Page « Le TikTok du BCR » (presentation/tiktok.html) : l'exemple monté sur place, les séries, le calendrier des 6 semaines.
+   Le studio (js/tiktok-atelier.js) et le moteur de montage (js/tiktok-studio.js) ne se chargent qu'au premier besoin.
+   Tout se passe dans le téléphone : aucune photo, aucune vidéo, aucun texte n'est envoyé. */
+import DONNEES from './tiktok-donnees.js';
+import { esc, HAB_NOMS, HAB_SERIE, dessinHabillage, PILIERS, pilierDe, ajouterJours, ecartJours, dateLongue, jourCourt, numeroJour, moisCourt, moisLong, stocker, relire } from './tiktok-commun.js';
 
-  /* ---------- Copier le texte ---------- */
-  function texteDe(el) { return (el.innerText || el.textContent || '').replace(/ /g, ' ').replace(/\n{3,}/g, '\n\n').trim(); }
-  function selectionner(el) {
-    try { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) { /* rien */ }
-  }
-  function copierSimple(t) {
-    return new Promise(function (ok) {
-      function repli() {
-        var ta = document.createElement('textarea'), bon = false;
-        ta.value = t; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';
-        document.body.appendChild(ta); ta.select();
-        try { ta.setSelectionRange(0, t.length); bon = document.execCommand('copy'); } catch (e) { bon = false; }
-        ta.remove(); ok(bon ? 'repli' : 'manuel');
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext !== false) {
-        try { navigator.clipboard.writeText(t).then(function () { ok('ok'); }, repli); } catch (e) { repli(); }
-      } else repli();
-    });
-  }
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest ? e.target.closest('[data-copier]') : null; if (!b) return;
-    var cible = document.getElementById(b.getAttribute('data-copier')); if (!cible) return;
-    var etat = b.parentNode.querySelector('.etat');
-    var copie = X && X.copier ? X.copier : copierSimple;
-    copie(texteDe(cible)).then(function (r) {
-      if (!etat) return;
-      etat.textContent = '';
-      setTimeout(function () {
-        if (r === 'manuel') { selectionner(cible); etat.textContent = 'Le texte est sélectionné : appui long, puis Copier.'; }
-        else etat.textContent = 'Texte copié.';
-      }, 40);
-    });
+const MODELES = Object.fromEntries(DONNEES.modeles.map(m => [m.id, m]));
+const DEPART_DEFAUT = DONNEES.depart_defaut;
+const DEPARTS = [0, 7, 14, 21].map(n => ajouterJours(DEPART_DEFAUT, n));
+const NB_SEMAINES = 6;
+let atelier = null;
+const chargerAtelier = () => atelier || (atelier = import('./tiktok-atelier.js'));
+
+/* ---------- Les séries ---------- */
+const SERIES = [
+  { cle: 'programme', vu: 'Nos matchs à la maison et le match à suivre.' },
+  { cle: 'resultats', vu: 'Nos victoires et le match à retenir ; tous les scores dans la légende.' },
+  { cle: 'panier', vu: 'La plus belle action du week-end, avec le son de la salle.' },
+  { cle: 'defi', vu: 'Dix lancers francs : qui fait mieux ?' },
+  { cle: 'gens', vu: 'Ceux sans qui il n\'y a pas de match.' },
+  { cle: 'jeunes', vu: 'On apprend, on rate, on recommence ; sans visage.' },
+  { cle: 'speciaux', vu: 'Movember, un partenaire, une photo d\'avant, le bilan de l\'automne.' }
+];
+const QUAND = { programme: 'Le vendredi', resultats: 'Le dimanche soir', panier: 'Le lundi, en bonus', defi: 'Le mercredi', gens: 'Le mercredi', jeunes: 'Le lundi ou le vendredi', speciaux: 'Selon l\'événement' };
+const titreCourt = (p, date) => {
+  const i = p.titre.indexOf(' · '); let t = i > 0 ? p.titre.slice(i + 3) : p.titre;
+  // « 6 semaines en 30 secondes » : le nombre de semaines depuis le départ choisi
+  if (date && p.modele === 'special-bilan-30s') t = t.replace(/^\d+ semaines/, Math.max(1, Math.ceil((ecartJours(etat.depart, date) + 1) / 7)) + ' semaines');
+  return t;
+};
+const serieDe = (p) => { const i = p.titre.indexOf(' · '); return i > 0 ? p.titre.slice(0, i) : (MODELES[p.modele] || {}).serie || ''; };
+
+function dessinerSeries() {
+  const zone = document.getElementById('series'); if (!zone) return;
+  zone.innerHTML = SERIES.map((s) => {
+    const S = DONNEES.series[s.cle] || {};
+    const pubs = DONNEES.publications.filter(p => (MODELES[p.modele] || {}).serie_cle === s.cle);
+    const pres = [...new Set(pubs.map(titreCourt))];
+    const piliers = [...new Set(pubs.map(p => pilierDe(MODELES[p.modele]).cle))];
+    const nom = S.nom + (S.nom_option ? ' <span class="option">(ou « ' + esc(S.nom_option) + ' », si vous préférez)</span>' : '');
+    return '<details class="serie"><summary><span class="serie-nom">' + nom + '</span><span class="serie-quand">' + esc(QUAND[s.cle]) + '</span></summary>'
+      + '<div class="serie-corps"><p>' + esc(s.vu) + '</p>'
+      + (pres.length ? '<p class="lib">Les présentations qui tournent</p><ul class="pres">' + pres.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul>' : '')
+      + '<p class="etiquettes">' + piliers.map(c => { const P = Object.values(PILIERS).find(x => x.cle === c); return '<span class="pilier pilier-' + c + '">' + esc(P.nom) + '</span>'; }).join('')
+      + (HAB_SERIE[s.cle] || []).map(h => '<span class="hab">' + dessinHabillage(h) + esc(HAB_NOMS[h]) + '</span>').join('') + '</p></div></details>';
+  }).join('');
+}
+
+/* ---------- Le calendrier ---------- */
+// Les matchs et les rendez-vous datés gardent leur date (sautés s'ils sont passés) ; les autres vidéos se décalent avec le départ.
+function calendrier(depart) {
+  const decalage = ecartJours(DEPART_DEFAUT, depart);
+  const L = [];
+  DONNEES.publications.forEach((p) => {
+    let date;
+    // Le premier match en élite (résultats du 7-8 novembre) ne sert qu'au départ proposé : plus tard, il serait trop ancien.
+    if (p.ancrage === 'premier jour') { if (p.week_end && depart !== DEPART_DEFAUT) return; date = depart; }
+    else if (p.ancrage === 'lendemain du premier jour') { if (p.week_end && depart !== DEPART_DEFAUT) return; date = ajouterJours(depart, 1); }
+    else if (p.ancrage === 'date' || p.ancrage === 'week-end') { date = p.date; if (date < depart) return; }
+    else date = ajouterJours(p.date, decalage);
+    const semaine = Math.floor(ecartJours(depart, date) / 7) + 1;
+    if (semaine > NB_SEMAINES) return;
+    L.push({ p, date, semaine, decale: date !== p.date, modele: MODELES[p.modele] });
   });
-
-  /* ---------- Un lien vers un week-end replié l'ouvre ---------- */
-  function ouvrir(hash) {
-    if (!hash || hash.length < 2) return;
-    var el = document.getElementById(decodeURIComponent(hash.slice(1)));
-    if (el && el.tagName === 'DETAILS') { el.open = true; }
+  // une semaine qui n'a que 2 publications reçoit une vidéo de réserve (Joker « le bruit du basket »), facultative
+  for (let s = 1; s <= NB_SEMAINES; s++) {
+    const pris = L.filter(x => x.semaine === s); if (pris.length >= 3) continue;
+    const lundi = ajouterJours(depart, (s - 1) * 7);
+    const FERIES = ['2026-11-11', '2026-12-25', '2027-01-01'];   // jamais une vidéo de réserve un jour férié
+    const jour = [2, 4, 0, 1, 3, 5].map(n => ajouterJours(lundi, n)).find(d => d >= depart && !FERIES.includes(d) && !pris.some(x => x.date === d)); if (!jour) continue;
+    const m = MODELES[RESERVE.modele]; if (!m) continue;
+    L.push({ p: { ...RESERVE, i: 100 + s, date: jour, jour: '', bandeau: jour <= '2026-11-30' ? 'Le BCR soutient Movember' : DEVISE, coeur: jour <= '2026-11-30' ? '💙' : '💚' }, date: jour, semaine: s, decale: true, modele: m, reserve: true });
   }
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null; if (!a) return;
-    ouvrir(a.getAttribute('href'));
+  const ordreHeure = (h) => { const m = /(\d{1,2})\s*h\s*(\d{2})?/.exec(h || ''); return m ? (+m[1]) * 60 + (+(m[2] || 0)) : (/matin/.test(h) ? 600 : /midi/.test(h) ? 720 : 1080); };
+  L.sort((a, b) => a.date.localeCompare(b.date) || ordreHeure(a.p.heure) - ordreHeure(b.p.heure) || a.p.i - b.p.i);
+  // L'habillage tourne dans chaque série ; dans une même semaine, deux vidéos n'ont pas le même habillage quand la série en a un autre.
+  const vus = {};
+  L.forEach((x) => {
+    const s = x.modele.serie_cle, liste = HAB_SERIE[s] || ['oblique', 'cadre']; const k = vus[s] || 0;
+    const semaine = L.filter(y => y.semaine === x.semaine && y.habillage).map(y => y.habillage);
+    let j = 0; while (j < liste.length && semaine.includes(liste[(k + j) % liste.length])) j++;
+    // tous déjà pris cette semaine (semaine à 5 vidéos) : celui qui a servi le plus tôt dans la semaine
+    if (j >= liste.length) { let mieux = 0, rang = Infinity; for (let q = 0; q < liste.length; q++) { const r = semaine.lastIndexOf(liste[(k + q) % liste.length]); if (r < rang) { rang = r; mieux = q; } } j = mieux; }
+    const h = liste[(k + j) % liste.length]; vus[s] = k + j + 1;
+    x.habillage = relire('bcr-tiktok-hab-' + x.p.i, null) || h;
   });
-  window.addEventListener('hashchange', function () { ouvrir(location.hash); });
-  ouvrir(location.hash);
+  return L;
+}
 
-  /* ---------- Cadres verticaux ---------- */
-  var lecteurs = [];
-  function Lecteur(el) {
-    var cadre = el.querySelector('[data-cadre]'), diapos = [].slice.call(cadre.querySelectorAll('.diapo')), n = diapos.length, i = 0;
-    var arret = reduit.matches, visible = false, minuterie = null;
-    var zone = el.querySelector('[data-commandes]');
-    zone.innerHTML = '<div class="commandes-ligne"><span class="compteur" aria-live="off"></span></div>'
-      + '<div class="commandes-boutons">'
-      + '<button type="button" class="bouton ligne" data-action="prec" aria-label="Image précédente">Précédente</button>'
-      + '<button type="button" class="bouton ligne" data-action="suiv" aria-label="Image suivante">Suivante</button>'
-      + '<button type="button" class="bouton ligne" data-action="pause"></button>'
-      + '<button type="button" class="bouton ligne" data-action="grand">Agrandir</button></div>';
-    var compteur = zone.querySelector('.compteur'), bPause = zone.querySelector('[data-action="pause"]');
-    function montrer(k, annoncer) {
-      i = (k + n) % n;
-      diapos.forEach(function (d, j) { var a = j === i; d.classList.toggle('active', a); d.setAttribute('aria-hidden', a ? 'false' : 'true'); });
-      compteur.textContent = 'Image ' + (i + 1) + ' sur ' + n;
-      compteur.setAttribute('aria-live', annoncer ? 'polite' : 'off');
-    }
-    function majPause() {
-      bPause.textContent = arret ? 'Faire défiler' : 'Mettre en pause';
-    }
-    function planifier() {
-      clearTimeout(minuterie); minuterie = null;
-      if (arret || !visible || n < 2 || document.hidden) return;
-      minuterie = setTimeout(function () { montrer(i + 1, false); planifier(); }, DUREE);
-    }
-    zone.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-action]'); if (!b) return;
-      var a = b.getAttribute('data-action');
-      if (a === 'prec') { montrer(i - 1, true); planifier(); }
-      else if (a === 'suiv') { montrer(i + 1, true); planifier(); }
-      else if (a === 'pause') { arret = !arret; majPause(); planifier(); }
-      else if (a === 'grand') agrandir(cadre, diapos[i]);
-    });
-    /* Un toucher sur la moitié droite du cadre : image suivante ; à gauche : la précédente. */
-    cadre.addEventListener('click', function (e) {
-      var r = cadre.getBoundingClientRect();
-      montrer(e.clientX - r.left > r.width / 2 ? i + 1 : i - 1, true); planifier();
-    });
-    this.voir = function (v) { visible = v; planifier(); };
-    this.reduire = function (r) { if (r) { arret = true; majPause(); planifier(); } };
-    this.planifier = planifier;
-    this.el = el;
-    montrer(0, false); majPause();
-  }
-  [].forEach.call(document.querySelectorAll('[data-lecteur]'), function (el) { lecteurs.push(new Lecteur(el)); });
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entrees) {
-      entrees.forEach(function (en) {
-        lecteurs.forEach(function (l) { if (l.el === en.target) l.voir(en.isIntersecting && en.intersectionRatio >= 0.6); });
-      });
-    }, { threshold: [0, 0.6, 1] });
-    lecteurs.forEach(function (l) { io.observe(l.el); });
-  }
-  document.addEventListener('visibilitychange', function () { lecteurs.forEach(function (l) { l.planifier(); }); });
-  if (reduit.addEventListener) reduit.addEventListener('change', function (e) { lecteurs.forEach(function (l) { l.reduire(e.matches); }); });
+const STATUT = { ouverture: 'Ouverture du compte', bonus: 'En bonus, facultatif', joker: 'Joker, facultatif' };
+const DEVISE = "Passion, esprit d'équipe, respect, Rouxmesnil";
+// vidéo de réserve pour une semaine à 2 publications (même modèle que le Joker « à défaut »)
+const RESERVE = { modele: 'joker-bruit-du-basket', titre: 'Joker · Le bruit du basket', precision: 'facultatif, sans voix', statut: 'joker', ancrage: 'reserve', heure: '18 h',
+  hashtags: ['#basket', '#BCRouxmesnil', '#Rouxmesnil', '#Dieppe', '#Normandie'], quand: '', filmer: '', taper: 'rien.', autres: [], valeurs: {} };
 
-  /* ---------- Image agrandie ---------- */
-  var dlg = document.getElementById('grand'), zoneGrand = dlg ? dlg.querySelector('[data-grand]') : null, nZoom = 0;
-  function agrandir(cadre, diapo) {
-    if (!dlg || !zoneGrand || !dlg.showModal) return;
-    var html = diapo.innerHTML, pref = diapo.getAttribute('data-pref');
-    /* Les identifiants des dégradés de l'affiche doivent rester uniques dans la page. */
-    if (pref) html = html.split(pref).join('zoom' + (++nZoom) + '-');
-    zoneGrand.innerHTML = '<div class="' + diapo.className.replace(/\bactive\b/, '') + ' active">' + html + '</div>';
-    zoneGrand.style.background = cadre.classList.contains('cadre-noir') ? '#080a09' : '#030a22';
-    var lab = diapo.getAttribute('aria-label');
-    var inter = zoneGrand.firstChild;
-    if (lab) { inter.setAttribute('role', 'img'); inter.setAttribute('aria-label', lab); }
-    dlg.showModal();
-  }
-  if (dlg) {
-    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
-    dlg.addEventListener('close', function () { zoneGrand.innerHTML = ''; });
-  }
-
-  /* ---------- Les affiches (dessin du club, données réelles) ---------- */
-  if (!X || !X.affiches || !X.affiches.svg) return;
-  var TH = { id: 'bleu', fond: '#1f66c9', accent: '#7db8ff', nom: 'Movember', emb: 'moustache' };
-  var mc = document.createElement('canvas').getContext('2d');
-  function largeur(t, z, italique, ls) {
-    mc.font = (italique ? 'italic ' : '') + '700 ' + z + 'px "Barlow Condensed"';
-    if ('letterSpacing' in mc) mc.letterSpacing = (ls || 0) + 'px';
-    var w = mc.measureText(t).width;
-    if ('letterSpacing' in mc) mc.letterSpacing = '0px';
-    return w;
-  }
-  function textes(svg, contenu) {
-    return [].filter.call(svg.querySelectorAll('text'), function (t) { return t.textContent === contenu; });
-  }
-  /* Remplace un texte de l'affiche ; la taille baisse si le nouveau texte est plus long que la place prévue. */
-  function remplacer(svg, ancien, nouveau, maxW) {
-    var els = textes(svg, ancien);
-    els.forEach(function (t) {
-      var z = parseFloat(t.getAttribute('font-size')), it = t.getAttribute('font-style') === 'italic', ls = parseFloat(t.getAttribute('letter-spacing') || '0');
-      var w = largeur(nouveau, z, it, ls);
-      if (w > maxW) z = Math.floor(z * maxW / w);
-      t.textContent = nouveau; t.setAttribute('font-size', String(z));
-    });
-    return els;
-  }
-  function poser(nom, spec, retouche) {
-    var d = document.querySelector('[data-affiche="' + nom + '"]'); if (!d) return Promise.resolve();
-    var pref = 'tk-' + nom + '-';
-    return X.affiches.svg(spec, pref).then(function (s) {
-      /* Les logos de l'affiche sont rangés dans img/ à la racine de la maquette, un dossier au-dessus de cette page. */
-      s = s.replace(/href="img\//g, 'href="../img/');
-      var tmp = document.createElement('div'); tmp.innerHTML = s;
-      var svg = tmp.querySelector('svg'); if (!svg) return;
-      svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
-      if (retouche) retouche(svg);
-      var repli = d.querySelector('.diapo-repli');
-      d.innerHTML = ''; if (repli) d.appendChild(repli); d.appendChild(svg);
-      d.setAttribute('data-pref', pref); d.classList.add('prete');
-    }).catch(function () { /* l'aperçu garde son texte de repli */ });
-  }
-
-  /* 1. Samedi 7 novembre, 11 h : « Aujourd'hui, premier match en élite » (U18 filles contre Cherbourg Basket Ball, 15 h 15). */
-  var elite = null;
-  ((D && D.equipes && D.equipes.u18f1 && D.equipes.u18f1.matchs) || []).forEach(function (m) { if (m.d.slice(0, 10) === '2026-11-07') elite = m; });
-  if (elite) {
-    poser('elite', {
-      type: 'affiche', modele: 'jour', theme: TH, lieu: elite.dom ? 'dom' : 'ext', titre: 'Aujourd’hui', suite: '',
-      salleDom: 'Salle Alexandre-Cheruel – Rouxmesnil',
-      lignes: [{ heure: elite.d.length >= 16 ? elite.d.slice(11, 16).replace(':', 'H') : '', jourCourt: 'SAM.', code: 'U18 filles', adv: 'Cherbourg Basket Ball', sig: elite.sig || 'C', logo: elite.logo || '', salle: '' }]
-    }, function (svg) {
-      remplacer(svg, 'RENDEZ-VOUS', 'PREMIER MATCH', 736);
-      remplacer(svg, 'DU WEEK-END', 'EN ÉLITE', 736);
-    });
-  }
-
-  /* 2. Le diaporama des résultats du samedi 31 octobre : les trois matchs de championnat joués ce jour-là. */
-  var EQUIPES = [
-    { id: 'dfu18', code: 'DFU18' },
-    { id: 'u15f', code: 'DFU15' },
-    { id: 'u13f', code: 'DFU13', sansScore: true }
-  ];
-  var JOUR = '2026-10-31', joues = [];
-  EQUIPES.forEach(function (e) {
-    var eq = D && D.equipes && D.equipes[e.id]; if (!eq || !eq.matchs) return;
-    eq.matchs.forEach(function (m) { if (m.d.slice(0, 10) === JOUR && m.s) joues.push({ e: e, m: m }); });
+/* ---------- Vignette de l'accroche sur chaque carte (dessinée ici, aux couleurs du club, sans aucune image) ---------- */
+const HV = { noir: '#080a09', vert: '#1f7a3f', vif: '#46c46f', blanc: '#ffffff' };
+function titreAccroche(x) {
+  const m = x.modele, p = x.p; const a = (m.plans || []).find(q => q.type === 'accroche' || q.type === 'chiffre') || {};
+  let t = String((a.textes && a.textes.titre) || '');
+  for (let i = 0; i < 4 && /\{\w+\}/.test(t); i++) t = t.replace(/\{(\w+)\}/g, (s, k) => p.valeurs && typeof p.valeurs[k] === 'string' ? p.valeurs[k] : s);
+  if (!t || /\{/.test(t)) t = titreCourt(p, x.date);
+  return t.replace(/\.$/, '');
+}
+let policesPretes = null;
+function dessinerVignettes(pubs) {
+  if (!policesPretes) policesPretes = (document.fonts && document.fonts.load ? Promise.all([document.fonts.load('italic 700 40px "Barlow Condensed"'), document.fonts.load('700 20px "Source Sans 3"')]) : Promise.resolve()).catch(() => { });
+  policesPretes.then(() => pubs.forEach((x) => { const c = document.querySelector('[data-vignette="' + x.p.i + '"]'); if (c) vignette(c, x); }));
+}
+function vignette(cv, x) {
+  const g = cv.getContext('2d'); if (!g) return; const W = cv.width, H = cv.height, h = x.habillage;
+  const d = g.createLinearGradient(0, 0, W * 0.4, H); d.addColorStop(0, h === 'bloc' ? '#103d22' : '#0c1f14'); d.addColorStop(1, HV.noir); g.fillStyle = d; g.fillRect(0, 0, W, H);
+  g.save();
+  if (h === 'oblique') { for (let i = -1; i < 4; i++) { g.fillStyle = i % 2 ? 'rgba(70,196,111,.18)' : 'rgba(31,122,63,.35)'; g.beginPath(); g.moveTo(i * 70, 0); g.lineTo(i * 70 + 26, 0); g.lineTo(i * 70 + 26 - H * 0.4, H); g.lineTo(i * 70 - H * 0.4, H); g.fill(); } }
+  else if (h === 'cadre') { g.strokeStyle = HV.vif; g.lineWidth = 3; g.strokeRect(6, 6, W - 12, H - 12); }
+  else if (h === 'ruban') { for (let i = 0; i < 4; i++) { g.fillStyle = i % 2 ? 'rgba(70,196,111,.16)' : 'rgba(31,122,63,.3)'; g.fillRect(0, 30 + i * 80, W, 22); } }
+  else { g.strokeStyle = 'rgba(70,196,111,.22)'; g.lineWidth = 4; g.beginPath(); g.arc(W * 0.8, H * 0.35, 120, 0, Math.PI * 2); g.stroke(); }
+  g.restore();
+  // badge de la série
+  const serie = serieDe(x.p).toUpperCase(); g.font = '800 11px "Source Sans 3", system-ui, sans-serif';
+  const bw = Math.min(g.measureText(serie).width, 140) + 14; g.fillStyle = h === 'bloc' ? HV.vif : h === 'ruban' ? HV.blanc : h === 'cadre' ? HV.noir : HV.vert; g.beginPath(); g.roundRect ? g.roundRect(10, 26, bw, 18, 9) : g.rect(10, 26, bw, 18); g.fill();
+  g.fillStyle = h === 'bloc' || h === 'ruban' ? HV.noir : h === 'cadre' ? HV.vif : HV.blanc; g.textBaseline = 'middle'; g.fillText(serie, 17, 36, 140);
+  // titre de l'accroche, posé comme dans la vidéo (signe de l'habillage)
+  const t = titreAccroche(x).toUpperCase().replace(/ ([?!:;»])/g, '\u202F$1'); const centre = h === 'oblique' || h === 'bloc';
+  let z = h === 'bloc' ? 40 : 32, L = [];
+  for (; z >= 16; z -= 2) { g.font = 'italic 700 ' + z + 'px "Barlow Condensed", "Arial Narrow", sans-serif'; L = []; let cur = ''; for (const w of t.split(/ +/)) { const e = cur ? cur + ' ' + w : w; if (g.measureText(e).width > W - 28 && cur) { L.push(cur); cur = w; } else cur = e; } if (cur) L.push(cur); if (L.length <= 4 && L.every(l => g.measureText(l).width <= W - 28)) break; }
+  const lh = z * 0.98, hT = lh * L.length;
+  let y = h === 'oblique' ? 110 - hT : h === 'bloc' ? (H - hT) / 2 : h === 'cadre' ? 250 - hT : 120; y = Math.max(54, y);
+  L.forEach((l, i) => {
+    const yy = y + i * lh;
+    if (h === 'ruban') { g.fillStyle = 'rgba(8,10,9,.9)'; g.fillRect(0, yy - 2, W, lh + 2); g.fillStyle = HV.vif; g.fillRect(0, yy + lh, W, 3); }
+    if (h === 'bloc') { g.fillStyle = 'rgba(31,122,63,.94)'; const w = g.measureText(l).width + 12; g.fillRect((W - w) / 2, yy - 2, w, lh + 4); }
+    g.fillStyle = HV.blanc; g.textAlign = centre ? 'center' : 'left'; g.textBaseline = 'alphabetic'; g.fillText(l, centre ? W / 2 : 12, yy + z * 0.82);
   });
-  if (joues.length) {
-    var v = joues.filter(function (x) { return x.m.s[0] > x.m.s[1]; }).length, n = joues.length;
-    var phrase = n + ' MATCHS DE CHAMPIONNAT, ' + v + (v > 1 ? ' VICTOIRES' : ' VICTOIRE');
-    poser('res-couverture', { type: 'affiche', modele: 'couverture', mode: 'res', theme: TH, dates: 'Samedi 31 octobre 2026', compte: { v: v, n: n } }, function (svg) {
-      /* « 3 VICTOIRES SUR 3 MATCHS » devient « 3 MATCHS DE CHAMPIONNAT, 3 VICTOIRES » (les coupes ne sont pas dans le relevé). */
-      var avant = v + (v > 1 ? ' VICTOIRES' : ' VICTOIRE') + ' SUR ' + n + (n > 1 ? ' MATCHS' : ' MATCH');
-      var els = textes(svg, avant); if (!els.length) return;
-      var t = els[0], x0 = parseFloat(t.getAttribute('x')) - 84;
-      remplacer(svg, avant, phrase, W - 160 - 100);
-      var z = parseFloat(t.getAttribute('font-size')), w = largeur(phrase, z, true, 1), nx0 = Math.round((W - (84 + w)) / 2);
-      t.setAttribute('x', String(nx0 + 84));
-      /* Le petit ballon à gauche de la phrase suit le texte. */
-      [].forEach.call(svg.querySelectorAll('path[transform]'), function (p) {
-        var mm = /^translate\(([-\d.]+) ([-\d.]+)\) scale\(0\.66\)$/.exec(p.getAttribute('transform'));
-        if (mm && Math.abs(parseFloat(mm[1]) - x0) < 1.5) p.setAttribute('transform', 'translate(' + nx0 + ' ' + mm[2] + ') scale(0.66)');
-      });
-    });
-    /* Une image pour le samedi : les trois matchs, l'un sous l'autre, comme l'image d'une journée des affiches du club. */
-    var lignes = joues.map(function (x) {
-      var m = x.m, e = x.e, sans = !!e.sansScore;
-      return { heure: '', jourCourt: 'SAM.', code: e.code, adv: m.adv, sig: m.sig || '', logo: m.logo || '',
-        bcr: sans ? '' : m.s[0], ad: sans ? '' : m.s[1], v: m.s[0] > m.s[1] ? true : m.s[0] < m.s[1] ? false : null,
-        lieuTxt: m.dom ? 'À domicile' : 'À l\'extérieur' };
-    });
-    var avecSans = joues.some(function (x) { return x.e.sansScore; });
-    poser('res-samedi', { type: 'affiche', modele: 'resultats', theme: TH, titre: 'Samedi 31 octobre', suite: '', resume: v + (v > 1 ? ' victoires' : ' victoire'), lignes: lignes }, avecSans ? function (svg) {
-      /* Grand écart chez des jeunes : « victoire », sans le score, sur la seule carte des U13 filles. */
-      var vide = [].filter.call(svg.querySelectorAll('text'), function (t) { return t.textContent.trim() === '-'; });
-      if (!vide.length) return;
-      var y = parseFloat(vide[0].getAttribute('y')), z = parseFloat(vide[0].getAttribute('font-size'));
-      var vic = null, ecart = Infinity;
-      textes(svg, 'VICTOIRE').forEach(function (t) { var d = parseFloat(t.getAttribute('y')) - y; if (d > 0 && d < ecart) { ecart = d; vic = t; } });
-      if (!vic) return;
-      vide.forEach(function (t) { t.remove(); });
-      var zz = Math.min(40, Math.round(z * .62));
-      vic.setAttribute('font-size', String(zz)); vic.setAttribute('y', String(Math.round(y - z * .39 + zz * .36)));
-      vic.setAttribute('letter-spacing', '2');
-    } : null);
+  g.textAlign = 'left';
+}
+let etat = { depart: DEPART_DEFAUT, semaine: 1, liste: [] };
+
+function carte(x) {
+  const p = x.p, m = x.modele, P = pilierDe(m);
+  const sansVoix = m.voix == null;
+  const infos = [];
+  // « Quand » seulement s'il dit plus que la date et l'heure déjà affichées (et seulement pour le départ proposé : ses dates sont écrites).
+  if (p.quand && !x.decale && etat.depart === DEPART_DEFAUT && !/^[a-zé]+ \d+(er)? [a-zéû]+, \d{1,2} h( \d{2})?\.?$/i.test(p.quand.trim())) infos.push(['Quand', p.quand]);
+  // décalé : une consigne qui cite un jour précis ne vaut plus ; on donne la consigne générale du modèle
+  const date = /\b(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+\d|\b\d{1,2}\s*-\s*\d{1,2}\b|\b\d{1,2}(er)?\s+(novembre|décembre)|\bdu \d{1,2}\b/i;
+  const filmer = x.reserve ? (m.medias && m.medias.consignes) || '' : p.filmer && (x.decale || etat.depart !== DEPART_DEFAUT) && date.test(p.filmer) ? (m.medias && m.medias.consignes) || '' : p.filmer;
+  if (filmer) infos.push(['À filmer', filmer]);
+  if (p.taper) infos.push(['À taper', p.taper]);
+  if (p.verifier) infos.push(['À vérifier', p.verifier]);
+  const autres = (p.autres || []).map(t => '<p class="pub-plus">' + esc(t) + '</p>').join('');
+  const option = p.statut === 'bonus' || p.statut === 'joker';
+  return '<article class="pub pub-' + P.cle + (option ? ' pub-option' : '') + '" aria-labelledby="pub-t-' + p.i + '">'
+    + '<div class="pub-date" aria-hidden="true"><span class="pub-jour">' + esc(jourCourt(x.date).replace('.', '')) + '</span><span class="pub-num">' + numeroJour(x.date) + '</span><span class="pub-mois">' + esc(moisCourt(x.date).replace('.', '')) + '</span></div>'
+    + '<div class="pub-corps">'
+    + '<canvas class="pub-vignette" width="180" height="320" data-vignette="' + p.i + '" aria-hidden="true"></canvas>'
+    + '<p class="pub-quand">' + esc(dateLongue(x.date)) + ', ' + esc(p.heure) + '</p>'
+    + '<h4 class="pub-titre" id="pub-t-' + p.i + '"><span class="pub-serie">' + esc(serieDe(p)) + '</span> ' + esc(titreCourt(p, x.date)) + '</h4>'
+    + '<p class="etiquettes"><span class="pilier pilier-' + P.cle + '">' + esc(P.nom) + '</span><span class="hab">' + dessinHabillage(x.habillage) + esc(HAB_NOMS[x.habillage]) + '</span>'
+    + (x.reserve ? '<span class="statut">En réserve, facultatif</span>' : STATUT[p.statut] ? '<span class="statut">' + esc(STATUT[p.statut]) + '</span>' : '') + (sansVoix ? '<span class="statut">Sans voix de synthèse</span>' : '') + '</p>'
+    + '<dl class="pub-infos">' + infos.map(([a, b]) => '<div><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl>' + autres
+    + '<button type="button" class="bouton plein" data-studio="' + p.i + '">Coller mes médias</button>'
+    + '</div></article>';
+}
+
+function dessinerChoixSemaines() {
+  const zone = document.getElementById('semaines-choix'); if (!zone) return;
+  let h = '';
+  for (let s = 1; s <= NB_SEMAINES; s++) {
+    const lundi = ajouterJours(etat.depart, (s - 1) * 7);
+    const pubs = etat.liste.filter(x => x.semaine === s);
+    h += '<button type="button" class="sem-bouton" data-semaine="' + s + '" aria-pressed="' + (s === etat.semaine) + '" aria-label="Semaine ' + s + ', à partir du ' + esc(dateLongue(lundi)) + ', ' + pubs.length + ' publications">'
+      + '<span class="sem-num">' + s + '</span><span class="sem-date">' + numeroJour(lundi) + ' ' + esc(moisCourt(lundi).replace('.', '')) + '</span>'
+      + '<span class="sem-points" aria-hidden="true">' + pubs.map(x => '<i class="pt-' + pilierDe(x.modele).cle + '"></i>').join('') + '</span></button>';
   }
-})();
+  zone.innerHTML = h;
+}
+
+function dessinerSemaine() {
+  const zone = document.getElementById('semaine'); if (!zone) return;
+  const s = etat.semaine, lundi = ajouterJours(etat.depart, (s - 1) * 7), dimanche = ajouterJours(lundi, 6);
+  const pubs = etat.liste.filter(x => x.semaine === s);
+  const memeMois = moisLong(lundi) === moisLong(dimanche);
+  const titre = 'Semaine ' + s + ', du ' + dateLongue(lundi).replace(/ \w+$/, memeMois ? '' : ' ' + moisLong(lundi)) + ' au ' + dateLongue(dimanche);
+  let filmer = '';
+  const liste = etat.depart === DEPART_DEFAUT && DONNEES.semaines_a_filmer[s] ? DONNEES.semaines_a_filmer[s].a_filmer : null;
+  if (liste && liste.length) {
+    const coches = relire('bcr-tiktok-filmer-' + s, []);
+    filmer = '<div class="filmer"><h4>À filmer cette semaine</h4><ul>' + liste.map((t, i) => '<li><label class="case"><input type="checkbox" data-filmer="' + s + '" value="' + i + '"' + (coches.includes(i) ? ' checked' : '') + '><span>' + esc(t) + '</span></label></li>').join('') + '</ul></div>';
+  }
+  const fixes = pubs.filter(x => !x.reserve && x.p.statut !== 'bonus' && x.p.statut !== 'joker').length, plus = pubs.length - fixes;
+  const resume = fixes + (fixes > 1 ? ' publications' : ' publication') + (plus ? ', plus ' + plus + ' en bonus si vous avez le temps (en gris)' : '') + '.';
+  zone.innerHTML = '<h3 class="semaine-titre" tabindex="-1">' + esc(titre) + '</h3><p class="semaine-resume">' + esc(resume) + '</p>' + filmer
+    + (pubs.length ? pubs.map(carte).join('') : '<p>Aucune publication prévue cette semaine.</p>');
+  dessinerVignettes(pubs);
+}
+
+function majCalendrier(garderSemaine) {
+  etat.liste = calendrier(etat.depart);
+  if (!garderSemaine) etat.semaine = 1;
+  dessinerChoixSemaines(); dessinerSemaine();
+}
+
+function initCalendrier() {
+  const sel = document.getElementById('depart'); if (!sel) return;
+  const choisi = relire('bcr-tiktok-depart', DEPART_DEFAUT);
+  etat.depart = DEPARTS.includes(choisi) ? choisi : DEPART_DEFAUT;
+  sel.innerHTML = DEPARTS.map(d => '<option value="' + d + '"' + (d === etat.depart ? ' selected' : '') + '>' + esc(dateLongue(d)) + '</option>').join('');
+  sel.addEventListener('change', () => { etat.depart = sel.value; stocker('bcr-tiktok-depart', sel.value); majCalendrier(false); });
+  document.getElementById('legende-piliers').innerHTML = '<p class="lib">Les couleurs</p>' + Object.values(PILIERS).map(P => '<span class="pilier pilier-' + P.cle + '">' + esc(P.nom) + '</span>').join('');
+  document.getElementById('semaines-choix').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-semaine]'); if (!b) return;
+    etat.semaine = +b.dataset.semaine; dessinerChoixSemaines(); dessinerSemaine();
+    const t = document.querySelector('.semaine-titre'); if (t) t.focus({ preventScroll: true });
+  });
+  document.getElementById('semaine').addEventListener('change', (e) => {
+    const c = e.target.closest('[data-filmer]'); if (!c) return;
+    const cle = 'bcr-tiktok-filmer-' + c.dataset.filmer;
+    const v = [...document.querySelectorAll('[data-filmer="' + c.dataset.filmer + '"]')].filter(x => x.checked).map(x => +x.value);
+    stocker(cle, v);
+  });
+  document.getElementById('semaine').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-studio]'); if (!b) return;
+    const x = etat.liste.find(y => y.p.i === +b.dataset.studio); if (!x) return;
+    if (x.reserve) x.p.valeurs = x.p.valeurs || {};
+    b.disabled = true; const avant = b.textContent; b.textContent = 'Ouverture du studio…';
+    try {
+      const A = await chargerAtelier();
+      await A.ouvrirStudio(x, { depart: etat.depart, retour: b, changerHabillage: (h) => { stocker('bcr-tiktok-hab-' + x.p.i, h); majCalendrier(true); } });
+    } catch (err) { b.textContent = 'Le studio n\'a pas pu s\'ouvrir. Rechargez la page.'; return; }
+    finally { b.disabled = false; }
+    b.textContent = avant;
+  });
+  majCalendrier(false);
+}
+
+/* ---------- L'exemple monté sur place ---------- */
+function initExemple() {
+  const bouton = document.getElementById('demo-bouton'); if (!bouton) return;
+  const ecran = document.getElementById('demo-ecran'), av = document.getElementById('demo-avancement');
+  const barre = av.querySelector('.barre span'), txt = av.querySelector('.avancement-texte');
+  const apres = document.getElementById('demo-apres'), noteVoix = document.getElementById('demo-voix');
+  let video = null;
+  chargerAtelier().then(A => A.voixDejaLa()).then((oui) => { if (!oui) noteVoix.hidden = false; }).catch(() => { noteVoix.hidden = false; });
+  bouton.addEventListener('click', async () => {
+    bouton.disabled = true; bouton.setAttribute('aria-busy', 'true'); apres.hidden = true; av.hidden = false; av.classList.remove('erreur');
+    const montrer = (f, t) => { barre.style.width = Math.round(f * 100) + '%'; txt.textContent = t; };
+    montrer(0.01, 'Préparation…');
+    const reduit = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const r0 = ecran.getBoundingClientRect(); if (r0.bottom > innerHeight) ecran.scrollIntoView({ block: 'nearest', behavior: reduit ? 'auto' : 'smooth' });
+    try {
+      const A = await chargerAtelier();
+      const r = await A.monterExemple(montrer);
+      if (video) { URL.revokeObjectURL(video.src); video.remove(); }
+      video = document.createElement('video');
+      video.src = URL.createObjectURL(r.blob); video.controls = true; video.playsInline = true; video.setAttribute('playsinline', '');
+      video.setAttribute('aria-label', 'Vidéo d\'exemple : les résultats du samedi 31 octobre, avec la voix');
+      ecran.classList.add('lecture'); ecran.prepend(video);
+      av.hidden = true;
+      document.getElementById('demo-pret').textContent = r.sansVoix ? 'Vidéo prête, sans voix : la voix n\'a pas pu se préparer sur ce téléphone.' : 'Vidéo prête : ' + String(Math.round(r.duree)) + ' secondes, avec la voix.';
+      apres.hidden = false; noteVoix.hidden = true;
+      if (!reduit) video.play().catch(() => { });
+      bouton.textContent = 'Refaire l\'exemple';
+    } catch (e) {
+      av.classList.add('erreur'); montrer(0, (e && e.message) || 'La vidéo n\'a pas pu être fabriquée. Réessayez.');
+    } finally { bouton.disabled = false; bouton.removeAttribute('aria-busy'); }
+  });
+  document.getElementById('demo-revoir').addEventListener('click', () => { if (video) { video.currentTime = 0; video.play().catch(() => { }); video.focus(); } });
+}
+
+dessinerSeries();
+initCalendrier();
+initExemple();
